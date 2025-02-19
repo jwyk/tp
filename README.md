@@ -1,66 +1,98 @@
-# Duke project template
+# Javatro - CLI Roguelike Deck-Building Game
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Overview
 
-## Setting up in Intellij
+Javatro is a text-based roguelike deck-building game designed for those who love strategic gameplay without the need for graphical interfaces. Inspired by the game *Balatro*, it combines elements of poker and roguelike mechanics to create a deeply replayable, strategic experience that can be enjoyed through a simple command-line interface (CLI).
 
-Prerequisites: JDK 17 (use the exact version), update Intellij to the most recent version.
+## Features
 
-1. **Ensure Intellij JDK 17 is defined as an SDK**, as described [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk) -- this step is not needed if you have used JDK 17 in a previous Intellij project.
-1. **Import the project _as a Gradle project_**, as described [here](https://se-education.org/guides/tutorials/intellijImportGradleProject.html).
-1. **Verify the setup**: After the importing is complete, locate the `src/main/java/seedu/duke/Duke.java` file, right-click it, and choose `Run Duke.main()`. If the setup is correct, you should see something like the below:
-   ```
-   > Task :compileJava
-   > Task :processResources NO-SOURCE
-   > Task :classes
+- Deck-Building: Build and customize your deck of cards, each with unique effects and abilities.
+- Turn-Based Combat: Engage in strategic, turn-based combat, making every move count.
+- Replayability: With random encounters, different challenges, and evolving strategies, no two runs are ever the same.
+- Minimalist Design: A lightweight, no-graphics interface focuses on depth and gameplay rather than visual aesthetics.
+- Cross-Platform: Works seamlessly on various operating systems, including Windows, macOS, and Linux.
+
+## Installation
+
+### Prerequisites
+
+- Java 11 or higher
+- Command-line interface (CLI) access
+
+### Steps
+
+1. Clone the repository:
+
+      git clone https://github.com/yourusername/javatro.git
+   cd javatro
    
-   > Task :Duke.main()
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+
+2. Compile and run the game:
+
+      javac Javatro.java
+   java Javatro
    
-   What is your name?
-   ```
-   Type some word and press enter to let the execution proceed to the end.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+3. Enjoy the game!
 
-## Build automation using Gradle
+## Gameplay
 
-* This project uses Gradle for build automation and dependency management. It includes a basic build script as well (i.e. the `build.gradle` file).
-* If you are new to Gradle, refer to the [Gradle Tutorial at se-education.org/guides](https://se-education.org/guides/tutorials/gradle.html).
+### Objective
 
-## Testing
+The goal of Javatro is to progress through a series of challenging encounters by strategically building and managing your deck of cards. Each card has unique effects that can be used during combat to defeat enemies, gain resources, and navigate different challenges.
 
-### I/O redirection tests
+### How to Play
 
-* To run _I/O redirection_ tests (aka _Text UI tests_), navigate to the `text-ui-test` and run the `runtest(.bat/.sh)` script.
+1. Start a New Game: Upon starting the game, you'll be prompted to create a deck and begin your journey.
+2. Turn-Based Combat: During combat, you'll choose cards from your deck to perform actions like attacking, defending, or gaining buffs.
+3. Card Management: As you progress, you'll acquire new cards that can be added to your deck, allowing you to tailor your strategy.
+4. Roguelike Elements: Each run is procedurally generated with different events, enemies, and challenges, providing endless replayability.
 
-### JUnit tests
+### Commands
 
-* A skeleton JUnit test (`src/test/java/seedu/duke/DukeTest.java`) is provided with this project template. 
-* If you are new to JUnit, refer to the [JUnit Tutorial at se-education.org/guides](https://se-education.org/guides/tutorials/junit.html).
+- `start`: Start a new game.
+- `draw`: Draw a card from your deck.
+- `attack`: Attack an enemy using a card's effect.
+- `defend`: Defend against an enemy's attack.
+- `exit`: Quit the game.
 
-## Checkstyle
+### Card Types
 
-* A sample CheckStyle rule configuration is provided in this project.
-* If you are new to Checkstyle, refer to the [Checkstyle Tutorial at se-education.org/guides](https://se-education.org/guides/tutorials/checkstyle.html).
+- Attack Cards: Deal damage to enemies.
+- Defend Cards: Block or reduce incoming damage.
+- Special Cards: Provide unique abilities like healing, buffs, or drawing extra cards.
 
-## CI using GitHub Actions
+## Target Audience
 
-The project uses [GitHub actions](https://github.com/features/actions) for CI. When you push a commit to this repo or PR against it, GitHub actions will run automatically to build and verify the code as updated by the commit/PR.
+- Card Game Enthusiasts: Players who enjoy the depth of card games and strategic decision-making.
+- Roguelike Fans: Those who love procedural generation and the challenge of each new run.
+- Tech-Savvy Players: Individuals comfortable with command-line interfaces and minimalist gameplay.
+- Cross-Platform Gamers: Users who want a consistent gaming experience across various platforms.
 
-## Documentation
+## Contributing
 
-`/docs` folder contains a skeleton version of the project documentation.
+We welcome contributions to the development of Javatro! If you'd like to contribute, please follow these steps:
 
-Steps for publishing documentation to the public: 
-1. If you are using this project template for an individual project, go your fork on GitHub.<br>
-   If you are using this project template for a team project, go to the team fork on GitHub.
-1. Click on the `settings` tab.
-1. Scroll down to the `GitHub Pages` section.
-1. Set the `source` as `master branch /docs folder`.
-1. Optionally, use the `choose a theme` button to choose a theme for your documentation.
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Make your changes and commit them with descriptive messages.
+4. Push your changes and create a pull request.
+
+## License
+
+Javatro is licensed under the MIT License.
+
+## Contact
+
+For more information or support, please contact us at:
+
+- Email: support@javatrogame.com
+- GitHub Repository: https://github.com/yourusername/javatro
+
+## Acknowledgements
+
+Special thanks to the creators of *Balatro*, whose game inspired the design and mechanics of Javatro.
+
+---
+
+Enjoy the game, and may your strategic decisions lead you to victory!
