@@ -116,7 +116,7 @@ jobs:
           echo "JAR_PATH=$JAR_PATH" >> $GITHUB_ENV
 
       - name: Upload JAR as an Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: javatro-jar
           path: ${{ env.JAR_PATH }}  # Upload the JAR file
