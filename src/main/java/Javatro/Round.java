@@ -1,16 +1,20 @@
 package Javatro;
 
+import java.util.List;
+
 public class Round {
     private int currentScore;
     private int blindScore;
     private int totalDiscards;
     private int totalPlays;
     private Deck deck;
+    private PokerHand pokerHand;
     private HoldingHand playerHand;
     private UserInterface ui;
 
     /**
-     * Constructs a new round with the specified blind score. The blind score can be fetched from a file or manually inputed.
+     * Constructs a new round with the specified blind score. The blind score can be
+     * fetched from a file or manually inputed.
      * 
      * @param blindScore
      *            The target score to beat in this round
@@ -22,13 +26,20 @@ public class Round {
         this.totalPlays = 0;
         this.deck = new Deck();
         this.deck.initialize();
+        this.pokerHand = new PokerHand();
         this.playerHand = new HoldingHand();
-        this.ui = new UserInterface();   
 
         // Initial draw
         for (int i = 0; i < 8; i++) {
             playerHand.draw(deck.draw());
         }
+    }
+
+    /**
+     * Constructs a new round with the default blind score of 100.
+     */
+    public Round() {
+        this(100);
     }
 
     /**
@@ -38,33 +49,26 @@ public class Round {
      *            Indices of cards to play from the holding hand
      * @return The result of the poker hand
      */
-    public HandResult playCards(int[] cardIndices) {
+    public int playCards(int[] cardIndices) {
         if (cardIndices.length != 5) {
             throw new IllegalArgumentException("Must play exactly 5 cards");
         }
-
-        Card[] playedCards = playerHand.playCards(cardIndices);
-        PokerHand pokerHand = new PokerHand(playedCards);
-        HandResult result  = pokerHand.evaluateHand();
-
-        // Print results (or should it be done in PokerHand and HandResult?)
-        ui.printPlayerHand(playerHand);
-        ui.printHandResult(result);        
-
+        
+        List<Card> playedCards = playerHand.playCards(cardIndices);
+        HandResult result = PokerHand.evaluateHand(playedCards);
+        
         // Update round state        
-        currentScore += result.getScore() * result.getMultiplier();
-        totalPlays++;
-
-        ui.printState(currentScore, blindScore, totalDiscards, totalPlays);
-
+        currentScore += result.chips() * result.multiplier();
+        
         // Draw new cards to replace played ones
         for (int i = 0; i < cardIndices.length; i++) {
             if (deck.hasCards()) {
                 playerHand.draw(deck.draw());
             }
         }
-
-        return result;
+        
+        totalPlays++;
+        return score;
     }
 
     /**
@@ -100,10 +104,6 @@ public class Round {
 
     public int getTotalPlays() {
         return totalPlays;
-    }
-
-    public HoldingHand getPlayerHand() {
-        return playerHand;
     }
 
     /**
