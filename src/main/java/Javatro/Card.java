@@ -34,7 +34,10 @@ public record Card(Rank rank, Suit suit) {
     }
 
     public enum Suit {
-        HEARTS("Hearts"), CLUBS("Clubs"), SPADES("Spades"), DIAMONDS("Diamonds");
+        HEARTS("Hearts"),
+        CLUBS("Clubs"),
+        SPADES("Spades"),
+        DIAMONDS("Diamonds");
 
         private final String name;
 
