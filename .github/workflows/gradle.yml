@@ -1,6 +1,10 @@
 name: Java CI
 
-on: [push, pull_request]
+on:
+  workflow_run:
+    workflows: ["Lint Code Basee"]
+    types:
+      - completed
 
 jobs:
   build:
