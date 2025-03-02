@@ -16,6 +16,7 @@ public class Round {
     private Deck deck;
     private PokerHand pokerHand;
     private HoldingHand playerHand;
+    private State gameState;
 
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
@@ -23,23 +24,18 @@ public class Round {
      *
      * @param blindScore The target score to beat in this round
      */
-    public Round(int blindScore) {
+    public Round(State gameState) {
+        this.gameState = gameState;
         this.currentScore = 0;
-        this.blindScore = blindScore;
+        this.blindScore = gameState.getBlindScore();
         this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
         this.totalPlays = 0;
-        this.deck = new Deck();
-        this.deck.initialize();
+        this.deck = gameState.getDeck();
         this.pokerHand = new PokerHand();
         this.playerHand = new HoldingHand();
 
         // Initial draw
         playerHand.draw(INITIAL_HAND_SIZE);
-    }
-
-    /** Constructs a new round with the default blind score of 100. */
-    public Round() {
-        this(DEFAULT_BLIND_SCORE);
     }
 
     /**
