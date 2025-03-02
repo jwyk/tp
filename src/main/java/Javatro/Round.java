@@ -7,10 +7,11 @@ public class Round {
     private static final int INITIAL_HAND_SIZE = 8;
     private static final int POKER_HAND_SIZE = 5;
     private static final int MAX_PLAYS_PER_ROUND = 3;
+    private static final int MAX_DISCARDS_PER_ROUND = 3; 
 
     private int currentScore;
     private int blindScore;
-    private int totalDiscards;
+    private int remainingDiscards;
     private int totalPlays;
     private Deck deck;
     private PokerHand pokerHand;
@@ -25,7 +26,7 @@ public class Round {
     public Round(int blindScore) {
         this.currentScore = 0;
         this.blindScore = blindScore;
-        this.totalDiscards = 0;
+        this.remainingDiscards = MAX_DISCARDS_PER_ROUND; 
         this.totalPlays = 0;
         this.deck = new Deck();
         this.deck.initialize();
@@ -75,8 +76,11 @@ public class Round {
      * @param cardIndices Indices of cards to discard
      */
     public void discardCards(int[] cardIndices) {
+        if (remainingDiscards <= 0) {
+            throw new IllegalStateException("No remaining discards available");
+        }
         playerHand.discardCards(cardIndices);
-        totalDiscards++;
+        remainingDiscards--; 
 
         playerHand.draw(cardIndices.length);
     }
@@ -90,8 +94,8 @@ public class Round {
         return blindScore;
     }
 
-    public int getTotalDiscards() {
-        return totalDiscards;
+    public int getRemainingDiscards() { 
+        return remainingDiscards;
     }
 
     public int getTotalPlays() {
