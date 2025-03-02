@@ -7,7 +7,7 @@ public class Round {
     private static final int INITIAL_HAND_SIZE = 8;
     private static final int POKER_HAND_SIZE = 5;
     private static final int MAX_PLAYS_PER_ROUND = 3;
-    
+
     private int currentScore;
     private int blindScore;
     private int totalDiscards;
