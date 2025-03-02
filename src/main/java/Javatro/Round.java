@@ -33,9 +33,7 @@ public class Round {
         this.playerHand = new HoldingHand();
 
         // Initial draw
-        for (int i = 0; i < INITIAL_HAND_SIZE; i++) {
-            playerHand.draw(deck.draw());
-        }
+        playerHand.draw(INITIAL_HAND_SIZE);
     }
 
     /** Constructs a new round with the default blind score of 100. */
@@ -49,26 +47,26 @@ public class Round {
      * @param cardIndices Indices of cards to play from the holding hand
      * @return The result of the poker hand
      */
-    public int playCards(int[] cardIndices) {
+    public void playCards(int[] cardIndices) {
         if (cardIndices.length != POKER_HAND_SIZE) {
             throw new IllegalArgumentException("Must play exactly " + POKER_HAND_SIZE + " cards");
         }
 
         List<Card> playedCards = playerHand.playCards(cardIndices);
         HandResult result = PokerHand.evaluateHand(playedCards);
+        Integer totalChips = result.chips();
 
-        // Update round state
-        currentScore += result.chips() * result.multiplier();
-
-        // Draw new cards to replace played ones
-        for (int i = 0; i < cardIndices.length; i++) {
-            if (deck.hasCards()) {
-                playerHand.draw(deck.draw());
-            }
+        for (Card card : playedCards) {
+            totalChips += card.getChips();
         }
 
+        // Update round state
+        currentScore += totalChips * result.multiplier();
+
+        // Draw new cards to replace played ones
+        playerHand.draw(POKER_HAND_SIZE);
+
         totalPlays++;
-        return score;
     }
 
     /**
@@ -80,12 +78,7 @@ public class Round {
         playerHand.discardCards(cardIndices);
         totalDiscards++;
 
-        // Draw new cards to replace discarded ones
-        for (int i = 0; i < cardIndices.length; i++) {
-            if (deck.hasCards()) {
-                playerHand.draw(deck.draw());
-            }
-        }
+        playerHand.draw(cardIndices.length);
     }
 
     // Getters
@@ -112,7 +105,7 @@ public class Round {
      */
     public boolean isRoundOver() {
         // Round ends if we've reached maximum plays or score exceeds blind score
-        return totalPlays >= MAX_PLAYS_PER_ROUND || currentScore > blindScore;
+        return totalPlays >= MAX_PLAYS_PER_ROUND || this.isWon();
     }
 
     /**
