@@ -17,6 +17,7 @@ public class Round {
     private PokerHand pokerHand;
     private HoldingHand playerHand;
     private State gameState;
+    private UI ui;
 
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
@@ -33,6 +34,7 @@ public class Round {
         this.deck = gameState.getDeck();
         this.pokerHand = new PokerHand();
         this.playerHand = new HoldingHand();
+        this.ui = new UI();
 
         // Initial draw
         playerHand.draw(INITIAL_HAND_SIZE);
@@ -59,6 +61,8 @@ public class Round {
 
         // Update round state
         currentScore += totalChips * result.multiplier();
+        ui.printHandResult(result, totalChips, currentScore);
+        ui.printRoundScore(currentScore, blindScore);
 
         // Draw new cards to replace played ones
         playerHand.draw(POKER_HAND_SIZE);
@@ -79,6 +83,7 @@ public class Round {
         remainingDiscards--;
 
         playerHand.draw(cardIndices.length);
+        ui.printDiscardResult(playerHand, remainingDiscards);
     }
 
     // Getters
