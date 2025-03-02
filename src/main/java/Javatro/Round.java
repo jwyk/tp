@@ -3,6 +3,11 @@ package Javatro;
 import java.util.List;
 
 public class Round {
+    private static final int DEFAULT_BLIND_SCORE = 100;
+    private static final int INITIAL_HAND_SIZE = 8;
+    private static final int POKER_HAND_SIZE = 5;
+    private static final int MAX_PLAYS_PER_ROUND = 3;
+    
     private int currentScore;
     private int blindScore;
     private int totalDiscards;
@@ -10,7 +15,6 @@ public class Round {
     private Deck deck;
     private PokerHand pokerHand;
     private HoldingHand playerHand;
-    private UserInterface ui;
 
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
@@ -29,14 +33,14 @@ public class Round {
         this.playerHand = new HoldingHand();
 
         // Initial draw
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < INITIAL_HAND_SIZE; i++) {
             playerHand.draw(deck.draw());
         }
     }
 
     /** Constructs a new round with the default blind score of 100. */
     public Round() {
-        this(100);
+        this(DEFAULT_BLIND_SCORE);
     }
 
     /**
@@ -46,8 +50,8 @@ public class Round {
      * @return The result of the poker hand
      */
     public int playCards(int[] cardIndices) {
-        if (cardIndices.length != 5) {
-            throw new IllegalArgumentException("Must play exactly 5 cards");
+        if (cardIndices.length != POKER_HAND_SIZE) {
+            throw new IllegalArgumentException("Must play exactly " + POKER_HAND_SIZE + " cards");
         }
 
         List<Card> playedCards = playerHand.playCards(cardIndices);
@@ -108,7 +112,7 @@ public class Round {
      */
     public boolean isRoundOver() {
         // Round ends if we've reached maximum plays or score exceeds blind score
-        return totalPlays >= 3 || currentScore > blindScore;
+        return totalPlays >= MAX_PLAYS_PER_ROUND || currentScore > blindScore;
     }
 
     /**
