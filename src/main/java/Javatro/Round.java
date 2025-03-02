@@ -12,7 +12,7 @@ public class Round {
     private int currentScore;
     private int blindScore;
     private int remainingDiscards;
-    private int totalPlays;
+    private int remainingPlays;
     private Deck deck;
     private PokerHand pokerHand;
     private HoldingHand playerHand;
@@ -23,14 +23,14 @@ public class Round {
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
      * file or manually inputed.
      *
-     * @param blindScore The target score to beat in this round
+     * @param gameState The current state of the game.
      */
     public Round(State gameState) {
         this.gameState = gameState;
         this.currentScore = 0;
         this.blindScore = gameState.getBlindScore();
         this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
-        this.totalPlays = 0;
+        this.remainingPlays = gameState.getPlaysPerRound();
         this.deck = gameState.getDeck();
         this.pokerHand = new PokerHand();
         this.playerHand = new HoldingHand();
@@ -43,8 +43,8 @@ public class Round {
     /**
      * Plays a set of 5 cards as a poker hand.
      *
-     * @param cardIndices Indices of cards to play from the holding hand
-     * @return The result of the poker hand
+     * @param cardIndices Indices of cards to play from the holding hand (must be exactly 5 cards)
+     * @throws IllegalArgumentException If the number of cards to play is not exactly 5
      */
     public void playCards(int[] cardIndices) {
         if (cardIndices.length != POKER_HAND_SIZE) {
@@ -67,13 +67,14 @@ public class Round {
         // Draw new cards to replace played ones
         playerHand.draw(POKER_HAND_SIZE);
 
-        totalPlays++;
+        remainingPlays--;
     }
 
     /**
      * Discards cards from the player's hand.
      *
-     * @param cardIndices Indices of cards to discard
+     * @param cardIndices Indices of cards to discard from the holding hand
+     * @throws IllegalStateException If no remaining discards are available
      */
     public void discardCards(int[] cardIndices) {
         if (remainingDiscards <= 0) {
@@ -99,8 +100,8 @@ public class Round {
         return remainingDiscards;
     }
 
-    public int getTotalPlays() {
-        return totalPlays;
+    public int getRemainingPlays() {
+        return remainingPlays;
     }
 
     /**
@@ -109,8 +110,8 @@ public class Round {
      * @return true if the round is over, false otherwise
      */
     public boolean isRoundOver() {
-        // Round ends if we've reached maximum plays or score exceeds blind score
-        return totalPlays >= MAX_PLAYS_PER_ROUND || this.isWon();
+        // Round ends if no plays are remaining or score exceeds blind score
+        return remainingPlays <= 0 || this.isWon();
     }
 
     /**
