@@ -1,6 +1,5 @@
 package javatro_view;
 
-
 // View Class
 public class JavatroView {
 
