@@ -1,31 +1,24 @@
 package javatro_view;
 
+import java.io.IOException;
+
 // View Class
 public class JavatroView {
 
-    // Method to display startMenu and related input options (start game, options, credit)
-    public void startMenu() {
-        System.out.println("Javatro Start Menu");
+    private Screen currentScreen; //Current UI that is displayed to user
+
+    //Method to load the current screen
+    public void displayCurrentScreen() {
+        currentScreen.displayScreen();
     }
 
-    // Method that shows Current Round
-    public void displayRound() {}
+    //Method to load the set the currentScreen (e.g. start game, options)
+    public void setCurrentScreen(Screen s) {
+        currentScreen = s;
+    }
 
-    // Method that displays blind score
-    public void displayBlindScore() {}
+    public Screen getCurrentScreen() {
+        return currentScreen;
+    }
 
-    // Method that displays current score
-    public void displayCurrentScore() {}
-
-    // Method that displays the holding hand
-    public void displayHoldingHand() {}
-
-    // Method that displays the number of plays
-    public void displayPlays() {}
-
-    // Method that displays the number of discards so far
-    public void displayDiscards() {}
-
-    // Method that displays the hand selected to play
-    public void displayPlayingHand() {}
 }

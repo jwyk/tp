@@ -1,13 +1,19 @@
 package Javatro;
 
+import java.io.IOException;
+import javatro_core.JavatroManager;
+import javatro_view.GameScreen;
 import javatro_view.JavatroView;
+import javatro_view.StartScreen;
+
 
 // Primary view class that handles current view state etc
 public class Javatro {
-    private JavatroView javatroView; // View
+    private static final JavatroView javatroView = new JavatroView(); // View
+    private static final JavatroManager javatroManager = new JavatroManager(javatroView);
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        javatroManager.startGame();
         //        List<Card> hand =
         //                List.of(
         //                        new Card(Card.Rank.ACE, Card.Suit.HEARTS),
@@ -34,4 +40,7 @@ public class Javatro {
         //        System.out.println("Current Round Score: 320");
         //        System.out.println("Blind Score to beat: 500");
     }
+
+
+
 }
