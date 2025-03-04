@@ -1,9 +1,7 @@
 package javatro_view;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
 
 public class StartScreen extends Screen {
 
@@ -29,5 +27,4 @@ public class StartScreen extends Screen {
         printLogo();
         super.displayOptions();
     }
-
 }
