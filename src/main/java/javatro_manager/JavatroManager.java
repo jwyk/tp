@@ -53,6 +53,8 @@ public class JavatroManager {
     // Starts a new game, is called at the beginning
     public void startGame() {
         loadStartScreenCommand.execute();
-        if (userInput == 1) loadGameScreenCommand.execute();
+        if (userInput == 1) {
+            loadGameScreenCommand.execute();
+        }
     }
 }
