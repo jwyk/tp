@@ -1,6 +1,7 @@
 package javatro_view;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class GameScreen extends Screen {
@@ -25,7 +26,7 @@ public class GameScreen extends Screen {
     }
 
     // Shows all necessary components in a compact view
-    public void displayGameScreenUI() {
+    private void displayGameScreenUI() {
         System.out.println("+------------------------------------------------+");
 
         // blindType is max 10 chars

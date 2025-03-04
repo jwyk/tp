@@ -1,6 +1,6 @@
 package Javatro;
 
-import javatro_core.JavatroManager;
+import javatro_manager.JavatroManager;
 
 import javatro_view.JavatroView;
 

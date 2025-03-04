@@ -1,4 +1,4 @@
-package javatro_core;
+package javatro_manager;
 
 import javatro_view.GameScreen;
 import javatro_view.JavatroView;
@@ -10,24 +10,28 @@ import java.util.Scanner;
 // Main Controller (Manager) Class
 public class JavatroManager {
 
-    private JavatroView jv;
+    private static JavatroView jv;
+    private static LoadStartScreenCommand loadStartScreenCommand;
+    private static LoadGameScreenCommand loadGameScreenCommand;
+    private static int userInput;
 
     public JavatroManager(JavatroView jv) {
-        this.jv = jv;
+        JavatroManager.jv = jv;
+        loadStartScreenCommand = new LoadStartScreenCommand(new StartScreen());
+        loadGameScreenCommand = new LoadGameScreenCommand(new GameScreen());
     }
 
-    public void changeScreen(Screen destinationScreen) {
-        // Changes the screen to display and displays it
+    public static void setScreen(Screen destinationScreen) {
+        // Changes the screen to display
         jv.setCurrentScreen(destinationScreen);
-        jv.displayCurrentScreen();
     }
 
-    private int getInput() {
+    protected static void getInput() {
         Scanner scanner = new Scanner(System.in);
         int maxRange =
                 jv.getCurrentScreen()
                         .getOptionsSize(); // Change this value to set a different range
-        int userInput = -1;
+        userInput = -1;
 
         while (true) {
             System.out.print("Enter a number (1 to " + maxRange + "): ");
@@ -44,16 +48,11 @@ public class JavatroManager {
                 scanner.next(); // Clear invalid input
             }
         }
-        return userInput;
     }
 
     // Starts a new game, is called at the beginning
     public void startGame() {
-        changeScreen(new StartScreen());
-        // Get user input
-        int chosen = getInput();
-        // Based on the chosen, display the screen
-        JavatroView.clearConsole();
-        if (chosen == 1) changeScreen(new GameScreen());
+        loadStartScreenCommand.execute();
+        if (userInput == 1) loadGameScreenCommand.execute();
     }
 }
