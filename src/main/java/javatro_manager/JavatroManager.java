@@ -1,4 +1,4 @@
-package javatro_manager;
+package javatro_core;
 
 import java.util.Scanner;
 import javatro_view.GameScreen;
@@ -6,25 +6,28 @@ import javatro_view.JavatroView;
 import javatro_view.Screen;
 import javatro_view.StartScreen;
 
-//Main Controller (Manager) Class
+import java.util.Scanner;
+
+// Main Controller (Manager) Class
 public class JavatroManager {
 
   private JavatroView jv;
 
-  public JavatroManager(JavatroView jv) {
-    this.jv = jv;
-  }
+    public JavatroManager(JavatroView jv) {
+        this.jv = jv;
+    }
 
-  public void changeScreen(Screen destinationScreen) {
-    //Changes the screen to display and displays it
-    jv.setCurrentScreen(destinationScreen);
-    jv.displayCurrentScreen();
-  }
+    public void changeScreen(Screen destinationScreen) {
+        // Changes the screen to display and displays it
+        jv.setCurrentScreen(destinationScreen);
+        jv.displayCurrentScreen();
+    }
 
-  //Method to take input from 1-x in integer form (parses it as well and does error handling)
-  private int getInput() {
+    private int getInput() {
         Scanner scanner = new Scanner(System.in);
-        int maxRange = jv.getCurrentScreen().getOptionsSize(); // Change this value to set a different range
+        int maxRange =
+                jv.getCurrentScreen()
+                        .getOptionsSize(); // Change this value to set a different range
         int userInput = -1;
 
         while (true) {

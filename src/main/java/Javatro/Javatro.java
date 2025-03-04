@@ -1,9 +1,12 @@
 package Javatro;
 
 import java.io.IOException;
-import javatro_manager.JavatroManager;
+import javatro_core.JavatroManager;
+import javatro_view.GameScreen;
 import javatro_view.JavatroView;
+import javatro_view.StartScreen;
 
+import java.io.IOException;
 
 // Primary view class that handles current view state etc
 public class Javatro {
@@ -18,7 +21,7 @@ public class Javatro {
         //                        new Card(Card.Rank.ACE, Card.Suit.HEARTS),
         //                        new Card(Card.Rank.THREE, Card.Suit.HEARTS),
         //                        new Card(Card.Rank.TEN, Card.Suit.HEARTS),
-        //                        new Card(Card.Ran1k.TEN, Card.Suit.HEARTS));
+        //                        new Card(Card.Rank.TEN, Card.Suit.HEARTS));
         //
         //        int TotalChips = 0;
         //
