@@ -1,10 +1,8 @@
 package Javatro;
 
-import java.io.IOException;
 import javatro_core.JavatroManager;
-import javatro_view.GameScreen;
+
 import javatro_view.JavatroView;
-import javatro_view.StartScreen;
 
 import java.io.IOException;
 
@@ -41,7 +39,4 @@ public class Javatro {
         //        System.out.println("Current Round Score: 320");
         //        System.out.println("Blind Score to beat: 500");
     }
-
-
-
 }
