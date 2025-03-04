@@ -9,8 +9,8 @@ import java.util.List;
  */
 
 public class HoldingHand {
-    private final int HOLDINGLIMIT = 8; // The maximum number of cards a hand can hold
     protected List<Card> Hand;
+    private final int HOLDINGLIMIT = 8; // The maximum number of cards a hand can hold
 
     public HoldingHand(Deck deck) {
         Hand = new ArrayList<Card>();
