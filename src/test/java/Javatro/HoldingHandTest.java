@@ -20,7 +20,10 @@ public class HoldingHandTest {
     @Test
     void testHoldingHand() {
         Deck deck = new Deck();
-        HoldingHand holdingHand = new HoldingHand(deck);
+        HoldingHand holdingHand = new HoldingHand();
+        for (int i = 0; i < 8; i++) {
+            holdingHand.add(deck.draw());
+        }
         int cardsRemaining = deck.getRemainingCards();
         assertEquals(44, cardsRemaining);
         holdingHand.discard(List.of(1, 3, 5), deck);
