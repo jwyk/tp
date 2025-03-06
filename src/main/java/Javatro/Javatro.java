@@ -1,8 +1,8 @@
 package Javatro;
 
 import static Javatro.Card.Rank.ACE;
-import static Javatro.Card.Rank.THREE;
 import static Javatro.Card.Rank.TEN;
+import static Javatro.Card.Rank.THREE;
 import static Javatro.Card.Suit.HEARTS;
 
 import java.util.List;
