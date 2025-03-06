@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The `HandResult` class evaluates a poker hand based on the given cards.
- * It supports hands with 1 to 5 cards and determines the best possible poker hand.
+ * The `HandResult` class evaluates a poker hand based on the given cards. It supports hands with 1
+ * to 5 cards and determines the best possible poker hand.
  */
 public class HandResult {
 
@@ -26,7 +26,8 @@ public class HandResult {
             throw new IllegalArgumentException("A poker hand must contain between 1 and 5 cards.");
         }
 
-        // Counts occurrences of each rank (e.g., {"A":1, "K":1, "Q":1, "J":1, "10":1} for a Royal Flush).
+        // Counts occurrences of each rank (e.g., {"A":1, "K":1, "Q":1, "J":1, "10":1} for a Royal
+        // Flush).
         Map<Card.Rank, Integer> rankCount = new HashMap<>();
         // Counts occurrences of each suit.
         Map<Card.Suit, Integer> suitCount = new HashMap<>();
@@ -58,12 +59,16 @@ public class HandResult {
      * Evaluates poker hands with 2 to 5 cards using a priority-based approach.
      *
      * @param rankCount A map of card ranks and their counts.
-     * @param isFlush   Whether the hand is a flush.
+     * @param isFlush Whether the hand is a flush.
      * @param isStraight Whether the hand is a straight.
-     * @param isRoyal   Whether the hand is a royal flush.
+     * @param isRoyal Whether the hand is a royal flush.
      * @return A `HandResult` object representing the evaluated hand.
      */
-    private static PokerHand evaluateMultiCardHand(Map<Card.Rank, Integer> rankCount, boolean isFlush, boolean isStraight, boolean isRoyal) {
+    private static PokerHand evaluateMultiCardHand(
+            Map<Card.Rank, Integer> rankCount,
+            boolean isFlush,
+            boolean isStraight,
+            boolean isRoyal) {
 
         // Check for the strongest hands first
         if (isRoyal && isFlush) {
@@ -108,7 +113,8 @@ public class HandResult {
 
             boolean normalStraight = true;
 
-            // Loops through the sorted list and checks if each rank follows the previous rank consecutively
+            // Loops through the sorted list and checks if each rank follows the previous rank
+            // consecutively
             // ordinal() returns the numerical position of the enum value.
             // If the difference between consecutive ranks is not exactly 1, return false.
             for (int i = 0; i < 4; i++) {
@@ -119,11 +125,12 @@ public class HandResult {
             }
 
             // Special case: Ace-low straight (A-2-3-4-5)
-            boolean aceLowStraight = ranks.contains(ACE) &&
-                    ranks.contains(TWO) &&
-                    ranks.contains(THREE) &&
-                    ranks.contains(FOUR) &&
-                    ranks.contains(FIVE);
+            boolean aceLowStraight =
+                    ranks.contains(ACE)
+                            && ranks.contains(TWO)
+                            && ranks.contains(THREE)
+                            && ranks.contains(FOUR)
+                            && ranks.contains(FIVE);
 
             return normalStraight || aceLowStraight;
         }

@@ -5,9 +5,7 @@ import static Javatro.Card.Suit.*;
 
 import java.util.List;
 
-/**
- * The main class for the Javatro game. This class runs the game.
- */
+/** The main class for the Javatro game. This class runs the game. */
 public class Javatro {
 
     /**
@@ -18,13 +16,13 @@ public class Javatro {
     public static void main(String[] args) {
 
         // Create a hand of cards
-        List<Card> hand = List.of(
-                new Card(ACE, HEARTS), // Using static imports for Rank and Suit
-                new Card(ACE, HEARTS), // Simplified card construction
-                new Card(THREE, HEARTS),
-                new Card(TEN, HEARTS),
-                new Card(TEN, HEARTS)
-        );
+        List<Card> hand =
+                List.of(
+                        new Card(ACE, HEARTS), // Using static imports for Rank and Suit
+                        new Card(ACE, HEARTS), // Simplified card construction
+                        new Card(THREE, HEARTS),
+                        new Card(TEN, HEARTS),
+                        new Card(TEN, HEARTS));
 
         // Calculate total chips from the cards in the hand
         int totalChips = 0;
@@ -46,8 +44,7 @@ public class Javatro {
         // Display the results
         System.out.printf(
                 "\nTotal Score Gained: %s Chips x %d Multiplier = %d\n",
-                totalChips, result.getMultiplier(), totalScore
-        );
+                totalChips, result.getMultiplier(), totalScore);
         System.out.println("Current Round Score: 320");
         System.out.println("Blind Score to beat: 500");
     }

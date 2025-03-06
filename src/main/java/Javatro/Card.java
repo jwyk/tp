@@ -1,15 +1,12 @@
 package Javatro;
 
 /**
- * Represents a playing card with a rank and a suit.
- * Each card has a rank (e.g., ACE, KING, QUEEN) and a suit (e.g., HEARTS, SPADES).
- * The rank also determines the chip value of the card.
+ * Represents a playing card with a rank and a suit. Each card has a rank (e.g., ACE, KING, QUEEN)
+ * and a suit (e.g., HEARTS, SPADES). The rank also determines the chip value of the card.
  */
 public record Card(Rank rank, Suit suit) {
 
-    /**
-     * Enum representing the rank of a card, along with its symbol and chip value.
-     */
+    /** Enum representing the rank of a card, along with its symbol and chip value. */
     public enum Rank {
         TWO("2", 2),
         THREE("3", 3),
@@ -32,7 +29,7 @@ public record Card(Rank rank, Suit suit) {
          * Constructs a rank with the given symbol and chip value.
          *
          * @param symbol The symbol representing the rank (e.g., "A" for ACE).
-         * @param chips  The chip value associated with the rank.
+         * @param chips The chip value associated with the rank.
          */
         Rank(String symbol, int chips) {
             this.symbol = symbol;
@@ -58,9 +55,7 @@ public record Card(Rank rank, Suit suit) {
         }
     }
 
-    /**
-     * Enum representing the suit of a card.
-     */
+    /** Enum representing the suit of a card. */
     public enum Suit {
         HEARTS("Hearts"),
         CLUBS("Clubs"),

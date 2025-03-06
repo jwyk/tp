@@ -74,7 +74,8 @@ public record PokerHand(HandType handType) {
 
     @Override
     public String toString() {
-        return String.format("%s (Base Chips: %d, Multiplier: %d)",
+        return String.format(
+                "%s (Base Chips: %d, Multiplier: %d)",
                 handType.getHandName(), handType.getChips(), handType.getMultiplier());
     }
 }
