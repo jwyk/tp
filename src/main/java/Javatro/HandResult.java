@@ -1,7 +1,24 @@
 package Javatro;
 
-import static Javatro.Card.Rank.*;
-import static Javatro.PokerHand.HandType.*;
+import static Javatro.Card.Rank.ACE;
+import static Javatro.Card.Rank.TWO;
+import static Javatro.Card.Rank.THREE;
+import static Javatro.Card.Rank.FOUR;
+import static Javatro.Card.Rank.FIVE;
+import static Javatro.Card.Rank.TEN;
+import static Javatro.Card.Rank.JACK;
+import static Javatro.Card.Rank.QUEEN;
+import static Javatro.Card.Rank.KING;
+import static Javatro.PokerHand.HandType.ROYAL_FLUSH;
+import static Javatro.PokerHand.HandType.STRAIGHT_FLUSH;
+import static Javatro.PokerHand.HandType.FOUR_OF_A_KIND;
+import static Javatro.PokerHand.HandType.FULL_HOUSE;
+import static Javatro.PokerHand.HandType.FLUSH;
+import static Javatro.PokerHand.HandType.STRAIGHT;
+import static Javatro.PokerHand.HandType.THREE_OF_A_KIND;
+import static Javatro.PokerHand.HandType.TWO_PAIR;
+import static Javatro.PokerHand.HandType.PAIR;
+import static Javatro.PokerHand.HandType.HIGH_CARD;
 
 import java.util.HashMap;
 import java.util.List;

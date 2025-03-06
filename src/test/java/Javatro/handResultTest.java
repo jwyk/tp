@@ -1,7 +1,22 @@
 package Javatro;
 
-import static Javatro.Card.Rank.*;
-import static Javatro.Card.Suit.*;
+import static Javatro.Card.Rank.ACE;
+import static Javatro.Card.Rank.TWO;
+import static Javatro.Card.Rank.THREE;
+import static Javatro.Card.Rank.FOUR;
+import static Javatro.Card.Rank.FIVE;
+import static Javatro.Card.Rank.SIX;
+import static Javatro.Card.Rank.SEVEN;
+import static Javatro.Card.Rank.EIGHT;
+import static Javatro.Card.Rank.NINE;
+import static Javatro.Card.Rank.TEN;
+import static Javatro.Card.Rank.JACK;
+import static Javatro.Card.Rank.QUEEN;
+import static Javatro.Card.Rank.KING;
+import static Javatro.Card.Suit.SPADES;
+import static Javatro.Card.Suit.HEARTS;
+import static Javatro.Card.Suit.DIAMONDS;
+import static Javatro.Card.Suit.CLUBS;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
