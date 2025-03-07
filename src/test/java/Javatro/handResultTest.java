@@ -36,7 +36,7 @@ class HandResultTest {
      * five cards of sequential rank, all the same suit.
      */
     @Test
-    void testStraightFlushTrue() {
+    void testStraightFlushTrue() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(NINE, SPADES),
@@ -53,7 +53,7 @@ class HandResultTest {
      * identified as a straight instead.
      */
     @Test
-    void testStraightFlushFalseMixedSuits() {
+    void testStraightFlushFalseMixedSuits() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(NINE, SPADES),
@@ -71,7 +71,7 @@ class HandResultTest {
      * should be identified as a flush instead.
      */
     @Test
-    void testStraightFlushFalseNotInSequence() {
+    void testStraightFlushFalseNotInSequence() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(NINE, SPADES),
@@ -89,7 +89,7 @@ class HandResultTest {
      * Ace, King, Queen, Jack, and Ten of the same suit.
      */
     @Test
-    void testRoyalFlushTrue() {
+    void testRoyalFlushTrue() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(TEN, SPADES),
@@ -106,7 +106,7 @@ class HandResultTest {
      * should be identified as a straight flush instead.
      */
     @Test
-    void testRoyalFlushFalseAceLow() {
+    void testRoyalFlushFalseAceLow() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(ACE, SPADES),
@@ -124,7 +124,7 @@ class HandResultTest {
      * same suit, not in sequence.
      */
     @Test
-    void testFlushTrue() {
+    void testFlushTrue() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -141,7 +141,7 @@ class HandResultTest {
      * identified as a high card instead.
      */
     @Test
-    void testFlushFalseMixedSuits() {
+    void testFlushFalseMixedSuits() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -159,7 +159,7 @@ class HandResultTest {
      * identified as a high card instead.
      */
     @Test
-    void testFlushFalseLessThan5Cards() {
+    void testFlushFalseLessThan5Cards() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -176,7 +176,7 @@ class HandResultTest {
      * any other category.
      */
     @Test
-    void testHighCardTrue() {
+    void testHighCardTrue() throws JavatroException {
         List<Card> hand = List.of(new Card(ACE, SPADES));
         PokerHand result = HandResult.evaluateHand(hand);
         assertEquals("High Card", result.getHandName());
@@ -187,7 +187,7 @@ class HandResultTest {
      * of sequential rank, not all the same suit.
      */
     @Test
-    void testStraightTrue() {
+    void testStraightTrue() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -204,7 +204,7 @@ class HandResultTest {
      * be identified as a high card instead.
      */
     @Test
-    void testStraightFalseNotInSequence() {
+    void testStraightFalseNotInSequence() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -222,7 +222,7 @@ class HandResultTest {
      * identified as a high card instead.
      */
     @Test
-    void testStraightFalseMixedSequence() {
+    void testStraightFalseMixedSequence() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -240,7 +240,7 @@ class HandResultTest {
      * be identified as a high card instead.
      */
     @Test
-    void testStraightFalseLessThan5Cards() {
+    void testStraightFalseLessThan5Cards() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -257,7 +257,7 @@ class HandResultTest {
      * cards of one rank and two cards of another rank.
      */
     @Test
-    void testFullHouseTrue() {
+    void testFullHouseTrue() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -274,7 +274,7 @@ class HandResultTest {
      * identified as two pairs instead.
      */
     @Test
-    void testFullHouseFalseTwoPair() {
+    void testFullHouseFalseTwoPair() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -292,7 +292,7 @@ class HandResultTest {
      * should be identified as two pairs instead.
      */
     @Test
-    void testFullHouseFalseLessThan5Cards() {
+    void testFullHouseFalseLessThan5Cards() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -309,7 +309,7 @@ class HandResultTest {
      * identified as three of a kind instead.
      */
     @Test
-    void testFullHouseFalseThreeOfAKind() {
+    void testFullHouseFalseThreeOfAKind() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -326,7 +326,7 @@ class HandResultTest {
      * three cards of one rank and two cards of two different ranks.
      */
     @Test
-    void testThreeOfAKindTrue() {
+    void testThreeOfAKindTrue() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -340,7 +340,7 @@ class HandResultTest {
 
     /** Tests that three of a kind is correctly identified with only three cards. */
     @Test
-    void testThreeOfAKindTrue3Cards() {
+    void testThreeOfAKindTrue3Cards() throws JavatroException {
         List<Card> hand =
                 List.of(new Card(TEN, SPADES), new Card(TEN, DIAMONDS), new Card(TEN, HEARTS));
         PokerHand result = HandResult.evaluateHand(hand);
@@ -352,7 +352,7 @@ class HandResultTest {
      * as a full house instead.
      */
     @Test
-    void testThreeOfAKindFalseFullHouse() {
+    void testThreeOfAKindFalseFullHouse() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -370,7 +370,7 @@ class HandResultTest {
      * that contains four cards of one rank and one card of another rank.
      */
     @Test
-    void testFourOfAKindTrue5Cards() {
+    void testFourOfAKindTrue5Cards() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(EIGHT, SPADES),
@@ -384,7 +384,7 @@ class HandResultTest {
 
     /** Tests that four of a kind is correctly identified with four cards. */
     @Test
-    void testFourOfAKindTrue4Cards() {
+    void testFourOfAKindTrue4Cards() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(EIGHT, SPADES),
@@ -400,7 +400,7 @@ class HandResultTest {
      * cards of one rank and three cards of three different ranks.
      */
     @Test
-    void testPairTrue5Cards() {
+    void testPairTrue5Cards() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(EIGHT, SPADES),
@@ -417,7 +417,7 @@ class HandResultTest {
      * identified as two pairs instead.
      */
     @Test
-    void testPairFalseTwoPair() {
+    void testPairFalseTwoPair() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(EIGHT, SPADES),
@@ -432,7 +432,7 @@ class HandResultTest {
 
     /** Tests that a pair is correctly identified with two cards. */
     @Test
-    void testPairTrue2Cards() {
+    void testPairTrue2Cards() throws JavatroException {
         List<Card> hand = List.of(new Card(EIGHT, SPADES), new Card(EIGHT, DIAMONDS));
         PokerHand result = HandResult.evaluateHand(hand);
         assertEquals("Pair", result.getHandName());
@@ -443,7 +443,7 @@ class HandResultTest {
      * house instead.
      */
     @Test
-    void testPairFalseFullHouse() {
+    void testPairFalseFullHouse() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -461,7 +461,7 @@ class HandResultTest {
      * of a kind instead.
      */
     @Test
-    void testPairFalseFourOfAKind() {
+    void testPairFalseFourOfAKind() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(EIGHT, SPADES),
@@ -479,7 +479,7 @@ class HandResultTest {
      * one rank, two cards of another rank, and one card of a third rank.
      */
     @Test
-    void testTwoPairTrue() {
+    void testTwoPairTrue() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(EIGHT, SPADES),
@@ -496,7 +496,7 @@ class HandResultTest {
      * full house instead.
      */
     @Test
-    void testTwoPairFalseFullHouse() {
+    void testTwoPairFalseFullHouse() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),
@@ -514,7 +514,7 @@ class HandResultTest {
      * four of a kind instead.
      */
     @Test
-    void testTwoPairFalseFourOfAKind() {
+    void testTwoPairFalseFourOfAKind() throws JavatroException {
         List<Card> hand =
                 List.of(
                         new Card(FIVE, SPADES),

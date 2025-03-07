@@ -15,7 +15,7 @@ public class Javatro {
      *
      * @param args Command-line arguments.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JavatroException {
 
         // Create a hand of cards
         List<Card> hand =
