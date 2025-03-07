@@ -12,18 +12,15 @@ public class HoldingHand {
     protected List<Card> Hand;
     private final int HOLDING_LIMIT = 8; // The maximum number of cards a hand can hold
 
-    /**
-     *
-     * Instantiate an empty List of Cards.
-     */
+    /** Instantiate an empty List of Cards. */
     public HoldingHand() {
         Hand = new ArrayList<Card>();
     }
 
     /**
      * Adds a Card to the Hand.
-     * <p>
-     * This function should not be called if Hand size >= HOLDING_LIMIT
+     *
+     * <p>This function should not be called if Hand size >= HOLDING_LIMIT
      */
     public void add(Card cardToAdd) {
         if (Hand.size() < HOLDING_LIMIT) {
@@ -32,7 +29,6 @@ public class HoldingHand {
             System.out.println("Exceeded Limit. Card not added.");
         }
     }
-
 
     /**
      * Returns the specified cards as requested by the player Hand will then draw the same number of
@@ -45,8 +41,12 @@ public class HoldingHand {
      */
     public List<Card> play(List<Integer> cardsToPlay, Deck deck) {
         if (cardsToPlay.size() > 5) {
-            System.out.println("Number of cards played " + "(" +
-                   cardsToPlay.size() + ")" + "exceeds the maximum allowed. (5)");
+            System.out.println(
+                    "Number of cards played "
+                            + "("
+                            + cardsToPlay.size()
+                            + ")"
+                            + "exceeds the maximum allowed. (5)");
             return null;
         }
 
