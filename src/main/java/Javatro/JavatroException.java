@@ -1,11 +1,11 @@
 package Javatro;
 
 /**
- * Represents a custom exception class for handling domain-specific errors in the Javatro application.
- * <p>
- * This class extends {@code Exception} and provides static factory methods to create
- * exceptions for different error scenarios.
- * </p>
+ * Represents a custom exception class for handling domain-specific errors in the Javatro
+ * application.
+ *
+ * <p>This class extends {@code Exception} and provides static factory methods to create exceptions
+ * for different error scenarios.
  */
 public class JavatroException extends Exception {
     /**
@@ -19,9 +19,8 @@ public class JavatroException extends Exception {
 
     /**
      * Creates an exception indicating an invalid number of card played.
-     * <p>
-     * This exception is thrown when the user plays an invalid amount of cards.
-     * </p>
+     *
+     * <p>This exception is thrown when the user plays an invalid amount of cards.
      *
      * @return An {@code JavatroException} indicating the correct number of cards to play.
      */
