@@ -106,9 +106,9 @@ public class HandResult {
             return new PokerHand(TWO_PAIR);
         } else if (rankCount.containsValue(2)) {
             return new PokerHand(PAIR);
-        } else {
-            return new PokerHand(HIGH_CARD);
         }
+        // Default case: High Card
+        return new PokerHand(HIGH_CARD);
     }
 
     /**
