@@ -37,10 +37,10 @@ public class HandResult {
      * @return A `PokerHand` object representing the evaluated hand.
      * @throws IllegalArgumentException If the input is null or contains fewer than 1 card.
      */
-    public static PokerHand evaluateHand(List<Card> cards) {
+    public static PokerHand evaluateHand(List<Card> cards) throws JavatroException {
 
         if (cards == null || cards.isEmpty() || cards.size() > 5) {
-            throw new IllegalArgumentException("A poker hand must contain between 1 and 5 cards.");
+            throw JavatroException.invalidPlayedHand();
         }
 
         // Counts occurrences of each rank (e.g., {"A":1, "K":1, "Q":1, "J":1, "10":1} for a Royal
