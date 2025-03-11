@@ -17,7 +17,7 @@ public class Round {
     private PokerHand pokerHand;
     private HoldingHand playerHand;
     private State gameState;
-    private UI ui;
+    private Ui ui;
 
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
@@ -34,7 +34,7 @@ public class Round {
         this.deck = gameState.getDeck();
         this.pokerHand = new PokerHand();
         this.playerHand = new HoldingHand();
-        this.ui = new UI();
+        this.ui = new Ui();
 
         // Initial draw
         playerHand.draw(INITIAL_HAND_SIZE);
