@@ -1,15 +1,22 @@
 package javatro_view;
 
+import javatro_manager.ExitGameCommand;
+import javatro_manager.LoadGameScreenCommand;
+import javatro_manager.LoadOptionsScreenCommand;
+import javatro_manager.LoadStartScreenCommand;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class StartScreen extends Screen {
 
-    private static final List<String> options =
-            Arrays.asList("Start Game", "Options", "Credits", "Exit");
 
     public StartScreen() {
-        super(options);
+        super("START MENU");
+        commandMap.add(new LoadGameScreenCommand());
+        commandMap.add(new LoadOptionsScreenCommand());
+        //commandMap.put("Credits", new LoadCreditsScreenCommand(new CreditsScreen()));
+        commandMap.add(new ExitGameCommand());
     }
 
     private void printLogo() {
@@ -25,6 +32,7 @@ public class StartScreen extends Screen {
     @Override
     public void displayScreen() {
         printLogo();
-        super.displayOptions();
     }
+
+
 }

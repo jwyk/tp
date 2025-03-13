@@ -5,17 +5,19 @@ import javatro_view.JavatroView;
 
 public class LoadGameScreenCommand implements Command {
 
-    private GameScreen gameScreen;
 
-    public LoadGameScreenCommand(GameScreen gameScreen) {
-        this.gameScreen = gameScreen;
+    public LoadGameScreenCommand() {
     }
 
     @Override
     public void execute() {
-        JavatroManager.setScreen(gameScreen);
-        gameScreen.displayScreen();
-        JavatroManager.getInput();
-        JavatroView.clearConsole();
+        //Update the main screen to show game screen
+        JavatroManager.setScreen(JavatroManager.getGameScreen());
     }
+
+    @Override
+    public String getDescription() {
+        return "Start Game";
+    }
+
 }
