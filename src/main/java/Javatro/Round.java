@@ -16,12 +16,10 @@ public class Round {
     private Ui ui;
 
     /**
-     * Constructs a new round with the specified blind score. The blind score can be
-     * fetched from a
+     * Constructs a new round with the specified blind score. The blind score can be fetched from a
      * file or manually inputed.
      *
-     * @param gameState
-     *            The current state of the game.
+     * @param gameState The current state of the game.
      */
     public Round(State gameState) {
         this.currentScore = 0;
@@ -40,12 +38,9 @@ public class Round {
     /**
      * Plays a set of 5 cards as a poker hand.
      *
-     * @param cardIndices
-     *            Indices of cards to play from the holding hand (must be exactly 5
-     *            cards)
+     * @param cardIndices Indices of cards to play from the holding hand (must be exactly 5 cards)
      * @throws JavatroException
-     * @throws IllegalArgumentException
-     *             If the number of cards to play is not exactly 5
+     * @throws IllegalArgumentException If the number of cards to play is not exactly 5
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
         if (cardIndices.size() != POKER_HAND_SIZE) {
@@ -74,10 +69,8 @@ public class Round {
     /**
      * Discards cards from the player's hand.
      *
-     * @param cardIndices
-     *            Indices of cards to discard from the holding hand
-     * @throws IllegalStateException
-     *             If no remaining discards are available
+     * @param cardIndices Indices of cards to discard from the holding hand
+     * @throws IllegalStateException If no remaining discards are available
      */
     public void discardCards(List<Integer> cardIndices) {
         if (remainingDiscards <= 0) {

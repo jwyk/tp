@@ -5,7 +5,6 @@ import static Javatro.Card.Rank.TEN;
 import static Javatro.Card.Rank.THREE;
 import static Javatro.Card.Suit.HEARTS;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** The main class for the Javatro game. This class runs the game. */
@@ -30,7 +29,7 @@ public class Javatro {
         State state = new State(100, 3, new Deck());
         // Create a new round
         Round round = new Round(state);
-        
+
         // Calculate total chips from the cards in the hand
         int totalChips = 0;
         for (Card card : hand) {
