@@ -8,20 +8,18 @@ import java.util.Scanner;
 public class JavatroView {
 
     private Screen currentScreen; // Current UI that is displayed to user
-    private PropertyChangeSupport support = new PropertyChangeSupport(this); //Observable
-
+    private PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
     // Register an observer (Controller)
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);
     }
 
-
     // Method to load the set the currentScreen (e.g. start game, options)
     public void setCurrentScreen(Screen s) {
         currentScreen = s;
         currentScreen.displayScreen();
-        getInput(); //Get user input
+        getInput(); // Get user input
     }
 
     public Screen getCurrentScreen() {
@@ -38,8 +36,7 @@ public class JavatroView {
         Scanner scanner = new Scanner(System.in);
         int userInput = -1;
         int maxRange =
-                getCurrentScreen()
-                        .getOptionsSize(); // Change this value to set a different range
+                getCurrentScreen().getOptionsSize(); // Change this value to set a different range
         while (true) {
             currentScreen.displayOptions();
             System.out.print("Enter a number (1 to " + maxRange + "): ");
@@ -56,9 +53,8 @@ public class JavatroView {
                 scanner.next(); // Clear invalid input
             }
         }
-        //When user input is received, trigger all the observers
-        support.firePropertyChange("userInput",null,userInput);
+        // When user input is received, trigger all the observers
+        support.firePropertyChange("userInput", null, userInput);
         clearConsole();
     }
-
 }

@@ -3,19 +3,14 @@ package javatro_view;
 import javatro_manager.ExitGameCommand;
 import javatro_manager.LoadGameScreenCommand;
 import javatro_manager.LoadOptionsScreenCommand;
-import javatro_manager.LoadStartScreenCommand;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class StartScreen extends Screen {
-
 
     public StartScreen() {
         super("START MENU");
         commandMap.add(new LoadGameScreenCommand());
         commandMap.add(new LoadOptionsScreenCommand());
-        //commandMap.put("Credits", new LoadCreditsScreenCommand(new CreditsScreen()));
+        // commandMap.put("Credits", new LoadCreditsScreenCommand(new CreditsScreen()));
         commandMap.add(new ExitGameCommand());
     }
 
@@ -33,6 +28,4 @@ public class StartScreen extends Screen {
     public void displayScreen() {
         printLogo();
     }
-
-
 }

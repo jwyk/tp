@@ -3,9 +3,6 @@ package javatro_view;
 import javatro_manager.Command;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 // ALl screens will extend screen
 public abstract class Screen {
@@ -23,7 +20,18 @@ public abstract class Screen {
         int width = 30; // Fixed width for the menu
         String border = "*".repeat(width);
         int paddingSize = (width - optionsTitle.length() - 2) / 2;
-        String paddedTitle = "*".concat(" ".repeat(paddingSize) + optionsTitle + " ".repeat(width - optionsTitle.length() - paddingSize - 2) + "*");
+        String paddedTitle =
+                "*"
+                        .concat(
+                                " ".repeat(paddingSize)
+                                        + optionsTitle
+                                        + " "
+                                                .repeat(
+                                                        width
+                                                                - optionsTitle.length()
+                                                                - paddingSize
+                                                                - 2)
+                                        + "*");
 
         System.out.println(border);
         System.out.println(paddedTitle);
@@ -38,7 +46,6 @@ public abstract class Screen {
         System.out.println(border);
     }
 
-
     public int getOptionsSize() {
         return commandMap.size();
     }
@@ -46,5 +53,4 @@ public abstract class Screen {
     public Command getCommand(int index) {
         return commandMap.get(index);
     }
-
 }

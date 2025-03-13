@@ -1,6 +1,6 @@
 package javatro_manager;
 
-public class ExitGameCommand implements Command{
+public class ExitGameCommand implements Command {
 
     @Override
     public String getDescription() {

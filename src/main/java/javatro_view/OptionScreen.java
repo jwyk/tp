@@ -7,8 +7,7 @@ import java.util.List;
 
 public class OptionScreen extends Screen {
 
-    private static final List<String> options =
-            Arrays.asList("Enable Emotes", "Main Menu");
+    private static final List<String> options = Arrays.asList("Enable Emotes", "Main Menu");
 
     public OptionScreen() {
         super("OPTIONS MENU");

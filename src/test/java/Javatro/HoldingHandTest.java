@@ -3,6 +3,7 @@ package Javatro;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javatro_core.Card;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

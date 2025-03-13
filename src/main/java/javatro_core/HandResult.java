@@ -1,7 +1,5 @@
 package javatro_core;
 
-import Javatro.JavatroException;
-
 import static javatro_core.Card.Rank.ACE;
 import static javatro_core.Card.Rank.FIVE;
 import static javatro_core.Card.Rank.FOUR;
@@ -21,6 +19,8 @@ import static javatro_core.PokerHand.HandType.STRAIGHT;
 import static javatro_core.PokerHand.HandType.STRAIGHT_FLUSH;
 import static javatro_core.PokerHand.HandType.THREE_OF_A_KIND;
 import static javatro_core.PokerHand.HandType.TWO_PAIR;
+
+import Javatro.JavatroException;
 
 import java.util.HashMap;
 import java.util.List;

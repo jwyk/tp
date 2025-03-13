@@ -1,13 +1,9 @@
 package javatro_manager;
 
-import javatro_view.JavatroView;
-import javatro_view.StartScreen;
 
 public class LoadStartScreenCommand implements Command {
 
-    public LoadStartScreenCommand() {
-
-    }
+    public LoadStartScreenCommand() {}
 
     @Override
     public void execute() {
@@ -18,5 +14,4 @@ public class LoadStartScreenCommand implements Command {
     public String getDescription() {
         return "Main Menu";
     }
-
 }

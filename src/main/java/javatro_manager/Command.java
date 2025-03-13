@@ -4,5 +4,6 @@ public interface Command {
     default String getDescription() {
         return "";
     }
+
     public void execute();
 }

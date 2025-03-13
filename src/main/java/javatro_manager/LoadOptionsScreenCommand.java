@@ -1,14 +1,9 @@
 package javatro_manager;
 
-import javatro_view.JavatroView;
-import javatro_view.OptionScreen;
-import javatro_view.StartScreen;
 
 public class LoadOptionsScreenCommand implements Command {
 
-    public LoadOptionsScreenCommand() {
-
-    }
+    public LoadOptionsScreenCommand() {}
 
     @Override
     public void execute() {
@@ -19,5 +14,4 @@ public class LoadOptionsScreenCommand implements Command {
     public String getDescription() {
         return "Select Options";
     }
-
 }

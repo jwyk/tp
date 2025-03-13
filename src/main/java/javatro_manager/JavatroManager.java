@@ -4,22 +4,20 @@ import javatro_view.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Scanner;
 
 // Main Controller (Manager) Class
 public class JavatroManager implements PropertyChangeListener {
 
-    private static JavatroView jv; //Main View
+    private static JavatroView jv; // Main View
 
     private static int userInput;
     private static Screen gameScreen = new GameScreen();
     private static Screen optionScreen = new OptionScreen();
     private static Screen startScreen = new StartScreen();
 
-
     public JavatroManager(JavatroView jv) {
         JavatroManager.jv = jv;
-        jv.addPropertyChangeListener(this); //Register as an observer
+        jv.addPropertyChangeListener(this); // Register as an observer
     }
 
     // Changes the screen to display
@@ -39,15 +37,12 @@ public class JavatroManager implements PropertyChangeListener {
         return startScreen;
     }
 
-
-
-
-    //Called when the view says there is a change
+    // Called when the view says there is a change
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals("userInput")) {
-            //Execute the respective command
-            jv.getCurrentScreen().getCommand((int)evt.getNewValue() - 1).execute();
+        if (evt.getPropertyName().equals("userInput")) {
+            // Execute the respective command
+            jv.getCurrentScreen().getCommand((int) evt.getNewValue() - 1).execute();
         }
     }
 }

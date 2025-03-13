@@ -2,17 +2,7 @@ package Javatro;
 
 import javatro_manager.JavatroManager;
 
-
 import javatro_view.JavatroView;
-import static javatro_core.Card.Rank.ACE;
-import static javatro_core.Card.Rank.TEN;
-import static javatro_core.Card.Rank.THREE;
-import static javatro_core.Card.Suit.HEARTS;
-
-import java.util.List;
-import javatro_core.Card;
-import javatro_core.HandResult;
-import javatro_core.PokerHand;
 import javatro_view.StartScreen;
 
 import java.io.IOException;
