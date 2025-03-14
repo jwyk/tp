@@ -43,21 +43,19 @@ public class JavatroException extends Exception {
     /**
      * Creates an exception indicating an invalid blind score.
      *
-     * <p>This exception is thrown when the user tries to start a round
-     * with an invalid blind score.
-     * 
+     * <p>This exception is thrown when the user tries to start a round with an invalid blind score.
+     *
      * @return An {@code JavatroException} indicating the correct blind score.
      */
     public static JavatroException invalidBlindScore() {
         return new JavatroException("Blind score must be greater than or equal to 0");
     }
-    
+
     /**
      * Creates an exception indicating an invalid deck.
      *
-     * <p>This exception is thrown when the user tries to start a round
-     * with an invalid deck.
-     * 
+     * <p>This exception is thrown when the user tries to start a round with an invalid deck.
+     *
      * @return An {@code JavatroException} indicating the correct deck.
      */
     public static JavatroException invalidDeck() {

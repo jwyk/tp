@@ -20,9 +20,9 @@ public class Round {
      * file or manually inputed.
      *
      * @param gameState The current state of the game.
-          * @throws JavatroException
-          */
-         public Round(State gameState) throws JavatroException {
+     * @throws JavatroException
+     */
+    public Round(State gameState) throws JavatroException {
         this.currentScore = 0;
         this.blindScore = gameState.getBlindScore();
         this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
@@ -38,7 +38,7 @@ public class Round {
         if (remainingPlays <= 0) {
             throw JavatroException.invalidPlaysPerRound();
         }
-        
+
         if (deck == null) {
             throw JavatroException.invalidDeck();
         }
