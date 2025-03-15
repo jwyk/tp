@@ -26,6 +26,10 @@ public class Javatro {
                         new Card(TEN, HEARTS),
                         new Card(TEN, HEARTS));
 
+        State state = new State(100, 3, new Deck());
+        // Create a new round
+        Round round = new Round(state);
+
         // Calculate total chips from the cards in the hand
         int totalChips = 0;
         for (Card card : hand) {
