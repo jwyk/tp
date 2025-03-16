@@ -7,100 +7,41 @@ import org.junit.jupiter.api.Test;
 
 public class RoundTest {
 
+    private void assertRoundInitialization(int blindScore, int remainingPlays, int currentScore, int remainingDiscards) throws JavatroException {
+        State state = new State(blindScore, remainingPlays, new Deck());
+        Round round = new Round(state);
+        assertEquals(blindScore, round.getBlindScore());
+        assertEquals(remainingPlays, round.getRemainingPlays());
+        assertEquals(currentScore, round.getCurrentScore());
+        assertEquals(remainingDiscards, round.getRemainingDiscards());
+    }
+
+    private void assertRoundInitializationFailure(int blindScore, int remainingPlays, Deck deck, String expectedMessage) {
+        State state = new State(blindScore, remainingPlays, deck);
+        try {
+            new Round(state);
+            fail();
+        } catch (JavatroException e) {
+            assertEquals(expectedMessage, e.getMessage());
+        }
+    }
+
     @Test
     public void round_correctInitialization_success() throws JavatroException {
-        State state = new State(100, 3, new Deck());
-        Round round = new Round(state);
-        assertEquals(100, round.getBlindScore());
-        assertEquals(3, round.getRemainingPlays());
-        assertEquals(0, round.getCurrentScore());
-        assertEquals(3, round.getRemainingDiscards());
-
-        state = new State(200, 5, new Deck());
-        round = new Round(state);
-        assertEquals(200, round.getBlindScore());
-        assertEquals(5, round.getRemainingPlays());
-        assertEquals(0, round.getCurrentScore());
-        assertEquals(3, round.getRemainingDiscards());
-
-        state = new State(300, 7, new Deck());
-        round = new Round(state);
-        assertEquals(300, round.getBlindScore());
-        assertEquals(7, round.getRemainingPlays());
-        assertEquals(0, round.getCurrentScore());
-        assertEquals(3, round.getRemainingDiscards());
-
-        state = new State(0, 1, new Deck());
-        round = new Round(state);
-        assertEquals(0, round.getBlindScore());
-        assertEquals(1, round.getRemainingPlays());
-        assertEquals(0, round.getCurrentScore());
-        assertEquals(3, round.getRemainingDiscards());
+        assertRoundInitialization(100, 3, 0, 3);
+        assertRoundInitialization(200, 5, 0, 3);
+        assertRoundInitialization(300, 7, 0, 3);
+        assertRoundInitialization(0, 1, 0, 3);
     }
 
     @Test
     public void round_incorrectInitializatioin() throws JavatroException {
-        // test zero plays
-        State state = new State(100, 0, new Deck());
-        try {
-            new Round(state);
-            fail();
-        } catch (JavatroException e) {
-            assertEquals("Number of plays per round must be greater than 0", e.getMessage());
-        }
-
-        // test negative blind score
-        state = new State(-100, 3, new Deck());
-        try {
-            new Round(state);
-            fail();
-        } catch (JavatroException e) {
-            assertEquals("Blind score must be greater than or equal to 0", e.getMessage());
-        }
-
-        // test null deck
-        state = new State(100, 3, null);
-        try {
-            new Round(state);
-            fail();
-        } catch (JavatroException e) {
-            assertEquals("Deck cannot be null", e.getMessage());
-        }
-
-        // test negative blind score and zero plays
-        state = new State(-100, 0, new Deck());
-        try {
-            new Round(state);
-            fail();
-        } catch (JavatroException e) {
-            assertEquals("Blind score must be greater than or equal to 0", e.getMessage());
-        }
-
-        // test negative blind score and null deck
-        state = new State(-100, 3, null);
-        try {
-            new Round(state);
-            fail();
-        } catch (JavatroException e) {
-            assertEquals("Blind score must be greater than or equal to 0", e.getMessage());
-        }
-
-        // test zero plays and null deck
-        state = new State(100, 0, null);
-        try {
-            new Round(state);
-            fail();
-        } catch (JavatroException e) {
-            assertEquals("Number of plays per round must be greater than 0", e.getMessage());
-        }
-
-        // test negative blind score, zero plays and null deck
-        state = new State(-100, 0, null);
-        try {
-            new Round(state);
-            fail();
-        } catch (JavatroException e) {
-            assertEquals("Blind score must be greater than or equal to 0", e.getMessage());
-        }
+        assertRoundInitializationFailure(100, 0, new Deck(), "Number of plays per round must be greater than 0");
+        assertRoundInitializationFailure(-100, 3, new Deck(), "Blind score must be greater than or equal to 0");
+        assertRoundInitializationFailure(100, 3, null, "Deck cannot be null");
+        assertRoundInitializationFailure(-100, 0, new Deck(), "Blind score must be greater than or equal to 0");
+        assertRoundInitializationFailure(-100, 3, null, "Blind score must be greater than or equal to 0");
+        assertRoundInitializationFailure(100, 0, null, "Number of plays per round must be greater than 0");
+        assertRoundInitializationFailure(-100, 0, null, "Blind score must be greater than or equal to 0");
     }
 }
