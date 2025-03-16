@@ -96,7 +96,7 @@ public class Round {
      * @param cardIndices Indices of cards to discard from the holding hand
      * @throws IllegalStateException If no remaining discards are available
      */
-    public void discardCards(List<Integer> cardIndices) {
+    public void discardCards(List<Integer> cardIndices) throws JavatroException {
         if (remainingDiscards <= 0) {
             throw new IllegalStateException("No remaining discards available");
         }
