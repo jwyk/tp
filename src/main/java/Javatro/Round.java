@@ -9,7 +9,7 @@ import java.util.List;
 public class Round {
     private static final int INITIAL_HAND_SIZE = 8;
     private static final int POKER_HAND_SIZE = 5;
-    private static final int MAX_DISCARDS_PER_ROUND = 3;
+    public static final int MAX_DISCARDS_PER_ROUND = 3;
 
     private int currentScore;
     private int blindScore;
@@ -26,21 +26,21 @@ public class Round {
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
      * file or manually inputed.
      *
-     * @param gameState The current state of the game.
+     * //@param gameState The current state of the game.
      * @throws JavatroException
      */
-    public Round(State gameState) throws JavatroException {
+    public Round(int blindScore,int remainingPlays, Deck deck,String roundName, String roundDescription) throws JavatroException {
         this.currentScore = 0;
-        this.blindScore = gameState.getBlindScore();
+        this.blindScore = blindScore;
         this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
-        this.remainingPlays = gameState.getPlaysPerRound();
-        this.deck = gameState.getDeck();
+        this.remainingPlays = remainingPlays;
+        this.deck = deck;
         this.playerHand = new HoldingHand();
         this.ui = new Ui();
 
         //Default descriptions and names
-        roundName = "The Eye";
-        roundDescription = "No repeat hand types";
+        this.roundName = roundName;
+        this.roundDescription = roundDescription;
 
         if (blindScore < 0) {
             throw JavatroException.invalidBlindScore();

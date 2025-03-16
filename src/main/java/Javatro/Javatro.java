@@ -14,15 +14,7 @@ import java.io.IOException;
 // Primary view class that handles current view state etc
 public class Javatro {
     private static final JavatroView javatroView = new JavatroView(); // View
-    private static final JavatroCore javatroCore;
-
-    static {
-        try {
-            javatroCore = new JavatroCore();
-        } catch (JavatroException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final JavatroCore javatroCore = new JavatroCore();
 
     private static final JavatroManager javatroManager = new JavatroManager(javatroView,javatroCore);
 

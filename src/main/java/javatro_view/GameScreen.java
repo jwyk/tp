@@ -16,12 +16,12 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     //Obtain all these values from the model
     private String roundName = ""; //E.g. The Eye
     private String roundDescription = ""; //E.g. No repeat hand types this round
-    private static int blindScore = 1_340_000;
+    private static int blindScore = 0;
     private static int roundScore = 0;
     private static int multLeft = 340;
     private static int multRight = 21_600;
-    private static int handsLeft = 3;
-    private static int discardsLeft = 1;
+    private static int handsLeft = 0;
+    private static int discardsLeft = 0;
     private static int currentCash = 4;
     private static int anteLeft = 12;
     private static int anteRight = 8;
@@ -199,9 +199,16 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(Objects.equals(evt.getPropertyName(), "blindScore")) {
-            System.out.println("RUN!! " + evt.getNewValue().toString());
+        if(Objects.equals(evt.getPropertyName(), "roundName")) {
             roundName = evt.getNewValue().toString();
+        }else if(Objects.equals(evt.getPropertyName(), "remainingPlays")) {
+            handsLeft = (Integer) evt.getNewValue();
+        }else if(Objects.equals(evt.getPropertyName(), "remainingDiscards")) {
+            discardsLeft = (Integer) evt.getNewValue();
+        }else if(Objects.equals(evt.getPropertyName(), "roundName")) {
+            roundName = evt.getNewValue().toString();
+        }else if(Objects.equals(evt.getPropertyName(), "roundDescription")) {
+            roundDescription = evt.getNewValue().toString();
         }
     }
 }

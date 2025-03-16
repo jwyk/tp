@@ -1,5 +1,6 @@
 package javatro_manager;
 
+import Javatro.JavatroException;
 import javatro_core.JavatroCore;
 import javatro_view.*;
 
@@ -27,12 +28,20 @@ public class JavatroManager implements PropertyChangeListener {
     }
 
 
+    public static void beginGame() throws JavatroException {
+        jc.beginGame();
+    }
+
     // Called when the view says there is a change
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("userInput")) {
             // Execute the respective command
-            jv.getCurrentScreen().getCommand((int) evt.getNewValue() - 1).execute();
+            try {
+                jv.getCurrentScreen().getCommand((int) evt.getNewValue() - 1).execute();
+            } catch (JavatroException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

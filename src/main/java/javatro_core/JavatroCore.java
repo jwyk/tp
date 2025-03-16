@@ -11,8 +11,6 @@ import java.beans.PropertyChangeSupport;
 //Main Model class
 public class JavatroCore {
     private static Round currentRound; //Instance of round class
-    private static State gameState;
-    private static Deck deck;
 
     private PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
@@ -21,30 +19,25 @@ public class JavatroCore {
         support.addPropertyChangeListener(pcl);
     }
 
-    //Start a round
-    //Return round later on?
-    public void startRound(String roundName, String roundDescription) {
-        Round round = new Round()
+    //Start a round and assign to current round
+    private void startNewRound(int blindScore,int remainingPlays, Deck deck,String roundName, String roundDescription) throws JavatroException {
+        currentRound = new Round(blindScore,remainingPlays,deck,roundName, roundDescription);
+
+        //Fire property changes here
+        support.firePropertyChange("blindScore", null, blindScore);
+        support.firePropertyChange("remainingPlays", null, remainingPlays);
+        support.firePropertyChange("remainingDiscards", null, Round.MAX_DISCARDS_PER_ROUND);
+        support.firePropertyChange("roundName", null, roundName);
+        support.firePropertyChange("roundDescription", null, roundDescription);
     }
 
-    public static int getBlindScore() {
-        return gameState.getBlindScore();
+
+    //Called when start game is selected
+    public void beginGame() throws JavatroException {
+        Deck d = new Deck();
+        startNewRound(1200,10,d,"The Eye","No repeat hands");
     }
 
-    public static int getPlaysLeft() {
-        return round.getRemainingPlays();
-    }
 
-    public static int getDiscardsLeft() {
-        return round.getRemainingDiscards();
-    }
-
-    public static String getRoundName() {
-        return round.getRoundName();
-    }
-
-    public static String getRoundDescription() {
-        return round.getRoundDescription();
-    }
 
 }

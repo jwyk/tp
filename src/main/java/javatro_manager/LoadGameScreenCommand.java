@@ -1,6 +1,9 @@
 package javatro_manager;
 
 
+import Javatro.Deck;
+import Javatro.JavatroException;
+import javatro_core.JavatroCore;
 import javatro_view.JavatroView;
 
 public class LoadGameScreenCommand implements Command {
@@ -8,7 +11,10 @@ public class LoadGameScreenCommand implements Command {
     public LoadGameScreenCommand() {}
 
     @Override
-    public void execute() {
+    public void execute() throws JavatroException {
+
+        JavatroManager.beginGame();
+
         // Update the main screen to show game screen
         JavatroManager.setScreen(JavatroView.getGameScreen());
     }
