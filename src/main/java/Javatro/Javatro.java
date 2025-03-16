@@ -1,7 +1,10 @@
 package Javatro;
 
+import javatro_core.Card;
+import javatro_core.JavatroCore;
 import javatro_manager.JavatroManager;
 
+import javatro_view.GameScreen;
 import javatro_view.JavatroView;
 import javatro_view.StartScreen;
 
@@ -11,7 +14,17 @@ import java.io.IOException;
 // Primary view class that handles current view state etc
 public class Javatro {
     private static final JavatroView javatroView = new JavatroView(); // View
-    private static final JavatroManager javatroManager = new JavatroManager(javatroView);
+    private static final JavatroCore javatroCore;
+
+    static {
+        try {
+            javatroCore = new JavatroCore();
+        } catch (JavatroException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static final JavatroManager javatroManager = new JavatroManager(javatroView,javatroCore);
 
     public static void main(String[] args) throws IOException {
         JavatroManager.setScreen(new StartScreen());

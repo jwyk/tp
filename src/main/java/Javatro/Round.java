@@ -18,6 +18,9 @@ public class Round {
     private Deck deck;
     private HoldingHand playerHand;
     private Ui ui;
+    private String roundName = "";
+    private String roundDescription = "";
+
 
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
@@ -34,6 +37,10 @@ public class Round {
         this.deck = gameState.getDeck();
         this.playerHand = new HoldingHand();
         this.ui = new Ui();
+
+        //Default descriptions and names
+        roundName = "The Eye";
+        roundDescription = "No repeat hand types";
 
         if (blindScore < 0) {
             throw JavatroException.invalidBlindScore();
@@ -134,5 +141,21 @@ public class Round {
      */
     public boolean isWon() {
         return currentScore > blindScore;
+    }
+
+    public String getRoundName() {
+        return roundName;
+    }
+
+    public void setRoundName(String roundName) {
+        this.roundName = roundName;
+    }
+
+    public String getRoundDescription() {
+        return roundDescription;
+    }
+
+    public void setRoundDescription(String roundDescription) {
+        this.roundDescription = roundDescription;
     }
 }

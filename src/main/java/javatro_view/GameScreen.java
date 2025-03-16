@@ -1,152 +1,207 @@
 package javatro_view;
 
 
-public class GameScreen extends Screen {
+import javatro_core.Card;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+//Displays the current round
+public class GameScreen extends Screen implements PropertyChangeListener {
+
+
+    //Obtain all these values from the model
+    private String roundName = ""; //E.g. The Eye
+    private String roundDescription = ""; //E.g. No repeat hand types this round
+    private static int blindScore = 1_340_000;
+    private static int roundScore = 0;
+    private static int multLeft = 340;
+    private static int multRight = 21_600;
+    private static int handsLeft = 3;
+    private static int discardsLeft = 1;
+    private static int currentCash = 4;
+    private static int anteLeft = 12;
+    private static int anteRight = 8;
+    private static int currentRoundNumber = 1;
+
+    private static final int screenWidth = 80;
+
+    //Set Colours
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String WHITE = "\u001B[37m";
+
+
     public GameScreen() {
-        super("Game Screen");
+        super("GAME MENU");
+    }
+
+    //Given a string to display in the game, adjust and centralise and return it
+    private static String getDisplayStringCenter(String toDisplay, int width) {
+
+        if (toDisplay.length() > width - 2) {
+            toDisplay = toDisplay.substring(0, width - 2);
+        }
+
+        StringBuilder toReturn = new StringBuilder();
+        int numberOfBlanks = (width - toDisplay.length()) / 2;
+        toReturn.append(" ".repeat(Math.max(0, numberOfBlanks)));
+        toReturn.append(toDisplay);
+        toReturn.append(" ".repeat(Math.max(0, numberOfBlanks)));
+        if (numberOfBlanks * 2 + toDisplay.length() < width) {
+            int blanksToAppend = width - (numberOfBlanks * 2 + toDisplay.length());
+            toReturn.append(" ".repeat(Math.max(0, blanksToAppend)));
+        }
+
+        return toReturn.toString();
+    }
+
+    //Given a string to display in the game, adjust and left align and return it
+    private static String getDisplayStringLeft(String toDisplay, int width) {
+
+        if (toDisplay.length() > width - 2) {
+            toDisplay = toDisplay.substring(0, width - 2);
+        }
+
+        StringBuilder toReturn = new StringBuilder("|");
+        int numberOfBlanks = width - toDisplay.length() - 1;
+        toReturn.append(" " + toDisplay);
+        toReturn.append(" ".repeat(Math.max(0, numberOfBlanks)));
+        toReturn.append("|");
+
+        return toReturn.toString();
+    }
+
+    //Displays the "+-----+"
+    private static String getHeaderString(int width) {
+        String headerString = "+";
+        headerString += "-".repeat(width);
+        headerString += "+";
+        return headerString;
+    }
+
+    public static void displayCard(Card c) {
+        String cardSimplified = c.getSimplified();
+        String header = getHeaderString(5);
+
+        System.out.println(header);
+        System.out.println(getDisplayStringCenter(cardSimplified, 5));
+        System.out.println(header);
+    }
+
+
+    @Override
+    public void displayScreen() {
+
+        String header = getHeaderString(screenWidth);
+
+        //Prints the round name
+        System.out.println(header);
+        System.out.println("|" + getDisplayStringCenter(roundName, screenWidth) + "|");
+        System.out.println(header);
+
+
+        //Prints round description + score (on left hand side) and Current Table Text (on right hand side)
+        System.out.println("|" + getDisplayStringCenter(roundDescription, screenWidth / 8 * 3) + "|" + getDisplayStringCenter("Hand Chosen To Play", (screenWidth / 8 * 5) - 1) + "|");
+
+        //Get the card header for all 5 cards chosen to play
+        String cardHeaders = (getHeaderString(5) + "  ").repeat(5);
+
+
+        System.out.println("|" + getDisplayStringCenter("", screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter(cardHeaders, (screenWidth / 8 * 5) - 1) + "|");
+
+
+        //Get the card deck here
+        Card c1 = new Card(Card.Rank.ACE, Card.Suit.CLUBS);
+        Card c2 = new Card(Card.Rank.TWO, Card.Suit.CLUBS);
+        Card c3 = new Card(Card.Rank.THREE, Card.Suit.CLUBS);
+        Card c4 = new Card(Card.Rank.FOUR, Card.Suit.CLUBS);
+        Card c5 = new Card(Card.Rank.FIVE, Card.Suit.CLUBS);
+        Card c6 = new Card(Card.Rank.SIX, Card.Suit.CLUBS);
+        Card c7 = new Card(Card.Rank.SEVEN, Card.Suit.CLUBS);
+        Card c8 = new Card(Card.Rank.EIGHT, Card.Suit.CLUBS);
+
+
+        List<Card> cardsToPlay = List.of(new Card[]{c1, c2, c3, c4, c5});
+
+        String cardValues = "";
+        for (int i = 0; i < cardsToPlay.size(); i++) {
+            cardValues += "|" + getDisplayStringCenter(cardsToPlay.get(i).getSimplified(), 5) + "|" + "  ";
+        }
+
+        //Printing the card value itself
+        System.out.println("|" + getDisplayStringCenter("Score at least " + blindScore, screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter(cardValues, (screenWidth / 8 * 5) - 1) + "|");
+
+
+        //Printing the bottom header
+        System.out.println("|" + getDisplayStringCenter("", screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter(cardHeaders, (screenWidth / 8 * 5) - 1) + "|");
+
+
+        //Print end header
+        System.out.println(header);
+
+        //Printing round score (left hand side) and your hand (right hand side)
+        System.out.println("|" + getDisplayStringCenter("Round Score: " + roundScore, screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter("Your Hand: ", (screenWidth / 8 * 5) - 1) + "|");
+
+
+        //Your hand, it can have up to 8 cards, so print 4 on first row, 4 on second row
+        List<Card> holdingHand = List.of(new Card[]{c1, c2, c3, c4, c5, c6, c7, c8});
+
+        //Get the card header for first 4 cards in holding hand (keep variable to track current cards in hand)
+        String cardHeaderForCardsInHand = (getHeaderString(5) + "  ").repeat(4);
+
+        System.out.println("|" + getDisplayStringCenter("", screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter(cardHeaderForCardsInHand, (screenWidth / 8 * 5) - 1) + "|");
+
+
+        String cardValuesForCardsInHand = "";
+        for (int i = 0; i < 4; i++) {
+            cardValuesForCardsInHand += "|" + getDisplayStringCenter(cardsToPlay.get(i).getSimplified(), 5) + "|" + "  ";
+        }
+
+        //Printing the card value itself
+        System.out.println("|" + getDisplayStringCenter("Mult: " + multLeft + " X " + multRight, screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter(cardValuesForCardsInHand, (screenWidth / 8 * 5) - 1) + "|");
+
+        System.out.println("|" + getDisplayStringCenter("Hands: " + handsLeft + "  Discards: " + discardsLeft, screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter(cardHeaderForCardsInHand, (screenWidth / 8 * 5) - 1) + "|");
+
+
+        System.out.println("|" + getDisplayStringCenter("Cash: $" + currentCash, screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter("", (screenWidth / 8 * 5) - 1) + "|");
+
+
+        System.out.println("|" + getDisplayStringCenter("Ante: " + anteLeft + " / " + anteRight, screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter(cardHeaderForCardsInHand, (screenWidth / 8 * 5) - 1) + "|");
+
+        //Printing the card value itself
+        System.out.println("|" + getDisplayStringCenter("", screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter(cardValuesForCardsInHand, (screenWidth / 8 * 5) - 1) + "|");
+
+        System.out.println("|" + getDisplayStringCenter("Current Round: " + currentRoundNumber, screenWidth / 8 * 3) + "|" +
+                getDisplayStringCenter(cardHeaderForCardsInHand, (screenWidth / 8 * 5) - 1) + "|");
+
+        //Print end header
+        System.out.println(header);
     }
 
     @Override
-    public void displayScreen() {}
-
-    //    private static final List<String> options =
-    //            Arrays.asList("Discard Hand", "See Target Score", "Play Hand", "Exit Game");
-    //    private String blindType;
-    //    private int roundScore;
-    //    private int handsLeft;
-    //    private int moneyInfo;
-    //    private int discardCount;
-    //    private int currentRound;
-    //
-    //    public GameScreen() {
-    //        super(options,"GAME MENU");
-    //        blindType = "SMALL";
-    //        roundScore = 0;
-    //        handsLeft = 0;
-    //        moneyInfo = 0;
-    //        discardCount = 0;
-    //        currentRound = 0;
-    //    }
-    //
-    //    // Shows all necessary components in a compact view
-    //    private void displayGameScreenUI() {
-    //        System.out.println("+------------------------------------------------+");
-    //
-    //        // blindType is max 10 chars
-    //        String blindDisplay = String.format("%-10.10s", blindType);
-    //
-    //        System.out.printf("|          %-10s BLIND                      |\n", blindDisplay);
-    //        System.out.printf(
-    //                "|  [● %-10s BLIND]  Score: %-5d            |\n",
-    //                blindDisplay, Math.min(10, 99999));
-    //
-    //        System.out.println("|------------------------------------------------|");
-    //
-    //        System.out.printf(
-    //                "|  Round Score: ○%-6d                          |\n", Math.min(roundScore,
-    // 999999));
-    //        System.out.println("|------------------------------------------------|");
-    //
-    //        System.out.println("|  Run Info                                      |");
-    //
-    //        // Ensure handsLeft and discardCount fit within space
-    //        System.out.printf(
-    //                "|  Hands: %-2d       Discards: %-2d                  |\n",
-    //                Math.min(handsLeft, 99), Math.min(discardCount, 99));
-    //
-    //        // Format money
-    //        String moneyDisplay =
-    //                moneyInfo >= 1_000_000
-    //                        ? String.format("$%dM", moneyInfo / 1_000_000)
-    //                        : moneyInfo >= 1000
-    //                                ? String.format("$%dK", moneyInfo / 1000)
-    //                                : String.format("$%d", moneyInfo);
-    //
-    //        System.out.printf("|  Money: %-8s                               |\n", moneyDisplay);
-    //
-    //        System.out.println("|------------------------------------------------|");
-    //
-    //        System.out.printf(
-    //                "|  Round: %-3d                                    |\n",
-    //                Math.min(currentRound, 999));
-    //        System.out.println("|------------------------------------------------|");
-    //
-    //        System.out.printf("|  Deck: [▒▒▒▒▒▒]    Cards Left: %2d/52           |\n", Math.min(0,
-    // 52));
-    //
-    //        System.out.println("|------------------------------------------------|");
-    //
-    //        // Print Card
-    //        System.out.println();
-    //        String[] cards = {
-    //            "[ K♠ ]", "[ Q♠ ]", "[ 10♥ ]", "[ 9♣ ]", "[ 8♣ ]", "[ 6♠ ]", "[ 5♦ ]", "[ 3♦ ]"
-    //        };
-    //        int maxPerRow = 5;
-    //        int rowCount = (int) Math.ceil(cards.length / (double) maxPerRow);
-    //
-    //        for (int row = 0; row < rowCount; row++) {
-    //            int min = Math.min(cards.length, (row + 1) * maxPerRow);
-    //            for (int i = row * maxPerRow; i < min; i++) {
-    //                System.out.printf("%-8s", cards[i]);
-    //            }
-    //            // Fill remaining space if fewer than maxPerRow cards
-    //            for (int i = min; i < (row + 1) * maxPerRow; i++) {
-    //                System.out.print("         "); // Empty 8-char space
-    //            }
-    //            System.out.println();
-    //            System.out.println();
-    //        }
-    //    }
-    //
-    //    // Method that shows Current Round
-    //    public void displayRound() {}
-    //
-    //    // Method that displays blind score
-    //    public void displayBlindScore() {}
-    //
-    //    // Method that displays current score
-    //    public void displayCurrentScore() {}
-    //
-    //    // Method that displays the holding hand
-    //    public void displayHoldingHand() {}
-    //
-    //    // Method that displays the number of plays
-    //    public void displayPlays() {}
-    //
-    //    // Method that displays the number of discards so far
-    //    public void displayDiscards() {}
-    //
-    //    // Method that displays the hand selected to play
-    //    public void displayPlayingHand() {}
-    //
-    //    @Override
-    //    public void displayScreen() {
-    //        displayGameScreenUI();
-    //        super.displayOptions();
-    //    }
-    //
-    //    // Setters
-    //    public void setBlindType(String blindType) {
-    //        this.blindType = blindType;
-    //    }
-    //
-    //    public void setRoundScore(int roundScore) {
-    //        this.roundScore = roundScore;
-    //    }
-    //
-    //    public void setHandsLeft(int handsLeft) {
-    //        this.handsLeft = handsLeft;
-    //    }
-    //
-    //    public void setMoneyInfo(int moneyInfo) {
-    //        this.moneyInfo = moneyInfo;
-    //    }
-    //
-    //    public void setDiscardCount(int discardCount) {
-    //        this.discardCount = discardCount;
-    //    }
-    //
-    //    public void setCurrentRound(int currentRound) {
-    //        this.currentRound = currentRound;
-    //    }
+    public void propertyChange(PropertyChangeEvent evt) {
+        if(Objects.equals(evt.getPropertyName(), "blindScore")) {
+            System.out.println("RUN!! " + evt.getNewValue().toString());
+            roundName = evt.getNewValue().toString();
+        }
+    }
 }

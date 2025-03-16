@@ -10,6 +10,11 @@ public class JavatroView {
     private Screen currentScreen; // Current UI that is displayed to user
     private PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
+    private static GameScreen gameScreen = new GameScreen();
+    private static OptionScreen optionScreen = new OptionScreen();
+    private static StartScreen startScreen = new StartScreen();
+
+
     // Register an observer (Controller)
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);
@@ -25,6 +30,19 @@ public class JavatroView {
     public Screen getCurrentScreen() {
         return currentScreen;
     }
+
+    public static GameScreen getGameScreen() {
+        return gameScreen;
+    }
+
+    public static OptionScreen getOptionScreen() {
+        return optionScreen;
+    }
+
+    public static StartScreen getStartScreen() {
+        return startScreen;
+    }
+
 
     public static void clearConsole() {
         String FLUSH = "\033[H\033[2J";
