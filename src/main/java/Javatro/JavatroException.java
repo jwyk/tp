@@ -66,11 +66,10 @@ public class JavatroException extends Exception {
      * Creates an exception indicating incorrect number of cards to play.
      *
      * <p>This exception is thrown when the user tries to play an incorrect number of cards.
-     * 
+     *
      * @return An {@code JavatroException} indicating the correct number of cards to play.
      */
     public static JavatroException invalidNumberOfCardsPlayed() {
         return new JavatroException("Must play exactly 5 cards");
     }
-
 }

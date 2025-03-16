@@ -72,7 +72,7 @@ public class Round {
         currentScore += totalChips * result.getMultiplier();
         ui.printHandResult(result, totalChips, currentScore);
         ui.printRoundScore(currentScore, blindScore);
-        
+
         remainingPlays--;
     }
 
