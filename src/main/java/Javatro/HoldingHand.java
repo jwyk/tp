@@ -12,8 +12,8 @@ import java.util.Set;
  */
 
 public class HoldingHand {
-    protected List<Card> Hand;
     private final int HOLDING_LIMIT = 8; // The maximum number of cards a hand can hold
+    protected List<Card> Hand;
 
     /** Instantiate an empty List of Cards. */
     public HoldingHand() {
