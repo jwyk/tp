@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 
 public class RoundTest {
 
-    private void assertRoundInitialization(int blindScore, int remainingPlays, int currentScore, int remainingDiscards) throws JavatroException {
+    private void assertRoundInitialization(
+            int blindScore, int remainingPlays, int currentScore, int remainingDiscards)
+            throws JavatroException {
         State state = new State(blindScore, remainingPlays, new Deck());
         Round round = new Round(state);
         assertEquals(blindScore, round.getBlindScore());
@@ -16,7 +18,8 @@ public class RoundTest {
         assertEquals(remainingDiscards, round.getRemainingDiscards());
     }
 
-    private void assertRoundInitializationFailure(int blindScore, int remainingPlays, Deck deck, String expectedMessage) {
+    private void assertRoundInitializationFailure(
+            int blindScore, int remainingPlays, Deck deck, String expectedMessage) {
         State state = new State(blindScore, remainingPlays, deck);
         try {
             new Round(state);
@@ -36,12 +39,18 @@ public class RoundTest {
 
     @Test
     public void round_incorrectInitializatioin() throws JavatroException {
-        assertRoundInitializationFailure(100, 0, new Deck(), "Number of plays per round must be greater than 0");
-        assertRoundInitializationFailure(-100, 3, new Deck(), "Blind score must be greater than or equal to 0");
+        assertRoundInitializationFailure(
+                100, 0, new Deck(), "Number of plays per round must be greater than 0");
+        assertRoundInitializationFailure(
+                -100, 3, new Deck(), "Blind score must be greater than or equal to 0");
         assertRoundInitializationFailure(100, 3, null, "Deck cannot be null");
-        assertRoundInitializationFailure(-100, 0, new Deck(), "Blind score must be greater than or equal to 0");
-        assertRoundInitializationFailure(-100, 3, null, "Blind score must be greater than or equal to 0");
-        assertRoundInitializationFailure(100, 0, null, "Number of plays per round must be greater than 0");
-        assertRoundInitializationFailure(-100, 0, null, "Blind score must be greater than or equal to 0");
+        assertRoundInitializationFailure(
+                -100, 0, new Deck(), "Blind score must be greater than or equal to 0");
+        assertRoundInitializationFailure(
+                -100, 3, null, "Blind score must be greater than or equal to 0");
+        assertRoundInitializationFailure(
+                100, 0, null, "Number of plays per round must be greater than 0");
+        assertRoundInitializationFailure(
+                -100, 0, null, "Blind score must be greater than or equal to 0");
     }
 }
