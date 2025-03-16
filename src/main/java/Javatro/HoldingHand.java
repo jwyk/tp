@@ -74,7 +74,7 @@ public class HoldingHand {
         } else {
             for (int index : cardsToPlay) {
                 if (index < 0 || index >= Hand.size()) {
-                    throw new JavatroException("Invalid index in cardsToPlay: " + index);
+                    throw new JavatroException("Invalid index in cards to be played: " + index);
                 }
             }
         }
@@ -126,7 +126,7 @@ public class HoldingHand {
         } else {
             for (int index : cardsToDiscard) {
                 if (index < 0 || index >= Hand.size()) {
-                    throw new JavatroException("Invalid index in cardsToPlay: " + index);
+                    throw new JavatroException("Invalid index in cards to be discarded: " + index);
                 }
             }
         }
