@@ -15,9 +15,7 @@ public class HoldingHand {
     private final int HOLDING_LIMIT = 8; // The maximum number of cards a hand can hold
     protected List<Card> Hand;
 
-    /**
-     * Instantiate an empty List of Cards.
-     */
+    /** Instantiate an empty List of Cards. */
     public HoldingHand() {
         Hand = new ArrayList<Card>();
     }
@@ -39,7 +37,7 @@ public class HoldingHand {
      * Draws a specified number of cards from the deck and adds them to the Hand.
      *
      * @param numberOfDraws The number of cards to draw from the deck
-     * @param deck          Deck containing the remaining cards
+     * @param deck Deck containing the remaining cards
      */
     public void draw(int numberOfDraws, Deck deck) {
         for (int i = 0; i < numberOfDraws; i++) {
@@ -60,15 +58,19 @@ public class HoldingHand {
      * <p>This function should not be called if there are no cards played.
      *
      * @param cardsToPlay List containing cards to be played
-     * @param deck        Deck containing the remaining cards
+     * @param deck Deck containing the remaining cards
      */
     public List<Card> play(List<Integer> cardsToPlay, Deck deck) throws JavatroException {
         List<Card> playList = new ArrayList<>();
 
-        //Validate that cardsToPlay and the played card positions are valid inputs
+        // Validate that cardsToPlay and the played card positions are valid inputs
         if (cardsToPlay.size() > 5) {
-            throw new JavatroException("Number of cards played " + "(" +
-                    cardsToPlay.size() + ")" + "exceeds maximum allowed. (5)");
+            throw new JavatroException(
+                    "Number of cards played "
+                            + "("
+                            + cardsToPlay.size()
+                            + ")"
+                            + "exceeds maximum allowed. (5)");
         } else {
             for (int index : cardsToPlay) {
                 if (index < 0 || index >= Hand.size()) {
@@ -80,7 +82,7 @@ public class HoldingHand {
         // Create a set to mark indices for removal
         Set<Integer> indicesToRemove = new HashSet<>(cardsToPlay);
 
-        //Add cards that should be played in order of cardsToPlay
+        // Add cards that should be played in order of cardsToPlay
         for (int index : cardsToPlay) {
             if (indicesToRemove.contains(index)) {
                 Card card = Hand.get(index);
@@ -109,14 +111,18 @@ public class HoldingHand {
      * left is 0.
      *
      * @param cardsToDiscard List containing the cards at specified positions to be discarded
-     * @param deck           Deck containing the remaining cards
+     * @param deck Deck containing the remaining cards
      */
     public void discard(List<Integer> cardsToDiscard, Deck deck) throws JavatroException {
 
-        //Validate that cardsToDiscard and the played card positions are valid inputs
+        // Validate that cardsToDiscard and the played card positions are valid inputs
         if (cardsToDiscard.size() > 5) {
-            throw new JavatroException("Number of cards discarded " + "(" +
-                    cardsToDiscard.size() + ")" + "exceeds maximum allowed. (5)");
+            throw new JavatroException(
+                    "Number of cards discarded "
+                            + "("
+                            + cardsToDiscard.size()
+                            + ")"
+                            + "exceeds maximum allowed. (5)");
         } else {
             for (int index : cardsToDiscard) {
                 if (index < 0 || index >= Hand.size()) {
@@ -124,7 +130,6 @@ public class HoldingHand {
                 }
             }
         }
-
 
         // Remove the cardsToPlay from the Hand in descending order of indices
         List<Integer> sortedToRemove = new ArrayList<>(cardsToDiscard);
