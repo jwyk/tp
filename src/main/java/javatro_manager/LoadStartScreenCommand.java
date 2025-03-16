@@ -1,6 +1,5 @@
 package javatro_manager;
 
-
 public class LoadStartScreenCommand implements Command {
 
     public LoadStartScreenCommand() {}

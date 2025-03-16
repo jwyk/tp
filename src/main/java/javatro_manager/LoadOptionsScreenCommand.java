@@ -1,6 +1,5 @@
 package javatro_manager;
 
-
 public class LoadOptionsScreenCommand implements Command {
 
     public LoadOptionsScreenCommand() {}

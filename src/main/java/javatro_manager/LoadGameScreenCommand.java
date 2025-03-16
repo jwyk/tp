@@ -1,6 +1,5 @@
 package javatro_manager;
 
-
 public class LoadGameScreenCommand implements Command {
 
     public LoadGameScreenCommand() {}

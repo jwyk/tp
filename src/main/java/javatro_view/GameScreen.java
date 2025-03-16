@@ -1,6 +1,5 @@
 package javatro_view;
 
-
 public class GameScreen extends Screen {
     public GameScreen() {
         super("Game Screen");

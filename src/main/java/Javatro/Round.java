@@ -1,10 +1,10 @@
 package Javatro;
 
-import java.util.List;
-
 import javatro_core.Card;
 import javatro_core.HandResult;
 import javatro_core.PokerHand;
+
+import java.util.List;
 
 public class Round {
     private static final int INITIAL_HAND_SIZE = 8;
