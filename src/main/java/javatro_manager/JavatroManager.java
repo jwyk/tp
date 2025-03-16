@@ -1,7 +1,9 @@
 package javatro_manager;
 
 import Javatro.JavatroException;
+
 import javatro_core.JavatroCore;
+
 import javatro_view.*;
 
 import java.beans.PropertyChangeEvent;
@@ -11,7 +13,7 @@ import java.beans.PropertyChangeListener;
 public class JavatroManager implements PropertyChangeListener {
 
     private static JavatroView jv; // Main View
-    private static JavatroCore jc; //Main Model
+    private static JavatroCore jc; // Main Model
 
     private static int userInput;
 
@@ -19,14 +21,15 @@ public class JavatroManager implements PropertyChangeListener {
         JavatroManager.jv = jv;
         JavatroManager.jc = jc;
         jv.addPropertyChangeListener(this); // Register as an observer
-        jc.addPropertyChangeListener(JavatroView.getGameScreen()); //Register the game screen as an observer of the model
+        jc.addPropertyChangeListener(
+                JavatroView
+                        .getGameScreen()); // Register the game screen as an observer of the model
     }
 
     // Changes the screen to display
     public static void setScreen(Screen destinationScreen) {
         jv.setCurrentScreen(destinationScreen);
     }
-
 
     public static void beginGame() throws JavatroException {
         jc.beginGame();

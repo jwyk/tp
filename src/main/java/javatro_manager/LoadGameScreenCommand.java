@@ -1,9 +1,7 @@
 package javatro_manager;
 
-
-import Javatro.Deck;
 import Javatro.JavatroException;
-import javatro_core.JavatroCore;
+
 import javatro_view.JavatroView;
 
 public class LoadGameScreenCommand implements Command {

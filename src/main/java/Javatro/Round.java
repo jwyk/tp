@@ -21,15 +21,21 @@ public class Round {
     private String roundName = "";
     private String roundDescription = "";
 
-
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
      * file or manually inputed.
      *
-     * //@param gameState The current state of the game.
+     * <p>//@param gameState The current state of the game.
+     *
      * @throws JavatroException
      */
-    public Round(int blindScore,int remainingPlays, Deck deck,String roundName, String roundDescription) throws JavatroException {
+    public Round(
+            int blindScore,
+            int remainingPlays,
+            Deck deck,
+            String roundName,
+            String roundDescription)
+            throws JavatroException {
         this.currentScore = 0;
         this.blindScore = blindScore;
         this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
@@ -38,7 +44,7 @@ public class Round {
         this.playerHand = new HoldingHand();
         this.ui = new Ui();
 
-        //Default descriptions and names
+        // Default descriptions and names
         this.roundName = roundName;
         this.roundDescription = roundDescription;
 

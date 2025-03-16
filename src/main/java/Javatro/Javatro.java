@@ -1,10 +1,9 @@
 package Javatro;
 
-import javatro_core.Card;
 import javatro_core.JavatroCore;
+
 import javatro_manager.JavatroManager;
 
-import javatro_view.GameScreen;
 import javatro_view.JavatroView;
 import javatro_view.StartScreen;
 
@@ -16,7 +15,8 @@ public class Javatro {
     private static final JavatroView javatroView = new JavatroView(); // View
     private static final JavatroCore javatroCore = new JavatroCore();
 
-    private static final JavatroManager javatroManager = new JavatroManager(javatroView,javatroCore);
+    private static final JavatroManager javatroManager =
+            new JavatroManager(javatroView, javatroCore);
 
     public static void main(String[] args) throws IOException {
         JavatroManager.setScreen(new StartScreen());

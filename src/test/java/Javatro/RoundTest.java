@@ -1,11 +1,11 @@
-//package Javatro;
+// package Javatro;
 //
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.fail;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
+// import static org.junit.jupiter.api.Assertions.fail;
 //
-//import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.Test;
 //
-//public class RoundTest {
+// public class RoundTest {
 //
 //    @Test
 //    public void round_correctInitialization_success() throws JavatroException {
@@ -103,4 +103,4 @@
 //            assertEquals("Blind score must be greater than or equal to 0", e.getMessage());
 //        }
 //    }
-//}
+// }

@@ -99,12 +99,16 @@ public record Card(Rank rank, Suit suit) {
         return String.format("%s of %s", rank.getSymbol(), suit.getName());
     }
 
-    //For displaying the card in the game
+    // For displaying the card in the game
     public String getSimplified() {
-        String suitVal = Objects.equals(suit().getName(), "Hearts") ? "H"  :
-                         Objects.equals(suit().getName(), "Clubs") ?  "C"  :
-                         Objects.equals(suit().getName(), "Spades") ? "S"  :
-                         Objects.equals(suit().getName(), "Diamonds") ? "D"  : "-";
+        String suitVal =
+                Objects.equals(suit().getName(), "Hearts")
+                        ? "H"
+                        : Objects.equals(suit().getName(), "Clubs")
+                                ? "C"
+                                : Objects.equals(suit().getName(), "Spades")
+                                        ? "S"
+                                        : Objects.equals(suit().getName(), "Diamonds") ? "D" : "-";
 
         return rank.getSymbol() + suitVal;
     }
