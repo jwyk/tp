@@ -33,6 +33,24 @@ public class HoldingHand {
     }
 
     /**
+     * Draws a specified number of cards from the deck and adds them to the Hand.
+     *
+     * @param numberOfDraws The number of cards to draw from the deck
+     * @param deck Deck containing the remaining cards
+     */
+    public void draw(int numberOfDraws, Deck deck) {
+        for (int i = 0; i < numberOfDraws; i++) {
+            if (Hand.size() < HOLDING_LIMIT) {
+                Card tempCard = deck.draw();
+                Hand.add(tempCard);
+            } else {
+                System.out.println("Exceeded Limit. Card not added.");
+                break;
+            }
+        }
+    }
+
+    /**
      * Returns the specified cards as requested by the player Hand will then draw the same number of
      * cards back from the deck
      *
