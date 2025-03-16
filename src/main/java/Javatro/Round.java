@@ -57,7 +57,7 @@ public class Round {
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
         if (cardIndices.size() != POKER_HAND_SIZE) {
-            throw new IllegalArgumentException("Must play exactly " + POKER_HAND_SIZE + " cards");
+            throw JavatroException.invalidNumberOfCardsPlayed();
         }
 
         List<Card> playedCards = playerHand.play(cardIndices, this.deck);
@@ -72,10 +72,7 @@ public class Round {
         currentScore += totalChips * result.getMultiplier();
         ui.printHandResult(result, totalChips, currentScore);
         ui.printRoundScore(currentScore, blindScore);
-
-        // Draw new cards to replace played ones
-        playerHand.draw(POKER_HAND_SIZE, deck);
-
+        
         remainingPlays--;
     }
 

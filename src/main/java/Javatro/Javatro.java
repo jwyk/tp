@@ -27,8 +27,12 @@ public class Javatro {
                         new Card(TEN, HEARTS));
 
         State state = new State(100, 3, new Deck());
+        List<Integer> cardsToPlay = List.of(0, 1, 2, 3, 4);
         // Create a new round
         Round round = new Round(state);
+        round.playCards(cardsToPlay);
+
+        System.out.println("-----------");
 
         // Calculate total chips from the cards in the hand
         int totalChips = 0;
