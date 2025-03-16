@@ -146,4 +146,8 @@ public class HoldingHand {
             Hand.add(tempCard);
         }
     }
+
+    public List<Card> getHand() {
+        return Hand;
+    }
 }

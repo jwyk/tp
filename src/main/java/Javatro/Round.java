@@ -7,7 +7,7 @@ import javatro_core.PokerHand;
 import java.util.List;
 
 public class Round {
-    private static final int INITIAL_HAND_SIZE = 8;
+    public static final int INITIAL_HAND_SIZE = 8;
     private static final int POKER_HAND_SIZE = 5;
     public static final int MAX_DISCARDS_PER_ROUND = 3;
 
@@ -128,6 +128,10 @@ public class Round {
 
     public int getRemainingPlays() {
         return remainingPlays;
+    }
+
+    public List<Card> getPlayerHand() {
+        return playerHand.getHand();
     }
 
     /**

@@ -1,5 +1,6 @@
 package javatro_view;
 
+import Javatro.HoldingHand;
 import javatro_core.Card;
 
 import java.beans.PropertyChangeEvent;
@@ -23,6 +24,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     private static int anteLeft = 12;
     private static int anteRight = 8;
     private static int currentRoundNumber = 1;
+    private static List<Card> holdingHand;
 
     private static final int screenWidth = 80;
 
@@ -93,16 +95,13 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         System.out.println(header);
     }
 
-    @Override
-    public void displayScreen() {
-
-        String header = getHeaderString(screenWidth);
-
-        // Prints the round name
+    private void displayRoundName(String header) {
         System.out.println(header);
         System.out.println("|" + getDisplayStringCenter(roundName, screenWidth) + "|");
         System.out.println(header);
+    }
 
+    private void displayRoundDesc() {
         // Prints round description + score (on left hand side) and Current Table Text (on right
         // hand side)
         System.out.println(
@@ -111,7 +110,9 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + "|"
                         + getDisplayStringCenter("Hand Chosen To Play", (screenWidth / 8 * 5) - 1)
                         + "|");
+    }
 
+    private void displayCardsChosenToPlay(String header) {
         // Get the card header for all 5 cards chosen to play
         String cardHeaders = (getHeaderString(5) + "  ").repeat(5);
 
@@ -147,7 +148,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         System.out.println(
                 "|"
                         + getDisplayStringCenter(
-                                "Score at least " + blindScore, screenWidth / 8 * 3)
+                        "Score at least " + blindScore, screenWidth / 8 * 3)
                         + "|"
                         + getDisplayStringCenter(cardValues, (screenWidth / 8 * 5) - 1)
                         + "|");
@@ -163,6 +164,9 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         // Print end header
         System.out.println(header);
 
+    }
+
+    private void displayRoundScore() {
         // Printing round score (left hand side) and your hand (right hand side)
         System.out.println(
                 "|"
@@ -170,13 +174,32 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + "|"
                         + getDisplayStringCenter("Your Hand: ", (screenWidth / 8 * 5) - 1)
                         + "|");
+    }
+
+
+    @Override
+    public void displayScreen() {
+
+        String header = getHeaderString(screenWidth);
+
+        // Prints the round name
+        displayRoundName(header);
+
+        //Displays round description + Hand Chosen To Play
+        displayRoundDesc();
+
+        //Displays Cards Chosen To Play
+        displayCardsChosenToPlay(header);
+
 
         // Your hand, it can have up to 8 cards, so print 4 on first row, 4 on second row
-        List<Card> holdingHand = List.of(new Card[] {c1, c2, c3, c4, c5, c6, c7, c8});
 
-        // Get the card header for first 4 cards in holding hand (keep variable to track current
-        // cards in hand)
-        String cardHeaderForCardsInHand = (getHeaderString(5) + "  ").repeat(4);
+        // Get the card header for first 4 cards (or less than 4 cards) in holding hand
+        int repeatCount = 0;
+        if(holdingHand.size() > 4) repeatCount = 4;
+        else repeatCount = holdingHand.size();
+
+        String cardHeaderForCardsInHand = (getHeaderString(5) + "  ").repeat(repeatCount);
 
         System.out.println(
                 "|"
@@ -187,10 +210,10 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + "|");
 
         String cardValuesForCardsInHand = "";
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < repeatCount; i++) {
             cardValuesForCardsInHand +=
                     "|"
-                            + getDisplayStringCenter(cardsToPlay.get(i).getSimplified(), 5)
+                            + getDisplayStringCenter(holdingHand.get(i).getSimplified(), 5)
                             + "|"
                             + "  ";
         }
@@ -204,6 +227,12 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + getDisplayStringCenter(
                                 cardValuesForCardsInHand, (screenWidth / 8 * 5) - 1)
                         + "|");
+
+        //Update the header for the rest of the n - 4 cards
+        if(holdingHand.size() - repeatCount == 4) repeatCount = 4;
+        else repeatCount = holdingHand.size();
+        cardHeaderForCardsInHand = (getHeaderString(5) + "  ").repeat(repeatCount);
+
 
         System.out.println(
                 "|"
@@ -231,7 +260,16 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                                 cardHeaderForCardsInHand, (screenWidth / 8 * 5) - 1)
                         + "|");
 
-        // Printing the card value itself
+        cardValuesForCardsInHand = "";
+        for (int i = 4; i <holdingHand.size(); i++) {
+            cardValuesForCardsInHand +=
+                    "|"
+                            + getDisplayStringCenter(holdingHand.get(i).getSimplified(), 5)
+                            + "|"
+                            + "  ";
+        }
+
+        // Printing the card value itself (n - 4 cards)
         System.out.println(
                 "|"
                         + getDisplayStringCenter("", screenWidth / 8 * 3)
@@ -265,6 +303,13 @@ public class GameScreen extends Screen implements PropertyChangeListener {
             roundName = evt.getNewValue().toString();
         } else if (Objects.equals(evt.getPropertyName(), "roundDescription")) {
             roundDescription = evt.getNewValue().toString();
+        } else if (Objects.equals(evt.getPropertyName(), "holdingHand")) {
+            List<?> list = (List<?>) evt.getNewValue();
+            if (!list.isEmpty() && list.get(0) instanceof Card) {
+                // Cast to List<Card> safely
+                holdingHand = (List<Card>) list;
+            }
+
         }
     }
 }
