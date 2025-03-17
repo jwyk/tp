@@ -1,25 +1,22 @@
 /**
- * The {@code LoadGameScreenCommand} class represents a command that initializes
- * and starts a new game session by setting the game screen.
+ * The {@code LoadGameScreenCommand} class represents a command that initializes and starts a new
+ * game session by setting the game screen.
  */
 package javatro_manager;
 
 import javatro_exception.JavatroException;
+
 import javatro_view.JavatroView;
 
-/**
- * A command that starts the game and loads the game screen.
- */
+/** A command that starts the game and loads the game screen. */
 public class LoadGameScreenCommand implements Command {
 
-    /**
-     * Constructs a {@code LoadGameScreenCommand}.
-     */
+    /** Constructs a {@code LoadGameScreenCommand}. */
     public LoadGameScreenCommand() {}
 
     /**
-     * Executes the command to begin the game, restore available commands,
-     * and update the screen to display the game interface.
+     * Executes the command to begin the game, restore available commands, and update the screen to
+     * display the game interface.
      *
      * @throws JavatroException If an error occurs while starting the game.
      */

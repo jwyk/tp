@@ -1,9 +1,8 @@
-
 package javatro_manager;
 
 /**
- * The {@code ExitGameCommand} class represents a command that terminates the game.
- * When executed, it prints a farewell message and exits the application.
+ * The {@code ExitGameCommand} class represents a command that terminates the game. When executed,
+ * it prints a farewell message and exits the application.
  */
 public class ExitGameCommand implements Command {
 
@@ -18,8 +17,8 @@ public class ExitGameCommand implements Command {
     }
 
     /**
-     * Executes the exit game command, displaying a farewell message
-     * and terminating the application.
+     * Executes the exit game command, displaying a farewell message and terminating the
+     * application.
      */
     @Override
     public void execute() {

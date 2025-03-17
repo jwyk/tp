@@ -1,14 +1,12 @@
 /**
- * The {@code JavatroCore} class represents the main game model, responsible for
- * managing game rounds and initializing the game state.
+ * The {@code JavatroCore} class represents the main game model, responsible for managing game
+ * rounds and initializing the game state.
  */
 package javatro_core;
 
 import javatro_exception.JavatroException;
 
-/**
- * The core game logic class that manages the game state and rounds.
- */
+/** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
 
     /** The current active round in the game. */
@@ -36,8 +34,7 @@ public class JavatroCore {
     }
 
     /**
-     * Starts the game by initializing a new round.
-     * This method is called when the game begins.
+     * Starts the game by initializing a new round. This method is called when the game begins.
      *
      * @throws JavatroException If an error occurs while starting the game.
      */

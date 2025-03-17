@@ -16,9 +16,9 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
- * The {@code GameScreen} class represents the game screen where players interact
- * with the game by playing cards, discarding cards, and viewing their hand.
- * It also listens for property changes to update the game state dynamically.
+ * The {@code GameScreen} class represents the game screen where players interact with the game by
+ * playing cards, discarding cards, and viewing their hand. It also listens for property changes to
+ * update the game state dynamically.
  */
 public class GameScreen extends Screen implements PropertyChangeListener {
 
@@ -43,6 +43,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
     /** The colour string for display formatting */
     public static final String RESET = "\u001B[0m";
+
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
     public static final String YELLOW = "\u001B[33m";
@@ -51,9 +52,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     public static final String CYAN = "\u001B[36m";
     public static final String WHITE = "\u001B[37m";
 
-    /**
-     * Constructs a {@code GameScreen} and initializes the available commands.
-     */
+    /** Constructs a {@code GameScreen} and initializes the available commands. */
     public GameScreen() {
         super("GAME MENU");
         commandMap.add(new PlayCardsCommand());
@@ -62,9 +61,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         commandMap.add(new ExitGameCommand());
     }
 
-    /**
-     * Restores the default game commands after the round ends.
-     */
+    /** Restores the default game commands after the round ends. */
     public void restoreGameCommands() {
         commandMap.clear();
         commandMap.add(new PlayCardsCommand());
@@ -72,8 +69,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         commandMap.add(new LoadStartScreenCommand());
         commandMap.add(new ExitGameCommand());
     }
-
-
 
     /**
      * Formats a string to be centered within a specified width.
@@ -152,9 +147,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         System.out.println(header);
     }
 
-    /**
-     * Displays the round description and the current game status.
-     */
+    /** Displays the round description and the current game status. */
     private void displayRoundDesc() {
         // Prints round description + score (on left hand side) and Current Table Text (on right
         // hand side)
@@ -167,6 +160,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     }
     /**
      * Displays the Joker Cards On The Game
+     *
      * @param header The formatted header string.
      */
     private void displayJokers(String header) {
@@ -206,9 +200,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         System.out.println(header);
     }
 
-    /**
-     * Displays the round score and the player's current hand.
-     */
+    /** Displays the round score and the player's current hand. */
     private void displayRoundScore() {
         // Printing round score (left hand side) and your hand (right hand side)
         System.out.println(
@@ -249,14 +241,10 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + getDisplayStringCenter(leftText, screenWidth / 8 * 3)
                         + "|"
                         + getDisplayStringCenter(rightText, (screenWidth / 8 * 5) - 1)
-                        + "|"
-        );
+                        + "|");
     }
 
-    /**
-     * Displays the game screen on the UI
-     *
-     */
+    /** Displays the game screen on the UI */
     @Override
     public void displayScreen() {
 
@@ -272,7 +260,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         displayJokers(header);
 
         displayRoundScore();
-
 
         // Your hand, it can have up to 8 cards, so print 4 on first row, 4 on second row
         int firstRowCount = Math.min(4, holdingHand.size());
@@ -297,7 +284,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
         // Generate the values for the second row (if applicable)
         if (secondRowCount > 0) {
-            String secondRowValues = generateCardValues(holdingHand, firstRowCount, holdingHand.size());
+            String secondRowValues =
+                    generateCardValues(holdingHand, firstRowCount, holdingHand.size());
             printCardRow("", secondRowValues);
         }
 
@@ -319,7 +307,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         String propertyName = evt.getPropertyName();
         Object newValue = evt.getNewValue();
 
-        //Map for property handlers
+        // Map for property handlers
         Map<String, Consumer<Object>> propertyHandlers = new HashMap<>();
 
         propertyHandlers.put("roundName", value -> roundName = value.toString());
@@ -328,24 +316,31 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         propertyHandlers.put("currentScore", value -> roundScore = (Integer) value);
         propertyHandlers.put("roundDescription", value -> roundDescription = value.toString());
         propertyHandlers.put("blindScore", value -> blindScore = (Integer) value);
-        propertyHandlers.put("holdingHand", value -> {
-            List<?> list = (List<?>) value;
-            holdingHand = list.stream()
-                    .filter(Card.class::isInstance) // Ensures only Card instances are collected
-                    .map(Card.class::cast)         // Safely cast to Card
-                    .collect(Collectors.toList());
-        });
-        propertyHandlers.put("roundComplete", value -> {
-            roundOver = (Integer) value;
-            if (roundOver != 0) {
-                commandMap.clear();
-                commandMap.add(new LoadStartScreenCommand());
-                commandMap.add(new ExitGameCommand());
-            }
-        });
+        propertyHandlers.put(
+                "holdingHand",
+                value -> {
+                    List<?> list = (List<?>) value;
+                    holdingHand =
+                            list.stream()
+                                    .filter(
+                                            Card.class
+                                                    ::isInstance) // Ensures only Card instances are
+                                                                  // collected
+                                    .map(Card.class::cast) // Safely cast to Card
+                                    .collect(Collectors.toList());
+                });
+        propertyHandlers.put(
+                "roundComplete",
+                value -> {
+                    roundOver = (Integer) value;
+                    if (roundOver != 0) {
+                        commandMap.clear();
+                        commandMap.add(new LoadStartScreenCommand());
+                        commandMap.add(new ExitGameCommand());
+                    }
+                });
 
         // Execute the appropriate handler if it exists and update its value
         propertyHandlers.getOrDefault(propertyName, v -> {}).accept(newValue);
-
     }
 }

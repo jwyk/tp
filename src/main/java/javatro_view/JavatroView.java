@@ -29,7 +29,7 @@ public class JavatroView {
             new SelectCardsToPlayScreen(); // Screen where users can choose which cards to play
     private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =
             new SelectCardsToDiscardScreen(); // Screen where users can choose which cards to
-                                              // discard
+    // discard
 
     /**
      * Gets the screen where users select cards to discard.

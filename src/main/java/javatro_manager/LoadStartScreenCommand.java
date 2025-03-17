@@ -1,24 +1,18 @@
 /**
- * The {@code LoadStartScreenCommand} class represents a command that loads
- * the start screen, allowing players to navigate to the main menu.
+ * The {@code LoadStartScreenCommand} class represents a command that loads the start screen,
+ * allowing players to navigate to the main menu.
  */
 package javatro_manager;
 
 import javatro_view.JavatroView;
 
-/**
- * A command that loads the main menu (start screen) when executed.
- */
+/** A command that loads the main menu (start screen) when executed. */
 public class LoadStartScreenCommand implements Command {
 
-    /**
-     * Constructs a {@code LoadStartScreenCommand}.
-     */
+    /** Constructs a {@code LoadStartScreenCommand}. */
     public LoadStartScreenCommand() {}
 
-    /**
-     * Executes the command to change the screen to the start menu.
-     */
+    /** Executes the command to change the screen to the start menu. */
     @Override
     public void execute() {
         JavatroManager.setScreen(JavatroView.getStartScreen());

@@ -1,19 +1,20 @@
 /**
- * The {@code MakeSelectionCommand} class represents a command that allows the player
- * to make a selection of cards to either play or discard, based on the current game screen.
+ * The {@code MakeSelectionCommand} class represents a command that allows the player to make a
+ * selection of cards to either play or discard, based on the current game screen.
  */
 package javatro_manager;
 
 import javatro_core.JavatroCore;
+
 import javatro_exception.JavatroException;
+
 import javatro_view.JavatroView;
 import javatro_view.SelectCardsToDiscardScreen;
 import javatro_view.SelectCardsToPlayScreen;
+
 import java.util.List;
 
-/**
- * A command that enables players to make a selection of cards to play or discard.
- */
+/** A command that enables players to make a selection of cards to play or discard. */
 public class MakeSelectionCommand implements Command {
 
     /** The maximum number of cards that can be selected. */
@@ -39,8 +40,8 @@ public class MakeSelectionCommand implements Command {
     }
 
     /**
-     * Executes the selection command, prompting the player to select cards to either play or discard.
-     * The behavior changes based on the current screen.
+     * Executes the selection command, prompting the player to select cards to either play or
+     * discard. The behavior changes based on the current screen.
      *
      * @throws JavatroException If an error occurs during card selection.
      */
