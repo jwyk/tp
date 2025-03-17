@@ -33,11 +33,15 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     public static final String CYAN = "\u001B[36m";
     public static final String WHITE = "\u001B[37m";
 
-    /** The fixed width of the screen for display formatting. */
-    private static final int screenWidth = 80;
 
     /** Indicator for whether the round is over. 1 for won, -1 for lost, 0 for ongoing. */
     public static int roundOver = 0;
+
+
+
+    /** The fixed width of the screen for display formatting. */
+    private static final int screenWidth = 80;
+
 
     /** The score required to pass the round. */
     private static int blindScore = 0;
