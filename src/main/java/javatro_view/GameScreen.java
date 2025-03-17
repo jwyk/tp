@@ -21,17 +21,10 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     private String roundDescription = ""; // E.g. No repeat hand types this round
     private static int blindScore = 0;
     private static int roundScore = 0;
-    private static int multLeft = 340;
-    private static int multRight = 21_600;
     private static int handsLeft = 0;
     private static int discardsLeft = 0;
-    private static int currentCash = 4;
-    private static int anteLeft = 12;
-    private static int anteRight = 8;
-    private static int currentRoundNumber = 1;
     private static List<Card> holdingHand;
     public  static int roundOver = 0;
-
     private static final int screenWidth = 80;
 
     // Set Colours
@@ -218,7 +211,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         System.out.println(
                 "|"
                         + getDisplayStringCenter(
-                                "Mult: " + multLeft + " X " + multRight, screenWidth / 8 * 3)
+                                "", screenWidth / 8 * 3)
                         + "|"
                         + getDisplayStringCenter(
                                 cardValuesForCardsInHand, (screenWidth / 8 * 5) - 1)
@@ -241,7 +234,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
         System.out.println(
                 "|"
-                        + getDisplayStringCenter("Cash: $" + currentCash, screenWidth / 8 * 3)
+                        + getDisplayStringCenter("Cash: $ - ", screenWidth / 8 * 3)
                         + "|"
                         + getDisplayStringCenter("", (screenWidth / 8 * 5) - 1)
                         + "|");
@@ -249,7 +242,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         System.out.println(
                 "|"
                         + getDisplayStringCenter(
-                                "Ante: " + anteLeft + " / " + anteRight, screenWidth / 8 * 3)
+                                "Ante: " + "X" + " / " + "X", screenWidth / 8 * 3)
                         + "|"
                         + getDisplayStringCenter(
                                 cardHeaderForCardsInHand, (screenWidth / 8 * 5) - 1)
@@ -276,7 +269,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         System.out.println(
                 "|"
                         + getDisplayStringCenter(
-                                "Current Round: " + currentRoundNumber, screenWidth / 8 * 3)
+                                "Current Round: " + "X", screenWidth / 8 * 3)
                         + "|"
                         + getDisplayStringCenter(
                                 cardHeaderForCardsInHand, (screenWidth / 8 * 5) - 1)

@@ -100,10 +100,7 @@ public class Round {
      * @throws IllegalArgumentException If the number of cards to play is not exactly 5
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
-//        if (cardIndices.size() != POKER_HAND_SIZE) {
-//            throw new IllegalArgumentException("Must play exactly " + POKER_HAND_SIZE + " cards");
-//        }
-
+        
         List<Card> playedCards = playerHand.play(cardIndices, this.deck);
         PokerHand result = HandResult.evaluateHand(playedCards);
         Integer totalChips = result.getChips();
