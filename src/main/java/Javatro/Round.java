@@ -60,6 +60,10 @@ public class Round {
             throw JavatroException.invalidNumberOfCardsPlayed();
         }
 
+        if (remainingPlays <= 0) {
+            throw JavatroException.noPlaysRemaining();
+        }
+
         List<Card> playedCards = playerHand.play(cardIndices, this.deck);
         PokerHand result = HandResult.evaluateHand(playedCards);
         Integer totalChips = result.getChips();
@@ -116,8 +120,8 @@ public class Round {
      * @return true if the round is over, false otherwise
      */
     public boolean isRoundOver() {
-        // Round ends if no plays are remaining or score exceeds blind score
-        return remainingPlays <= 0 || this.isWon();
+        // Round ends if no plays are remaining
+        return remainingPlays <= 0;
     }
 
     /**
@@ -126,6 +130,6 @@ public class Round {
      * @return true if player won the round, false otherwise
      */
     public boolean isWon() {
-        return currentScore > blindScore;
+        return currentScore >= blindScore & isRoundOver();
     }
 }
