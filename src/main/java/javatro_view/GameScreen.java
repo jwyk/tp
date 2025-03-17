@@ -6,6 +6,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Objects;
+import javatro_manager.DiscardCardsCommand;
 import javatro_manager.PlayCardsCommand;
 
 // Displays the current round
@@ -41,6 +42,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     public GameScreen() {
         super("GAME MENU");
         commandMap.add(new PlayCardsCommand());
+        commandMap.add(new DiscardCardsCommand());
     }
 
     // Given a string to display in the game, adjust and centralise and return it

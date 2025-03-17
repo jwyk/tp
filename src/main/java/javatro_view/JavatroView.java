@@ -11,13 +11,20 @@ import java.util.stream.Collectors;
 // Main View Class
 public class JavatroView {
 
-    private Screen currentScreen; // Current UI that is displayed to user
+    private static Screen currentScreen; // Current UI that is displayed to user
     private PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
     private static final GameScreen gameScreen = new GameScreen();
     private static final OptionScreen optionScreen = new OptionScreen();
     private static final StartScreen startScreen = new StartScreen();
     private static final SelectCardsToPlayScreen selectCardsToPlayScreen = new SelectCardsToPlayScreen();
+    private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen = new SelectCardsToDiscardScreen();
+
+
+
+  public static SelectCardsToDiscardScreen getSelectCardsToDiscardScreen() {
+    return selectCardsToDiscardScreen;
+  }
 
   public static SelectCardsToPlayScreen getSelectCardsToPlayScreen() {
     return selectCardsToPlayScreen;
@@ -35,7 +42,7 @@ public class JavatroView {
         getInput(); // Get user input
     }
 
-    public Screen getCurrentScreen() {
+    public static Screen getCurrentScreen() {
         return currentScreen;
     }
 

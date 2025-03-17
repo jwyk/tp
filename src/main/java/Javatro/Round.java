@@ -133,6 +133,8 @@ public class Round {
 
         playerHand.draw(cardIndices.size(), deck);
         ui.printDiscardResult(playerHand, remainingDiscards);
+
+        updateRoundVariables();
     }
 
     // Getters
