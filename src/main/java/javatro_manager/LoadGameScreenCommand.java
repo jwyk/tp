@@ -1,6 +1,5 @@
 package javatro_manager;
 
-
 import javatro_exception.JavatroException;
 
 import javatro_view.JavatroView;
