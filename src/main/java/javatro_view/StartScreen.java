@@ -1,11 +1,19 @@
+
 package javatro_view;
 
 import javatro_manager.ExitGameCommand;
 import javatro_manager.LoadGameScreenCommand;
 import javatro_manager.LoadOptionsScreenCommand;
 
+/**
+ * The {@code StartScreen} class represents the initial menu screen of the application.
+ * It provides options to start a game, access options, or exit the game.
+ */
 public class StartScreen extends Screen {
 
+    /**
+     * Constructs a {@code StartScreen} and initializes available commands.
+     */
     public StartScreen() {
         super("START MENU");
         commandMap.add(new LoadGameScreenCommand());
@@ -14,6 +22,9 @@ public class StartScreen extends Screen {
         commandMap.add(new ExitGameCommand());
     }
 
+    /**
+     * Prints the logo of the game to the console.
+     */
     private void printLogo() {
         System.out.println("================================================");
         System.out.println(" JJJ   AAAAA  V   V   AAAAA  TTTTT  RRRR   OOO  ");
@@ -24,6 +35,9 @@ public class StartScreen extends Screen {
         System.out.println("================================================");
     }
 
+    /**
+     * Displays the start screen, including the game logo.
+     */
     @Override
     public void displayScreen() {
         printLogo();
