@@ -13,9 +13,6 @@ import java.util.stream.Collectors;
  */
 public class JavatroView {
 
-    /** Property change support for notifying observers of user input changes. */
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
     /** The current screen being displayed to the user. */
     private static Screen currentScreen;
 
@@ -29,6 +26,9 @@ public class JavatroView {
     private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
             new SelectCardsToPlayScreen(); // Screen where users choose cards to play
     private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
+
+    /** Property change support for notifying observers of user input changes. */
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
      * Gets the screen where users select cards to discard.
