@@ -2,12 +2,13 @@ package javatro_view;
 
 import javatro_core.Card;
 
+import javatro_manager.DiscardCardsCommand;
+import javatro_manager.PlayCardsCommand;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Objects;
-import javatro_manager.DiscardCardsCommand;
-import javatro_manager.PlayCardsCommand;
 
 // Displays the current round
 public class GameScreen extends Screen implements PropertyChangeListener {

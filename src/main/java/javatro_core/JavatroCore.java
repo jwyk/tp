@@ -4,9 +4,6 @@ import Javatro.Deck;
 import Javatro.JavatroException;
 import Javatro.Round;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 // Main Model class
 public class JavatroCore {
     public static Round currentRound; // Instance of round class
@@ -22,7 +19,7 @@ public class JavatroCore {
         currentRound = new Round(blindScore, remainingPlays, deck, roundName, roundDescription);
     }
 
-     //Called when start game is selected
+    // Called when start game is selected
     public void beginGame() throws JavatroException {
         Deck d = new Deck();
         startNewRound(1200, 10, d, "The Eye", "No repeat hands");
