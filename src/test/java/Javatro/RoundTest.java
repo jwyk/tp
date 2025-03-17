@@ -31,6 +31,77 @@ public class RoundTest {
             assertEquals(expectedMessage, e.getMessage());
         }
     }
+    
+    private void assertRoundOverAfterPlays(
+            int blindScore,
+            int totalPlays,
+            int playsToMake,
+            boolean expectedIsOver,
+            boolean expectedIsWon)
+            throws JavatroException {
+        State state = new State(blindScore, totalPlays, new Deck());
+        Round round = new Round(state);
+
+        for (int i = 0; i < playsToMake; i++) {
+            round.playCards(List.of(0, 1, 2, 3, 4));
+        }
+
+        assertEquals(expectedIsOver, round.isRoundOver());
+        if (expectedIsWon) {
+            assertEquals(expectedIsWon, round.isWon());
+        }
+    }
+    
+    private void assertPlayCardsFails(
+            int blindScore, int remainingPlays, int playsToMake, String expectedErrorMessage)
+            throws JavatroException {
+
+        State state = new State(blindScore, remainingPlays, new Deck());
+        try {
+            Round round = new Round(state);
+
+            // Make the specified number of valid plays
+            for (int i = 0; i < playsToMake; i++) {
+                round.playCards(List.of(0, 1, 2, 3, 4));
+            }
+
+            // Attempt one more play which should fail
+            round.playCards(List.of(0, 1, 2, 3, 4));
+            fail();
+        } catch (JavatroException e) {
+            assertEquals(expectedErrorMessage, e.getMessage());
+        }
+    }
+    
+    private void assertPlayCardsInvalidHandSize(
+            int blindScore,
+            int remainingPlays,
+            List<Integer> cardIndices,
+            String expectedErrorMessage)
+            throws JavatroException {
+        State state = new State(blindScore, remainingPlays, new Deck());
+        Round round = new Round(state);
+
+        try {
+            round.playCards(cardIndices);
+            fail();
+        } catch (JavatroException e) {
+            assertEquals(expectedErrorMessage, e.getMessage());
+        }
+    }
+    
+    private void assertRoundNotOver(int blindScore, int remainingPlays, int playsToMake) 
+            throws JavatroException {
+        State state = new State(blindScore, remainingPlays, new Deck());
+        Round round = new Round(state);
+        
+        for (int i = 0; i < playsToMake; i++) {
+            round.playCards(List.of(0, 1, 2, 3, 4));
+        }
+        
+        assertEquals(false, round.isRoundOver());
+        assertEquals(false, round.isWon());
+    }
 
     @Test
     public void round_correctInitialization_success() throws JavatroException {
@@ -59,45 +130,14 @@ public class RoundTest {
 
     @Test
     public void round_playCards_roundNotOver() throws JavatroException {
-        State state = new State(100, 3, new Deck());
-        Round round = new Round(state);
-        round.playCards(List.of(0, 1, 2, 3, 4));
-        assertEquals(false, round.isRoundOver());
-        assertEquals(false, round.isWon());
-
-        state = new State(1000, 3, new Deck());
-        round = new Round(state);
-        round.playCards(List.of(0, 1, 2, 3, 4));
-        assertEquals(false, round.isRoundOver());
-        assertEquals(false, round.isWon());
-
-        state = new State(100, 3000, new Deck());
-        round = new Round(state);
-        for (int i = 0; i < 5; i++) {
-            round.playCards(List.of(0, 1, 2, 3, 4));
-        }
-        assertEquals(false, round.isRoundOver());
-        assertEquals(false, round.isWon());
-    }
-
-    private void assertRoundOverAfterPlays(
-            int blindScore,
-            int totalPlays,
-            int playsToMake,
-            boolean expectedIsOver,
-            boolean expectedIsWon)
-            throws JavatroException {
-        State state = new State(blindScore, totalPlays, new Deck());
-        Round round = new Round(state);
-
-        for (int i = 0; i < playsToMake; i++) {
-            round.playCards(List.of(0, 1, 2, 3, 4));
-        }
-
-        assertEquals(expectedIsOver, round.isRoundOver());
-        if (expectedIsWon) {
-            assertEquals(expectedIsWon, round.isWon());
-        }
+        // Test with regular blind score and plays
+        assertRoundNotOver(100, 3, 1);
+        
+        // Test with high blind score
+        assertRoundNotOver(1000, 3, 1);
+        
+        // Test with many remaining plays
+        assertRoundNotOver(100, 3000, 5);
     }
 
     @Test
@@ -111,28 +151,6 @@ public class RoundTest {
         assertRoundOverAfterPlays(0, 1, 1, true, true);
     }
 
-    private void assertPlayCardsFails(
-            int blindScore, int remainingPlays, int playsToMake, String expectedErrorMessage)
-            throws JavatroException {
-
-        State state = new State(blindScore, remainingPlays, new Deck());
-        try {
-            Round round = new Round(state);
-
-            // Make the specified number of valid plays
-            for (int i = 0; i < playsToMake; i++) {
-                round.playCards(List.of(0, 1, 2, 3, 4));
-            }
-
-            // Attempt one more play which should fail
-
-            round.playCards(List.of(0, 1, 2, 3, 4));
-            fail();
-        } catch (JavatroException e) {
-            assertEquals(expectedErrorMessage, e.getMessage());
-        }
-    }
-
     @Test
     public void round_playCards_tooManyPlays() throws JavatroException {
         // Test with 3 plays
@@ -143,23 +161,6 @@ public class RoundTest {
 
         // Test with 0 plays
         assertPlayCardsFails(100, 0, 0, "Number of plays per round must be greater than 0");
-    }
-
-    private void assertPlayCardsInvalidHandSize(
-            int blindScore,
-            int remainingPlays,
-            List<Integer> cardIndices,
-            String expectedErrorMessage)
-            throws JavatroException {
-        State state = new State(blindScore, remainingPlays, new Deck());
-        Round round = new Round(state);
-
-        try {
-            round.playCards(cardIndices);
-            fail();
-        } catch (JavatroException e) {
-            assertEquals(expectedErrorMessage, e.getMessage());
-        }
     }
 
     @Test
