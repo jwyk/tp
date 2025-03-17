@@ -31,7 +31,7 @@ public class RoundTest {
             assertEquals(expectedMessage, e.getMessage());
         }
     }
-    
+
     private void assertRoundOverAfterPlays(
             int blindScore,
             int totalPlays,
@@ -51,7 +51,7 @@ public class RoundTest {
             assertEquals(expectedIsWon, round.isWon());
         }
     }
-    
+
     private void assertPlayCardsFails(
             int blindScore, int remainingPlays, int playsToMake, String expectedErrorMessage)
             throws JavatroException {
@@ -72,7 +72,7 @@ public class RoundTest {
             assertEquals(expectedErrorMessage, e.getMessage());
         }
     }
-    
+
     private void assertPlayCardsInvalidHandSize(
             int blindScore,
             int remainingPlays,
@@ -89,16 +89,16 @@ public class RoundTest {
             assertEquals(expectedErrorMessage, e.getMessage());
         }
     }
-    
-    private void assertRoundNotOver(int blindScore, int remainingPlays, int playsToMake) 
+
+    private void assertRoundNotOver(int blindScore, int remainingPlays, int playsToMake)
             throws JavatroException {
         State state = new State(blindScore, remainingPlays, new Deck());
         Round round = new Round(state);
-        
+
         for (int i = 0; i < playsToMake; i++) {
             round.playCards(List.of(0, 1, 2, 3, 4));
         }
-        
+
         assertEquals(false, round.isRoundOver());
         assertEquals(false, round.isWon());
     }
@@ -132,10 +132,10 @@ public class RoundTest {
     public void round_playCards_roundNotOver() throws JavatroException {
         // Test with regular blind score and plays
         assertRoundNotOver(100, 3, 1);
-        
+
         // Test with high blind score
         assertRoundNotOver(1000, 3, 1);
-        
+
         // Test with many remaining plays
         assertRoundNotOver(100, 3000, 5);
     }
