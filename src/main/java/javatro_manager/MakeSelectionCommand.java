@@ -1,8 +1,8 @@
 package javatro_manager;
 
-import javatro_exception.JavatroException;
-
 import javatro_core.JavatroCore;
+
+import javatro_exception.JavatroException;
 
 import javatro_view.JavatroView;
 import javatro_view.SelectCardsToDiscardScreen;

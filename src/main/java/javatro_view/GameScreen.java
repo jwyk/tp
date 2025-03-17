@@ -2,7 +2,6 @@ package javatro_view;
 
 import javatro_core.Card;
 
-import javatro_core.JavatroCore;
 import javatro_manager.DiscardCardsCommand;
 import javatro_manager.ExitGameCommand;
 import javatro_manager.LoadStartScreenCommand;
@@ -24,7 +23,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     private static int handsLeft = 0;
     private static int discardsLeft = 0;
     private static List<Card> holdingHand;
-    public  static int roundOver = 0;
+    public static int roundOver = 0;
     private static final int screenWidth = 80;
 
     // Set Colours
@@ -99,11 +98,10 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     private void displayRoundName(String header) {
         System.out.println(header);
         String winStatus = roundOver == 1 ? "YOU WON!" : roundOver == -1 ? "YOU LOST!" : "";
-        if(roundOver == 1 || roundOver == -1) {
+        if (roundOver == 1 || roundOver == -1) {
             System.out.println("|" + getDisplayStringCenter(winStatus, screenWidth) + "|");
-        }else {
+        } else {
             System.out.println("|" + getDisplayStringCenter(roundName, screenWidth) + "|");
-
         }
         System.out.println(header);
     }
@@ -177,7 +175,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         // Displays round description + Hand Chosen To Play
         displayRoundDesc();
 
-        //Displays Jokers
+        // Displays Jokers
         displayJokers(header);
 
         // Your hand, it can have up to 8 cards, so print 4 on first row, 4 on second row
@@ -210,8 +208,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         // Printing the card value itself
         System.out.println(
                 "|"
-                        + getDisplayStringCenter(
-                                "", screenWidth / 8 * 3)
+                        + getDisplayStringCenter("", screenWidth / 8 * 3)
                         + "|"
                         + getDisplayStringCenter(
                                 cardValuesForCardsInHand, (screenWidth / 8 * 5) - 1)
@@ -241,8 +238,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
         System.out.println(
                 "|"
-                        + getDisplayStringCenter(
-                                "Ante: " + "X" + " / " + "X", screenWidth / 8 * 3)
+                        + getDisplayStringCenter("Ante: " + "X" + " / " + "X", screenWidth / 8 * 3)
                         + "|"
                         + getDisplayStringCenter(
                                 cardHeaderForCardsInHand, (screenWidth / 8 * 5) - 1)
@@ -268,8 +264,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
         System.out.println(
                 "|"
-                        + getDisplayStringCenter(
-                                "Current Round: " + "X", screenWidth / 8 * 3)
+                        + getDisplayStringCenter("Current Round: " + "X", screenWidth / 8 * 3)
                         + "|"
                         + getDisplayStringCenter(
                                 cardHeaderForCardsInHand, (screenWidth / 8 * 5) - 1)
@@ -282,7 +277,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     public void printDiscardResult(int remainingDiscards) {
         String line = "--------------------------------------------";
         String discardHeader = "\033[1;33m" + "=== DISCARD RESULT ===" + "\033[0m";
-        String remainingDiscardsMessage = String.format("Remaining Discards: %-10d", remainingDiscards);
+        String remainingDiscardsMessage =
+                String.format("Remaining Discards: %-10d", remainingDiscards);
 
         System.out.println("\n" + line);
         System.out.println(discardHeader);
@@ -291,7 +287,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         System.out.println(line);
         System.out.println();
     }
-
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -313,15 +308,15 @@ public class GameScreen extends Screen implements PropertyChangeListener {
             }
         } else if (Objects.equals(evt.getPropertyName(), "blindScore")) {
             blindScore = (Integer) evt.getNewValue();
-        }else if (Objects.equals(evt.getPropertyName(), "roundComplete")) {
+        } else if (Objects.equals(evt.getPropertyName(), "roundComplete")) {
             roundOver = (Integer) evt.getNewValue();
-            if(roundOver != 0) {
-                //Update command map to display new options
+            if (roundOver != 0) {
+                // Update command map to display new options
                 commandMap.clear();
                 commandMap.add(new LoadStartScreenCommand());
                 commandMap.add(new ExitGameCommand());
             }
-        }else if (Objects.equals(evt.getPropertyName(),"remainingDiscards")) {
+        } else if (Objects.equals(evt.getPropertyName(), "remainingDiscards")) {
             discardsLeft = (Integer) evt.getNewValue();
         }
     }

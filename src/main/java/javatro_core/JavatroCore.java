@@ -7,9 +7,7 @@ public class JavatroCore {
     public static Round currentRound; // Instance of round class
 
     // Start a round and assign to current round
-    private void startNewRound(
-            Round round)
-            throws JavatroException {
+    private void startNewRound(Round round) throws JavatroException {
         currentRound = round;
     }
 
@@ -22,5 +20,4 @@ public class JavatroCore {
     public void beginGame() throws JavatroException {
         startNewRound(classicRound());
     }
-
 }

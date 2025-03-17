@@ -13,7 +13,9 @@ public class Ui {
      * @param currentScore The current score after playing the hand
      */
     public void printHandResult(PokerHand result, int totalChips, int currentScore) {
-        String line = "-----------------------------------------------------------"; // Horizontal line for separation
+        String line =
+                "-----------------------------------------------------------"; // Horizontal line
+                                                                               // for separation
         String handResult = String.format("Hand Result: %-20s", result);
         String chipsWon = String.format("Total Chips Won: %-10d", totalChips);
         String score = String.format("Current Score: %-10d", currentScore);
@@ -28,7 +30,6 @@ public class Ui {
         System.out.println();
     }
 
-
     /**
      * Prints the result of discarding cards.
      *
@@ -37,7 +38,8 @@ public class Ui {
     public void printDiscardResult(int remainingDiscards) {
         String line = "--------------------------------------------";
         String discardHeader = "\033[1;33m" + "=== DISCARD RESULT ===" + "\033[0m";
-        String remainingDiscardsMessage = String.format("Remaining Discards: %-10d", remainingDiscards);
+        String remainingDiscardsMessage =
+                String.format("Remaining Discards: %-10d", remainingDiscards);
 
         System.out.println("\n" + line);
         System.out.println(discardHeader);
@@ -46,7 +48,6 @@ public class Ui {
         System.out.println(line);
         System.out.println();
     }
-
 
     /**
      * Prints the player's hand.

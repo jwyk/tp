@@ -1,7 +1,6 @@
 package javatro_core;
 
 import javatro_exception.JavatroException;
-import Javatro.Ui;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -81,9 +80,9 @@ public class Round {
 
         if (isRoundOver() && isWon()) {
             support.firePropertyChange("roundComplete", null, 1);
-        }else if(isRoundOver() && !isWon()){
+        } else if (isRoundOver() && !isWon()) {
             support.firePropertyChange("roundComplete", null, -1);
-        }else {
+        } else {
             support.firePropertyChange("roundComplete", null, 0);
         }
     }
@@ -133,7 +132,6 @@ public class Round {
 
         updateRoundVariables();
     }
-
 
     // Getters
     public int getCurrentScore() {
