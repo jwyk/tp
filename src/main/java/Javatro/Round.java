@@ -83,10 +83,9 @@ public class Round {
         support.firePropertyChange("holdingHand", null, getPlayerHand());
         support.firePropertyChange("currentScore", null, currentScore);
 
-        if(isRoundOver()) {
-            support.firePropertyChange("roundComplete",null,1);
+        if (isRoundOver()) {
+            support.firePropertyChange("roundComplete", null, 1);
         }
-
     }
 
     /**

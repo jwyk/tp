@@ -94,11 +94,8 @@ public class JavatroView {
                                             return null; // Return null for invalid number
                                         }
                                     })
-                            .filter(
-                                    num ->
-                                            num
-                                                    != null) // Remove nulls caused by invalid
-                                                             // number format
+                            .filter(num -> num != null) // Remove nulls caused by invalid
+                            // number format
                             .collect(Collectors.toList()); // Collect the valid numbers into a list
 
             // Check if the userInput list is valid

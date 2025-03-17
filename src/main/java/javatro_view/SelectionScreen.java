@@ -1,6 +1,5 @@
 package javatro_view;
 
-
 import javatro_core.Card;
 import javatro_core.JavatroCore;
 

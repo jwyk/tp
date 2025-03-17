@@ -127,14 +127,9 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + getDisplayStringCenter(cardHeaders, (screenWidth / 8 * 5) - 1)
                         + "|");
 
-
         String cardValues = "";
         for (int i = 0; i < 5; i++) {
-            cardValues +=
-                    "|"
-                            + getDisplayStringCenter("X", 5)
-                            + "|"
-                            + "  ";
+            cardValues += "|" + getDisplayStringCenter("X", 5) + "|" + "  ";
         }
 
         // Printing the card value itself
