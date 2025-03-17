@@ -1,5 +1,3 @@
-package Javatro;
-
 import javatro_core.JavatroCore;
 
 import javatro_manager.JavatroManager;

@@ -1,6 +1,6 @@
 package javatro_manager;
 
-import Javatro.JavatroException;
+import javatro_exception.JavatroException;
 
 import javatro_core.JavatroCore;
 

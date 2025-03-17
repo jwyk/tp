@@ -1,8 +1,6 @@
 package javatro_core;
 
-import Javatro.Deck;
-import Javatro.JavatroException;
-import Javatro.Round;
+import javatro_exception.JavatroException;
 
 // Main Model class
 public class JavatroCore {

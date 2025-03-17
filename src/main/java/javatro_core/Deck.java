@@ -1,6 +1,4 @@
-package Javatro;
-
-import javatro_core.Card;
+package javatro_core;
 
 import java.util.ArrayList;
 import java.util.Collections;

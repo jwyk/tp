@@ -1,8 +1,7 @@
-package Javatro;
+package javatro_core;
 
-import javatro_core.Card;
-import javatro_core.HandResult;
-import javatro_core.PokerHand;
+import javatro_exception.JavatroException;
+import Javatro.Ui;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -19,7 +18,6 @@ public class Round {
     private int remainingPlays;
     private Deck deck;
     private HoldingHand playerHand;
-    private Ui ui;
     private String roundName = "";
     private String roundDescription = "";
 
@@ -46,7 +44,6 @@ public class Round {
         this.remainingPlays = remainingPlays;
         this.deck = deck;
         this.playerHand = new HoldingHand();
-        this.ui = new Ui();
 
         // Default descriptions and names
         this.roundName = roundName;
@@ -66,7 +63,6 @@ public class Round {
 
         // Initial draw
         playerHand.draw(INITIAL_HAND_SIZE, this.deck);
-        // ui.printPlayerHand(playerHand);
     }
 
     // Register an observer (Controller)
@@ -77,7 +73,7 @@ public class Round {
     public void updateRoundVariables() {
         support.firePropertyChange("blindScore", null, blindScore);
         support.firePropertyChange("remainingPlays", null, remainingPlays);
-        support.firePropertyChange("remainingDiscards", null, Round.MAX_DISCARDS_PER_ROUND);
+        support.firePropertyChange("remainingDiscards", null, remainingDiscards);
         support.firePropertyChange("roundName", null, roundName);
         support.firePropertyChange("roundDescription", null, roundDescription);
         support.firePropertyChange("holdingHand", null, getPlayerHand());
@@ -100,7 +96,7 @@ public class Round {
      * @throws IllegalArgumentException If the number of cards to play is not exactly 5
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
-        
+
         List<Card> playedCards = playerHand.play(cardIndices, this.deck);
         PokerHand result = HandResult.evaluateHand(playedCards);
         Integer totalChips = result.getChips();
@@ -111,8 +107,6 @@ public class Round {
 
         // Update round state
         currentScore += totalChips * result.getMultiplier();
-        ui.printHandResult(result, totalChips, currentScore);
-        ui.printRoundScore(currentScore, blindScore);
 
         // Draw new cards to replace played ones
         playerHand.draw(POKER_HAND_SIZE, deck);
@@ -136,10 +130,10 @@ public class Round {
         remainingDiscards--;
 
         playerHand.draw(cardIndices.size(), deck);
-        ui.printDiscardResult(playerHand, remainingDiscards);
 
         updateRoundVariables();
     }
+
 
     // Getters
     public int getCurrentScore() {

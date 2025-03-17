@@ -1,6 +1,6 @@
-package Javatro;
+package javatro_core;
 
-import javatro_core.Card;
+import javatro_exception.JavatroException;
 
 import java.util.ArrayList;
 import java.util.Comparator;

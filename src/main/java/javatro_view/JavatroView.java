@@ -141,4 +141,5 @@ public class JavatroView {
         support.firePropertyChange("userInput", null, userInput);
         clearConsole();
     }
+
 }

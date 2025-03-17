@@ -279,6 +279,20 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         System.out.println(header);
     }
 
+    public void printDiscardResult(int remainingDiscards) {
+        String line = "--------------------------------------------";
+        String discardHeader = "\033[1;33m" + "=== DISCARD RESULT ===" + "\033[0m";
+        String remainingDiscardsMessage = String.format("Remaining Discards: %-10d", remainingDiscards);
+
+        System.out.println("\n" + line);
+        System.out.println(discardHeader);
+        System.out.println(line);
+        System.out.println(remainingDiscardsMessage);
+        System.out.println(line);
+        System.out.println();
+    }
+
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (Objects.equals(evt.getPropertyName(), "roundName")) {
