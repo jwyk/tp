@@ -15,7 +15,7 @@ public class Ui {
     public void printHandResult(PokerHand result, int totalChips, int currentScore) {
         String line =
                 "-----------------------------------------------------------"; // Horizontal line
-                                                                               // for separation
+        // for separation
         String handResult = String.format("Hand Result: %-20s", result);
         String chipsWon = String.format("Total Chips Won: %-10d", totalChips);
         String score = String.format("Current Score: %-10d", currentScore);

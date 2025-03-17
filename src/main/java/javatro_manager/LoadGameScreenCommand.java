@@ -1,6 +1,5 @@
 package javatro_manager;
 
-import static javatro_view.GameScreen.roundOver;
 
 import javatro_exception.JavatroException;
 
