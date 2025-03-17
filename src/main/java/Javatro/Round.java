@@ -1,11 +1,11 @@
 package Javatro;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import javatro_core.Card;
 import javatro_core.HandResult;
 import javatro_core.PokerHand;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 public class Round {
@@ -82,7 +82,6 @@ public class Round {
         support.firePropertyChange("roundDescription", null, roundDescription);
         support.firePropertyChange("holdingHand", null, getPlayerHand());
         support.firePropertyChange("currentScore", null, currentScore);
-
     }
 
     /**

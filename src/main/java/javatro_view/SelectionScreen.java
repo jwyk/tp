@@ -1,65 +1,61 @@
 package javatro_view;
 
-import static javatro_view.GameScreen.getDisplayStringCenter;
-import static javatro_view.GameScreen.getHeaderString;
 
-import java.util.List;
 import javatro_core.Card;
 import javatro_core.JavatroCore;
-import javatro_manager.JavatroManager;
-import javatro_manager.LoadGameScreenCommand;
-import javatro_manager.MakeSelectionCommand;
+
 import javatro_manager.ResumeGameCommand;
 
-public class SelectionScreen extends Screen{
+import java.util.List;
 
-  protected int SELECTION_LIMIT;
-  List<Card> holdingHand;
+public class SelectionScreen extends Screen {
 
-  public SelectionScreen() {
-    super("SELECT CARDS");
-    commandMap.add(new ResumeGameCommand());
-  }
+    protected int SELECTION_LIMIT;
+    List<Card> holdingHand;
 
-  public void updateHoldingHand() {
-    holdingHand = JavatroCore.currentRound.getPlayerHand();
-  }
-
-
-  protected void displayCardsInHoldingHand() {
-    updateHoldingHand();
-    // Get the card header for all cards in holding hand
-    System.out.println("YOUR CARDS:");
-    String numberHeaders = "";
-    for(int i = 0;i<holdingHand.size();i++) {
-      numberHeaders +=
-          "|" + GameScreen.getDisplayStringCenter(Integer.toString(i+1),5)
-              + "|"
-              + "    ";
+    public SelectionScreen() {
+        super("SELECT CARDS");
+        commandMap.add(new ResumeGameCommand());
     }
 
-    String cardHeaders = (GameScreen.getHeaderString(5) + "    ").repeat(holdingHand.size());
-    System.out.println(numberHeaders);
-    System.out.println(cardHeaders);
-
-    String cardValues = "";
-    for(int i = 0;i<holdingHand.size();i++) {
-      cardValues +=
-          "|" + GameScreen.getDisplayStringCenter(holdingHand.get(i).getSimplified(),5)
-          + "|"
-          + "    ";
+    public void updateHoldingHand() {
+        holdingHand = JavatroCore.currentRound.getPlayerHand();
     }
 
-    // Printing the card value itself
-    System.out.println(cardValues);
+    protected void displayCardsInHoldingHand() {
+        updateHoldingHand();
+        // Get the card header for all cards in holding hand
+        System.out.println("YOUR CARDS:");
+        String numberHeaders = "";
+        for (int i = 0; i < holdingHand.size(); i++) {
+            numberHeaders +=
+                    "|"
+                            + GameScreen.getDisplayStringCenter(Integer.toString(i + 1), 5)
+                            + "|"
+                            + "    ";
+        }
 
-    // Printing the bottom header
-    System.out.println(cardHeaders);
-  }
+        String cardHeaders = (GameScreen.getHeaderString(5) + "    ").repeat(holdingHand.size());
+        System.out.println(numberHeaders);
+        System.out.println(cardHeaders);
 
+        String cardValues = "";
+        for (int i = 0; i < holdingHand.size(); i++) {
+            cardValues +=
+                    "|"
+                            + GameScreen.getDisplayStringCenter(
+                                    holdingHand.get(i).getSimplified(), 5)
+                            + "|"
+                            + "    ";
+        }
 
-  @Override
-  public void displayScreen() {
+        // Printing the card value itself
+        System.out.println(cardValues);
 
-  }
+        // Printing the bottom header
+        System.out.println(cardHeaders);
+    }
+
+    @Override
+    public void displayScreen() {}
 }

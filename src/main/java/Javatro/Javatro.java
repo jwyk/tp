@@ -15,7 +15,7 @@ public class Javatro {
     private static final JavatroView javatroView = new JavatroView(); // View
     private static final JavatroCore javatroCore = new JavatroCore();
 
-  private static final JavatroManager javatroManager =
+    private static final JavatroManager javatroManager =
             new JavatroManager(javatroView, javatroCore);
 
     public static void main(String[] args) throws IOException {

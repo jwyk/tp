@@ -2,7 +2,6 @@ package javatro_view;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -17,20 +16,20 @@ public class JavatroView {
     private static final GameScreen gameScreen = new GameScreen();
     private static final OptionScreen optionScreen = new OptionScreen();
     private static final StartScreen startScreen = new StartScreen();
-    private static final SelectCardsToPlayScreen selectCardsToPlayScreen = new SelectCardsToPlayScreen();
-    private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen = new SelectCardsToDiscardScreen();
+    private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
+            new SelectCardsToPlayScreen();
+    private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =
+            new SelectCardsToDiscardScreen();
 
+    public static SelectCardsToDiscardScreen getSelectCardsToDiscardScreen() {
+        return selectCardsToDiscardScreen;
+    }
 
+    public static SelectCardsToPlayScreen getSelectCardsToPlayScreen() {
+        return selectCardsToPlayScreen;
+    }
 
-  public static SelectCardsToDiscardScreen getSelectCardsToDiscardScreen() {
-    return selectCardsToDiscardScreen;
-  }
-
-  public static SelectCardsToPlayScreen getSelectCardsToPlayScreen() {
-    return selectCardsToPlayScreen;
-  }
-
-  // Register an observer (Controller)
+    // Register an observer (Controller)
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);
     }
@@ -64,42 +63,60 @@ public class JavatroView {
         System.out.flush();
     }
 
-    public static List<Integer> getCardInput(int maxCardsAvailable,int maxCardsToSelect) {
-      Scanner scanner = new Scanner(System.in);
-      List<Integer> userInput = null;  // List to store the numbers entered by the user
+    public static List<Integer> getCardInput(int maxCardsAvailable, int maxCardsToSelect) {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> userInput = null; // List to store the numbers entered by the user
 
-      while (true) {
-        System.out.println("Enter numbers (comma-separated, e.g., 1,2,3) from 1 to " + maxCardsAvailable + " (Allowed to select only " + maxCardsToSelect + "): ");
+        while (true) {
+            System.out.println(
+                    "Enter numbers (comma-separated, e.g., 1,2,3) from 1 to "
+                            + maxCardsAvailable
+                            + " (Allowed to select only "
+                            + maxCardsToSelect
+                            + "): ");
 
-        String input = scanner.nextLine().trim(); // Read the entire line
+            String input = scanner.nextLine().trim(); // Read the entire line
 
-        // Split the input string by commas
-        String[] inputArray = input.split(",");
-        boolean valid = true;
+            // Split the input string by commas
+            String[] inputArray = input.split(",");
+            boolean valid = true;
 
-        // Validate each number in the input
-        userInput = Arrays.stream(inputArray)  // Convert to stream to process each part
-            .map(String::trim) // Trim spaces around numbers
-            .map(numStr -> {
-              try {
-                return Integer.parseInt(numStr) - 1;  // Try to parse each number
-              } catch (NumberFormatException e) {
-                return null;  // Return null for invalid number
-              }
-            })
-            .filter(num -> num != null) // Remove nulls caused by invalid number format
-            .collect(Collectors.toList());  // Collect the valid numbers into a list
+            // Validate each number in the input
+            userInput =
+                    Arrays.stream(inputArray) // Convert to stream to process each part
+                            .map(String::trim) // Trim spaces around numbers
+                            .map(
+                                    numStr -> {
+                                        try {
+                                            return Integer.parseInt(numStr)
+                                                    - 1; // Try to parse each number
+                                        } catch (NumberFormatException e) {
+                                            return null; // Return null for invalid number
+                                        }
+                                    })
+                            .filter(
+                                    num ->
+                                            num
+                                                    != null) // Remove nulls caused by invalid
+                                                             // number format
+                            .collect(Collectors.toList()); // Collect the valid numbers into a list
 
-        // Check if the userInput list is valid
-        if (userInput.isEmpty() || userInput.stream().anyMatch(num -> num < 0 || num > maxCardsAvailable - 1)) {
-          System.out.println("Invalid Input! Enter numbers (comma-separated, e.g., 1,2,3) from 1 to " + maxCardsAvailable + " (Allowed to select only " + maxCardsToSelect + "): ");
-        } else {
-          // If the input is valid, exit the loop
-          System.out.println("You selected the numbers: " + userInput);
-          break;
+            // Check if the userInput list is valid
+            if (userInput.isEmpty()
+                    || userInput.stream().anyMatch(num -> num < 0 || num > maxCardsAvailable - 1)) {
+                System.out.println(
+                        "Invalid Input! Enter numbers (comma-separated, e.g., 1,2,3) from 1 to "
+                                + maxCardsAvailable
+                                + " (Allowed to select only "
+                                + maxCardsToSelect
+                                + "): ");
+            } else {
+                // If the input is valid, exit the loop
+                System.out.println("You selected the numbers: " + userInput);
+                break;
+            }
         }
-      }
-      return userInput;
+        return userInput;
     }
 
     public void getInput() {
