@@ -20,7 +20,7 @@ import static javatro_core.PokerHand.HandType.STRAIGHT_FLUSH;
 import static javatro_core.PokerHand.HandType.THREE_OF_A_KIND;
 import static javatro_core.PokerHand.HandType.TWO_PAIR;
 
-import Javatro.JavatroException;
+import javatro_exception.JavatroException;
 
 import java.util.HashMap;
 import java.util.List;

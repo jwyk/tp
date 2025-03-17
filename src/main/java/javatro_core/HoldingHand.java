@@ -1,6 +1,6 @@
-package Javatro;
+package javatro_core;
 
-import javatro_core.Card;
+import javatro_exception.JavatroException;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -145,5 +145,9 @@ public class HoldingHand {
             Card tempCard = deck.draw();
             Hand.add(tempCard);
         }
+    }
+
+    public List<Card> getHand() {
+        return Hand;
     }
 }

@@ -1,13 +1,13 @@
-package Javatro;
+package javatro_core;
 
-import javatro_core.Card;
-import javatro_core.HandResult;
-import javatro_core.PokerHand;
+import javatro_exception.JavatroException;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 public class Round {
-    private static final int INITIAL_HAND_SIZE = 8;
+    public static final int INITIAL_HAND_SIZE = 8;
     private static final int POKER_HAND_SIZE = 5;
     public static final int MAX_DISCARDS_PER_ROUND = 3;
 
@@ -17,9 +17,10 @@ public class Round {
     private int remainingPlays;
     private Deck deck;
     private HoldingHand playerHand;
-    private Ui ui;
     private String roundName = "";
     private String roundDescription = "";
+
+    private PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
@@ -42,7 +43,6 @@ public class Round {
         this.remainingPlays = remainingPlays;
         this.deck = deck;
         this.playerHand = new HoldingHand();
-        this.ui = new Ui();
 
         // Default descriptions and names
         this.roundName = roundName;
@@ -62,7 +62,29 @@ public class Round {
 
         // Initial draw
         playerHand.draw(INITIAL_HAND_SIZE, this.deck);
-        // ui.printPlayerHand(playerHand);
+    }
+
+    // Register an observer (Controller)
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void updateRoundVariables() {
+        support.firePropertyChange("blindScore", null, blindScore);
+        support.firePropertyChange("remainingPlays", null, remainingPlays);
+        support.firePropertyChange("remainingDiscards", null, remainingDiscards);
+        support.firePropertyChange("roundName", null, roundName);
+        support.firePropertyChange("roundDescription", null, roundDescription);
+        support.firePropertyChange("holdingHand", null, getPlayerHand());
+        support.firePropertyChange("currentScore", null, currentScore);
+
+        if (isRoundOver() && isWon()) {
+            support.firePropertyChange("roundComplete", null, 1);
+        } else if (isRoundOver() && !isWon()) {
+            support.firePropertyChange("roundComplete", null, -1);
+        } else {
+            support.firePropertyChange("roundComplete", null, 0);
+        }
     }
 
     /**
@@ -73,9 +95,6 @@ public class Round {
      * @throws IllegalArgumentException If the number of cards to play is not exactly 5
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
-        if (cardIndices.size() != POKER_HAND_SIZE) {
-            throw new IllegalArgumentException("Must play exactly " + POKER_HAND_SIZE + " cards");
-        }
 
         List<Card> playedCards = playerHand.play(cardIndices, this.deck);
         PokerHand result = HandResult.evaluateHand(playedCards);
@@ -87,13 +106,13 @@ public class Round {
 
         // Update round state
         currentScore += totalChips * result.getMultiplier();
-        ui.printHandResult(result, totalChips, currentScore);
-        ui.printRoundScore(currentScore, blindScore);
 
         // Draw new cards to replace played ones
         playerHand.draw(POKER_HAND_SIZE, deck);
 
         remainingPlays--;
+
+        updateRoundVariables();
     }
 
     /**
@@ -110,7 +129,8 @@ public class Round {
         remainingDiscards--;
 
         playerHand.draw(cardIndices.size(), deck);
-        ui.printDiscardResult(playerHand, remainingDiscards);
+
+        updateRoundVariables();
     }
 
     // Getters
@@ -130,14 +150,18 @@ public class Round {
         return remainingPlays;
     }
 
+    public List<Card> getPlayerHand() {
+        return playerHand.getHand();
+    }
+
     /**
      * Checks if the round is over based on game rules.
      *
      * @return true if the round is over, false otherwise
      */
     public boolean isRoundOver() {
-        // Round ends if no plays are remaining or score exceeds blind score
-        return remainingPlays <= 0 || this.isWon();
+        // Round ends if no plays are remaining
+        return remainingPlays <= 0;
     }
 
     /**
@@ -146,7 +170,7 @@ public class Round {
      * @return true if player won the round, false otherwise
      */
     public boolean isWon() {
-        return currentScore > blindScore;
+        return currentScore >= blindScore;
     }
 
     public String getRoundName() {

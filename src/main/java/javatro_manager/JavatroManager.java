@@ -1,8 +1,8 @@
 package javatro_manager;
 
-import Javatro.JavatroException;
-
 import javatro_core.JavatroCore;
+
+import javatro_exception.JavatroException;
 
 import javatro_view.*;
 
@@ -21,9 +21,6 @@ public class JavatroManager implements PropertyChangeListener {
         JavatroManager.jv = jv;
         JavatroManager.jc = jc;
         jv.addPropertyChangeListener(this); // Register as an observer
-        jc.addPropertyChangeListener(
-                JavatroView
-                        .getGameScreen()); // Register the game screen as an observer of the model
     }
 
     // Changes the screen to display
@@ -33,6 +30,9 @@ public class JavatroManager implements PropertyChangeListener {
 
     public static void beginGame() throws JavatroException {
         jc.beginGame();
+        JavatroCore.currentRound.addPropertyChangeListener(JavatroView.getGameScreen());
+        // Fire property changes here
+        JavatroCore.currentRound.updateRoundVariables();
     }
 
     // Called when the view says there is a change

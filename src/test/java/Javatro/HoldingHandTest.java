@@ -3,6 +3,10 @@ package Javatro;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javatro_core.Card;
+import javatro_core.Deck;
+import javatro_core.HoldingHand;
+
+import javatro_exception.JavatroException;
 
 import org.junit.jupiter.api.Test;
 

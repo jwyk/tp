@@ -1,6 +1,6 @@
 package javatro_manager;
 
-import Javatro.JavatroException;
+import javatro_exception.JavatroException;
 
 public interface Command {
     default String getDescription() {

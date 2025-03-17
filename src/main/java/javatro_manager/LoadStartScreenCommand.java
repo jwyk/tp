@@ -1,5 +1,6 @@
 package javatro_manager;
 
+
 import javatro_view.JavatroView;
 
 public class LoadStartScreenCommand implements Command {
