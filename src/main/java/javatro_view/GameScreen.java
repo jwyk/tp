@@ -111,7 +111,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 "|"
                         + getDisplayStringCenter(roundDescription, screenWidth / 8 * 3)
                         + "|"
-                        + getDisplayStringCenter("Hand Chosen To Play", (screenWidth / 8 * 5) - 1)
+                        + getDisplayStringCenter("Jokers", (screenWidth / 8 * 5) - 1)
                         + "|");
     }
 
@@ -126,23 +126,12 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + getDisplayStringCenter(cardHeaders, (screenWidth / 8 * 5) - 1)
                         + "|");
 
-        // Get the card deck here
-        Card c1 = new Card(Card.Rank.ACE, Card.Suit.CLUBS);
-        Card c2 = new Card(Card.Rank.TWO, Card.Suit.CLUBS);
-        Card c3 = new Card(Card.Rank.THREE, Card.Suit.CLUBS);
-        Card c4 = new Card(Card.Rank.FOUR, Card.Suit.CLUBS);
-        Card c5 = new Card(Card.Rank.FIVE, Card.Suit.CLUBS);
-        Card c6 = new Card(Card.Rank.SIX, Card.Suit.CLUBS);
-        Card c7 = new Card(Card.Rank.SEVEN, Card.Suit.CLUBS);
-        Card c8 = new Card(Card.Rank.EIGHT, Card.Suit.CLUBS);
-
-        List<Card> cardsToPlay = List.of(new Card[] {c1, c2, c3, c4, c5});
 
         String cardValues = "";
-        for (int i = 0; i < cardsToPlay.size(); i++) {
+        for (int i = 0; i < 5; i++) {
             cardValues +=
                     "|"
-                            + getDisplayStringCenter(cardsToPlay.get(i).getSimplified(), 5)
+                            + getDisplayStringCenter("X", 5)
                             + "|"
                             + "  ";
         }

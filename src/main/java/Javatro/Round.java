@@ -83,6 +83,10 @@ public class Round {
         support.firePropertyChange("holdingHand", null, getPlayerHand());
         support.firePropertyChange("currentScore", null, currentScore);
 
+        if(isRoundOver()) {
+            support.firePropertyChange("roundComplete",null,1);
+        }
+
     }
 
     /**
@@ -164,8 +168,8 @@ public class Round {
      * @return true if the round is over, false otherwise
      */
     public boolean isRoundOver() {
-        // Round ends if no plays are remaining or score exceeds blind score
-        return remainingPlays <= 0 || this.isWon();
+        // Round ends if no plays are remaining
+        return remainingPlays <= 0;
     }
 
     /**
