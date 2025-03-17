@@ -1,5 +1,7 @@
 package Javatro;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import javatro_core.Card;
 import javatro_core.HandResult;
 import javatro_core.PokerHand;
@@ -20,6 +22,8 @@ public class Round {
     private Ui ui;
     private String roundName = "";
     private String roundDescription = "";
+
+    private PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
@@ -65,6 +69,22 @@ public class Round {
         // ui.printPlayerHand(playerHand);
     }
 
+    // Register an observer (Controller)
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void updateRoundVariables() {
+        support.firePropertyChange("blindScore", null, blindScore);
+        support.firePropertyChange("remainingPlays", null, remainingPlays);
+        support.firePropertyChange("remainingDiscards", null, Round.MAX_DISCARDS_PER_ROUND);
+        support.firePropertyChange("roundName", null, roundName);
+        support.firePropertyChange("roundDescription", null, roundDescription);
+        support.firePropertyChange("holdingHand", null, getPlayerHand());
+        support.firePropertyChange("currentScore", null, currentScore);
+
+    }
+
     /**
      * Plays a set of 5 cards as a poker hand.
      *
@@ -94,6 +114,8 @@ public class Round {
         playerHand.draw(POKER_HAND_SIZE, deck);
 
         remainingPlays--;
+
+        updateRoundVariables();
     }
 
     /**

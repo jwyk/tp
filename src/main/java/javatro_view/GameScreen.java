@@ -6,6 +6,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Objects;
+import javatro_manager.PlayCardsCommand;
 
 // Displays the current round
 public class GameScreen extends Screen implements PropertyChangeListener {
@@ -39,10 +40,11 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
     public GameScreen() {
         super("GAME MENU");
+        commandMap.add(new PlayCardsCommand());
     }
 
     // Given a string to display in the game, adjust and centralise and return it
-    private static String getDisplayStringCenter(String toDisplay, int width) {
+    public static String getDisplayStringCenter(String toDisplay, int width) {
 
         if (toDisplay.length() > width - 2) {
             toDisplay = toDisplay.substring(0, width - 2);
@@ -78,7 +80,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     }
 
     // Displays the "+-----+"
-    private static String getHeaderString(int width) {
+    public static String getHeaderString(int width) {
         String headerString = "+";
         headerString += "-".repeat(width);
         headerString += "+";
@@ -189,6 +191,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         displayCardsChosenToPlay(header);
 
         // Your hand, it can have up to 8 cards, so print 4 on first row, 4 on second row
+        displayRoundScore();
 
         // Get the card header for first 4 cards (or less than 4 cards) in holding hand
         int repeatCount = 0;
@@ -294,8 +297,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
             handsLeft = (Integer) evt.getNewValue();
         } else if (Objects.equals(evt.getPropertyName(), "remainingDiscards")) {
             discardsLeft = (Integer) evt.getNewValue();
-        } else if (Objects.equals(evt.getPropertyName(), "roundName")) {
-            roundName = evt.getNewValue().toString();
+        } else if (Objects.equals(evt.getPropertyName(), "currentScore")) {
+            roundScore = (Integer) evt.getNewValue();
         } else if (Objects.equals(evt.getPropertyName(), "roundDescription")) {
             roundDescription = evt.getNewValue().toString();
         } else if (Objects.equals(evt.getPropertyName(), "holdingHand")) {
@@ -304,6 +307,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 // Cast to List<Card> safely
                 holdingHand = (List<Card>) list;
             }
+        } else if (Objects.equals(evt.getPropertyName(), "blindScore")) {
+            blindScore = (Integer) evt.getNewValue();
         }
     }
 }
