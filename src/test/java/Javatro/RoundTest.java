@@ -3,9 +3,9 @@ package Javatro;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 public class RoundTest {
 
@@ -80,7 +80,11 @@ public class RoundTest {
         assertEquals(false, round.isWon());
     }
 
-    private void assertRoundOverAfterPlays(int blindScore, int totalPlays, int playsToMake, boolean expectedIsOver,
+    private void assertRoundOverAfterPlays(
+            int blindScore,
+            int totalPlays,
+            int playsToMake,
+            boolean expectedIsOver,
             boolean expectedIsWon)
             throws JavatroException {
         State state = new State(blindScore, totalPlays, new Deck());
@@ -107,8 +111,9 @@ public class RoundTest {
         assertRoundOverAfterPlays(0, 1, 1, true, true);
     }
 
-    private void assertPlayCardsFails(int blindScore, int remainingPlays, int playsToMake,
-            String expectedErrorMessage) throws JavatroException {
+    private void assertPlayCardsFails(
+            int blindScore, int remainingPlays, int playsToMake, String expectedErrorMessage)
+            throws JavatroException {
 
         State state = new State(blindScore, remainingPlays, new Deck());
         try {
@@ -140,8 +145,12 @@ public class RoundTest {
         assertPlayCardsFails(100, 0, 0, "Number of plays per round must be greater than 0");
     }
 
-    private void assertPlayCardsInvalidHandSize(int blindScore, int remainingPlays, List<Integer> cardIndices,
-            String expectedErrorMessage) throws JavatroException {
+    private void assertPlayCardsInvalidHandSize(
+            int blindScore,
+            int remainingPlays,
+            List<Integer> cardIndices,
+            String expectedErrorMessage)
+            throws JavatroException {
         State state = new State(blindScore, remainingPlays, new Deck());
         Round round = new Round(state);
 
@@ -155,12 +164,14 @@ public class RoundTest {
 
     @Test
     public void round_playCards_invalidHandSize() throws JavatroException {
-        assertPlayCardsInvalidHandSize(100, 3, List.of(0, 1, 2, 3, 4, 5), "Must play exactly 5 cards");
+        assertPlayCardsInvalidHandSize(
+                100, 3, List.of(0, 1, 2, 3, 4, 5), "Must play exactly 5 cards");
         assertPlayCardsInvalidHandSize(100, 3, List.of(0, 1, 2, 3), "Must play exactly 5 cards");
-        assertPlayCardsInvalidHandSize(100, 3, List.of(0, 1, 2, 3, 4, 5, 6), "Must play exactly 5 cards");
-        assertPlayCardsInvalidHandSize(100, 3, List.of(0, 1, 2, 3, 4, 5, 6, 7), "Must play exactly 5 cards");
+        assertPlayCardsInvalidHandSize(
+                100, 3, List.of(0, 1, 2, 3, 4, 5, 6), "Must play exactly 5 cards");
+        assertPlayCardsInvalidHandSize(
+                100, 3, List.of(0, 1, 2, 3, 4, 5, 6, 7), "Must play exactly 5 cards");
         // Test with 0 cards
         assertPlayCardsInvalidHandSize(100, 3, List.of(), "Must play exactly 5 cards");
-
     }
 }

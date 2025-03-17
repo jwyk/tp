@@ -72,7 +72,7 @@ public class JavatroException extends Exception {
     public static JavatroException invalidNumberOfCardsPlayed() {
         return new JavatroException("Must play exactly 5 cards");
     }
-    
+
     /**
      * Creates an exception indicating no plays remaining.
      *
