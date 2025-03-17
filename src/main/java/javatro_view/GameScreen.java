@@ -22,10 +22,9 @@ import java.util.stream.Collectors;
  */
 public class GameScreen extends Screen implements PropertyChangeListener {
 
-    /**
-     * UI-related constants for display formatting.
-     */
+    /** UI-related constants for display formatting. */
     public static final String RESET = "\u001B[0m";
+
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
     public static final String YELLOW = "\u001B[33m";
@@ -55,7 +54,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     private String roundName = "";
     /** The description of the current round. */
     private String roundDescription = "";
-
 
     /** Constructs a {@code GameScreen} and initializes the available commands. */
     public GameScreen() {
@@ -330,7 +328,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                                     .filter(
                                             Card.class
                                                     ::isInstance) // Ensures only Card instances are
-                                                                  // collected
+                                    // collected
                                     .map(Card.class::cast) // Safely cast to Card
                                     .collect(Collectors.toList());
                 });

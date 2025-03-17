@@ -36,7 +36,6 @@ public class Round {
     /** Manages property change listeners for game state updates. */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
-
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
      * file or manually inputed.
