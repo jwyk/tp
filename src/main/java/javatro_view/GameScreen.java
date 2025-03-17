@@ -22,10 +22,24 @@ import java.util.stream.Collectors;
  */
 public class GameScreen extends Screen implements PropertyChangeListener {
 
-    /** The name of the current round. */
-    private String roundName = "";
-    /** The description of the current round. */
-    private String roundDescription = "";
+    /**
+     * UI-related constants for display formatting.
+     */
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String WHITE = "\u001B[37m";
+
+    /** The fixed width of the screen for display formatting. */
+    private static final int screenWidth = 80;
+
+    /** Indicator for whether the round is over. 1 for won, -1 for lost, 0 for ongoing. */
+    public static int roundOver = 0;
+
     /** The score required to pass the round. */
     private static int blindScore = 0;
     /** The player's score for the current round. */
@@ -36,21 +50,12 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     private static int discardsLeft = 0;
     /** The player's current hand of cards. */
     private static List<Card> holdingHand;
-    /** Indicator for whether the round is over. 1 for won, -1 for lost, 0 for ongoing. */
-    public static int roundOver = 0;
-    /** The fixed width of the screen for display formatting. */
-    private static final int screenWidth = 80;
 
-    /** The colour string for display formatting */
-    public static final String RESET = "\u001B[0m";
+    /** The name of the current round. */
+    private String roundName = "";
+    /** The description of the current round. */
+    private String roundDescription = "";
 
-    public static final String RED = "\u001B[31m";
-    public static final String GREEN = "\u001B[32m";
-    public static final String YELLOW = "\u001B[33m";
-    public static final String BLUE = "\u001B[34m";
-    public static final String PURPLE = "\u001B[35m";
-    public static final String CYAN = "\u001B[36m";
-    public static final String WHITE = "\u001B[37m";
 
     /** Constructs a {@code GameScreen} and initializes the available commands. */
     public GameScreen() {

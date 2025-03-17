@@ -9,7 +9,8 @@ import javatro_core.JavatroCore;
 
 import javatro_exception.JavatroException;
 
-import javatro_view.*;
+import javatro_view.JavatroView;
+import javatro_view.Screen;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

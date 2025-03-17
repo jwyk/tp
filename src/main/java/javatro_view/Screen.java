@@ -10,11 +10,11 @@ import java.util.ArrayList;
  */
 public abstract class Screen {
 
+    /** A list of commands associated with this screen. */
+    protected final ArrayList<Command> commandMap = new ArrayList<>();
+
     /** The title of the options menu displayed on the screen. */
     private String optionsTitle;
-
-    /** A list of commands associated with this screen. */
-    protected ArrayList<Command> commandMap = new ArrayList<>();
 
     /**
      * Constructs a screen with the specified options title.
