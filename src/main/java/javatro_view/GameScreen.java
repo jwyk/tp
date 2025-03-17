@@ -40,6 +40,16 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         super("GAME MENU");
         commandMap.add(new PlayCardsCommand());
         commandMap.add(new DiscardCardsCommand());
+        commandMap.add(new LoadStartScreenCommand());
+        commandMap.add(new ExitGameCommand());
+    }
+
+    public void restoreGameCommands() {
+        commandMap.clear();
+        commandMap.add(new PlayCardsCommand());
+        commandMap.add(new DiscardCardsCommand());
+        commandMap.add(new LoadStartScreenCommand());
+        commandMap.add(new ExitGameCommand());
     }
 
     // Given a string to display in the game, adjust and centralise and return it

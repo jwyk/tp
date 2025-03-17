@@ -1,5 +1,8 @@
 package javatro_manager;
 
+import static javatro_view.GameScreen.roundOver;
+
+import javatro_view.GameScreen;
 import javatro_view.JavatroView;
 
 public class LoadStartScreenCommand implements Command {
