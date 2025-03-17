@@ -8,25 +8,18 @@ import javatro_view.StartScreen;
 import java.io.IOException;
 
 /**
- * The {@code Javatro} class serves as the main entry point for the application.
- * It initializes the necessary components, including the view, core logic,
- * and manager, and sets the screen of the manager to the start screen.
+ * The {@code Javatro} class serves as the main entry point for the application. It initializes the
+ * necessary components, including the view, core logic, and manager, and sets the screen of the
+ * manager to the start screen.
  */
 public class Javatro {
-    /**
-     * The view component of the application.
-     */
+    /** The view component of the application. */
     private static final JavatroView javatroView = new JavatroView();
 
-    /**
-     * The core logic component of the application.
-     */
+    /** The core logic component of the application. */
     private static final JavatroCore javatroCore = new JavatroCore();
 
-
-    /**
-     * The manager responsible for handling interactions between the view and core components.
-     */
+    /** The manager responsible for handling interactions between the view and core components. */
     private static final JavatroManager javatroManager =
             new JavatroManager(javatroView, javatroCore);
 

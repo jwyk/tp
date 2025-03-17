@@ -8,32 +8,28 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
- * The {@code JavatroView} class is responsible for managing and displaying different
- * screens in the application. It also handles user input and notifies observers
- * when user actions occur.
+ * The {@code JavatroView} class is responsible for managing and displaying different screens in the
+ * application. It also handles user input and notifies observers when user actions occur.
  */
 public class JavatroView {
 
-    /**
-     * The current screen being displayed to the user.
-     */
+    /** The current screen being displayed to the user. */
     private static Screen currentScreen;
 
-    /**
-     * Property change support for notifying observers of user input changes.
-     */
+    /** Property change support for notifying observers of user input changes. */
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    /**
-     * Predefined game-related screens.
-     */
-    private static final GameScreen gameScreen = new GameScreen(); //Screen where game is displayed
-    private static final OptionScreen optionScreen = new OptionScreen(); //Settings screen for users
-    private static final StartScreen startScreen = new StartScreen();//Start Menu Screen
+    /** Predefined game-related screens. */
+    private static final GameScreen gameScreen = new GameScreen(); // Screen where game is displayed
+
+    private static final OptionScreen optionScreen =
+            new OptionScreen(); // Settings screen for users
+    private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
     private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
-        new SelectCardsToPlayScreen();//Screen where users can choose which cards to play
+            new SelectCardsToPlayScreen(); // Screen where users can choose which cards to play
     private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =
-        new SelectCardsToDiscardScreen();//Screen where users can choose which cards to discard
+            new SelectCardsToDiscardScreen(); // Screen where users can choose which cards to
+                                              // discard
 
     /**
      * Gets the screen where users select cards to discard.
@@ -109,9 +105,7 @@ public class JavatroView {
         return startScreen;
     }
 
-    /**
-     * Clears the console screen.
-     */
+    /** Clears the console screen. */
     public static void clearConsole() {
         String FLUSH = "\033[H\033[2J";
         System.out.print(FLUSH);
@@ -131,26 +125,28 @@ public class JavatroView {
 
         while (true) {
             System.out.println(
-                "Enter numbers (comma-separated, e.g., 1,2,3) from 1 to "
-                    + maxCardsAvailable
-                    + " (Allowed to select only "
-                    + maxCardsToSelect
-                    + "):");
+                    "Enter numbers (comma-separated, e.g., 1,2,3) from 1 to "
+                            + maxCardsAvailable
+                            + " (Allowed to select only "
+                            + maxCardsToSelect
+                            + "):");
 
             String input = scanner.nextLine().trim();
             String[] inputArray = input.split(",");
 
-            userInput = Arrays.stream(inputArray)
-                .map(String::trim)
-                .map(numStr -> {
-                    try {
-                        return Integer.parseInt(numStr) - 1;
-                    } catch (NumberFormatException e) {
-                        return null;
-                    }
-                })
-                .filter(num -> num != null && num >= 0 && num < maxCardsAvailable)
-                .collect(Collectors.toList());
+            userInput =
+                    Arrays.stream(inputArray)
+                            .map(String::trim)
+                            .map(
+                                    numStr -> {
+                                        try {
+                                            return Integer.parseInt(numStr) - 1;
+                                        } catch (NumberFormatException e) {
+                                            return null;
+                                        }
+                                    })
+                            .filter(num -> num != null && num >= 0 && num < maxCardsAvailable)
+                            .collect(Collectors.toList());
 
             if (!userInput.isEmpty()) {
                 System.out.println("You selected the numbers: " + userInput);
@@ -162,9 +158,7 @@ public class JavatroView {
         return userInput;
     }
 
-    /**
-     * Handles user input for navigating the current screen and notifies observers.
-     */
+    /** Handles user input for navigating the current screen and notifies observers. */
     public void getInput() {
         Scanner scanner = new Scanner(System.in);
         int userInput;
@@ -179,7 +173,8 @@ public class JavatroView {
                 if (userInput >= 1 && userInput <= maxRange) {
                     break;
                 } else {
-                    System.out.println("Invalid input! Please enter a number between 1 and " + maxRange + ".");
+                    System.out.println(
+                            "Invalid input! Please enter a number between 1 and " + maxRange + ".");
                 }
             } else {
                 System.out.println("Invalid input! Please enter a number.");
@@ -187,7 +182,7 @@ public class JavatroView {
             }
         }
 
-        //Update listeners (JavatroManager)  on the value of user input being updated
+        // Update listeners (JavatroManager)  on the value of user input being updated
         support.firePropertyChange("userInput", null, userInput);
         clearConsole();
     }
