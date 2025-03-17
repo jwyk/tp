@@ -147,6 +147,11 @@ public class HoldingHand {
         }
     }
 
+    /**
+     * Retrieves the list of cards in the player's hand.
+     *
+     * @return A {@code List} of {@code Card} objects representing the player's hand.
+     */
     public List<Card> getHand() {
         return Hand;
     }

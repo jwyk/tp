@@ -64,11 +64,19 @@ public class Round {
         playerHand.draw(INITIAL_HAND_SIZE, this.deck);
     }
 
-    // Register an observer (Controller)
+    /**
+     * Registers an observer to listen for property changes.
+     *
+     * @param pcl The property change listener to register.
+     */
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);
     }
 
+    /**
+     * Fires property change events to notify observers of updated round variables.
+     * This method updates UI components and other observers about the current game state.
+     */
     public void updateRoundVariables() {
         support.firePropertyChange("blindScore", null, blindScore);
         support.firePropertyChange("remainingPlays", null, remainingPlays);
