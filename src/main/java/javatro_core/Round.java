@@ -7,20 +7,34 @@ import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 public class Round {
+    /** The initial number of cards dealt to the player. */
     public static final int INITIAL_HAND_SIZE = 8;
-    private static final int POKER_HAND_SIZE = 5;
+    /** The maximum number of discards allowed per round. */
     public static final int MAX_DISCARDS_PER_ROUND = 3;
+    /** The number of cards required to form a valid poker hand. */
+    private static final int POKER_HAND_SIZE = 5;
 
+    /** The player's current score in the round. */
     private int currentScore;
+    /** The minimum score required to win the round. */
     private int blindScore;
+    /** The number of remaining discards allowed. */
     private int remainingDiscards;
+    /** The number of remaining plays in the round. */
     private int remainingPlays;
+
+    /** The deck of cards used in the round. */
     private Deck deck;
+    /** The player's current hand of cards. */
     private HoldingHand playerHand;
+
+    /** The name of the current round. */
     private String roundName = "";
+    /** The description of the current round. */
     private String roundDescription = "";
 
-    private PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
+    /** Manages property change listeners for game state updates. */
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
     /**
      * Constructs a new round with the specified blind score. The blind score can be fetched from a
@@ -64,11 +78,19 @@ public class Round {
         playerHand.draw(INITIAL_HAND_SIZE, this.deck);
     }
 
-    // Register an observer (Controller)
+    /**
+     * Registers an observer to listen for property changes.
+     *
+     * @param pcl The property change listener to register.
+     */
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);
     }
 
+    /**
+     * Fires property change events to notify observers of updated round variables. This method
+     * updates UI components and other observers about the current game state.
+     */
     public void updateRoundVariables() {
         support.firePropertyChange("blindScore", null, blindScore);
         support.firePropertyChange("remainingPlays", null, remainingPlays);
