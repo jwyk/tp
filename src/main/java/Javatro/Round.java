@@ -83,8 +83,12 @@ public class Round {
         support.firePropertyChange("holdingHand", null, getPlayerHand());
         support.firePropertyChange("currentScore", null, currentScore);
 
-        if (isRoundOver()) {
+        if (isRoundOver() && isWon()) {
             support.firePropertyChange("roundComplete", null, 1);
+        }else if(isRoundOver() && !isWon()){
+            support.firePropertyChange("roundComplete", null, -1);
+        }else {
+            support.firePropertyChange("roundComplete", null, 0);
         }
     }
 
@@ -96,9 +100,9 @@ public class Round {
      * @throws IllegalArgumentException If the number of cards to play is not exactly 5
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
-        if (cardIndices.size() != POKER_HAND_SIZE) {
-            throw new IllegalArgumentException("Must play exactly " + POKER_HAND_SIZE + " cards");
-        }
+//        if (cardIndices.size() != POKER_HAND_SIZE) {
+//            throw new IllegalArgumentException("Must play exactly " + POKER_HAND_SIZE + " cards");
+//        }
 
         List<Card> playedCards = playerHand.play(cardIndices, this.deck);
         PokerHand result = HandResult.evaluateHand(playedCards);
@@ -177,7 +181,7 @@ public class Round {
      * @return true if player won the round, false otherwise
      */
     public boolean isWon() {
-        return currentScore > blindScore;
+        return currentScore >= blindScore;
     }
 
     public String getRoundName() {

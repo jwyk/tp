@@ -2,7 +2,10 @@ package javatro_view;
 
 import javatro_core.Card;
 
+import javatro_core.JavatroCore;
 import javatro_manager.DiscardCardsCommand;
+import javatro_manager.ExitGameCommand;
+import javatro_manager.LoadStartScreenCommand;
 import javatro_manager.PlayCardsCommand;
 
 import java.beans.PropertyChangeEvent;
@@ -27,6 +30,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     private static int anteRight = 8;
     private static int currentRoundNumber = 1;
     private static List<Card> holdingHand;
+    public  static int roundOver = 0;
 
     private static final int screenWidth = 80;
 
@@ -101,7 +105,13 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
     private void displayRoundName(String header) {
         System.out.println(header);
-        System.out.println("|" + getDisplayStringCenter(roundName, screenWidth) + "|");
+        String winStatus = roundOver == 1 ? "YOU WON!" : roundOver == -1 ? "YOU LOST!" : "";
+        if(roundOver == 1 || roundOver == -1) {
+            System.out.println("|" + getDisplayStringCenter(winStatus, screenWidth) + "|");
+        }else {
+            System.out.println("|" + getDisplayStringCenter(roundName, screenWidth) + "|");
+
+        }
         System.out.println(header);
     }
 
@@ -116,7 +126,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + "|");
     }
 
-    private void displayCardsChosenToPlay(String header) {
+    private void displayJokers(String header) {
         // Get the card header for all 5 cards chosen to play
         String cardHeaders = (getHeaderString(5) + "  ").repeat(5);
 
@@ -174,8 +184,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         // Displays round description + Hand Chosen To Play
         displayRoundDesc();
 
-        // Displays Cards Chosen To Play
-        displayCardsChosenToPlay(header);
+        //Displays Jokers
+        displayJokers(header);
 
         // Your hand, it can have up to 8 cards, so print 4 on first row, 4 on second row
         displayRoundScore();
@@ -296,6 +306,16 @@ public class GameScreen extends Screen implements PropertyChangeListener {
             }
         } else if (Objects.equals(evt.getPropertyName(), "blindScore")) {
             blindScore = (Integer) evt.getNewValue();
+        }else if (Objects.equals(evt.getPropertyName(), "roundComplete")) {
+            roundOver = (Integer) evt.getNewValue();
+            if(roundOver != 0) {
+                //Update command map to display new options
+                commandMap.clear();
+                commandMap.add(new LoadStartScreenCommand());
+                commandMap.add(new ExitGameCommand());
+            }
+        }else if (Objects.equals(evt.getPropertyName(),"remainingDiscards")) {
+            discardsLeft = (Integer) evt.getNewValue();
         }
     }
 }
