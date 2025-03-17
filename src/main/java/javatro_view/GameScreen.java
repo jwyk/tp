@@ -36,9 +36,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     /** The fixed width of the screen for display formatting. */
     private static final int screenWidth = 80;
 
-    /** Indicator for whether the round is over. 1 for won, -1 for lost, 0 for ongoing. */
-    public static int roundOver = 0;
-
     /** The score required to pass the round. */
     private static int blindScore = 0;
     /** The player's score for the current round. */
@@ -54,6 +51,9 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     private String roundName = "";
     /** The description of the current round. */
     private String roundDescription = "";
+
+    /** Indicator for whether the round is over. 1 for won, -1 for lost, 0 for ongoing. */
+    public static int roundOver = 0;
 
     /** Constructs a {@code GameScreen} and initializes the available commands. */
     public GameScreen() {

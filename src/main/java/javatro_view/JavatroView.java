@@ -21,14 +21,10 @@ public class JavatroView {
 
     /** Predefined game-related screens. */
     private static final GameScreen gameScreen = new GameScreen(); // Screen where game is displayed
-
-    private static final OptionScreen optionScreen =
-            new OptionScreen(); // Settings screen for users
+    private static final OptionScreen optionScreen = new OptionScreen(); // Settings screen for users
+    private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen = new SelectCardsToDiscardScreen(); // Screen where users choose cards to discard
+    private static final SelectCardsToPlayScreen selectCardsToPlayScreen = new SelectCardsToPlayScreen(); // Screen where users choose cards to play
     private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
-    private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
-            new SelectCardsToPlayScreen(); // Screen where users choose cards to play
-    private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =
-            new SelectCardsToDiscardScreen(); // Screen where users choose cards to discard
 
     /**
      * Gets the screen where users select cards to discard.
