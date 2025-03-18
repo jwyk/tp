@@ -2,11 +2,18 @@ package javatro_manager;
 
 import javatro_view.JavatroView;
 
+/**
+ * The HelpIntroCommand class provides an introduction to Javatro.
+ * This command is executed when the player requests an introduction.
+ */
 public class HelpIntroCommand  implements Command {
 
 
     public HelpIntroCommand() {}
 
+    /**
+     * Executes the command to display the introduction message.
+     */
     @Override
     public void execute() {
         System.out.println("\n=== Welcome to Javatro ===");
@@ -18,6 +25,11 @@ public class HelpIntroCommand  implements Command {
         JavatroManager.setScreen(JavatroView.getHelpScreen());
     }
 
+    /**
+     * Returns a description of this command.
+     *
+     * @return A string describing the command.
+     */
     @Override
     public String getDescription() {
         return "Game Introduction";

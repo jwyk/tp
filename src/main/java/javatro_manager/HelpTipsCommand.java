@@ -4,9 +4,15 @@ import javatro_view.JavatroView;
 
 public class HelpTipsCommand  implements Command {
 
-
+    /**
+     * The HelpTipsCommand class provides gameplay tips for Javatro.
+     * This command is executed when the player requests tips for improving their strategy.
+     */
     public HelpTipsCommand() {}
 
+    /**
+     * Executes the command to display gameplay tips.
+     */
     @Override
     public void execute() {
         System.out.println("\n=== Pro Tips for Javatro ===");
@@ -20,6 +26,11 @@ public class HelpTipsCommand  implements Command {
         JavatroManager.setScreen(JavatroView.getHelpScreen());
     }
 
+    /**
+     * Returns a description of this command.
+     *
+     * @return A string describing the command.
+     */
     @Override
     public String getDescription() {
         return "Tips and Tricks";

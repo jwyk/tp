@@ -4,10 +4,15 @@ import javatro_view.JavatroView;
 
 public class HelpRulesCommand  implements Command {
 
-
-
+    /**
+     * The HelpRulesCommand class provides the rules for playing Javatro.
+     * This command is executed when the player requests game rules.
+     */
     public HelpRulesCommand() {}
 
+    /**
+     * Executes the command to display the rules of the game.
+     */
     @Override
     public void execute() {
         System.out.println("\n=== Javatro Rules ===");
@@ -21,6 +26,11 @@ public class HelpRulesCommand  implements Command {
         JavatroManager.setScreen(JavatroView.getHelpScreen());
     }
 
+    /**
+     * Returns a description of this command.
+     *
+     * @return A string describing the command.
+     */
     @Override
     public String getDescription() {
         return "Game Rules";

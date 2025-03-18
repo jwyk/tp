@@ -4,9 +4,15 @@ import javatro_view.JavatroView;
 
 public class HelpHowToPlayCommand  implements Command {
 
-
+    /**
+     * The HelpHowToPlayCommand class explains how to play Javatro.
+     * This command is executed when the player requests gameplay instructions.
+     */
     public HelpHowToPlayCommand() {}
 
+    /**
+     * Executes the command to display instructions on how to play.
+     */
     @Override
     public void execute() {
         System.out.println("\n=== How to Play Javatro ===");
@@ -23,6 +29,11 @@ public class HelpHowToPlayCommand  implements Command {
         JavatroManager.setScreen(JavatroView.getHelpScreen());
     }
 
+    /**
+     * Returns a description of this command.
+     *
+     * @return A string describing the command.
+     */
     @Override
     public String getDescription() {
         return "How To Play";
