@@ -25,6 +25,7 @@ public class JavatroView {
             new SelectCardsToDiscardScreen(); // Screen where users choose cards to discard
     private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
             new SelectCardsToPlayScreen(); // Screen where users choose cards to play
+    private static final HelpScreen helpScreen = new HelpScreen(); // Help screen for users
     private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
 
     /** Property change support for notifying observers of user input changes. */
@@ -102,6 +103,11 @@ public class JavatroView {
      */
     public static StartScreen getStartScreen() {
         return startScreen;
+    }
+
+    
+    public static HelpScreen getHelpScreen() {
+        return helpScreen;
     }
 
     /** Clears the console screen. */
