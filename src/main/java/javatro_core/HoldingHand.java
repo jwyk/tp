@@ -1,4 +1,6 @@
-package Javatro;
+package javatro_core;
+
+import javatro_exception.JavatroException;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -143,5 +145,14 @@ public class HoldingHand {
             Card tempCard = deck.draw();
             Hand.add(tempCard);
         }
+    }
+
+    /**
+     * Retrieves the list of cards in the player's hand.
+     *
+     * @return A {@code List} of {@code Card} objects representing the player's hand.
+     */
+    public List<Card> getHand() {
+        return Hand;
     }
 }

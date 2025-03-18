@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
+import javatro_core.Deck;
+import javatro_core.Round;
+import javatro_exception.JavatroException;
+
 import java.util.List;
 
 public class RoundTest {
@@ -12,8 +16,8 @@ public class RoundTest {
     private void assertRoundInitialization(
             int blindScore, int remainingPlays, int currentScore, int remainingDiscards)
             throws JavatroException {
-        State state = new State(blindScore, remainingPlays, new Deck());
-        Round round = new Round(state);
+        Deck deck = new Deck();
+        Round round = new Round(blindScore, remainingPlays, deck, "", "");
         assertEquals(blindScore, round.getBlindScore());
         assertEquals(remainingPlays, round.getRemainingPlays());
         assertEquals(currentScore, round.getCurrentScore());
@@ -23,9 +27,8 @@ public class RoundTest {
 
     private void assertRoundInitializationFailure(
             int blindScore, int remainingPlays, Deck deck, String expectedMessage) {
-        State state = new State(blindScore, remainingPlays, deck);
         try {
-            new Round(state);
+            new Round(blindScore, remainingPlays, deck, "", "");
             fail();
         } catch (JavatroException e) {
             assertEquals(expectedMessage, e.getMessage());
@@ -39,8 +42,8 @@ public class RoundTest {
             boolean expectedIsOver,
             boolean expectedIsWon)
             throws JavatroException {
-        State state = new State(blindScore, totalPlays, new Deck());
-        Round round = new Round(state);
+        Deck deck = new Deck();
+        Round round = new Round(blindScore, totalPlays, deck, "", "");
 
         for (int i = 0; i < playsToMake; i++) {
             round.playCards(List.of(0, 1, 2, 3, 4));
@@ -56,9 +59,9 @@ public class RoundTest {
             int blindScore, int remainingPlays, int playsToMake, String expectedErrorMessage)
             throws JavatroException {
 
-        State state = new State(blindScore, remainingPlays, new Deck());
         try {
-            Round round = new Round(state);
+            Deck deck = new Deck();
+            Round round = new Round(blindScore, remainingPlays, deck, "", "");
 
             // Make the specified number of valid plays
             for (int i = 0; i < playsToMake; i++) {
@@ -79,8 +82,8 @@ public class RoundTest {
             List<Integer> cardIndices,
             String expectedErrorMessage)
             throws JavatroException {
-        State state = new State(blindScore, remainingPlays, new Deck());
-        Round round = new Round(state);
+        Deck deck = new Deck();
+        Round round = new Round(blindScore, remainingPlays, deck, "", "");
 
         try {
             round.playCards(cardIndices);
@@ -92,8 +95,8 @@ public class RoundTest {
 
     private void assertRoundNotOver(int blindScore, int remainingPlays, int playsToMake)
             throws JavatroException {
-        State state = new State(blindScore, remainingPlays, new Deck());
-        Round round = new Round(state);
+        Deck deck = new Deck();
+        Round round = new Round(blindScore, remainingPlays, deck, "", "");
 
         for (int i = 0; i < playsToMake; i++) {
             round.playCards(List.of(0, 1, 2, 3, 4));
@@ -107,6 +110,7 @@ public class RoundTest {
     public void round_correctInitialization_success() throws JavatroException {
         assertRoundInitialization(100, 3, 0, 3);
         assertRoundInitialization(200, 5, 0, 3);
+        assertRoundInitialization(300, 7, 0, 3);
         assertRoundInitialization(300, 7, 0, 3);
         assertRoundInitialization(0, 1, 0, 3);
     }
