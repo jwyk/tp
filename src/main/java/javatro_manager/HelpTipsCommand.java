@@ -1,0 +1,27 @@
+package javatro_manager;
+
+import javatro_view.JavatroView;
+
+public class HelpTipsCommand  implements Command {
+
+
+    public HelpTipsCommand() {}
+
+    @Override
+    public void execute() {
+        System.out.println("\n=== Pro Tips for Javatro ===");
+        System.out.println("- Focus on building a balanced deck with attack and defense cards.");
+        System.out.println("- Don't just add every card you find—some cards can weaken your deck.");
+        System.out.println("- Save strong hands for tougher enemies.");
+        System.out.println("- Adapt your strategy based on the enemies you encounter.");
+        System.out.println("- Experiment with different playstyles to find what works best for you.");
+        System.out.println("\nGood luck and have fun!");
+
+        JavatroManager.setScreen(JavatroView.getHelpScreen());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Tips and Tricks";
+    }
+}
