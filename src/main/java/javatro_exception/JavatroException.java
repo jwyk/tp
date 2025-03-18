@@ -61,4 +61,15 @@ public class JavatroException extends Exception {
     public static JavatroException invalidDeck() {
         return new JavatroException("Deck cannot be null");
     }
+
+    /**
+     * Creates an exception indicating no plays remaining.
+     *
+     * <p>This exception is thrown when the user tries to play cards when no plays are remaining.
+     *
+     * @return An {@code JavatroException} indicating that no plays are remaining.
+     */
+    public static JavatroException noPlaysRemaining() {
+        return new JavatroException("No plays remaining");
+    }
 }

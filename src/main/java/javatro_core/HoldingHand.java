@@ -72,7 +72,7 @@ public class HoldingHand {
                             + "("
                             + cardsToPlay.size()
                             + ")"
-                            + "exceeds maximum allowed. (5)");
+                            + " exceeds maximum allowed. (5)");
         } else {
             for (int index : cardsToPlay) {
                 if (index < 0 || index >= Hand.size()) {
