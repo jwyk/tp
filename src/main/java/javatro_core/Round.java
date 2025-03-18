@@ -113,10 +113,16 @@ public class Round {
      * Plays a set of 5 cards as a poker hand.
      *
      * @param cardIndices Indices of cards to play from the holding hand (must be exactly 5 cards)
-     * @throws JavatroException
-     * @throws IllegalArgumentException If the number of cards to play is not exactly 5
+     * @throws JavatroException If the number of cards played is not equal to 5
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
+        if (cardIndices.size() != POKER_HAND_SIZE) {
+            throw JavatroException.invalidPlayedHand();
+        }
+        
+        if (remainingPlays <= 0) {
+            throw JavatroException.noPlaysRemaining();
+        }
 
         List<Card> playedCards = playerHand.play(cardIndices, this.deck);
         PokerHand result = HandResult.evaluateHand(playedCards);
@@ -192,7 +198,7 @@ public class Round {
      * @return true if player won the round, false otherwise
      */
     public boolean isWon() {
-        return currentScore >= blindScore;
+        return currentScore >= blindScore & isRoundOver();
     }
 
     public String getRoundName() {

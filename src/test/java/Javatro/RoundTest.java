@@ -12,16 +12,15 @@ import javatro_exception.JavatroException;
 import java.util.List;
 
 public class RoundTest {
-
     private void assertRoundInitialization(
-            int blindScore, int remainingPlays, int currentScore, int remainingDiscards)
+            int blindScore, int remainingPlays)
             throws JavatroException {
         Deck deck = new Deck();
         Round round = new Round(blindScore, remainingPlays, deck, "", "");
         assertEquals(blindScore, round.getBlindScore());
         assertEquals(remainingPlays, round.getRemainingPlays());
-        assertEquals(currentScore, round.getCurrentScore());
-        assertEquals(remainingDiscards, round.getRemainingDiscards());
+        assertEquals(0, round.getCurrentScore());
+        assertEquals(3, round.getRemainingDiscards());
         assertEquals(false, round.isRoundOver());
     }
 
@@ -108,11 +107,11 @@ public class RoundTest {
 
     @Test
     public void round_correctInitialization_success() throws JavatroException {
-        assertRoundInitialization(100, 3, 0, 3);
-        assertRoundInitialization(200, 5, 0, 3);
-        assertRoundInitialization(300, 7, 0, 3);
-        assertRoundInitialization(300, 7, 0, 3);
-        assertRoundInitialization(0, 1, 0, 3);
+        assertRoundInitialization(100, 3);
+        assertRoundInitialization(200, 5);
+        assertRoundInitialization(300, 7);
+        assertRoundInitialization(300, 7);
+        assertRoundInitialization(0, 1);
     }
 
     @Test
@@ -161,7 +160,7 @@ public class RoundTest {
         assertPlayCardsFails(100, 3, 3, "No plays remaining");
 
         // Test with 5 plays
-        assertPlayCardsFails(100, 5, 5, "No plays remaining");
+        assertPlayCardsFails(100, 2, 2, "No plays remaining");
 
         // Test with 0 plays
         assertPlayCardsFails(100, 0, 0, "Number of plays per round must be greater than 0");
@@ -170,13 +169,81 @@ public class RoundTest {
     @Test
     public void round_playCards_invalidHandSize() throws JavatroException {
         assertPlayCardsInvalidHandSize(
-                100, 3, List.of(0, 1, 2, 3, 4, 5), "Must play exactly 5 cards");
-        assertPlayCardsInvalidHandSize(100, 3, List.of(0, 1, 2, 3), "Must play exactly 5 cards");
+                100, 3, List.of(0, 1, 2, 3, 4, 5), "A poker hand must contain between 1 and 5 cards.");
         assertPlayCardsInvalidHandSize(
-                100, 3, List.of(0, 1, 2, 3, 4, 5, 6), "Must play exactly 5 cards");
+                100, 3, List.of(0, 1, 2, 3), "A poker hand must contain between 1 and 5 cards.");
         assertPlayCardsInvalidHandSize(
-                100, 3, List.of(0, 1, 2, 3, 4, 5, 6, 7), "Must play exactly 5 cards");
+                100, 3, List.of(0, 1, 2, 3, 4, 5, 6), "A poker hand must contain between 1 and 5 cards.");
+        assertPlayCardsInvalidHandSize(
+                100, 3, List.of(0, 1, 2, 3, 4, 5, 6, 7), "A poker hand must contain between 1 and 5 cards.");
         // Test with 0 cards
-        assertPlayCardsInvalidHandSize(100, 3, List.of(), "Must play exactly 5 cards");
+        assertPlayCardsInvalidHandSize(100, 3, List.of(), "A poker hand must contain between 1 and 5 cards.");
+    }
+    
+    @Test
+    public void round_discardCards_success() throws JavatroException {
+        Deck deck = new Deck();
+        Round round = new Round(100, 3, deck, "", "");
+        
+        // Initial state
+        assertEquals(3, round.getRemainingDiscards());
+        int initialHandSize = round.getPlayerHand().size();
+        
+        // Discard 2 cards
+        round.discardCards(List.of(0, 1));
+        
+        // Check state after discard
+        assertEquals(2, round.getRemainingDiscards());
+        assertEquals(initialHandSize, round.getPlayerHand().size()); // Hand size should remain the same
+    }
+    
+    @Test
+    public void round_discardCards_tooManyDiscards() throws JavatroException {
+        Deck deck = new Deck();
+        Round round = new Round(100, 3, deck, "", "");
+        
+        // Use all 3 discards
+        round.discardCards(List.of(0));
+        round.discardCards(List.of(0));
+        round.discardCards(List.of(0));
+        
+        // Fourth discard should fail
+        try {
+            round.discardCards(List.of(0));
+            fail("Should have thrown an exception for too many discards");
+        } catch (IllegalStateException e) {
+            assertEquals("No remaining discards available", e.getMessage());
+        }
+    }
+    
+    @Test
+    public void round_emptyDiscardList() throws JavatroException {
+        Deck deck = new Deck();
+        Round round = new Round(100, 3, deck, "", "");
+        
+        // Initial state
+        assertEquals(3, round.getRemainingDiscards());
+        int initialHandSize = round.getPlayerHand().size();
+        
+        // Discard 0 cards
+        round.discardCards(List.of());
+        
+        // Should still use a discard
+        assertEquals(2, round.getRemainingDiscards());
+        assertEquals(initialHandSize, round.getPlayerHand().size());
+    }
+
+    @Test
+    public void round_setNameAndDescription() throws JavatroException {
+        Deck deck = new Deck();
+        Round round = new Round(100, 3, deck, "", "");
+        
+        // Set new values
+        round.setRoundName("New Round");
+        round.setRoundDescription("New Description");
+        
+        // Check values were updated
+        assertEquals("New Round", round.getRoundName());
+        assertEquals("New Description", round.getRoundDescription());
     }
 }
