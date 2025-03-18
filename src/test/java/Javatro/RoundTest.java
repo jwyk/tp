@@ -3,17 +3,17 @@ package Javatro;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.Test;
-
 import javatro_core.Deck;
 import javatro_core.Round;
+
 import javatro_exception.JavatroException;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 public class RoundTest {
-    private void assertRoundInitialization(
-            int blindScore, int remainingPlays)
+    private void assertRoundInitialization(int blindScore, int remainingPlays)
             throws JavatroException {
         Deck deck = new Deck();
         Round round = new Round(blindScore, remainingPlays, deck, "", "");
@@ -169,44 +169,55 @@ public class RoundTest {
     @Test
     public void round_playCards_invalidHandSize() throws JavatroException {
         assertPlayCardsInvalidHandSize(
-                100, 3, List.of(0, 1, 2, 3, 4, 5), "A poker hand must contain between 1 and 5 cards.");
+                100,
+                3,
+                List.of(0, 1, 2, 3, 4, 5),
+                "A poker hand must contain between 1 and 5 cards.");
         assertPlayCardsInvalidHandSize(
                 100, 3, List.of(0, 1, 2, 3), "A poker hand must contain between 1 and 5 cards.");
         assertPlayCardsInvalidHandSize(
-                100, 3, List.of(0, 1, 2, 3, 4, 5, 6), "A poker hand must contain between 1 and 5 cards.");
+                100,
+                3,
+                List.of(0, 1, 2, 3, 4, 5, 6),
+                "A poker hand must contain between 1 and 5 cards.");
         assertPlayCardsInvalidHandSize(
-                100, 3, List.of(0, 1, 2, 3, 4, 5, 6, 7), "A poker hand must contain between 1 and 5 cards.");
+                100,
+                3,
+                List.of(0, 1, 2, 3, 4, 5, 6, 7),
+                "A poker hand must contain between 1 and 5 cards.");
         // Test with 0 cards
-        assertPlayCardsInvalidHandSize(100, 3, List.of(), "A poker hand must contain between 1 and 5 cards.");
+        assertPlayCardsInvalidHandSize(
+                100, 3, List.of(), "A poker hand must contain between 1 and 5 cards.");
     }
-    
+
     @Test
     public void round_discardCards_success() throws JavatroException {
         Deck deck = new Deck();
         Round round = new Round(100, 3, deck, "", "");
-        
+
         // Initial state
         assertEquals(3, round.getRemainingDiscards());
         int initialHandSize = round.getPlayerHand().size();
-        
+
         // Discard 2 cards
         round.discardCards(List.of(0, 1));
-        
+
         // Check state after discard
         assertEquals(2, round.getRemainingDiscards());
-        assertEquals(initialHandSize, round.getPlayerHand().size()); // Hand size should remain the same
+        assertEquals(
+                initialHandSize, round.getPlayerHand().size()); // Hand size should remain the same
     }
-    
+
     @Test
     public void round_discardCards_tooManyDiscards() throws JavatroException {
         Deck deck = new Deck();
         Round round = new Round(100, 3, deck, "", "");
-        
+
         // Use all 3 discards
         round.discardCards(List.of(0));
         round.discardCards(List.of(0));
         round.discardCards(List.of(0));
-        
+
         // Fourth discard should fail
         try {
             round.discardCards(List.of(0));
@@ -215,19 +226,19 @@ public class RoundTest {
             assertEquals("No remaining discards available", e.getMessage());
         }
     }
-    
+
     @Test
     public void round_emptyDiscardList() throws JavatroException {
         Deck deck = new Deck();
         Round round = new Round(100, 3, deck, "", "");
-        
+
         // Initial state
         assertEquals(3, round.getRemainingDiscards());
         int initialHandSize = round.getPlayerHand().size();
-        
+
         // Discard 0 cards
         round.discardCards(List.of());
-        
+
         // Should still use a discard
         assertEquals(2, round.getRemainingDiscards());
         assertEquals(initialHandSize, round.getPlayerHand().size());
@@ -237,11 +248,11 @@ public class RoundTest {
     public void round_setNameAndDescription() throws JavatroException {
         Deck deck = new Deck();
         Round round = new Round(100, 3, deck, "", "");
-        
+
         // Set new values
         round.setRoundName("New Round");
         round.setRoundDescription("New Description");
-        
+
         // Check values were updated
         assertEquals("New Round", round.getRoundName());
         assertEquals("New Description", round.getRoundDescription());

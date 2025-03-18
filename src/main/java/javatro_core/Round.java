@@ -119,7 +119,7 @@ public class Round {
         if (cardIndices.size() != POKER_HAND_SIZE) {
             throw JavatroException.invalidPlayedHand();
         }
-        
+
         if (remainingPlays <= 0) {
             throw JavatroException.noPlaysRemaining();
         }

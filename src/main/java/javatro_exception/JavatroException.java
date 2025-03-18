@@ -72,6 +72,4 @@ public class JavatroException extends Exception {
     public static JavatroException noPlaysRemaining() {
         return new JavatroException("No plays remaining");
     }
-
-
 }
