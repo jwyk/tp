@@ -1,9 +1,9 @@
 package javatro_view;
 
 import javatro_manager.ExitGameCommand;
+import javatro_manager.HelpCommand;
 import javatro_manager.LoadGameScreenCommand;
 import javatro_manager.LoadOptionsScreenCommand;
-import javatro_manager.HelpCommand;
 
 /**
  * The {@code StartScreen} class represents the initial menu screen of the application. It provides

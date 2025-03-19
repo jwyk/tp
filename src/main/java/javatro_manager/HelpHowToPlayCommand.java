@@ -2,17 +2,15 @@ package javatro_manager;
 
 import javatro_view.JavatroView;
 
-public class HelpHowToPlayCommand  implements Command {
+public class HelpHowToPlayCommand implements Command {
 
     /**
-     * The HelpHowToPlayCommand class explains how to play Javatro.
-     * This command is executed when the player requests gameplay instructions.
+     * The HelpHowToPlayCommand class explains how to play Javatro. This command is executed when
+     * the player requests gameplay instructions.
      */
     public HelpHowToPlayCommand() {}
 
-    /**
-     * Executes the command to display instructions on how to play.
-     */
+    /** Executes the command to display instructions on how to play. */
     @Override
     public void execute() {
         System.out.println("\n=== How to Play Javatro ===");
