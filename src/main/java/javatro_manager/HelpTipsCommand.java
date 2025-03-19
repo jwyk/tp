@@ -2,17 +2,15 @@ package javatro_manager;
 
 import javatro_view.JavatroView;
 
-public class HelpTipsCommand  implements Command {
+public class HelpTipsCommand implements Command {
 
     /**
-     * The HelpTipsCommand class provides gameplay tips for Javatro.
-     * This command is executed when the player requests tips for improving their strategy.
+     * The HelpTipsCommand class provides gameplay tips for Javatro. This command is executed when
+     * the player requests tips for improving their strategy.
      */
     public HelpTipsCommand() {}
 
-    /**
-     * Executes the command to display gameplay tips.
-     */
+    /** Executes the command to display gameplay tips. */
     @Override
     public void execute() {
         System.out.println("\n=== Pro Tips for Javatro ===");
@@ -20,7 +18,8 @@ public class HelpTipsCommand  implements Command {
         System.out.println("- Don't just add every card you find—some cards can weaken your deck.");
         System.out.println("- Save strong hands for tougher enemies.");
         System.out.println("- Adapt your strategy based on the enemies you encounter.");
-        System.out.println("- Experiment with different playstyles to find what works best for you.");
+        System.out.println(
+                "- Experiment with different playstyles to find what works best for you.");
         System.out.println("\nGood luck and have fun!");
 
         JavatroManager.setScreen(JavatroView.getHelpScreen());
