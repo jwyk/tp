@@ -3,16 +3,14 @@ package javatro_manager;
 import javatro_view.JavatroView;
 
 /**
- * The HelpCommand class handles displaying the help screen in Javatro.
- * This command is executed when the player selects the help option.
+ * The HelpCommand class handles displaying the help screen in Javatro. This command is executed
+ * when the player selects the help option.
  */
-public class HelpCommand implements Command{
+public class HelpCommand implements Command {
 
     public HelpCommand() {}
 
-    /**
-     * Executes the command to display the help screen.
-     */
+    /** Executes the command to display the help screen. */
     @Override
     public void execute() {
         JavatroManager.setScreen(JavatroView.getHelpScreen());
