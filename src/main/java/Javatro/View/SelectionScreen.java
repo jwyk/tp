@@ -2,7 +2,6 @@ package Javatro.View;
 
 import Javatro.Core.Card;
 import Javatro.Core.JavatroCore;
-
 import Javatro.Manager.ResumeGameCommand;
 
 import java.util.List;

@@ -1,7 +1,6 @@
 package Javatro.View;
 
 import Javatro.Core.Card;
-
 import Javatro.Manager.DiscardCardsCommand;
 import Javatro.Manager.ExitGameCommand;
 import Javatro.Manager.LoadStartScreenCommand;

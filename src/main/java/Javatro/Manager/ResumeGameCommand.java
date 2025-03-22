@@ -5,7 +5,6 @@
 package Javatro.Manager;
 
 import Javatro.Exception.JavatroException;
-
 import Javatro.View.JavatroView;
 
 /** A command that enables players to return to the game screen. */

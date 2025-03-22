@@ -5,9 +5,7 @@
 package Javatro.Manager;
 
 import Javatro.Core.JavatroCore;
-
 import Javatro.Exception.JavatroException;
-
 import Javatro.View.JavatroView;
 import Javatro.View.SelectCardsToDiscardScreen;
 import Javatro.View.SelectCardsToPlayScreen;

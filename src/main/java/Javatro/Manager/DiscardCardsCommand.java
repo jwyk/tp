@@ -1,7 +1,6 @@
 package Javatro.Manager;
 
 import Javatro.Exception.JavatroException;
-
 import Javatro.View.JavatroView;
 
 /**

@@ -1,9 +1,7 @@
 package Javatro;
 
 import Javatro.Core.JavatroCore;
-
 import Javatro.Manager.JavatroManager;
-
 import Javatro.View.JavatroView;
 import Javatro.View.StartScreen;
 

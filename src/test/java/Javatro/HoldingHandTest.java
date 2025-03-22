@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import Javatro.Core.Card;
 import Javatro.Core.Deck;
 import Javatro.Core.HoldingHand;
-
 import Javatro.Exception.JavatroException;
 
 import org.junit.jupiter.api.Test;

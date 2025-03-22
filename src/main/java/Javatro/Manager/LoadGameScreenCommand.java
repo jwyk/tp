@@ -5,7 +5,6 @@
 package Javatro.Manager;
 
 import Javatro.Exception.JavatroException;
-
 import Javatro.View.JavatroView;
 
 /** A command that starts the game and loads the game screen. */
