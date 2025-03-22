@@ -1,32 +1,51 @@
 package Javatro;
 
+import static Javatro.Core.Card.Rank.ACE;
+import static Javatro.Core.Card.Rank.FOUR;
+import static Javatro.Core.Card.Rank.THREE;
+import static Javatro.Core.Card.Rank.TWO;
+import static Javatro.Core.Card.Suit.SPADES;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import Javatro.Core.Card;
 import Javatro.Core.Deck;
 import Javatro.Core.HoldingHand;
 import Javatro.Exception.JavatroException;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
+/**
+ * This class contains unit tests for the {@link HoldingHandTest} class. It tests the various
+ * methods of drawing, discarding and adding cards to ensure the correct cards are displayed
+ * and played hand is correct.
+ */
 
 public class HoldingHandTest {
 
-    // Test deck add, draw functions
-    @Test
-    void testDeck() throws JavatroException {
-        Deck deck = new Deck();
-        int cardsRemaining = deck.getRemainingCards();
-        assertEquals(52, cardsRemaining);
-        Card drawOne = deck.draw();
-        assertEquals(51, deck.getRemainingCards());
+    private static Deck deck;
+
+
+    /**
+     * Initialize a new deck for each test.
+     *
+     */
+    @BeforeEach
+    void init() {
+        deck = new Deck();
     }
 
-    // Test HoldingHand add, draw, and discard functions
+    /**
+     * Test that HoldingHand can add cards, draw and discard cards.
+     */
     @Test
     void testHoldingHand() throws JavatroException {
-        Deck deck = new Deck();
         HoldingHand holdingHand = new HoldingHand();
         for (int i = 0; i < 8; i++) {
             holdingHand.add(deck.draw());
@@ -45,4 +64,124 @@ public class HoldingHandTest {
         }
         assertEquals(38, deck.getRemainingCards());
     }
+
+    /**
+     * Test that HoldingHand can return the hand held.
+     */
+    @Test
+    void testGetHoldingHand() throws JavatroException {
+        HoldingHand holdingHand = new HoldingHand();
+        Card cardOne = new Card(ACE, SPADES);
+        Card cardTwo = new Card(TWO, SPADES);
+        Card cardThree = new Card(THREE, SPADES);
+        Card cardFour = new Card(FOUR, SPADES);
+        List<Card> cards = new ArrayList<Card>() {{
+            add(cardOne);
+            add(cardTwo);
+            add(cardThree);
+        }};
+        for (Card card : cards) {
+            holdingHand.add(card);
+        }
+        List<Card> hand = holdingHand.getHand();
+        assertArrayEquals(new List[]{cards}, new List[]{hand});
+    }
+
+
+    /***
+     * Test that JavatroException is thrown when an illegal card selection is played.
+     */
+    @Test
+    void testIllegalPlay() throws JavatroException {
+        HoldingHand holdingHand = new HoldingHand();
+        List<Integer> playedHand = new ArrayList<Integer>();
+        playedHand.add(-1);
+        for (int i = 0; i < 8; i++) {
+            holdingHand.add(deck.draw());
+        }
+
+        try {
+            holdingHand.play(playedHand, deck);
+            fail("Should have thrown an exception for illegal card index");
+        } catch (JavatroException e) {
+            assertEquals("Invalid index in cards to be played: -1", e.getMessage());
+        }
+
+        playedHand.remove(0);
+        playedHand.add(500);
+        try {
+            holdingHand.play(playedHand, deck);
+            fail("Should have thrown an exception for illegal card index");
+        } catch (JavatroException e) {
+            assertEquals("Invalid index in cards to be played: 500", e.getMessage());
+        }
+
+        playedHand.remove(0);
+        for (int i = 0; i < 8; i++) {
+            playedHand.add(i);
+        }
+        try {
+            holdingHand.play(playedHand, deck);
+            fail("Should have thrown an exception for illegal card index");
+        } catch (JavatroException e) {
+            assertEquals("Number of cards played (8) exceeds maximum allowed. (5)", e.getMessage());
+        }
+
+    }
+
+    /***
+     * Test that JavatroException is thrown when an illegal card selection is discarded.
+     */
+    @Test
+    void testIllegalDiscard() throws JavatroException {
+        HoldingHand holdingHand = new HoldingHand();
+        List<Integer> playedHand = new ArrayList<Integer>();
+        playedHand.add(-1);
+        for (int i = 0; i < 8; i++) {
+            holdingHand.add(deck.draw());
+        }
+
+        try {
+            holdingHand.discard(playedHand, deck);
+            fail("Should have thrown an exception for illegal card index");
+        } catch (JavatroException e) {
+            assertEquals("Invalid index in cards to be discarded: -1", e.getMessage());
+        }
+
+        playedHand.remove(0);
+        playedHand.add(500);
+        try {
+            holdingHand.discard(playedHand, deck);
+            fail("Should have thrown an exception for illegal card index");
+        } catch (JavatroException e) {
+            assertEquals("Invalid index in cards to be discarded: 500", e.getMessage());
+        }
+
+        playedHand.remove(0);
+        for (int i = 0; i < 8; i++) {
+            playedHand.add(i);
+        }
+        try {
+            holdingHand.discard(playedHand, deck);
+            fail("Should have thrown an exception for illegal card index");
+        } catch (JavatroException e) {
+            assertEquals("Number of cards discarded (8) exceeds maximum allowed. (5)", e.getMessage());
+        }
+
+    }
+
+    /***
+     * Test that JavatroException is thrown when a card cannot be added properly.
+     */
+    @Test
+    void testIllegalAdd() throws JavatroException {
+        HoldingHand holdingHand = new HoldingHand();
+        Card cardToAdd = new Card(ACE, SPADES);
+        for (int i = 0; i < 8; i++) {
+            holdingHand.add(deck.draw());
+        }
+        assertThrowsExactly(JavatroException.class, () -> holdingHand.add(cardToAdd));
+    }
+
+
 }

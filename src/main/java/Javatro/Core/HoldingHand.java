@@ -27,11 +27,12 @@ public class HoldingHand {
      *
      * <p>This function should not be called if Hand size >= HOLDING_LIMIT
      */
-    public void add(Card cardToAdd) {
+    public void add(Card cardToAdd) throws JavatroException {
         if (Hand.size() < HOLDING_LIMIT) {
             Hand.add(cardToAdd);
         } else {
-            System.out.println("Exceeded Limit. Card not added.");
+            throw new JavatroException("Exceeded Limit. Card not added.");
+//            System.out.println("Exceeded Limit. Card not added.");
         }
     }
 
@@ -41,14 +42,13 @@ public class HoldingHand {
      * @param numberOfDraws The number of cards to draw from the deck
      * @param deck Deck containing the remaining cards
      */
-    public void draw(int numberOfDraws, Deck deck) {
+    public void draw(int numberOfDraws, Deck deck) throws JavatroException {
         for (int i = 0; i < numberOfDraws; i++) {
             if (Hand.size() < HOLDING_LIMIT) {
                 Card tempCard = deck.draw();
                 Hand.add(tempCard);
             } else {
-                System.out.println("Exceeded Limit. Card not added.");
-                break;
+                throw new JavatroException("Exceeded Limit. Card not added.");
             }
         }
     }
@@ -118,7 +118,7 @@ public class HoldingHand {
                             + "("
                             + cardsToDiscard.size()
                             + ")"
-                            + "exceeds maximum allowed. (5)");
+                            + " exceeds maximum allowed. (5)");
         } else {
             for (int index : cardsToDiscard) {
                 if (index < 0 || index >= Hand.size()) {
@@ -128,7 +128,8 @@ public class HoldingHand {
         }
 
         // Remove the cardsToPlay from the Hand in descending order of indices
-        List<Integer> sortedToRemove = new ArrayList<>(cardsToDiscard);
+        Set<Integer> indicesToDiscard = new HashSet<>(cardsToDiscard);
+        List<Integer> sortedToRemove = new ArrayList<>(indicesToDiscard);
         sortedToRemove.sort(Comparator.reverseOrder());
         for (int index : sortedToRemove) {
             Hand.remove(index);
