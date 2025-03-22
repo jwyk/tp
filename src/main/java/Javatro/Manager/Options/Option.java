@@ -1,13 +1,8 @@
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
 import Javatro.Exception.JavatroException;
 
-/**
- * The {@code Command} interface represents an executable action within the game. It follows the
- * Command design pattern, allowing encapsulation of actions that can be executed dynamically.
- */
-public interface Command {
-
+public interface Option {
     /**
      * Retrieves a description of the command. This method has a default implementation returning an
      * empty string.

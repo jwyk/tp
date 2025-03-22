@@ -1,6 +1,6 @@
-package Javatro.View;
+package Javatro.UI.Screens;
 
-import Javatro.Manager.MakeSelectionCommand;
+import Javatro.Manager.Options.MakeSelectionOption;
 
 /**
  * The {@code SelectCardsToPlayScreen} class represents a screen where the user selects cards to
@@ -14,7 +14,7 @@ public class SelectCardsToPlayScreen extends SelectionScreen {
      */
     public SelectCardsToPlayScreen() {
         super.SELECTION_LIMIT = 5; // Maximum of 5 cards can be selected to play
-        super.commandMap.add(new MakeSelectionCommand(SELECTION_LIMIT));
+        super.commandMap.add(new MakeSelectionOption(SELECTION_LIMIT));
     }
 
     /** Displays the current cards in the user's holding hand for selection. */

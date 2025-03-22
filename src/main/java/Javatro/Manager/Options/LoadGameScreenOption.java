@@ -1,17 +1,18 @@
 /**
- * The {@code LoadGameScreenCommand} class represents a command that initializes and starts a new
+ * The {@code LoadGameScreenOption} class represents a command that initializes and starts a new
  * game session by setting the game screen.
  */
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
 import Javatro.Exception.JavatroException;
-import Javatro.View.JavatroView;
+import Javatro.Manager.JavatroManager;
+import Javatro.UI.UI;
 
 /** A command that starts the game and loads the game screen. */
-public class LoadGameScreenCommand implements Command {
+public class LoadGameScreenOption implements Option {
 
-    /** Constructs a {@code LoadGameScreenCommand}. */
-    public LoadGameScreenCommand() {}
+    /** Constructs a {@code LoadGameScreenOption}. */
+    public LoadGameScreenOption() {}
 
     /**
      * Executes the command to begin the game, restore available commands, and update the screen to
@@ -22,10 +23,10 @@ public class LoadGameScreenCommand implements Command {
     @Override
     public void execute() throws JavatroException {
         JavatroManager.beginGame();
-        JavatroView.getGameScreen().restoreGameCommands();
+        Javatro.UI.UI.getGameScreen().restoreGameCommands();
 
         // Update the main screen to show the game screen
-        JavatroManager.setScreen(JavatroView.getGameScreen());
+        JavatroManager.setScreen(UI.getGameScreen());
     }
 
     /**

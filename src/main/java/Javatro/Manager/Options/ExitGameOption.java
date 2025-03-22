@@ -1,10 +1,10 @@
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
 /**
- * The {@code ExitGameCommand} class represents a command that terminates the game. When executed,
- * it prints a farewell message and exits the application.
+ * The {@code ExitGameOption} class represents a command that terminates the game. When executed, it
+ * prints a farewell message and exits the application.
  */
-public class ExitGameCommand implements Command {
+public class ExitGameOption implements Option {
 
     /**
      * Provides a brief description of the command.

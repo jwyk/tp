@@ -18,19 +18,23 @@ public class JavatroCore {
      * @param round The new round to start.
      * @throws JavatroException If an error occurs while initializing the round.
      */
-    private void startNewRound(Round round) throws JavatroException {
+    private void startNewRound(Round round) {
         currentRound = round;
     }
-
     /**
      * Creates a new classic round with predefined settings.
      *
      * @return A {@code Round} instance configured as a classic round.
      * @throws JavatroException If an error occurs while creating the round.
      */
-    private Round classicRound() throws JavatroException {
+    private Round classicRound() {
         Deck d = new Deck();
-        return new Round(1200, 10, d, "Classic", "Classic Round");
+        try {
+            return new Round(1, 1, d, "Classic", "Classic Round");
+        } catch (JavatroException javatroException) {
+            System.out.println(javatroException.getMessage());
+        }
+        return null;
     }
 
     /**
@@ -38,7 +42,7 @@ public class JavatroCore {
      *
      * @throws JavatroException If an error occurs while starting the game.
      */
-    public void beginGame() throws JavatroException {
+    public void beginGame() {
         startNewRound(classicRound());
     }
 }

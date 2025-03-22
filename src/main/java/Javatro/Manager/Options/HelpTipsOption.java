@@ -1,14 +1,15 @@
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
-import Javatro.View.JavatroView;
+import Javatro.Manager.JavatroManager;
+import Javatro.UI.UI;
 
-public class HelpTipsCommand implements Command {
+public class HelpTipsOption implements Option {
 
     /**
-     * The HelpTipsCommand class provides gameplay tips for Javatro. This command is executed when
+     * The HelpTipsOption class provides gameplay tips for Javatro. This command is executed when
      * the player requests tips for improving their strategy.
      */
-    public HelpTipsCommand() {}
+    public HelpTipsOption() {}
 
     /** Executes the command to display gameplay tips. */
     @Override
@@ -22,7 +23,7 @@ public class HelpTipsCommand implements Command {
                 "- Experiment with different playstyles to find what works best for you.");
         System.out.println("\nGood luck and have fun!");
 
-        JavatroManager.setScreen(JavatroView.getHelpScreen());
+        JavatroManager.setScreen(UI.getHelpScreen());
     }
 
     /**

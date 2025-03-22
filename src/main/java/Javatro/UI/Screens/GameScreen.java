@@ -1,10 +1,10 @@
-package Javatro.View;
+package Javatro.UI.Screens;
 
 import Javatro.Core.Card;
-import Javatro.Manager.DiscardCardsCommand;
-import Javatro.Manager.ExitGameCommand;
-import Javatro.Manager.LoadStartScreenCommand;
-import Javatro.Manager.PlayCardsCommand;
+import Javatro.Manager.Options.DiscardCardsOption;
+import Javatro.Manager.Options.ExitGameOption;
+import Javatro.Manager.Options.LoadStartScreenOption;
+import Javatro.Manager.Options.PlayCardsOption;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -57,19 +57,19 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     /** Constructs a {@code GameScreen} and initializes the available commands. */
     public GameScreen() {
         super("GAME MENU");
-        commandMap.add(new PlayCardsCommand());
-        commandMap.add(new DiscardCardsCommand());
-        commandMap.add(new LoadStartScreenCommand());
-        commandMap.add(new ExitGameCommand());
+        commandMap.add(new PlayCardsOption());
+        commandMap.add(new DiscardCardsOption());
+        commandMap.add(new LoadStartScreenOption());
+        commandMap.add(new ExitGameOption());
     }
 
     /** Restores the default game commands after the round ends. */
     public void restoreGameCommands() {
         commandMap.clear();
-        commandMap.add(new PlayCardsCommand());
-        commandMap.add(new DiscardCardsCommand());
-        commandMap.add(new LoadStartScreenCommand());
-        commandMap.add(new ExitGameCommand());
+        commandMap.add(new PlayCardsOption());
+        commandMap.add(new DiscardCardsOption());
+        commandMap.add(new LoadStartScreenOption());
+        commandMap.add(new ExitGameOption());
     }
 
     /**
@@ -337,8 +337,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                     roundOver = (Integer) value;
                     if (roundOver != 0) {
                         commandMap.clear();
-                        commandMap.add(new LoadStartScreenCommand());
-                        commandMap.add(new ExitGameCommand());
+                        commandMap.add(new LoadStartScreenOption());
+                        commandMap.add(new ExitGameOption());
                     }
                 });
 

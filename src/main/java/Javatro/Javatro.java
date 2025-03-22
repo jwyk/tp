@@ -2,10 +2,8 @@ package Javatro;
 
 import Javatro.Core.JavatroCore;
 import Javatro.Manager.JavatroManager;
-import Javatro.View.JavatroView;
-import Javatro.View.StartScreen;
-
-import java.io.IOException;
+import Javatro.UI.Screens.StartScreen;
+import Javatro.UI.UI;
 
 /**
  * The {@code Javatro} class serves as the main entry point for the application. It initializes the
@@ -14,7 +12,7 @@ import java.io.IOException;
  */
 public class Javatro {
     /** The view component of the application. */
-    private static final JavatroView javatroView = new JavatroView();
+    private static final UI javatroView = new UI();
 
     /** The core logic component of the application. */
     private static final JavatroCore javatroCore = new JavatroCore();
@@ -27,9 +25,8 @@ public class Javatro {
      * The main entry point of the application. It initializes the start screen.
      *
      * @param args Command-line arguments (not used in this application).
-     * @throws IOException If an input or output exception occurs while setting the screen.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         JavatroManager.setScreen(new StartScreen());
     }
 }

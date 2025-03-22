@@ -1,14 +1,15 @@
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
-import Javatro.View.JavatroView;
+import Javatro.Manager.JavatroManager;
+import Javatro.UI.UI;
 
-public class HelpRulesCommand implements Command {
+public class HelpRulesOption implements Option {
 
     /**
-     * The HelpRulesCommand class provides the rules for playing Javatro. This command is executed
+     * The HelpRulesOption class provides the rules for playing Javatro. This command is executed
      * when the player requests game rules.
      */
-    public HelpRulesCommand() {}
+    public HelpRulesOption() {}
 
     /** Executes the command to display the rules of the game. */
     @Override
@@ -22,7 +23,7 @@ public class HelpRulesCommand implements Command {
         System.out.println("5. Different enemies and challenges appear in each run.");
         System.out.println("\nRemember: Careful deck management is key to survival!");
 
-        JavatroManager.setScreen(JavatroView.getHelpScreen());
+        JavatroManager.setScreen(UI.getHelpScreen());
     }
 
     /**

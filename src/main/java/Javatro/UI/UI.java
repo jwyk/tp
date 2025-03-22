@@ -1,6 +1,14 @@
-package Javatro.View;
+package Javatro.UI;
 
-import java.beans.PropertyChangeListener;
+import Javatro.Parser.Parser;
+import Javatro.UI.Screens.GameScreen;
+import Javatro.UI.Screens.HelpIntroScreen;
+import Javatro.UI.Screens.HelpScreen;
+import Javatro.UI.Screens.Screen;
+import Javatro.UI.Screens.SelectCardsToDiscardScreen;
+import Javatro.UI.Screens.SelectCardsToPlayScreen;
+import Javatro.UI.Screens.StartScreen;
+
 import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 import java.util.List;
@@ -8,10 +16,10 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
- * The {@code JavatroView} class is responsible for managing and displaying different screens in the
+ * The {@code UI} class is responsible for managing and displaying different screens in the
  * application. It also handles user input and notifies observers when user actions occur.
  */
-public class JavatroView {
+public class UI {
 
     /** The current screen being displayed to the user. */
     private static Screen currentScreen;
@@ -19,14 +27,16 @@ public class JavatroView {
     /** Predefined game-related screens. */
     private static final GameScreen gameScreen = new GameScreen(); // Screen where game is displayed
 
-    private static final OptionScreen optionScreen =
-            new OptionScreen(); // Settings screen for users
     private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =
             new SelectCardsToDiscardScreen(); // Screen where users choose cards to discard
     private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
             new SelectCardsToPlayScreen(); // Screen where users choose cards to play
     private static final HelpScreen helpScreen = new HelpScreen(); // Help screen for users
     private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
+    private static final HelpIntroScreen helpIntroScreen =
+            new HelpIntroScreen(); // Help Intro Screen
+
+    private static final Parser parser = new Parser();
 
     /** Property change support for notifying observers of user input changes. */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -50,15 +60,6 @@ public class JavatroView {
     }
 
     /**
-     * Registers an observer (JavatroManager) to listen for user input changes.
-     *
-     * @param pcl the property change listener to register
-     */
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
-        support.addPropertyChangeListener(pcl);
-    }
-
-    /**
      * Sets the current screen and displays it.
      *
      * @param s the screen to be displayed
@@ -66,7 +67,7 @@ public class JavatroView {
     public void setCurrentScreen(Screen s) {
         currentScreen = s;
         currentScreen.displayScreen();
-        getInput();
+        parser.getInput();
     }
 
     /**
@@ -78,6 +79,14 @@ public class JavatroView {
         return currentScreen;
     }
 
+    public static Screen getHelpIntroScreen() {
+        return helpIntroScreen;
+    }
+
+    public static Parser getParser() {
+        return parser;
+    }
+
     /**
      * Gets the game screen.
      *
@@ -85,15 +94,6 @@ public class JavatroView {
      */
     public static GameScreen getGameScreen() {
         return gameScreen;
-    }
-
-    /**
-     * Gets the options screen.
-     *
-     * @return the OptionScreen instance
-     */
-    public static OptionScreen getOptionScreen() {
-        return optionScreen;
     }
 
     /**
@@ -160,34 +160,5 @@ public class JavatroView {
             }
         }
         return userInput;
-    }
-
-    /** Handles user input for navigating the current screen and notifies observers. */
-    public void getInput() {
-        Scanner scanner = new Scanner(System.in);
-        int userInput;
-        int maxRange = getCurrentScreen().getOptionsSize();
-
-        while (true) {
-            currentScreen.displayOptions();
-            System.out.print("Enter a number (1 to " + maxRange + "): ");
-
-            if (scanner.hasNextInt()) {
-                userInput = scanner.nextInt();
-                if (userInput >= 1 && userInput <= maxRange) {
-                    break;
-                } else {
-                    System.out.println(
-                            "Invalid input! Please enter a number between 1 and " + maxRange + ".");
-                }
-            } else {
-                System.out.println("Invalid input! Please enter a number.");
-                scanner.next();
-            }
-        }
-
-        // Update listeners (JavatroManager)  on the value of user input being updated
-        support.firePropertyChange("userInput", null, userInput);
-        clearConsole();
     }
 }
