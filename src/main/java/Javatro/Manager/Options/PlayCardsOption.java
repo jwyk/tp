@@ -1,15 +1,16 @@
 /**
- * The {@code PlayCardsCommand} class represents a command that allows the player to select cards to
+ * The {@code PlayCardsOption} class represents a command that allows the player to select cards to
  * play during the game. It updates the game screen to display the card selection interface for
  * playing cards.
  */
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
 import Javatro.Exception.JavatroException;
-import Javatro.View.JavatroView;
+import Javatro.Manager.JavatroManager;
+import Javatro.UI.UI;
 
 /** A command that enables players to select and play cards. */
-public class PlayCardsCommand implements Command {
+public class PlayCardsOption implements Option {
 
     /**
      * Executes the play cards command, updating the game screen to the "Select Cards to Play"
@@ -20,7 +21,7 @@ public class PlayCardsCommand implements Command {
     @Override
     public void execute() throws JavatroException {
         // Update the main screen to show select cards to play screen
-        JavatroManager.setScreen(JavatroView.getSelectCardsToPlayScreen());
+        JavatroManager.setScreen(UI.getSelectCardsToPlayScreen());
     }
 
     /**

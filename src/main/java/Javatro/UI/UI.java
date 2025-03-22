@@ -1,4 +1,6 @@
-package Javatro.View;
+package Javatro.UI;
+
+import Javatro.UI.Screens.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -8,17 +10,16 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
- * The {@code JavatroView} class is responsible for managing and displaying different screens in the
+ * The {@code UI} class is responsible for managing and displaying different screens in the
  * application. It also handles user input and notifies observers when user actions occur.
  */
-public class JavatroView {
+public class UI {
 
     /** The current screen being displayed to the user. */
     private static Screen currentScreen;
 
     /** Predefined game-related screens. */
     private static final GameScreen gameScreen = new GameScreen(); // Screen where game is displayed
-
     private static final OptionScreen optionScreen =
             new OptionScreen(); // Settings screen for users
     private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =

@@ -1,14 +1,15 @@
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
 import Javatro.Exception.JavatroException;
-import Javatro.View.JavatroView;
+import Javatro.Manager.JavatroManager;
+import Javatro.UI.UI;
 
 /**
- * The {@code DiscardCardsCommand} class represents a command that allows the player to discard
+ * The {@code DiscardCardsOption} class represents a command that allows the player to discard
  * selected cards during the game. It updates the game screen to display the card selection
  * interface for discarding cards.
  */
-public class DiscardCardsCommand implements Command {
+public class DiscardCardsOption implements Option {
 
     /**
      * Executes the discard cards command, updating the game screen to the "Select Cards to Discard"
@@ -19,7 +20,7 @@ public class DiscardCardsCommand implements Command {
     @Override
     public void execute() throws JavatroException {
         // Update the main screen to show select cards to discard screen
-        JavatroManager.setScreen(JavatroView.getSelectCardsToDiscardScreen());
+        JavatroManager.setScreen(UI.getSelectCardsToDiscardScreen());
     }
 
     /**

@@ -1,6 +1,6 @@
-package Javatro.View;
+package Javatro.UI.Screens;
 
-import Javatro.Manager.Command;
+import Javatro.Manager.Options.Option;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public abstract class Screen {
 
     /** A list of commands associated with this screen. */
-    protected final ArrayList<Command> commandMap = new ArrayList<>();
+    protected final ArrayList<Option> commandMap = new ArrayList<>();
 
     /** The title of the options menu displayed on the screen. */
     private String optionsTitle;
@@ -29,7 +29,7 @@ public abstract class Screen {
     public abstract void displayScreen();
 
     /** Displays the available options in a formatted menu style. */
-    protected void displayOptions() {
+    public void displayOptions() {
         int width = 30; // Fixed width for the menu
         String border = "*".repeat(width);
         int paddingSize = (width - optionsTitle.length() - 2) / 2;
@@ -45,7 +45,7 @@ public abstract class Screen {
         System.out.println(border);
 
         int count = 1;
-        for (Command s : commandMap) {
+        for (Option s : commandMap) {
             System.out.printf("*  [%d] %s%n", count, s.getDescription());
             count++;
         }
@@ -67,7 +67,7 @@ public abstract class Screen {
      * @param index the index of the command
      * @return the command at the specified index
      */
-    public Command getCommand(int index) {
+    public Option getCommand(int index) {
         return commandMap.get(index);
     }
 }

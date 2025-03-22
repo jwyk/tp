@@ -1,29 +1,30 @@
 /**
- * The {@code MakeSelectionCommand} class represents a command that allows the player to make a
+ * The {@code MakeSelectionOption} class represents a command that allows the player to make a
  * selection of cards to either play or discard, based on the current game screen.
  */
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
 import Javatro.Core.JavatroCore;
 import Javatro.Exception.JavatroException;
-import Javatro.View.JavatroView;
-import Javatro.View.SelectCardsToDiscardScreen;
-import Javatro.View.SelectCardsToPlayScreen;
+import Javatro.Manager.JavatroManager;
+import Javatro.UI.Screens.SelectCardsToDiscardScreen;
+import Javatro.UI.Screens.SelectCardsToPlayScreen;
+import Javatro.UI.UI;
 
 import java.util.List;
 
 /** A command that enables players to make a selection of cards to play or discard. */
-public class MakeSelectionCommand implements Command {
+public class MakeSelectionOption implements Option {
 
     /** The maximum number of cards that can be selected. */
     private final int LIMIT;
 
     /**
-     * Constructs a {@code MakeSelectionCommand} with a specified selection limit.
+     * Constructs a {@code MakeSelectionOption} with a specified selection limit.
      *
      * @param LIMIT The maximum number of cards that can be selected (-1 for unlimited selection).
      */
-    public MakeSelectionCommand(int LIMIT) {
+    public MakeSelectionOption(int LIMIT) {
         this.LIMIT = LIMIT;
     }
 
@@ -49,24 +50,24 @@ public class MakeSelectionCommand implements Command {
 
         if (LIMIT == -1) {
             userInput =
-                    JavatroView.getCardInput(
+                    Javatro.UI.UI.getCardInput(
                             JavatroCore.currentRound.getPlayerHand().size(),
                             JavatroCore.currentRound.getPlayerHand().size());
         } else {
             userInput =
-                    JavatroView.getCardInput(
+                    Javatro.UI.UI.getCardInput(
                             JavatroCore.currentRound.getPlayerHand().size(), LIMIT);
         }
 
-        if (JavatroView.getCurrentScreen() instanceof SelectCardsToPlayScreen) {
+        if (Javatro.UI.UI.getCurrentScreen() instanceof SelectCardsToPlayScreen) {
             // Select and play the chosen cards
             JavatroCore.currentRound.playCards(userInput);
-        } else if (JavatroView.getCurrentScreen() instanceof SelectCardsToDiscardScreen) {
+        } else if (UI.getCurrentScreen() instanceof SelectCardsToDiscardScreen) {
             // Discard the selected cards
             JavatroCore.currentRound.discardCards(userInput);
         }
 
         // Return to the game screen after selection
-        JavatroManager.setScreen(JavatroView.getGameScreen());
+        JavatroManager.setScreen(Javatro.UI.UI.getGameScreen());
     }
 }

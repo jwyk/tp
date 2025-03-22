@@ -1,14 +1,15 @@
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
-import Javatro.View.JavatroView;
+import Javatro.Manager.JavatroManager;
+import Javatro.UI.UI;
 
-public class HelpHowToPlayCommand implements Command {
+public class HelpHowToPlayOption implements Option {
 
     /**
-     * The HelpHowToPlayCommand class explains how to play Javatro. This command is executed when
+     * The HelpHowToPlayOption class explains how to play Javatro. This command is executed when
      * the player requests gameplay instructions.
      */
-    public HelpHowToPlayCommand() {}
+    public HelpHowToPlayOption() {}
 
     /** Executes the command to display instructions on how to play. */
     @Override
@@ -24,7 +25,7 @@ public class HelpHowToPlayCommand implements Command {
         System.out.println("   - 'defend'  : Use a card to reduce incoming damage.");
         System.out.println("   - 'exit'    : Quit the game.");
 
-        JavatroManager.setScreen(JavatroView.getHelpScreen());
+        JavatroManager.setScreen(UI.getHelpScreen());
     }
 
     /**

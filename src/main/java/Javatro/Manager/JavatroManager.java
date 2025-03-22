@@ -1,14 +1,14 @@
 /**
  * The {@code JavatroManager} class serves as the main controller (manager) of the game,
  * coordinating interactions between the model ({@code JavatroCore}) and the view ({@code
- * JavatroView}). It listens for property changes and updates the game state accordingly.
+ * UI}). It listens for property changes and updates the game state accordingly.
  */
 package Javatro.Manager;
 
 import Javatro.Core.JavatroCore;
 import Javatro.Exception.JavatroException;
-import Javatro.View.JavatroView;
-import Javatro.View.Screen;
+import Javatro.UI.Screens.Screen;
+import Javatro.UI.UI;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -20,7 +20,7 @@ import java.beans.PropertyChangeListener;
 public class JavatroManager implements PropertyChangeListener {
 
     /** The main view responsible for rendering the user interface. */
-    private static JavatroView jv;
+    private static UI jv;
     /** The main model responsible for handling game logic. */
     private static JavatroCore jc;
     /** Stores the last recorded user input. */
@@ -32,7 +32,7 @@ public class JavatroManager implements PropertyChangeListener {
      * @param jv The main view of the game.
      * @param jc The main model of the game.
      */
-    public JavatroManager(JavatroView jv, JavatroCore jc) {
+    public JavatroManager(UI jv, JavatroCore jc) {
         JavatroManager.jv = jv;
         JavatroManager.jc = jc;
         jv.addPropertyChangeListener(this); // Register as an observer
@@ -54,7 +54,7 @@ public class JavatroManager implements PropertyChangeListener {
      */
     public static void beginGame() throws JavatroException {
         jc.beginGame();
-        JavatroCore.currentRound.addPropertyChangeListener(JavatroView.getGameScreen());
+        JavatroCore.currentRound.addPropertyChangeListener(Javatro.UI.UI.getGameScreen());
         // Fire property changes here
         JavatroCore.currentRound.updateRoundVariables();
     }

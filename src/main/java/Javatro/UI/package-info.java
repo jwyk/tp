@@ -26,4 +26,4 @@
  *       start or exit the game.
  * </ul>
  */
-package Javatro.View;
+package Javatro.UI;

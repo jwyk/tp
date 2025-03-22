@@ -1,6 +1,6 @@
-package Javatro.View;
+package Javatro.UI.Screens;
 
-import Javatro.Manager.LoadStartScreenCommand;
+import Javatro.Manager.Options.LoadStartScreenOption;
 
 /**
  * The {@code OptionScreen} class represents the options menu screen in the application. It provides
@@ -12,7 +12,7 @@ public class OptionScreen extends Screen {
     public OptionScreen() {
         super("OPTIONS MENU"); // Sets the menu name (where users select options)
         commandMap.add(
-                new LoadStartScreenCommand()); // Adding option to go back to the start screen
+                new LoadStartScreenOption()); // Adding option to go back to the start screen
     }
 
     /** Prints the welcome message for the options screen. */

@@ -1,14 +1,15 @@
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
-import Javatro.View.JavatroView;
+import Javatro.Manager.JavatroManager;
+import Javatro.UI.UI;
 
 /**
- * The HelpIntroCommand class provides an introduction to Javatro. This command is executed when the
+ * The HelpIntroOption class provides an introduction to Javatro. This command is executed when the
  * player requests an introduction.
  */
-public class HelpIntroCommand implements Command {
+public class HelpIntroOption implements Option {
 
-    public HelpIntroCommand() {}
+    public HelpIntroOption() {}
 
     /** Executes the command to display the introduction message. */
     @Override
@@ -23,7 +24,7 @@ public class HelpIntroCommand implements Command {
         System.out.println(
                 "\nThink strategically, manage your deck wisely, and see how far you can go!");
 
-        JavatroManager.setScreen(JavatroView.getHelpScreen());
+        JavatroManager.setScreen(UI.getHelpScreen());
     }
 
     /**

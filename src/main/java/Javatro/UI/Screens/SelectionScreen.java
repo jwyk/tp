@@ -1,8 +1,8 @@
-package Javatro.View;
+package Javatro.UI.Screens;
 
 import Javatro.Core.Card;
 import Javatro.Core.JavatroCore;
-import Javatro.Manager.ResumeGameCommand;
+import Javatro.Manager.Options.ResumeGameOption;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class SelectionScreen extends Screen {
     /** Constructs a {@code SelectionScreen} and initializes it with a resume game command. */
     public SelectionScreen() {
         super("SELECT CARDS");
-        commandMap.add(new ResumeGameCommand());
+        commandMap.add(new ResumeGameOption());
     }
 
     /** Updates the holding hand by retrieving the player's current hand from the game core. */

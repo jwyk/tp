@@ -2,8 +2,8 @@ package Javatro;
 
 import Javatro.Core.JavatroCore;
 import Javatro.Manager.JavatroManager;
-import Javatro.View.JavatroView;
-import Javatro.View.StartScreen;
+import Javatro.UI.Screens.StartScreen;
+import Javatro.UI.UI;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class Javatro {
     /** The view component of the application. */
-    private static final JavatroView javatroView = new JavatroView();
+    private static final UI javatroView = new UI();
 
     /** The core logic component of the application. */
     private static final JavatroCore javatroCore = new JavatroCore();

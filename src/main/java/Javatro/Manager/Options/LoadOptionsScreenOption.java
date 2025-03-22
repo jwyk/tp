@@ -1,21 +1,22 @@
 /**
- * The {@code LoadOptionsScreenCommand} class represents a command that loads the options screen,
+ * The {@code LoadOptionsScreenOption} class represents a command that loads the options screen,
  * allowing players to adjust game settings.
  */
-package Javatro.Manager;
+package Javatro.Manager.Options;
 
-import Javatro.View.JavatroView;
+import Javatro.Manager.JavatroManager;
+import Javatro.UI.UI;
 
 /** A command that loads the options screen when executed. */
-public class LoadOptionsScreenCommand implements Command {
+public class LoadOptionsScreenOption implements Option {
 
-    /** Constructs a {@code LoadOptionsScreenCommand}. */
-    public LoadOptionsScreenCommand() {}
+    /** Constructs a {@code LoadOptionsScreenOption}. */
+    public LoadOptionsScreenOption() {}
 
     /** Executes the command to change the screen to the options menu. */
     @Override
     public void execute() {
-        JavatroManager.setScreen(JavatroView.getOptionScreen());
+        JavatroManager.setScreen(UI.getOptionScreen());
     }
 
     /**
