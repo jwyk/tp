@@ -105,7 +105,6 @@ public class JavatroView {
         return startScreen;
     }
 
-    
     public static HelpScreen getHelpScreen() {
         return helpScreen;
     }
