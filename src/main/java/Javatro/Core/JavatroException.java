@@ -169,4 +169,16 @@ public final class JavatroException extends Exception {
     public static JavatroException indexOutOfBounds(int index) {
         return new JavatroException(RED + "Index is out of bounds: " + index + END);
     }
+
+    /**
+     * Creates an exception indicating an error loading the logo from a file.
+     *
+     * <p>This exception is thrown when the logo file cannot be loaded.
+     *
+     * @param fileName The name of the file that could not be loaded.
+     * @return A {@code JavatroException} indicating the error loading the logo.
+     */
+    public static JavatroException errorLoadingLogo(String fileName) {
+        return new JavatroException(RED + "Error loading logo from: " + fileName + END);
+    }
 }

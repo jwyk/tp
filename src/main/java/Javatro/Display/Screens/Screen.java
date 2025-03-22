@@ -49,18 +49,19 @@ public abstract class Screen {
      */
     public void displayOptions() {
         String border = String.valueOf(BORDER_CHAR).repeat(MENU_WIDTH);
-        String paddedTitle = centerText(optionsTitle);
 
         System.out.println(border);
-        System.out.println(paddedTitle);
+        System.out.println(centerText(optionsTitle)); // Centered title
         System.out.println(border);
 
         for (int i = 0; i < commandMap.size(); i++) {
-            System.out.printf("%c  [%d] %s%n", BORDER_CHAR, i + 1, commandMap.get(i).getDescription());
+            String option = String.format("[%d] %s", i + 1, commandMap.get(i).getDescription());
+            System.out.println(centerText(option)); // Centered option
         }
 
         System.out.println(border);
     }
+
 
     /**
      * Centers the given text within a specified width, padding it with spaces on both sides.
