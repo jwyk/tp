@@ -133,7 +133,6 @@ public class HoldingHand {
         for (int index : sortedToRemove) {
             Hand.remove(index);
         }
-
     }
 
     /**
