@@ -1,13 +1,13 @@
-package Javatro.UI;
+package Javatro.Display;
 
+import Javatro.Core.JavatroException;
 import Javatro.Manager.Parser;
-import Javatro.UI.Screens.*;
-import java.beans.PropertyChangeSupport;
+import Javatro.Display.Screens.*;
 
 /**
- * The {@code UI} class is responsible for managing and displaying different screens in the application.
+ * The {@code Display} class is responsible for managing and displaying different screens in the application.
  * It handles user input, manages screen transitions, and notifies observers of user actions.
- * This class follows the Singleton pattern to ensure a single instance manages all UI-related operations.
+ * This class follows the Singleton pattern to ensure a single instance manages all Display-related operations.
  */
 public class UI {
 
@@ -15,15 +15,28 @@ public class UI {
     private static Screen currentScreen;
 
     /** Predefined game-related screens. */
-    private static final GameScreen GAME_SCREEN = new GameScreen();
-    private static final DiscardScreen DISCARD_SCREEN = new DiscardScreen();
-    private static final PlayScreen PLAY_SCREEN = new PlayScreen();
-    private static final HelpScreen HELP_SCREEN = new HelpScreen();
-    private static final StartScreen START_SCREEN = new StartScreen();
-    private static final HelpScreen HELP_INTRO_SCREEN = new HelpScreen();
+    private static final GameScreen GAME_SCREEN;
+    private static final DiscardScreen DISCARD_SCREEN;
+    private static final PlayScreen PLAY_SCREEN;
+    private static final HelpScreen HELP_SCREEN;
+    private static final StartScreen START_SCREEN;
 
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
+
+    static {
+        try {
+            GAME_SCREEN = new GameScreen();
+            DISCARD_SCREEN = new DiscardScreen();
+            PLAY_SCREEN = new PlayScreen();
+            HELP_SCREEN = new HelpScreen();
+            START_SCREEN = new StartScreen();
+        } catch (JavatroException e) {
+            System.err.println("Failed to initialize screens: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Failed to initialize screens", e);
+        }
+    }
 
     /**
      * Gets the screen where users select cards to discard.
@@ -49,13 +62,14 @@ public class UI {
      * @param screen the screen to be displayed
      * @throws IllegalArgumentException if the provided screen is {@code null}
      */
-    public void setCurrentScreen(Screen screen) {
+    public void setCurrentScreen(Screen screen) throws JavatroException {
         if (screen == null) {
-            throw new IllegalArgumentException("Screen cannot be null.");
+            throw JavatroException.invalidScreen();
         }
+        System.out.println("Transitioning to: " + screen.getClass().getSimpleName());
         currentScreen = screen;
         currentScreen.displayScreen();
-        PARSER.getInput();
+        PARSER.getInput(); // This will handle retries internally
     }
 
     /**
@@ -65,15 +79,6 @@ public class UI {
      */
     public static Screen getCurrentScreen() {
         return currentScreen;
-    }
-
-    /**
-     * Gets the help introduction screen.
-     *
-     * @return the {@link HelpScreen} instance for the introduction
-     */
-    public static Screen getHelpIntroScreen() {
-        return HELP_INTRO_SCREEN;
     }
 
     /**

@@ -1,6 +1,7 @@
-package Javatro.UI.Screens;
+package Javatro.Display.Screens;
 
 import Javatro.Core.Card;
+import Javatro.Core.JavatroException;
 import Javatro.Manager.Options.DiscardCardsOption;
 import Javatro.Manager.Options.ExitGameOption;
 import Javatro.Manager.Options.LoadStartScreenOption;
@@ -21,9 +22,8 @@ import java.util.stream.Collectors;
  */
 public class GameScreen extends Screen implements PropertyChangeListener {
 
-    /** UI-related constants for display formatting. */
-    public static final String RESET = "\u001B[0m";
-
+    /** Display-related constants for display formatting. */
+    public static final String END = "\u001B[0m";
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
     public static final String YELLOW = "\u001B[33m";
@@ -55,7 +55,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     private String roundDescription = "";
 
     /** Constructs a {@code GameScreen} and initializes the available commands. */
-    public GameScreen() {
+    public GameScreen() throws JavatroException {
         super("GAME MENU");
         commandMap.add(new PlayCardsOption());
         commandMap.add(new DiscardCardsOption());
@@ -246,7 +246,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + "|");
     }
 
-    /** Displays the game screen on the UI */
+    /** Displays the game screen on the Display */
     @Override
     public void displayScreen() {
 

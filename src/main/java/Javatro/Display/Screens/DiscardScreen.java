@@ -1,5 +1,6 @@
-package Javatro.UI.Screens;
+package Javatro.Display.Screens;
 
+import Javatro.Core.JavatroException;
 import Javatro.Manager.Options.MakeSelectionOption;
 
 /**
@@ -9,7 +10,8 @@ import Javatro.Manager.Options.MakeSelectionOption;
 public class DiscardScreen extends SelectionScreen {
 
     /** Constructs a {@code DiscardScreen} and initializes the selection command. */
-    public DiscardScreen() {
+    public DiscardScreen() throws JavatroException {
+        super();
         super.commandMap.add(new MakeSelectionOption(-1));
     }
 

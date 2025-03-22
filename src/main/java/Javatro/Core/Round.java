@@ -87,7 +87,7 @@ public class Round {
 
     /**
      * Fires property change events to notify observers of updated round variables. This method
-     * updates UI components and other observers about the current game state.
+     * updates Display components and other observers about the current game state.
      */
     public void updateRoundVariables() {
         support.firePropertyChange("blindScore", null, blindScore);

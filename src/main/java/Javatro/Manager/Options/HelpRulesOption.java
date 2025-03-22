@@ -1,7 +1,8 @@
 package Javatro.Manager.Options;
 
+import Javatro.Core.JavatroException;
 import Javatro.Manager.JavatroManager;
-import Javatro.UI.UI;
+import Javatro.Display.UI;
 
 public class HelpRulesOption implements Option {
 
@@ -13,7 +14,7 @@ public class HelpRulesOption implements Option {
 
     /** Executes the command to display the rules of the game. */
     @Override
-    public void execute() {
+    public void execute() throws JavatroException {
         System.out.println("\n=== Javatro Rules ===");
         System.out.println("1. Start with a basic deck of cards.");
         System.out.println("2. Each turn, draw cards and form poker hands to attack or defend.");

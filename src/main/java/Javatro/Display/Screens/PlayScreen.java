@@ -1,5 +1,6 @@
-package Javatro.UI.Screens;
+package Javatro.Display.Screens;
 
+import Javatro.Core.JavatroException;
 import Javatro.Manager.Options.MakeSelectionOption;
 
 /**
@@ -12,7 +13,8 @@ public class PlayScreen extends SelectionScreen {
      * Constructs a {@code PlayScreen} and sets the selection limit. Allows selecting
      * up to 5 cards to play and initializes the selection command.
      */
-    public PlayScreen() {
+    public PlayScreen() throws JavatroException {
+        super();
         super.SELECTION_LIMIT = 5; // Maximum of 5 cards can be selected to play
         super.commandMap.add(new MakeSelectionOption(SELECTION_LIMIT));
     }

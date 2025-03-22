@@ -6,7 +6,7 @@ package Javatro.Manager.Options;
 
 import Javatro.Core.JavatroException;
 import Javatro.Manager.JavatroManager;
-import Javatro.UI.UI;
+import Javatro.Display.UI;
 
 /** A command that enables players to return to the game screen. */
 public class ResumeGameOption implements Option {

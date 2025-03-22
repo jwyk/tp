@@ -8,9 +8,9 @@ import Javatro.Core.JavatroCore;
 import Javatro.Core.JavatroException;
 import Javatro.Manager.JavatroManager;
 import Javatro.Manager.Parser;
-import Javatro.UI.Screens.DiscardScreen;
-import Javatro.UI.Screens.PlayScreen;
-import Javatro.UI.UI;
+import Javatro.Display.Screens.DiscardScreen;
+import Javatro.Display.Screens.PlayScreen;
+import Javatro.Display.UI;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class MakeSelectionOption implements Option {
                             JavatroCore.currentRound.getPlayerHand().size(), LIMIT);
         }
 
-        if (Javatro.UI.UI.getCurrentScreen() instanceof PlayScreen) {
+        if (Javatro.Display.UI.getCurrentScreen() instanceof PlayScreen) {
             // Select and play the chosen cards
             JavatroCore.currentRound.playCards(userInput);
         } else if (UI.getCurrentScreen() instanceof DiscardScreen) {
@@ -69,6 +69,6 @@ public class MakeSelectionOption implements Option {
         }
 
         // Return to the game screen after selection
-        JavatroManager.setScreen(Javatro.UI.UI.getGameScreen());
+        JavatroManager.setScreen(Javatro.Display.UI.getGameScreen());
     }
 }

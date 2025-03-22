@@ -1,7 +1,8 @@
 package Javatro.Manager.Options;
 
+import Javatro.Core.JavatroException;
 import Javatro.Manager.JavatroManager;
-import Javatro.UI.UI;
+import Javatro.Display.UI;
 
 public class HelpTipsOption implements Option {
 
@@ -13,7 +14,7 @@ public class HelpTipsOption implements Option {
 
     /** Executes the command to display gameplay tips. */
     @Override
-    public void execute() {
+    public void execute() throws JavatroException {
         System.out.println("\n=== Pro Tips for Javatro ===");
         System.out.println("- Focus on building a balanced deck with attack and defense cards.");
         System.out.println("- Don't just add every card you find—some cards can weaken your deck.");

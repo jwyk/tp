@@ -7,7 +7,7 @@ package Javatro.Manager.Options;
 
 import Javatro.Core.JavatroException;
 import Javatro.Manager.JavatroManager;
-import Javatro.UI.UI;
+import Javatro.Display.UI;
 
 /** A command that enables players to select and play cards. */
 public class PlayCardsOption implements Option {
