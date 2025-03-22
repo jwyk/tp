@@ -1,11 +1,5 @@
 package Javatro.Core;
 
-import Javatro.Exception.JavatroException;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import static Javatro.Core.Card.Rank.ACE;
 import static Javatro.Core.Card.Rank.FIVE;
 import static Javatro.Core.Card.Rank.FOUR;
@@ -25,6 +19,12 @@ import static Javatro.Core.PokerHand.HandType.STRAIGHT;
 import static Javatro.Core.PokerHand.HandType.STRAIGHT_FLUSH;
 import static Javatro.Core.PokerHand.HandType.THREE_OF_A_KIND;
 import static Javatro.Core.PokerHand.HandType.TWO_PAIR;
+
+import Javatro.Exception.JavatroException;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The `HandResult` class evaluates a poker hand based on the given cards. It supports hands with 1

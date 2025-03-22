@@ -22,7 +22,6 @@ public class HelpScreen extends Screen {
         commandMap.add(new LoadStartScreenOption());
     }
 
-
     /** Displays the help menu screen with a welcome message. */
     @Override
     public void displayScreen() {
