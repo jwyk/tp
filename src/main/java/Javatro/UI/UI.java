@@ -20,16 +20,17 @@ public class UI {
 
     /** Predefined game-related screens. */
     private static final GameScreen gameScreen = new GameScreen(); // Screen where game is displayed
+
     private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =
             new SelectCardsToDiscardScreen(); // Screen where users choose cards to discard
     private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
             new SelectCardsToPlayScreen(); // Screen where users choose cards to play
     private static final HelpScreen helpScreen = new HelpScreen(); // Help screen for users
     private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
-    private static final HelpIntroScreen helpIntroScreen = new HelpIntroScreen(); // Help Intro Screen
+    private static final HelpIntroScreen helpIntroScreen =
+            new HelpIntroScreen(); // Help Intro Screen
 
     private static final Parser parser = new Parser();
-
 
     /** Property change support for notifying observers of user input changes. */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -52,7 +53,6 @@ public class UI {
         return selectCardsToPlayScreen;
     }
 
-
     /**
      * Sets the current screen and displays it.
      *
@@ -72,7 +72,6 @@ public class UI {
     public static Screen getCurrentScreen() {
         return currentScreen;
     }
-
 
     public static Screen getHelpIntroScreen() {
         return helpIntroScreen;
@@ -156,5 +155,4 @@ public class UI {
         }
         return userInput;
     }
-
 }

@@ -6,8 +6,8 @@ import Javatro.UI.UI;
 public class HelpHowToPlayOption implements Option {
 
     /**
-     * The HelpHowToPlayOption class explains how to play Javatro. This command is executed when
-     * the player requests gameplay instructions.
+     * The HelpHowToPlayOption class explains how to play Javatro. This command is executed when the
+     * player requests gameplay instructions.
      */
     public HelpHowToPlayOption() {}
 
