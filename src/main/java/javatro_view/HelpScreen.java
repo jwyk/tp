@@ -12,9 +12,7 @@ import javatro_manager.LoadStartScreenCommand;
  */
 public class HelpScreen extends Screen {
 
-    /**
-     * Constructs a new HelpScreen and initializes the available help commands.
-     */
+    /** Constructs a new HelpScreen and initializes the available help commands. */
     public HelpScreen() {
         super("HELP MENU");
         commandMap.add(new HelpIntroCommand());
@@ -24,9 +22,7 @@ public class HelpScreen extends Screen {
         commandMap.add(new LoadStartScreenCommand());
     }
 
-    /**
-     * Displays the help menu screen with a welcome message.
-     */
+    /** Displays the help menu screen with a welcome message. */
     @Override
     public void displayScreen() {
         System.out.println("Welcome to the hHelp Menu");
