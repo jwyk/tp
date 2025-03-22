@@ -7,65 +7,125 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-// Main View Class
+/**
+ * The {@code JavatroView} class is responsible for managing and displaying different screens in the
+ * application. It also handles user input and notifies observers when user actions occur.
+ */
 public class JavatroView {
 
-    private static Screen currentScreen; // Current UI that is displayed to user
-    private PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
+    /** The current screen being displayed to the user. */
+    private static Screen currentScreen;
 
-    private static final GameScreen gameScreen = new GameScreen();
-    private static final OptionScreen optionScreen = new OptionScreen();
-    private static final StartScreen startScreen = new StartScreen();
-    private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
-            new SelectCardsToPlayScreen();
+    /** Predefined game-related screens. */
+    private static final GameScreen gameScreen = new GameScreen(); // Screen where game is displayed
+
+    private static final OptionScreen optionScreen =
+            new OptionScreen(); // Settings screen for users
     private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =
-            new SelectCardsToDiscardScreen();
+            new SelectCardsToDiscardScreen(); // Screen where users choose cards to discard
+    private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
+            new SelectCardsToPlayScreen(); // Screen where users choose cards to play
+    private static final HelpScreen helpScreen = new HelpScreen(); // Help screen for users
+    private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
 
+    /** Property change support for notifying observers of user input changes. */
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    /**
+     * Gets the screen where users select cards to discard.
+     *
+     * @return the SelectCardsToDiscardScreen instance
+     */
     public static SelectCardsToDiscardScreen getSelectCardsToDiscardScreen() {
         return selectCardsToDiscardScreen;
     }
 
+    /**
+     * Gets the screen where users select cards to play.
+     *
+     * @return the SelectCardsToPlayScreen instance
+     */
     public static SelectCardsToPlayScreen getSelectCardsToPlayScreen() {
         return selectCardsToPlayScreen;
     }
 
-    // Register an observer (Controller)
+    /**
+     * Registers an observer (JavatroManager) to listen for user input changes.
+     *
+     * @param pcl the property change listener to register
+     */
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);
     }
 
-    // Method to load the set the currentScreen (e.g. start game, options)
+    /**
+     * Sets the current screen and displays it.
+     *
+     * @param s the screen to be displayed
+     */
     public void setCurrentScreen(Screen s) {
         currentScreen = s;
         currentScreen.displayScreen();
-        getInput(); // Get user input
+        getInput();
     }
 
+    /**
+     * Gets the current screen being displayed.
+     *
+     * @return the current screen
+     */
     public static Screen getCurrentScreen() {
         return currentScreen;
     }
 
+    /**
+     * Gets the game screen.
+     *
+     * @return the GameScreen instance
+     */
     public static GameScreen getGameScreen() {
         return gameScreen;
     }
 
+    /**
+     * Gets the options screen.
+     *
+     * @return the OptionScreen instance
+     */
     public static OptionScreen getOptionScreen() {
         return optionScreen;
     }
 
+    /**
+     * Gets the start screen.
+     *
+     * @return the StartScreen instance
+     */
     public static StartScreen getStartScreen() {
         return startScreen;
     }
 
+    public static HelpScreen getHelpScreen() {
+        return helpScreen;
+    }
+
+    /** Clears the console screen. */
     public static void clearConsole() {
         String FLUSH = "\033[H\033[2J";
         System.out.print(FLUSH);
         System.out.flush();
     }
 
+    /**
+     * Prompts the user to select card numbers and returns a list of selected card indices.
+     *
+     * @param maxCardsAvailable the maximum number of available cards
+     * @param maxCardsToSelect the maximum number of cards a user can select
+     * @return a list of selected card indices
+     */
     public static List<Integer> getCardInput(int maxCardsAvailable, int maxCardsToSelect) {
         Scanner scanner = new Scanner(System.in);
-        List<Integer> userInput = null; // List to store the numbers entered by the user
+        List<Integer> userInput;
 
         while (true) {
             System.out.println(
@@ -73,71 +133,60 @@ public class JavatroView {
                             + maxCardsAvailable
                             + " (Allowed to select only "
                             + maxCardsToSelect
-                            + "): ");
+                            + "):");
 
-            String input = scanner.nextLine().trim(); // Read the entire line
-
-            // Split the input string by commas
+            String input = scanner.nextLine().trim();
             String[] inputArray = input.split(",");
-            boolean valid = true;
 
-            // Validate each number in the input
             userInput =
-                    Arrays.stream(inputArray) // Convert to stream to process each part
-                            .map(String::trim) // Trim spaces around numbers
+                    Arrays.stream(inputArray)
+                            .map(String::trim)
                             .map(
                                     numStr -> {
                                         try {
-                                            return Integer.parseInt(numStr)
-                                                    - 1; // Try to parse each number
+                                            return Integer.parseInt(numStr) - 1;
                                         } catch (NumberFormatException e) {
-                                            return null; // Return null for invalid number
+                                            return null;
                                         }
                                     })
-                            .filter(num -> num != null) // Remove nulls caused by invalid
-                            // number format
-                            .collect(Collectors.toList()); // Collect the valid numbers into a list
+                            .filter(num -> num != null && num >= 0 && num < maxCardsAvailable)
+                            .collect(Collectors.toList());
 
-            // Check if the userInput list is valid
-            if (userInput.isEmpty()
-                    || userInput.stream().anyMatch(num -> num < 0 || num > maxCardsAvailable - 1)) {
-                System.out.println(
-                        "Invalid Input! Enter numbers (comma-separated, e.g., 1,2,3) from 1 to "
-                                + maxCardsAvailable
-                                + " (Allowed to select only "
-                                + maxCardsToSelect
-                                + "): ");
-            } else {
-                // If the input is valid, exit the loop
+            if (!userInput.isEmpty()) {
                 System.out.println("You selected the numbers: " + userInput);
                 break;
+            } else {
+                System.out.println("Invalid Input! Please enter valid numbers.");
             }
         }
         return userInput;
     }
 
+    /** Handles user input for navigating the current screen and notifies observers. */
     public void getInput() {
         Scanner scanner = new Scanner(System.in);
-        int userInput = -1;
-        int maxRange =
-                getCurrentScreen().getOptionsSize(); // Change this value to set a different range
+        int userInput;
+        int maxRange = getCurrentScreen().getOptionsSize();
+
         while (true) {
             currentScreen.displayOptions();
             System.out.print("Enter a number (1 to " + maxRange + "): ");
+
             if (scanner.hasNextInt()) {
                 userInput = scanner.nextInt();
                 if (userInput >= 1 && userInput <= maxRange) {
-                    break; // Valid input, exit loop
+                    break;
                 } else {
                     System.out.println(
                             "Invalid input! Please enter a number between 1 and " + maxRange + ".");
                 }
             } else {
                 System.out.println("Invalid input! Please enter a number.");
-                scanner.next(); // Clear invalid input
+                scanner.next();
             }
         }
-        // When user input is received, trigger all the observers
+
+        // Update listeners (JavatroManager)  on the value of user input being updated
         support.firePropertyChange("userInput", null, userInput);
         clearConsole();
     }
