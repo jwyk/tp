@@ -6,8 +6,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Javatro.Core.Card.Rank.*;
-import static Javatro.Core.PokerHand.HandType.*;
+import static Javatro.Core.Card.Rank.ACE;
+import static Javatro.Core.Card.Rank.FIVE;
+import static Javatro.Core.Card.Rank.FOUR;
+import static Javatro.Core.Card.Rank.JACK;
+import static Javatro.Core.Card.Rank.KING;
+import static Javatro.Core.Card.Rank.QUEEN;
+import static Javatro.Core.Card.Rank.TEN;
+import static Javatro.Core.Card.Rank.THREE;
+import static Javatro.Core.Card.Rank.TWO;
+import static Javatro.Core.PokerHand.HandType.FLUSH;
+import static Javatro.Core.PokerHand.HandType.FOUR_OF_A_KIND;
+import static Javatro.Core.PokerHand.HandType.FULL_HOUSE;
+import static Javatro.Core.PokerHand.HandType.HIGH_CARD;
+import static Javatro.Core.PokerHand.HandType.PAIR;
+import static Javatro.Core.PokerHand.HandType.ROYAL_FLUSH;
+import static Javatro.Core.PokerHand.HandType.STRAIGHT;
+import static Javatro.Core.PokerHand.HandType.STRAIGHT_FLUSH;
+import static Javatro.Core.PokerHand.HandType.THREE_OF_A_KIND;
+import static Javatro.Core.PokerHand.HandType.TWO_PAIR;
 
 /**
  * The `HandResult` class evaluates a poker hand based on the given cards. It supports hands with 1

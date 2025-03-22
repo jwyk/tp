@@ -1,7 +1,13 @@
 package Javatro.UI;
 
 import Javatro.Parser.Parser;
-import Javatro.UI.Screens.*;
+import Javatro.UI.Screens.GameScreen;
+import Javatro.UI.Screens.HelpIntroScreen;
+import Javatro.UI.Screens.HelpScreen;
+import Javatro.UI.Screens.Screen;
+import Javatro.UI.Screens.SelectCardsToDiscardScreen;
+import Javatro.UI.Screens.SelectCardsToPlayScreen;
+import Javatro.UI.Screens.StartScreen;
 
 import java.beans.PropertyChangeSupport;
 import java.util.Arrays;

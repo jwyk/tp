@@ -1,8 +1,10 @@
 package Javatro.UI.Screens;
 
-import Javatro.Manager.JavatroManager;
-import Javatro.Manager.Options.*;
-import Javatro.UI.UI;
+import Javatro.Manager.Options.HelpHowToPlayOption;
+import Javatro.Manager.Options.HelpIntroOption;
+import Javatro.Manager.Options.HelpRulesOption;
+import Javatro.Manager.Options.HelpTipsOption;
+import Javatro.Manager.Options.LoadStartScreenOption;
 
 /**
  * The HelpScreen class represents the help menu screen in Javatro. It provides various help options

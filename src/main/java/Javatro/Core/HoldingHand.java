@@ -2,7 +2,11 @@ package Javatro.Core;
 
 import Javatro.Exception.JavatroException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /*
  * Tracks the 8 cards held in a hand
