@@ -6,7 +6,7 @@
 package Javatro.Manager;
 
 import Javatro.Core.JavatroCore;
-import Javatro.Exception.JavatroException;
+import Javatro.Core.JavatroException;
 import Javatro.UI.Screens.Screen;
 import Javatro.UI.UI;
 

@@ -4,7 +4,7 @@
  */
 package Javatro.Manager.Options;
 
-import Javatro.Exception.JavatroException;
+import Javatro.Core.JavatroException;
 import Javatro.Manager.JavatroManager;
 import Javatro.UI.UI;
 

@@ -3,13 +3,13 @@ package Javatro.UI.Screens;
 import Javatro.Manager.Options.MakeSelectionOption;
 
 /**
- * The {@code SelectCardsToDiscardScreen} class represents a screen where the user selects cards to
+ * The {@code DiscardScreen} class represents a screen where the user selects cards to
  * discard. It extends {@code SelectionScreen} and includes commands for making a selection.
  */
-public class SelectCardsToDiscardScreen extends SelectionScreen {
+public class DiscardScreen extends SelectionScreen {
 
-    /** Constructs a {@code SelectCardsToDiscardScreen} and initializes the selection command. */
-    public SelectCardsToDiscardScreen() {
+    /** Constructs a {@code DiscardScreen} and initializes the selection command. */
+    public DiscardScreen() {
         super.commandMap.add(new MakeSelectionOption(-1));
     }
 

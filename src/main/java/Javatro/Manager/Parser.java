@@ -1,4 +1,4 @@
-package Javatro.Parser;
+package Javatro.Manager;
 
 import static Javatro.UI.UI.getCurrentScreen;
 
@@ -97,6 +97,6 @@ public class Parser {
 
         // Update listeners (JavatroManager)  on the value of user input being updated
         support.firePropertyChange("userInput", null, userInput);
-        UI.clearConsole();
+        UI.clearScreen();
     }
 }

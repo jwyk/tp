@@ -1,23 +1,13 @@
 package Javatro.UI;
 
-import Javatro.Parser.Parser;
-import Javatro.UI.Screens.GameScreen;
-import Javatro.UI.Screens.HelpIntroScreen;
-import Javatro.UI.Screens.HelpScreen;
-import Javatro.UI.Screens.Screen;
-import Javatro.UI.Screens.SelectCardsToDiscardScreen;
-import Javatro.UI.Screens.SelectCardsToPlayScreen;
-import Javatro.UI.Screens.StartScreen;
-
+import Javatro.Manager.Parser;
+import Javatro.UI.Screens.*;
 import java.beans.PropertyChangeSupport;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
 
 /**
- * The {@code UI} class is responsible for managing and displaying different screens in the
- * application. It also handles user input and notifies observers when user actions occur.
+ * The {@code UI} class is responsible for managing and displaying different screens in the application.
+ * It handles user input, manages screen transitions, and notifies observers of user actions.
+ * This class follows the Singleton pattern to ensure a single instance manages all UI-related operations.
  */
 public class UI {
 
@@ -25,140 +15,110 @@ public class UI {
     private static Screen currentScreen;
 
     /** Predefined game-related screens. */
-    private static final GameScreen gameScreen = new GameScreen(); // Screen where game is displayed
+    private static final GameScreen GAME_SCREEN = new GameScreen();
+    private static final DiscardScreen DISCARD_SCREEN = new DiscardScreen();
+    private static final PlayScreen PLAY_SCREEN = new PlayScreen();
+    private static final HelpScreen HELP_SCREEN = new HelpScreen();
+    private static final StartScreen START_SCREEN = new StartScreen();
+    private static final HelpScreen HELP_INTRO_SCREEN = new HelpScreen();
 
-    private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =
-            new SelectCardsToDiscardScreen(); // Screen where users choose cards to discard
-    private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
-            new SelectCardsToPlayScreen(); // Screen where users choose cards to play
-    private static final HelpScreen helpScreen = new HelpScreen(); // Help screen for users
-    private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
-    private static final HelpIntroScreen helpIntroScreen =
-            new HelpIntroScreen(); // Help Intro Screen
-
-    private static final Parser parser = new Parser();
-
-    /** Property change support for notifying observers of user input changes. */
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    /** Parser instance for handling user input. */
+    private static final Parser PARSER = new Parser();
 
     /**
      * Gets the screen where users select cards to discard.
      *
-     * @return the SelectCardsToDiscardScreen instance
+     * @return the {@link DiscardScreen} instance
      */
-    public static SelectCardsToDiscardScreen getSelectCardsToDiscardScreen() {
-        return selectCardsToDiscardScreen;
+    public static DiscardScreen getDiscardScreen() {
+        return DISCARD_SCREEN;
     }
 
     /**
      * Gets the screen where users select cards to play.
      *
-     * @return the SelectCardsToPlayScreen instance
+     * @return the {@link PlayScreen} instance
      */
-    public static SelectCardsToPlayScreen getSelectCardsToPlayScreen() {
-        return selectCardsToPlayScreen;
+    public static PlayScreen getPlayScreen() {
+        return PLAY_SCREEN;
     }
 
     /**
      * Sets the current screen and displays it.
      *
-     * @param s the screen to be displayed
+     * @param screen the screen to be displayed
+     * @throws IllegalArgumentException if the provided screen is {@code null}
      */
-    public void setCurrentScreen(Screen s) {
-        currentScreen = s;
+    public void setCurrentScreen(Screen screen) {
+        if (screen == null) {
+            throw new IllegalArgumentException("Screen cannot be null.");
+        }
+        currentScreen = screen;
         currentScreen.displayScreen();
-        parser.getInput();
+        PARSER.getInput();
     }
 
     /**
      * Gets the current screen being displayed.
      *
-     * @return the current screen
+     * @return the current {@link Screen}
      */
     public static Screen getCurrentScreen() {
         return currentScreen;
     }
 
+    /**
+     * Gets the help introduction screen.
+     *
+     * @return the {@link HelpScreen} instance for the introduction
+     */
     public static Screen getHelpIntroScreen() {
-        return helpIntroScreen;
+        return HELP_INTRO_SCREEN;
     }
 
+    /**
+     * Gets the parser instance for handling user input.
+     *
+     * @return the {@link Parser} instance
+     */
     public static Parser getParser() {
-        return parser;
+        return PARSER;
     }
 
     /**
      * Gets the game screen.
      *
-     * @return the GameScreen instance
+     * @return the {@link GameScreen} instance
      */
     public static GameScreen getGameScreen() {
-        return gameScreen;
+        return GAME_SCREEN;
     }
 
     /**
      * Gets the start screen.
      *
-     * @return the StartScreen instance
+     * @return the {@link StartScreen} instance
      */
     public static StartScreen getStartScreen() {
-        return startScreen;
-    }
-
-    public static HelpScreen getHelpScreen() {
-        return helpScreen;
-    }
-
-    /** Clears the console screen. */
-    public static void clearConsole() {
-        String FLUSH = "\033[H\033[2J";
-        System.out.print(FLUSH);
-        System.out.flush();
+        return START_SCREEN;
     }
 
     /**
-     * Prompts the user to select card numbers and returns a list of selected card indices.
+     * Gets the help screen.
      *
-     * @param maxCardsAvailable the maximum number of available cards
-     * @param maxCardsToSelect the maximum number of cards a user can select
-     * @return a list of selected card indices
+     * @return the {@link HelpScreen} instance
      */
-    public static List<Integer> getCardInput(int maxCardsAvailable, int maxCardsToSelect) {
-        Scanner scanner = new Scanner(System.in);
-        List<Integer> userInput;
+    public static HelpScreen getHelpScreen() {
+        return HELP_SCREEN;
+    }
 
-        while (true) {
-            System.out.println(
-                    "Enter numbers (comma-separated, e.g., 1,2,3) from 1 to "
-                            + maxCardsAvailable
-                            + " (Allowed to select only "
-                            + maxCardsToSelect
-                            + "):");
-
-            String input = scanner.nextLine().trim();
-            String[] inputArray = input.split(",");
-
-            userInput =
-                    Arrays.stream(inputArray)
-                            .map(String::trim)
-                            .map(
-                                    numStr -> {
-                                        try {
-                                            return Integer.parseInt(numStr) - 1;
-                                        } catch (NumberFormatException e) {
-                                            return null;
-                                        }
-                                    })
-                            .filter(num -> num != null && num >= 0 && num < maxCardsAvailable)
-                            .collect(Collectors.toList());
-
-            if (!userInput.isEmpty()) {
-                System.out.println("You selected the numbers: " + userInput);
-                break;
-            } else {
-                System.out.println("Invalid Input! Please enter valid numbers.");
-            }
-        }
-        return userInput;
+    /**
+     * Clears the console screen.
+     * This method uses ANSI escape codes to clear the console.
+     */
+    public static void clearScreen() {
+        final String FLUSH = "\033[H\033[2J";
+        System.out.print(FLUSH);
+        System.out.flush(); // Ensure the output is flushed
     }
 }

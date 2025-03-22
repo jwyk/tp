@@ -1,4 +1,4 @@
-package Javatro.Exception;
+package Javatro.Core;
 
 /**
  * Represents a custom exception class for handling domain-specific errors in the Javatro

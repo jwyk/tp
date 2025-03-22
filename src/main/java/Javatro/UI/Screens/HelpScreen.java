@@ -6,15 +6,11 @@ import Javatro.Manager.Options.HelpRulesOption;
 import Javatro.Manager.Options.HelpTipsOption;
 import Javatro.Manager.Options.LoadStartScreenOption;
 
-/**
- * The HelpScreen class represents the help menu screen in Javatro. It provides various help options
- * such as game introduction, rules, how to play, tips, and an option to return to the start screen.
- */
 public class HelpScreen extends Screen {
 
-    /** Constructs a new HelpScreen and initializes the available help commands. */
+    /** Constructs a {@code StartScreen} and initializes available commands. */
     public HelpScreen() {
-        super("HELP MENU");
+        super("HELP SCREEN");
         commandMap.add(new HelpIntroOption());
         commandMap.add(new HelpRulesOption());
         commandMap.add(new HelpHowToPlayOption());
@@ -22,9 +18,17 @@ public class HelpScreen extends Screen {
         commandMap.add(new LoadStartScreenOption());
     }
 
-    /** Displays the help menu screen with a welcome message. */
+    /** Displays the start screen, including the game logo. */
     @Override
     public void displayScreen() {
-        System.out.println("Welcome to the Help Menu");
+        System.out.println("\n=== Welcome to Javatro ===");
+        System.out.println(
+                "Javatro is a text-based roguelike deck-building game inspired by Balatro.");
+        System.out.println(
+                "Your goal is to strategically build a deck and progress through challenges.");
+        System.out.println(
+                "Each turn, you'll play poker-style hands to defeat enemies and earn new cards.");
+        System.out.println(
+                "\nThink strategically, manage your deck wisely, and see how far you can go!");
     }
 }

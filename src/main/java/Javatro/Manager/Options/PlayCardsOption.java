@@ -5,7 +5,7 @@
  */
 package Javatro.Manager.Options;
 
-import Javatro.Exception.JavatroException;
+import Javatro.Core.JavatroException;
 import Javatro.Manager.JavatroManager;
 import Javatro.UI.UI;
 
@@ -21,7 +21,7 @@ public class PlayCardsOption implements Option {
     @Override
     public void execute() throws JavatroException {
         // Update the main screen to show select cards to play screen
-        JavatroManager.setScreen(UI.getSelectCardsToPlayScreen());
+        JavatroManager.setScreen(UI.getPlayScreen());
     }
 
     /**

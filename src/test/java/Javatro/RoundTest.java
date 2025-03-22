@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import Javatro.Core.Deck;
 import Javatro.Core.Round;
-import Javatro.Exception.JavatroException;
+import Javatro.Core.JavatroException;
 
 import org.junit.jupiter.api.Test;
 

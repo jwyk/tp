@@ -14,7 +14,7 @@ public abstract class Screen {
     protected final ArrayList<Option> commandMap = new ArrayList<>();
 
     /** The title of the options menu displayed on the screen. */
-    private String optionsTitle;
+    private final String optionsTitle;
 
     /**
      * Constructs a screen with the specified options title.

@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import Javatro.Core.Card;
 import Javatro.Core.HandResult;
 import Javatro.Core.PokerHand;
-import Javatro.Exception.JavatroException;
+import Javatro.Core.JavatroException;
 
 import org.junit.jupiter.api.Test;
 
