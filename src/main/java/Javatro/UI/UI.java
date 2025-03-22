@@ -20,14 +20,14 @@ public class UI {
 
     /** Predefined game-related screens. */
     private static final GameScreen gameScreen = new GameScreen(); // Screen where game is displayed
-    private static final OptionScreen optionScreen =
-            new OptionScreen(); // Settings screen for users
     private static final SelectCardsToDiscardScreen selectCardsToDiscardScreen =
             new SelectCardsToDiscardScreen(); // Screen where users choose cards to discard
     private static final SelectCardsToPlayScreen selectCardsToPlayScreen =
             new SelectCardsToPlayScreen(); // Screen where users choose cards to play
     private static final HelpScreen helpScreen = new HelpScreen(); // Help screen for users
     private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
+    private static final HelpIntroScreen helpIntroScreen = new HelpIntroScreen(); // Help Intro Screen
+
 
     /** Property change support for notifying observers of user input changes. */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -79,6 +79,12 @@ public class UI {
         return currentScreen;
     }
 
+
+    public static Screen getHelpIntroScreen() {
+        return helpIntroScreen;
+    }
+
+
     /**
      * Gets the game screen.
      *
@@ -86,15 +92,6 @@ public class UI {
      */
     public static GameScreen getGameScreen() {
         return gameScreen;
-    }
-
-    /**
-     * Gets the options screen.
-     *
-     * @return the OptionScreen instance
-     */
-    public static OptionScreen getOptionScreen() {
-        return optionScreen;
     }
 
     /**

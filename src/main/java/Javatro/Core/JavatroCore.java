@@ -30,7 +30,7 @@ public class JavatroCore {
      */
     private Round classicRound() throws JavatroException {
         Deck d = new Deck();
-        return new Round(1200, 10, d, "Classic", "Classic Round");
+        return new Round(1, 1, d, "Classic", "Classic Round");
     }
 
     /**

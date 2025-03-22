@@ -3,7 +3,6 @@ package Javatro.UI.Screens;
 import Javatro.Manager.Options.ExitGameOption;
 import Javatro.Manager.Options.HelpOption;
 import Javatro.Manager.Options.LoadGameScreenOption;
-import Javatro.Manager.Options.LoadOptionsScreenOption;
 
 /**
  * The {@code StartScreen} class represents the initial menu screen of the application. It provides
@@ -15,7 +14,6 @@ public class StartScreen extends Screen {
     public StartScreen() {
         super("START MENU");
         commandMap.add(new LoadGameScreenOption());
-        commandMap.add(new LoadOptionsScreenOption());
         commandMap.add(new HelpOption());
         // commandMap.put("Credits", new LoadCreditsScreenCommand(new CreditsScreen()));
         commandMap.add(new ExitGameOption());

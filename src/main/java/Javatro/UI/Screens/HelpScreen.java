@@ -1,6 +1,8 @@
 package Javatro.UI.Screens;
 
+import Javatro.Manager.JavatroManager;
 import Javatro.Manager.Options.*;
+import Javatro.UI.UI;
 
 /**
  * The HelpScreen class represents the help menu screen in Javatro. It provides various help options
@@ -18,9 +20,10 @@ public class HelpScreen extends Screen {
         commandMap.add(new LoadStartScreenOption());
     }
 
+
     /** Displays the help menu screen with a welcome message. */
     @Override
     public void displayScreen() {
-        System.out.println("Welcome to the hHelp Menu");
+        System.out.println("Welcome to the Help Menu");
     }
 }
