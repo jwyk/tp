@@ -1,12 +1,10 @@
-package Javatro;
+package Javatro.Core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Javatro.Core.Card;
-import Javatro.Core.Deck;
 import Javatro.Exception.JavatroException;
 
 /**

@@ -1,4 +1,4 @@
-package Javatro;
+package Javatro.Core;
 
 import static Javatro.Core.Card.Rank.ACE;
 import static Javatro.Core.Card.Rank.FOUR;
@@ -16,9 +16,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Javatro.Core.Card;
-import Javatro.Core.Deck;
-import Javatro.Core.HoldingHand;
 import Javatro.Exception.JavatroException;
 
 /**

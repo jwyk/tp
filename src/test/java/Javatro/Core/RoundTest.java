@@ -1,11 +1,10 @@
-package Javatro;
+package Javatro.Core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import Javatro.Core.Deck;
-import Javatro.Core.Round;
 import Javatro.Exception.JavatroException;
+import Javatro.Javatro;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,7 @@ public class RoundTest {
         assertEquals(blindScore, round.getBlindScore());
         assertEquals(remainingPlays, round.getRemainingPlays());
         assertEquals(0, round.getCurrentScore());
-        assertEquals(3, round.getRemainingDiscards());
+        assertEquals(4, round.getRemainingDiscards());
         assertEquals(false, round.isRoundOver());
     }
 
@@ -172,8 +171,8 @@ public class RoundTest {
                 3,
                 List.of(0, 1, 2, 3, 4, 5),
                 "A poker hand must contain between 1 and 5 cards.");
-        assertPlayCardsInvalidHandSize(
-                100, 3, List.of(0, 1, 2, 3), "A poker hand must contain between 1 and 5 cards.");
+//        assertPlayCardsInvalidHandSize(
+//                100, 3, List.of(0, 1, 2, 3), "A poker hand must contain between 1 and 5 cards.");
         assertPlayCardsInvalidHandSize(
                 100,
                 3,
@@ -195,14 +194,14 @@ public class RoundTest {
         Round round = new Round(100, 3, deck, "", "");
 
         // Initial state
-        assertEquals(3, round.getRemainingDiscards());
+        assertEquals(4, round.getRemainingDiscards());
         int initialHandSize = round.getPlayerHand().size();
 
         // Discard 2 cards
         round.discardCards(List.of(0, 1));
 
         // Check state after discard
-        assertEquals(2, round.getRemainingDiscards());
+        assertEquals(3, round.getRemainingDiscards());
         assertEquals(
                 initialHandSize, round.getPlayerHand().size()); // Hand size should remain the same
     }
@@ -212,16 +211,17 @@ public class RoundTest {
         Deck deck = new Deck();
         Round round = new Round(100, 3, deck, "", "");
 
-        // Use all 3 discards
+        // Use all 4 discards
+        round.discardCards(List.of(0));
         round.discardCards(List.of(0));
         round.discardCards(List.of(0));
         round.discardCards(List.of(0));
 
-        // Fourth discard should fail
+        // Fifth discard should fail
         try {
             round.discardCards(List.of(0));
             fail("Should have thrown an exception for too many discards");
-        } catch (IllegalStateException e) {
+        } catch (JavatroException e) {
             assertEquals("No remaining discards available", e.getMessage());
         }
     }
@@ -232,14 +232,14 @@ public class RoundTest {
         Round round = new Round(100, 3, deck, "", "");
 
         // Initial state
-        assertEquals(3, round.getRemainingDiscards());
+        assertEquals(4, round.getRemainingDiscards());
         int initialHandSize = round.getPlayerHand().size();
 
         // Discard 0 cards
         round.discardCards(List.of());
 
         // Should still use a discard
-        assertEquals(2, round.getRemainingDiscards());
+        assertEquals(3, round.getRemainingDiscards());
         assertEquals(initialHandSize, round.getPlayerHand().size());
     }
 

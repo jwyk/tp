@@ -4,13 +4,15 @@ import Javatro.Exception.JavatroException;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Round {
     /** The initial number of cards dealt to the player. */
     public static final int INITIAL_HAND_SIZE = 8;
     /** The maximum number of discards allowed per round. */
-    public static final int MAX_DISCARDS_PER_ROUND = 3;
+    public static final int MAX_DISCARDS_PER_ROUND = 4;
     /** The number of cards required to form a valid poker hand. */
     private static final int POKER_HAND_SIZE = 5;
 
@@ -116,7 +118,7 @@ public class Round {
      * @throws JavatroException If the number of cards played is not equal to 5
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
-        if (cardIndices.size() != POKER_HAND_SIZE) {
+        if (cardIndices.size() > POKER_HAND_SIZE || cardIndices.isEmpty()) {
             throw JavatroException.invalidPlayedHand();
         }
 
@@ -136,7 +138,7 @@ public class Round {
         currentScore += totalChips * result.getMultiplier();
 
         // Draw new cards to replace played ones
-        playerHand.draw(POKER_HAND_SIZE, deck);
+        playerHand.draw(cardIndices.size(), deck);
 
         remainingPlays--;
 
@@ -151,12 +153,16 @@ public class Round {
      */
     public void discardCards(List<Integer> cardIndices) throws JavatroException {
         if (remainingDiscards <= 0) {
-            throw new IllegalStateException("No remaining discards available");
+            throw new JavatroException("No remaining discards available");
         }
+
+        //Handle duplicates by using a Set
+        Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);
+
         playerHand.discard(cardIndices, deck);
         remainingDiscards--;
 
-        playerHand.draw(cardIndices.size(), deck);
+        playerHand.draw(indicesToDiscard.size(), deck);
 
         updateRoundVariables();
     }
