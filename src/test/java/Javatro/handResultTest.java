@@ -1,31 +1,31 @@
 package Javatro;
 
-import static javatro_core.Card.Rank.ACE;
-import static javatro_core.Card.Rank.EIGHT;
-import static javatro_core.Card.Rank.FIVE;
-import static javatro_core.Card.Rank.FOUR;
-import static javatro_core.Card.Rank.JACK;
-import static javatro_core.Card.Rank.KING;
-import static javatro_core.Card.Rank.NINE;
-import static javatro_core.Card.Rank.QUEEN;
-import static javatro_core.Card.Rank.SEVEN;
-import static javatro_core.Card.Rank.SIX;
-import static javatro_core.Card.Rank.TEN;
-import static javatro_core.Card.Rank.THREE;
-import static javatro_core.Card.Rank.TWO;
-import static javatro_core.Card.Suit.CLUBS;
-import static javatro_core.Card.Suit.DIAMONDS;
-import static javatro_core.Card.Suit.HEARTS;
-import static javatro_core.Card.Suit.SPADES;
+import static Javatro.Core.Card.Rank.ACE;
+import static Javatro.Core.Card.Rank.EIGHT;
+import static Javatro.Core.Card.Rank.FIVE;
+import static Javatro.Core.Card.Rank.FOUR;
+import static Javatro.Core.Card.Rank.JACK;
+import static Javatro.Core.Card.Rank.KING;
+import static Javatro.Core.Card.Rank.NINE;
+import static Javatro.Core.Card.Rank.QUEEN;
+import static Javatro.Core.Card.Rank.SEVEN;
+import static Javatro.Core.Card.Rank.SIX;
+import static Javatro.Core.Card.Rank.TEN;
+import static Javatro.Core.Card.Rank.THREE;
+import static Javatro.Core.Card.Rank.TWO;
+import static Javatro.Core.Card.Suit.CLUBS;
+import static Javatro.Core.Card.Suit.DIAMONDS;
+import static Javatro.Core.Card.Suit.HEARTS;
+import static Javatro.Core.Card.Suit.SPADES;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import javatro_core.Card;
-import javatro_core.HandResult;
-import javatro_core.PokerHand;
+import Javatro.Core.Card;
+import Javatro.Core.HandResult;
+import Javatro.Core.PokerHand;
 
-import javatro_exception.JavatroException;
+import Javatro.Exception.JavatroException;
 
 import org.junit.jupiter.api.Test;
 

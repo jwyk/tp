@@ -3,10 +3,10 @@ package Javatro;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import javatro_core.Deck;
-import javatro_core.Round;
+import Javatro.Core.Deck;
+import Javatro.Core.Round;
 
-import javatro_exception.JavatroException;
+import Javatro.Exception.JavatroException;
 
 import org.junit.jupiter.api.Test;
 
