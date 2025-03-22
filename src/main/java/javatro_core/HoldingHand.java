@@ -99,12 +99,6 @@ public class HoldingHand {
             Hand.remove(index);
         }
 
-        // Draw the same number of cards played
-        for (int i = 0; i < cardsToPlay.size(); i++) {
-            Card tempCard = deck.draw();
-            Hand.add(tempCard);
-        }
-
         return playList;
     }
 
@@ -140,11 +134,6 @@ public class HoldingHand {
             Hand.remove(index);
         }
 
-        // Draw the same number of cards discarded
-        for (int i = 0; i < cardsToDiscard.size(); i++) {
-            Card tempCard = deck.draw();
-            Hand.add(tempCard);
-        }
     }
 
     /**
