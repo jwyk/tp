@@ -1,6 +1,10 @@
 package javatro_view;
 
-import javatro_manager.*;
+import javatro_manager.HelpHowToPlayCommand;
+import javatro_manager.HelpIntroCommand;
+import javatro_manager.HelpRulesCommand;
+import javatro_manager.HelpTipsCommand;
+import javatro_manager.LoadStartScreenCommand;
 
 /**
  * The HelpScreen class represents the help menu screen in Javatro. It provides various help options
@@ -8,7 +12,9 @@ import javatro_manager.*;
  */
 public class HelpScreen extends Screen {
 
-    /** Constructs a new HelpScreen and initializes the available help commands. */
+    /**
+     * Constructs a new HelpScreen and initializes the available help commands.
+     */
     public HelpScreen() {
         super("HELP MENU");
         commandMap.add(new HelpIntroCommand());
@@ -18,7 +24,9 @@ public class HelpScreen extends Screen {
         commandMap.add(new LoadStartScreenCommand());
     }
 
-    /** Displays the help menu screen with a welcome message. */
+    /**
+     * Displays the help menu screen with a welcome message.
+     */
     @Override
     public void displayScreen() {
         System.out.println("Welcome to the hHelp Menu");
