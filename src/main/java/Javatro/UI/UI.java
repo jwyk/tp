@@ -1,8 +1,8 @@
 package Javatro.UI;
 
+import Javatro.Parser.Parser;
 import Javatro.UI.Screens.*;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +28,8 @@ public class UI {
     private static final StartScreen startScreen = new StartScreen(); // Start Menu Screen
     private static final HelpIntroScreen helpIntroScreen = new HelpIntroScreen(); // Help Intro Screen
 
+    private static final Parser parser = new Parser();
+
 
     /** Property change support for notifying observers of user input changes. */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -50,14 +52,6 @@ public class UI {
         return selectCardsToPlayScreen;
     }
 
-    /**
-     * Registers an observer (JavatroManager) to listen for user input changes.
-     *
-     * @param pcl the property change listener to register
-     */
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
-        support.addPropertyChangeListener(pcl);
-    }
 
     /**
      * Sets the current screen and displays it.
@@ -67,7 +61,7 @@ public class UI {
     public void setCurrentScreen(Screen s) {
         currentScreen = s;
         currentScreen.displayScreen();
-        getInput();
+        parser.getInput();
     }
 
     /**
@@ -84,6 +78,9 @@ public class UI {
         return helpIntroScreen;
     }
 
+    public static Parser getParser() {
+        return parser;
+    }
 
     /**
      * Gets the game screen.
@@ -160,32 +157,4 @@ public class UI {
         return userInput;
     }
 
-    /** Handles user input for navigating the current screen and notifies observers. */
-    public void getInput() {
-        Scanner scanner = new Scanner(System.in);
-        int userInput;
-        int maxRange = getCurrentScreen().getOptionsSize();
-
-        while (true) {
-            currentScreen.displayOptions();
-            System.out.print("Enter a number (1 to " + maxRange + "): ");
-
-            if (scanner.hasNextInt()) {
-                userInput = scanner.nextInt();
-                if (userInput >= 1 && userInput <= maxRange) {
-                    break;
-                } else {
-                    System.out.println(
-                            "Invalid input! Please enter a number between 1 and " + maxRange + ".");
-                }
-            } else {
-                System.out.println("Invalid input! Please enter a number.");
-                scanner.next();
-            }
-        }
-
-        // Update listeners (JavatroManager)  on the value of user input being updated
-        support.firePropertyChange("userInput", null, userInput);
-        clearConsole();
-    }
 }

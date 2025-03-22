@@ -20,7 +20,7 @@ import java.beans.PropertyChangeListener;
 public class JavatroManager implements PropertyChangeListener {
 
     /** The main view responsible for rendering the user interface. */
-    private static UI jv;
+    private static UI ui;
     /** The main model responsible for handling game logic. */
     private static JavatroCore jc;
     /** Stores the last recorded user input. */
@@ -29,13 +29,13 @@ public class JavatroManager implements PropertyChangeListener {
     /**
      * Constructs a {@code JavatroManager} and registers it as an observer to the view.
      *
-     * @param jv The main view of the game.
+     * @param ui The main view of the game.
      * @param jc The main model of the game.
      */
-    public JavatroManager(UI jv, JavatroCore jc) {
-        JavatroManager.jv = jv;
+    public JavatroManager(UI ui, JavatroCore jc) {
+        JavatroManager.ui = ui;
         JavatroManager.jc = jc;
-        jv.addPropertyChangeListener(this); // Register as an observer
+        UI.getParser().addPropertyChangeListener(this); // Register as an observer
     }
 
     /**
@@ -44,7 +44,7 @@ public class JavatroManager implements PropertyChangeListener {
      * @param destinationScreen The new screen to be displayed.
      */
     public static void setScreen(Screen destinationScreen) {
-        jv.setCurrentScreen(destinationScreen);
+        ui.setCurrentScreen(destinationScreen);
     }
 
     /**
@@ -70,9 +70,11 @@ public class JavatroManager implements PropertyChangeListener {
         if (evt.getPropertyName().equals("userInput")) {
             // Execute the respective command
             try {
-                jv.getCurrentScreen().getCommand((int) evt.getNewValue() - 1).execute();
+                UI.getCurrentScreen().getCommand((int) evt.getNewValue() - 1).execute();
             } catch (JavatroException e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
+                ui.setCurrentScreen(UI.getCurrentScreen());
+                //throw new RuntimeException(e);
             }
         }
     }
