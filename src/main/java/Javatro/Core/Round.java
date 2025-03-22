@@ -156,7 +156,7 @@ public class Round {
             throw new JavatroException("No remaining discards available");
         }
 
-        //Handle duplicates by using a Set
+        // Handle duplicates by using a Set
         Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);
 
         playerHand.discard(cardIndices, deck);
