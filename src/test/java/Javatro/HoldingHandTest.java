@@ -35,9 +35,15 @@ public class HoldingHandTest {
         int cardsRemaining = deck.getRemainingCards();
         assertEquals(44, cardsRemaining);
         holdingHand.discard(List.of(1, 3, 5), deck);
+        for (int i = 0; i < 3; i++) {
+            holdingHand.add(deck.draw());
+        }
         assertEquals(41, deck.getRemainingCards());
         List<Card> playedHand = holdingHand.play(List.of(1, 4, 5), deck);
         assertEquals(3, playedHand.size());
+        for (int i = 0; i < 3; i++) {
+            holdingHand.add(deck.draw());
+        }
         assertEquals(38, deck.getRemainingCards());
     }
 }
