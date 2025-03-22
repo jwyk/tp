@@ -1,5 +1,7 @@
 package Javatro.Parser;
 
+import static Javatro.UI.UI.getCurrentScreen;
+
 import Javatro.UI.UI;
 
 import java.beans.PropertyChangeListener;
@@ -8,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import static Javatro.UI.UI.getCurrentScreen;
 
 public class Parser {
 
@@ -23,7 +24,6 @@ public class Parser {
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);
     }
-
 
     /**
      * Prompts the user to select card numbers and returns a list of selected card indices.

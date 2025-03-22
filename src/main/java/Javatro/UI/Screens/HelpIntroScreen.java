@@ -18,7 +18,6 @@ public class HelpIntroScreen extends Screen {
         commandMap.add(new LoadStartScreenOption());
     }
 
-
     /** Displays the start screen, including the game logo. */
     @Override
     public void displayScreen() {

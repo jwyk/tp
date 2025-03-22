@@ -4,8 +4,8 @@ import Javatro.Manager.JavatroManager;
 import Javatro.UI.UI;
 
 /**
- * The HelpOption class handles displaying the help screen in Javatro. This command is executed
- * when the player selects the help option.
+ * The HelpOption class handles displaying the help screen in Javatro. This command is executed when
+ * the player selects the help option.
  */
 public class HelpOption implements Option {
 
