@@ -11,8 +11,15 @@ import Javatro.Display.UI;
 /** A command that starts the game and loads the game screen. */
 public class StartGameOption implements Option {
 
-    /** Constructs a {@code StartGameOption}. */
-    public StartGameOption() {}
+    /**
+     * Provides a brief description of the command.
+     *
+     * @return A string describing the command.
+     */
+    @Override
+    public String getDescription() {
+        return "Start Game";
+    }
 
     /**
      * Executes the command to begin the game, restore available commands, and update the screen to
@@ -24,18 +31,7 @@ public class StartGameOption implements Option {
     public void execute() throws JavatroException {
         JavatroManager.beginGame();
         Javatro.Display.UI.getGameScreen().restoreGameCommands();
-
         // Update the main screen to show the game screen
         JavatroManager.setScreen(UI.getGameScreen());
-    }
-
-    /**
-     * Provides a brief description of the command.
-     *
-     * @return A string describing the command.
-     */
-    @Override
-    public String getDescription() {
-        return "Start Game";
     }
 }

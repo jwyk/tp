@@ -11,15 +11,6 @@ import Javatro.Display.UI;
 /** A command that loads the main menu (start screen) when executed. */
 public class MainMenuOption implements Option {
 
-    /** Constructs a {@code MainMenuOption}. */
-    public MainMenuOption() {}
-
-    /** Executes the command to change the screen to the start menu. */
-    @Override
-    public void execute() throws JavatroException {
-        JavatroManager.setScreen(UI.getStartScreen());
-    }
-
     /**
      * Provides a brief description of the command.
      *
@@ -28,5 +19,11 @@ public class MainMenuOption implements Option {
     @Override
     public String getDescription() {
         return "Main Menu";
+    }
+
+    /** Executes the command to change the screen to the start menu. */
+    @Override
+    public void execute() throws JavatroException {
+        JavatroManager.setScreen(UI.getStartScreen());
     }
 }

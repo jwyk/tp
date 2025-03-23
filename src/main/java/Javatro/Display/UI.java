@@ -39,24 +39,6 @@ public class UI {
     }
 
     /**
-     * Gets the screen where users select cards to discard.
-     *
-     * @return the {@link DiscardScreen} instance
-     */
-    public static DiscardScreen getDiscardScreen() {
-        return DISCARD_SCREEN;
-    }
-
-    /**
-     * Gets the screen where users select cards to play.
-     *
-     * @return the {@link PlayScreen} instance
-     */
-    public static PlayScreen getPlayScreen() {
-        return PLAY_SCREEN;
-    }
-
-    /**
      * Sets the current screen and displays it.
      *
      * @param screen the screen to be displayed
@@ -82,12 +64,41 @@ public class UI {
     }
 
     /**
+     * Clears the console screen.
+     * This method uses ANSI escape codes to clear the console.
+     */
+    public static void clearScreen() {
+        final String FLUSH = "\033[H\033[2J";
+        System.out.print(FLUSH);
+        System.out.flush(); // Ensure the output is flushed
+    }
+
+    /**
      * Gets the parser instance for handling user input.
      *
      * @return the {@link Parser} instance
      */
     public static Parser getParser() {
         return PARSER;
+    }
+
+    //region Screen Getters
+    /**
+     * Gets the screen where users select cards to discard.
+     *
+     * @return the {@link DiscardScreen} instance
+     */
+    public static DiscardScreen getDiscardScreen() {
+        return DISCARD_SCREEN;
+    }
+
+    /**
+     * Gets the screen where users select cards to play.
+     *
+     * @return the {@link PlayScreen} instance
+     */
+    public static PlayScreen getPlayScreen() {
+        return PLAY_SCREEN;
     }
 
     /**
@@ -116,14 +127,5 @@ public class UI {
     public static HelpScreen getHelpScreen() {
         return HELP_SCREEN;
     }
-
-    /**
-     * Clears the console screen.
-     * This method uses ANSI escape codes to clear the console.
-     */
-    public static void clearScreen() {
-        final String FLUSH = "\033[H\033[2J";
-        System.out.print(FLUSH);
-        System.out.flush(); // Ensure the output is flushed
-    }
+    //endregion
 }
