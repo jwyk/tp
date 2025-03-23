@@ -4,17 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 public class RoundTest {
     private static final String RED = "\033[31m";
     private static final String END = "\033[0m";
-    private static final String INVALIDPLAYEDHANDERROR = RED + "A poker hand must contain between 1 and 5 cards." + END;
-    private static final String INVALIDPLAYSPERROUND = RED + "Number of plays per round must be greater than 0." + END;
-    private static final String INVALIDBLINDSCORE = RED + "Blind score must be greater than or equal to 0." + END;
-    private static final String INVALIDDECK = RED +"Deck cannot be null." + END;
+    private static final String INVALIDPLAYEDHANDERROR =
+            RED + "A poker hand must contain between 1 and 5 cards." + END;
+    private static final String INVALIDPLAYSPERROUND =
+            RED + "Number of plays per round must be greater than 0." + END;
+    private static final String INVALIDBLINDSCORE =
+            RED + "Blind score must be greater than or equal to 0." + END;
+    private static final String INVALIDDECK = RED + "Deck cannot be null." + END;
     private static final String INVALIDPLAYSREMAINING = RED + "No plays remaining." + END;
 
     private void assertRoundInitialization(int blindScore, int remainingPlays)
@@ -120,19 +123,13 @@ public class RoundTest {
 
     @Test
     public void round_incorrectInitializatioin() throws JavatroException {
-        assertRoundInitializationFailure(
-                100, 0, new Deck(), INVALIDPLAYSPERROUND);
-        assertRoundInitializationFailure(
-                -100, 3, new Deck(), INVALIDBLINDSCORE);
+        assertRoundInitializationFailure(100, 0, new Deck(), INVALIDPLAYSPERROUND);
+        assertRoundInitializationFailure(-100, 3, new Deck(), INVALIDBLINDSCORE);
         assertRoundInitializationFailure(100, 3, null, INVALIDDECK);
-        assertRoundInitializationFailure(
-                -100, 0, new Deck(), INVALIDBLINDSCORE);
-        assertRoundInitializationFailure(
-                -100, 3, null, INVALIDBLINDSCORE);
-        assertRoundInitializationFailure(
-                100, 0, null, INVALIDPLAYSPERROUND);
-        assertRoundInitializationFailure(
-                -100, 0, null, INVALIDBLINDSCORE);
+        assertRoundInitializationFailure(-100, 0, new Deck(), INVALIDBLINDSCORE);
+        assertRoundInitializationFailure(-100, 3, null, INVALIDBLINDSCORE);
+        assertRoundInitializationFailure(100, 0, null, INVALIDPLAYSPERROUND);
+        assertRoundInitializationFailure(-100, 0, null, INVALIDBLINDSCORE);
     }
 
     @Test
@@ -172,24 +169,13 @@ public class RoundTest {
 
     @Test
     public void round_playCards_invalidHandSize() throws JavatroException {
+        assertPlayCardsInvalidHandSize(100, 3, List.of(0, 1, 2, 3, 4, 5), INVALIDPLAYEDHANDERROR);
         assertPlayCardsInvalidHandSize(
-                100,
-                3,
-                List.of(0, 1, 2, 3, 4, 5),
-                INVALIDPLAYEDHANDERROR);
+                100, 3, List.of(0, 1, 2, 3, 4, 5, 6), INVALIDPLAYEDHANDERROR);
         assertPlayCardsInvalidHandSize(
-                100,
-                3,
-                List.of(0, 1, 2, 3, 4, 5, 6),
-                INVALIDPLAYEDHANDERROR);
-        assertPlayCardsInvalidHandSize(
-                100,
-                3,
-                List.of(0, 1, 2, 3, 4, 5, 6, 7),
-                INVALIDPLAYEDHANDERROR);
+                100, 3, List.of(0, 1, 2, 3, 4, 5, 6, 7), INVALIDPLAYEDHANDERROR);
         // Test with 0 cards
-        assertPlayCardsInvalidHandSize(
-                100, 3, List.of(), INVALIDPLAYEDHANDERROR);
+        assertPlayCardsInvalidHandSize(100, 3, List.of(), INVALIDPLAYEDHANDERROR);
     }
 
     @Test
