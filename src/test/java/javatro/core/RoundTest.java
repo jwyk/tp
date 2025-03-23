@@ -1,10 +1,10 @@
 package javatro.core;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class RoundTest {
     private void assertRoundInitialization(int blindScore, int remainingPlays)
