@@ -2,10 +2,10 @@ package javatro.display.screens;
 
 import javatro.core.Card;
 import javatro.core.JavatroException;
-import javatro.manager.options.DiscardCardsOption;
+import javatro.manager.options.DiscardCardOption;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.MainMenuOption;
-import javatro.manager.options.PlayCardsOption;
+import javatro.manager.options.PlayCardOption;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -58,8 +58,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     /** Constructs a {@code GameScreen} and initializes the available commands. */
     public GameScreen() throws JavatroException {
         super("GAME MENU");
-        commandMap.add(new PlayCardsOption());
-        commandMap.add(new DiscardCardsOption());
+        commandMap.add(new PlayCardOption());
+        commandMap.add(new DiscardCardOption());
         commandMap.add(new MainMenuOption());
         commandMap.add(new ExitGameOption());
     }
@@ -67,8 +67,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     /** Restores the default game commands after the round ends. */
     public void restoreGameCommands() {
         commandMap.clear();
-        commandMap.add(new PlayCardsOption());
-        commandMap.add(new DiscardCardsOption());
+        commandMap.add(new PlayCardOption());
+        commandMap.add(new DiscardCardOption());
         commandMap.add(new MainMenuOption());
         commandMap.add(new ExitGameOption());
     }

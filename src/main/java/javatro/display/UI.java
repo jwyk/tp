@@ -2,7 +2,6 @@ package javatro.display;
 
 import javatro.core.JavatroException;
 import javatro.display.screens.*;
-import javatro.manager.Parser;
 
 /**
  * The {@code display} class is responsible for managing and displaying different screens in the

@@ -187,4 +187,15 @@ public final class JavatroException extends Exception {
     public static JavatroException errorLoadingLogo(String fileName) {
         return new JavatroException(RED + "Error loading logo from: " + fileName + END);
     }
+
+    /**
+     * Creates an exception indicating an invalid selection limit.
+     *
+     * <p>This exception is thrown when the selection limit is less than 1.
+     *
+     * @return A {@code JavatroException} indicating the selection limit must be a positive value.
+     */
+    public static JavatroException invalidSelectionLimit() {
+        return new JavatroException(RED + "Selection limit must be a positive value." + END);
+    }
 }

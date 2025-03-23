@@ -1,9 +1,8 @@
-package javatro.manager;
+package javatro.display;
 
 import static javatro.display.UI.getCurrentScreen;
 
 import javatro.core.JavatroException;
-import javatro.display.UI;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
