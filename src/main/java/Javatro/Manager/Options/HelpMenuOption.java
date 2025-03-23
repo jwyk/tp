@@ -5,12 +5,12 @@ import Javatro.Manager.JavatroManager;
 import Javatro.Display.UI;
 
 /**
- * The HelpOption class handles displaying the help screen in Javatro. This command is executed when
+ * The HelpMenuOption class handles displaying the help screen in Javatro. This command is executed when
  * the player selects the help option.
  */
-public class HelpOption implements Option {
+public class HelpMenuOption implements Option {
 
-    public HelpOption() {}
+    public HelpMenuOption() {}
 
     /** Executes the command to display the help screen. */
     @Override
@@ -25,6 +25,6 @@ public class HelpOption implements Option {
      */
     @Override
     public String getDescription() {
-        return "Select Help";
+        return "Help Menu";
     }
 }

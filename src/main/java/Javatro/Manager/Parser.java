@@ -107,10 +107,10 @@ public class Parser {
                     throw JavatroException.invalidInputType();
                 }
             } catch (JavatroException e) {
-                System.err.println(e.getMessage()); // Print the error message
+                System.out.println(e.getMessage()); // Print the error message
                 scanner.nextLine(); // Clear the invalid input from the scanner
             } catch (Exception e) {
-                System.err.println("An unexpected error occurred: " + e.getMessage());
+                System.out.println("An unexpected error occurred: " + e.getMessage());
                 scanner.nextLine(); // Clear the invalid input from the scanner
             }
         }

@@ -2,13 +2,12 @@ package Javatro.Display.Screens;
 
 import Javatro.Core.JavatroException;
 import Javatro.Manager.Options.ExitGameOption;
-import Javatro.Manager.Options.HelpOption;
-import Javatro.Manager.Options.LoadGameScreenOption;
+import Javatro.Manager.Options.HelpMenuOption;
+import Javatro.Manager.Options.StartGameOption;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -48,9 +47,9 @@ public class StartScreen extends Screen {
      * @throws JavatroException if the options title is invalid or if there is an error initializing the screen
      */
     public StartScreen() throws JavatroException {
-        super("START MENU");
-        commandMap.add(new LoadGameScreenOption());
-        commandMap.add(new HelpOption());
+        super("MAIN MENU");
+        commandMap.add(new StartGameOption());
+        commandMap.add(new HelpMenuOption());
         commandMap.add(new ExitGameOption());
     }
 

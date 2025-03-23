@@ -1,11 +1,8 @@
 package Javatro.Display.Screens;
 
 import Javatro.Core.JavatroException;
-import Javatro.Manager.Options.HelpHowToPlayOption;
-import Javatro.Manager.Options.HelpIntroOption;
-import Javatro.Manager.Options.HelpRulesOption;
-import Javatro.Manager.Options.HelpTipsOption;
-import Javatro.Manager.Options.LoadStartScreenOption;
+import Javatro.Manager.Options.*;
+import Javatro.Manager.Options.MainMenuOption;
 
 public class HelpScreen extends Screen {
 
@@ -16,7 +13,7 @@ public class HelpScreen extends Screen {
         commandMap.add(new HelpRulesOption());
         commandMap.add(new HelpHowToPlayOption());
         commandMap.add(new HelpTipsOption());
-        commandMap.add(new LoadStartScreenOption());
+        commandMap.add(new MainMenuOption());
     }
 
     /** Displays the start screen, including the game logo. */

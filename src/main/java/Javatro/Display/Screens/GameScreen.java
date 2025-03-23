@@ -4,7 +4,7 @@ import Javatro.Core.Card;
 import Javatro.Core.JavatroException;
 import Javatro.Manager.Options.DiscardCardsOption;
 import Javatro.Manager.Options.ExitGameOption;
-import Javatro.Manager.Options.LoadStartScreenOption;
+import Javatro.Manager.Options.MainMenuOption;
 import Javatro.Manager.Options.PlayCardsOption;
 
 import java.beans.PropertyChangeEvent;
@@ -23,14 +23,14 @@ import java.util.stream.Collectors;
 public class GameScreen extends Screen implements PropertyChangeListener {
 
     /** Display-related constants for display formatting. */
-    public static final String END = "\u001B[0m";
-    public static final String RED = "\u001B[31m";
-    public static final String GREEN = "\u001B[32m";
-    public static final String YELLOW = "\u001B[33m";
-    public static final String BLUE = "\u001B[34m";
-    public static final String PURPLE = "\u001B[35m";
-    public static final String CYAN = "\u001B[36m";
-    public static final String WHITE = "\u001B[37m";
+    public static final String END = "\033[0m";
+    public static final String RED = "\033[31m";
+    public static final String GREEN = "\033[32m";
+    public static final String YELLOW = "\033[33m";
+    public static final String BLUE = "\033[34m";
+    public static final String PURPLE = "\033[35m";
+    public static final String CYAN = "\033[36m";
+    public static final String WHITE = "\033[37m";
 
     /** Indicator for whether the round is over. 1 for won, -1 for lost, 0 for ongoing. */
     public static int roundOver = 0;
@@ -59,7 +59,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         super("GAME MENU");
         commandMap.add(new PlayCardsOption());
         commandMap.add(new DiscardCardsOption());
-        commandMap.add(new LoadStartScreenOption());
+        commandMap.add(new MainMenuOption());
         commandMap.add(new ExitGameOption());
     }
 
@@ -68,7 +68,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         commandMap.clear();
         commandMap.add(new PlayCardsOption());
         commandMap.add(new DiscardCardsOption());
-        commandMap.add(new LoadStartScreenOption());
+        commandMap.add(new MainMenuOption());
         commandMap.add(new ExitGameOption());
     }
 
@@ -337,7 +337,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                     roundOver = (Integer) value;
                     if (roundOver != 0) {
                         commandMap.clear();
-                        commandMap.add(new LoadStartScreenOption());
+                        commandMap.add(new MainMenuOption());
                         commandMap.add(new ExitGameOption());
                     }
                 });

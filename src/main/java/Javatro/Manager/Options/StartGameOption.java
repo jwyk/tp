@@ -1,5 +1,5 @@
 /**
- * The {@code LoadGameScreenOption} class represents a command that initializes and starts a new
+ * The {@code StartGameOption} class represents a command that initializes and starts a new
  * game session by setting the game screen.
  */
 package Javatro.Manager.Options;
@@ -9,10 +9,10 @@ import Javatro.Manager.JavatroManager;
 import Javatro.Display.UI;
 
 /** A command that starts the game and loads the game screen. */
-public class LoadGameScreenOption implements Option {
+public class StartGameOption implements Option {
 
-    /** Constructs a {@code LoadGameScreenOption}. */
-    public LoadGameScreenOption() {}
+    /** Constructs a {@code StartGameOption}. */
+    public StartGameOption() {}
 
     /**
      * Executes the command to begin the game, restore available commands, and update the screen to

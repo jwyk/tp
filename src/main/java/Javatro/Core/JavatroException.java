@@ -12,8 +12,8 @@ package Javatro.Core;
  */
 public final class JavatroException extends Exception {
 
-    private static final String RED = "\u001B[31m";
-    private static final String END = "\u001B[0m";
+    private static final String RED = "\033[31m";
+    private static final String END = "\033[0m";
 
     /**
      * Constructs a {@code JavatroException} with the specified error message.
