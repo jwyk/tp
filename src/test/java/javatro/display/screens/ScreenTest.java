@@ -1,4 +1,4 @@
-package javatro;
+package javatro.display.screens;
 
 // import javatro.display.screens.Screen;
 import static org.junit.jupiter.api.Assertions.*;

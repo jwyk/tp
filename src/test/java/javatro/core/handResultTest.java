@@ -1,4 +1,4 @@
-package javatro;
+package javatro.core;
 
 import static javatro.core.Card.Rank.ACE;
 import static javatro.core.Card.Rank.EIGHT;
@@ -20,11 +20,6 @@ import static javatro.core.Card.Suit.SPADES;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-import javatro.core.Card;
-import javatro.core.HandResult;
-import javatro.core.JavatroException;
-import javatro.core.PokerHand;
 
 import org.junit.jupiter.api.Test;
 
