@@ -26,7 +26,6 @@ public class ExitGameOption implements Option {
         return "Exit Game";
     }
 
-
     // Static block to initialize the End Screen from a file
     static {
         try (InputStream inputStream =
