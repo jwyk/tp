@@ -49,16 +49,10 @@ public class SelectCardsOption implements Option {
     public void execute() throws JavatroException {
         List<Integer> userInput;
 
-        if (LIMIT == -1) {
-            userInput =
-                    Parser.getCardInput(
-                            JavatroCore.currentRound.getPlayerHand().size(),
-                            JavatroCore.currentRound.getPlayerHand().size());
-        } else {
-            userInput =
-                    Parser.getCardInput(
-                            JavatroCore.currentRound.getPlayerHand().size(), LIMIT);
-        }
+        userInput =
+                Parser.getCardInput(
+                        JavatroCore.currentRound.getPlayerHand().size(), LIMIT);
+
 
         if (javatro.display.UI.getCurrentScreen() instanceof PlayScreen) {
             // Select and play the chosen cards

@@ -12,7 +12,8 @@ public class DiscardScreen extends PlayDiscardScreen {
     /** Constructs a {@code DiscardScreen} and initializes the selection command. */
     public DiscardScreen() throws JavatroException {
         super();
-        super.commandMap.add(new SelectCardsOption(-1));
+        super.SELECTION_LIMIT = 5; // Maximum of 5 cards can be selected to discard
+        super.commandMap.add(new SelectCardsOption(SELECTION_LIMIT));
     }
 
     /** Displays the current cards in the user's holding hand for selection. */
