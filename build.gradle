@@ -38,7 +38,7 @@ test {
 }
 
 application {
-    mainClass.set("javatro.javatro")
+    mainClass.set("javatro.Javatro")
 }
 
 shadowJar {

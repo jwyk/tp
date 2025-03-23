@@ -29,7 +29,7 @@ public class HoldingHand {
         if (Hand.size() < HOLDING_LIMIT) {
             Hand.add(cardToAdd);
         } else {
-            throw new JavatroException("Exceeded Limit. Card not added.");
+            throw new JavatroException("Exceeded Cards to be added.");
         }
     }
 
@@ -45,7 +45,7 @@ public class HoldingHand {
                 Card tempCard = deck.draw();
                 Hand.add(tempCard);
             } else {
-                throw new JavatroException("Exceeded Limit. Card not added.");
+                throw new JavatroException("Exceeded Cards to be added.");
             }
         }
     }
@@ -115,7 +115,7 @@ public class HoldingHand {
                             + "("
                             + cardsToDiscard.size()
                             + ")"
-                            + "exceeds maximum allowed. (5)");
+                            + " exceeds maximum allowed. (5)");
         } else {
             for (int index : cardsToDiscard) {
                 if (index < 0 || index >= Hand.size()) {
