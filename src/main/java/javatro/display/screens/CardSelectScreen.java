@@ -10,14 +10,15 @@ import java.util.List;
 
 /**
  * The {@code CardSelectScreen} class represents an abstract screen where users select cards from
- * their hand. It provides methods for updating and displaying the player's current hand.
- * This class is intended to be extended by specific screens like {@code DiscardScreen} and {@code PlayScreen}.
+ * their hand. It provides methods for updating and displaying the player's current hand. This class
+ * is intended to be extended by specific screens like {@code DiscardScreen} and {@code PlayScreen}.
  *
  * <p>The class includes functionality to:
+ *
  * <ul>
- *   <li>Update the player's current hand of cards.</li>
- *   <li>Display the player's hand in a formatted layout.</li>
- *   <li>Provide a default selection limit for card selection.</li>
+ *   <li>Update the player's current hand of cards.
+ *   <li>Display the player's hand in a formatted layout.
+ *   <li>Provide a default selection limit for card selection.
  * </ul>
  *
  * @see Screen
@@ -28,7 +29,8 @@ public abstract class CardSelectScreen extends Screen {
     private List<Card> holdingHand;
 
     /**
-     * Constructs a {@code CardSelectScreen} with a custom options title and initializes it with a resume game command.
+     * Constructs a {@code CardSelectScreen} with a custom options title and initializes it with a
+     * resume game command.
      *
      * @param optionsTitle The title to display for the option menu.
      * @throws JavatroException if an error occurs during initialization.
@@ -42,16 +44,14 @@ public abstract class CardSelectScreen extends Screen {
         super.commandMap.add(new ResumeGameOption());
     }
 
-    /**
-     * Updates the holding hand by retrieving the player's current hand from the game core.
-     */
+    /** Updates the holding hand by retrieving the player's current hand from the game core. */
     public void updateHoldingHand() {
         this.holdingHand = JavatroCore.currentRound.getPlayerHand();
     }
 
     /**
-     * Displays the player's current hand of cards in a formatted layout.
-     * The cards are displayed with their indices and simplified representations.
+     * Displays the player's current hand of cards in a formatted layout. The cards are displayed
+     * with their indices and simplified representations.
      */
     protected void displayHoldingHand() {
         updateHoldingHand();
@@ -65,7 +65,8 @@ public abstract class CardSelectScreen extends Screen {
         // Display card indices
         StringBuilder numberHeaders = new StringBuilder();
         for (int i = 0; i < holdingHand.size(); i++) {
-            numberHeaders.append("|")
+            numberHeaders
+                    .append("|")
                     .append(GameScreen.getDisplayStringCenter(Integer.toString(i + 1), 5))
                     .append("|    ");
         }
@@ -78,7 +79,8 @@ public abstract class CardSelectScreen extends Screen {
         // Display card values
         StringBuilder cardValues = new StringBuilder();
         for (Card card : holdingHand) {
-            cardValues.append("|")
+            cardValues
+                    .append("|")
                     .append(GameScreen.getDisplayStringCenter(card.getSimplified(), 5))
                     .append("|    ");
         }
@@ -87,8 +89,8 @@ public abstract class CardSelectScreen extends Screen {
     }
 
     /**
-     * Displays the screen. This method is intended to be overridden by subclasses
-     * to provide specific screen display behavior.
+     * Displays the screen. This method is intended to be overridden by subclasses to provide
+     * specific screen display behavior.
      */
     @Override
     public abstract void displayScreen();

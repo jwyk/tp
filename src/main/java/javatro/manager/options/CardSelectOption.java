@@ -2,11 +2,11 @@ package javatro.manager.options;
 
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
+import javatro.display.Parser;
 import javatro.display.UI;
 import javatro.display.screens.DiscardScreen;
 import javatro.display.screens.PlayScreen;
 import javatro.manager.JavatroManager;
-import javatro.display.Parser;
 
 import java.util.List;
 
@@ -22,9 +22,7 @@ public class CardSelectOption implements Option {
     /** The maximum number of cards that can be selected. */
     private final int selectionLimit;
 
-    /**
-     * Constructs a {@code CardSelectOption} with the default selection limit of 5.
-     */
+    /** Constructs a {@code CardSelectOption} with the default selection limit of 5. */
     public CardSelectOption() throws JavatroException {
         this(DEFAULT_SELECTION_LIMIT);
     }
@@ -60,7 +58,9 @@ public class CardSelectOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        List<Integer> userInput = Parser.getCardInput(JavatroCore.currentRound.getPlayerHand().size(), selectionLimit);
+        List<Integer> userInput =
+                Parser.getCardInput(
+                        JavatroCore.currentRound.getPlayerHand().size(), selectionLimit);
 
         if (UI.getCurrentScreen() instanceof PlayScreen) {
             // Select and play the chosen cards
