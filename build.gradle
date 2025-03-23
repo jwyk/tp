@@ -38,11 +38,11 @@ test {
 }
 
 application {
-    mainClass.set("Javatro.Javatro")
+    mainClass.set("javatro.javatro")
 }
 
 shadowJar {
-    archiveBaseName.set("Javatro")
+    archiveBaseName.set("javatro")
     archiveClassifier.set("")
 }
 

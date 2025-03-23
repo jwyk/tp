@@ -1,9 +1,9 @@
-# Javatro - CLI Roguelike Deck-Building Game [![Super-Linter](https://github.com/AY2425S2-CS2113-W13-1/tp/actions/workflows/FormatLintTestBuild.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+# javatro - CLI Roguelike Deck-Building Game [![Super-Linter](https://github.com/AY2425S2-CS2113-W13-1/tp/actions/workflows/FormatLintTestBuild.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 
 ## Overview
 
-Javatro is a text-based roguelike deck-building game designed for those who love strategic gameplay without the need for graphical interfaces. Inspired by the game *Balatro*, it combines elements of poker and roguelike mechanics to create a deeply replayable, strategic experience that can be enjoyed through a simple command-line interface (CLI).
+javatro is a text-based roguelike deck-building game designed for those who love strategic gameplay without the need for graphical interfaces. Inspired by the game *Balatro*, it combines elements of poker and roguelike mechanics to create a deeply replayable, strategic experience that can be enjoyed through a simple command-line interface (CLI).
 
 ## Features
 
@@ -30,8 +30,8 @@ Javatro is a text-based roguelike deck-building game designed for those who love
 
 2. Compile and run the game:
 
-      javac Javatro.java
-   java Javatro
+      javac javatro.java
+   java javatro
    
 
 3. Enjoy the game!
@@ -40,7 +40,7 @@ Javatro is a text-based roguelike deck-building game designed for those who love
 
 ### Objective
 
-The goal of Javatro is to progress through a series of challenging encounters by strategically building and managing your deck of cards. Each card has unique effects that can be used during combat to defeat enemies, gain resources, and navigate different challenges.
+The goal of javatro is to progress through a series of challenging encounters by strategically building and managing your deck of cards. Each card has unique effects that can be used during combat to defeat enemies, gain resources, and navigate different challenges.
 
 ### How to Play
 
@@ -72,7 +72,7 @@ The goal of Javatro is to progress through a series of challenging encounters by
 
 ## Contributing
 
-We welcome contributions to the development of Javatro! If you'd like to contribute, please follow these steps:
+We welcome contributions to the development of javatro! If you'd like to contribute, please follow these steps:
 
 1. Fork the repository.
 2. Create a new branch for your changes.
@@ -81,7 +81,7 @@ We welcome contributions to the development of Javatro! If you'd like to contrib
 
 ## License
 
-Javatro is licensed under the MIT License.
+javatro is licensed under the MIT License.
 
 ## Contact
 
@@ -92,7 +92,7 @@ For more information or support, please contact us at:
 
 ## Acknowledgements
 
-Special thanks to the creators of *Balatro*, whose game inspired the design and mechanics of Javatro.
+Special thanks to the creators of *Balatro*, whose game inspired the design and mechanics of javatro.
 
 ---
 
