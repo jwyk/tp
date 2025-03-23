@@ -38,6 +38,84 @@ public class UI {
         }
     }
 
+    //region Printing Message
+    /** Display-related constants for display formatting. */
+    public static final String END = "\033[0m";
+    public static final String BOLD = "\033[1m";
+    public static final String ITALICS = "\033[3m";
+    public static final String UNDERLINE = "\033[4m";
+    public static final String RED = "\033[31m";
+    public static final String GREEN = "\033[32m";
+    public static final String YELLOW = "\033[33m";
+    public static final String BLUE = "\033[34m";
+    public static final String PURPLE = "\033[35m";
+    public static final String CYAN = "\033[36m";
+    public static final String WHITE = "\033[37m";
+
+    /** Fixed width for the bordered message display. */
+    private static final int MESSAGE_WIDTH = 100;
+
+    /** Custom border characters */
+    private static final char TOP_LEFT = '╔';
+    private static final char TOP_RIGHT = '╗';
+    private static final char BOTTOM_LEFT = '╚';
+    private static final char BOTTOM_RIGHT = '╝';
+    private static final char HORIZONTAL = '═';
+    private static final char VERTICAL = '║';
+
+    /**
+     * Prints a bordered message with a title and content.
+     *
+     * @param title the title of the message
+     * @param lines the content lines to display
+     */
+    public static void printBorderedMessage(String title, String[] lines) {
+        // Top border
+        System.out.print(TOP_LEFT);
+        System.out.print(String.valueOf(HORIZONTAL).repeat(MESSAGE_WIDTH - 2));
+        System.out.println(TOP_RIGHT);
+
+        // Centered title
+        System.out.println(centerText(BOLD + title + END));
+
+        // Middle border
+        System.out.print(VERTICAL);
+        System.out.print(String.valueOf(HORIZONTAL).repeat(MESSAGE_WIDTH - 2));
+        System.out.println(VERTICAL);
+
+        // Display lines
+        for (String line : lines) {
+            System.out.println(centerText(line));
+        }
+
+        // Bottom border
+        System.out.print(BOTTOM_LEFT);
+        System.out.print(String.valueOf(HORIZONTAL).repeat(MESSAGE_WIDTH - 2));
+        System.out.println(BOTTOM_RIGHT);
+    }
+
+    /**
+     * Centers the given text within a specified width, padding it with spaces on both sides.
+     *
+     * @param text the text to center
+     * @return the centered text surrounded by borders
+     */
+    private static String centerText(String text) {
+        // Remove ANSI escape codes to calculate the actual display length
+        String strippedText = text.replaceAll("\033\\[[;\\d]*m", "");
+        int displayLength = strippedText.length();
+
+        // Calculate padding
+        int paddingSize = (MESSAGE_WIDTH - displayLength - 2) / 2;
+
+        // Format the centered text with borders
+        return String.format(
+                "%c%" + paddingSize + "s%s%" + (MESSAGE_WIDTH - displayLength - paddingSize - 2) + "s%c",
+                VERTICAL, "", text, "", VERTICAL
+        );
+    }
+    //endregion
+
     /**
      * Sets the current screen and displays it.
      *

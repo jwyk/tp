@@ -2,6 +2,7 @@ package Javatro.Manager.Options;
 
 import Javatro.Core.JavatroException;
 import Javatro.Display.Screens.StartScreen;
+import Javatro.Display.UI;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,13 +48,17 @@ public class ExitGameOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        System.out.println(END_SCREEN); // Display the end screen
-        System.out.println("""
-        ╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
-        ║                                     ♥️ ♠️ 🃏 \033[1mGOODBYE\033[0m 🃏 ♦️ ♣️                                    ║
-        ║                                   \033[31mWE KNOW YOU WILL BE BACK SOON\033[0m                                  ║
-        ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝
-        """);
-        System.exit(0);
+        // Display the end screen from the file
+        System.out.println(END_SCREEN);
+
+        // Display the farewell message with borders and ANSI formatting
+        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "GOODBYE" + UI.END + " 🃏 ♦️ ♣️";
+
+        String[] lines = {
+                UI.RED + "WE KNOW YOU WILL BE BACK SOON" + UI.END
+        };
+
+        UI.printBorderedMessage(title, lines);
+        System.exit(0); // Terminate the application
     }
 }

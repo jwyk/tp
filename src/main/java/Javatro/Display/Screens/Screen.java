@@ -110,11 +110,11 @@ public abstract class Screen {
         int displayLength = strippedText.length();
 
         // Calculate padding
-        int paddingSize = (Screen.MENU_WIDTH - displayLength - 2) / 2;
+        int paddingSize = (MENU_WIDTH - displayLength - 2) / 2;
 
         // Format the centered text with borders
         return String.format(
-                "%c%" + paddingSize + "s%s%" + (Screen.MENU_WIDTH - displayLength - paddingSize - 2) + "s%c",
+                "%c%" + paddingSize + "s%s%" + (MENU_WIDTH - displayLength - paddingSize - 2) + "s%c",
                 VERTICAL, "", text, "", VERTICAL
         );
     }

@@ -4,28 +4,11 @@ import Javatro.Core.JavatroException;
 import Javatro.Manager.JavatroManager;
 import Javatro.Display.UI;
 
+/**
+ * The HelpTipsOption class provides gameplay tips for Javatro. This command is executed when
+ * the player requests tips for improving their strategy.
+ */
 public class HelpTipsOption implements Option {
-
-    /**
-     * The HelpTipsOption class provides gameplay tips for Javatro. This command is executed when
-     * the player requests tips for improving their strategy.
-     */
-    public HelpTipsOption() {}
-
-    /** Executes the command to display gameplay tips. */
-    @Override
-    public void execute() throws JavatroException {
-        System.out.println("\n=== Pro Tips for Javatro ===");
-        System.out.println("- Focus on building a balanced deck with attack and defense cards.");
-        System.out.println("- Don't just add every card you find—some cards can weaken your deck.");
-        System.out.println("- Save strong hands for tougher enemies.");
-        System.out.println("- Adapt your strategy based on the enemies you encounter.");
-        System.out.println(
-                "- Experiment with different playstyles to find what works best for you.");
-        System.out.println("\nGood luck and have fun!");
-
-        JavatroManager.setScreen(UI.getHelpScreen());
-    }
 
     /**
      * Returns a description of this command.
@@ -35,5 +18,24 @@ public class HelpTipsOption implements Option {
     @Override
     public String getDescription() {
         return "Tips and Tricks";
+    }
+
+    /** Executes the command to display gameplay tips. */
+    @Override
+    public void execute() throws JavatroException {
+        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Pro Tips For Javatro" + UI.END + " 🃏 ♦️ ♣️";
+
+        String[] lines = {
+                "- Focus on building a balanced deck with attack and defense cards.",
+                "- Don't just add every card you find—some cards can weaken your deck.",
+                "- Save strong hands for tougher enemies.",
+                "- Adapt your strategy based on the enemies you encounter.",
+                "- Experiment with different playstyles to find what works best for you.",
+                "",
+                "Good luck and have fun!"
+        };
+
+        UI.printBorderedMessage(title, lines);
+        JavatroManager.setScreen(UI.getHelpScreen());
     }
 }

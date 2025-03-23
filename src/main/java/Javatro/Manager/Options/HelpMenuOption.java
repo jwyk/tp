@@ -10,14 +10,6 @@ import Javatro.Display.UI;
  */
 public class HelpMenuOption implements Option {
 
-    public HelpMenuOption() {}
-
-    /** Executes the command to display the help screen. */
-    @Override
-    public void execute() throws JavatroException {
-        JavatroManager.setScreen(UI.getHelpScreen());
-    }
-
     /**
      * Returns a description of this command.
      *
@@ -26,5 +18,11 @@ public class HelpMenuOption implements Option {
     @Override
     public String getDescription() {
         return "Help Menu";
+    }
+
+    /** Executes the command to display the help screen. */
+    @Override
+    public void execute() throws JavatroException {
+        JavatroManager.setScreen(UI.getHelpScreen());
     }
 }
