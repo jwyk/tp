@@ -14,6 +14,7 @@ import java.util.Scanner;
  * prints a farewell message and exits the application.
  */
 public class ExitGameOption implements Option {
+    private static String END_SCREEN;
 
     /**
      * Provides a brief description of the command.
@@ -24,8 +25,6 @@ public class ExitGameOption implements Option {
     public String getDescription() {
         return "Exit Game";
     }
-
-    private static String END_SCREEN;
 
     // Static block to initialize the End Screen from a file
     static {

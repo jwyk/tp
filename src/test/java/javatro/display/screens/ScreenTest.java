@@ -1,7 +1,7 @@
 package javatro.display.screens;
 
 // import javatro.display.screens.Screen;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
