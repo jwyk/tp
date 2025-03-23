@@ -7,14 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@code Screen} class serves as an abstract base class for all screens in the application.
- * It defines common behaviors such as displaying options for the user to select and handling commands.
+ * The {@code Screen} class serves as an abstract base class for all screens in the application. It
+ * defines common behaviors such as displaying options for the user to select and handling commands.
  * Subclasses must implement the {@link #displayScreen()} method to define their specific content.
  */
 public abstract class Screen {
 
     /** display-related constants for display formatting. */
     public static final String END = "\033[0m";
+
     public static final String BOLD = "\033[1m";
     public static final String ITALICS = "\033[3m";
     public static final String UNDERLINE = "\033[4m";
@@ -37,6 +38,7 @@ public abstract class Screen {
 
     /** Custom border characters */
     private final char TOP_LEFT = '╔';
+
     private final char TOP_RIGHT = '╗';
     private final char BOTTOM_LEFT = '╚';
     private final char BOTTOM_RIGHT = '╝';
@@ -58,18 +60,21 @@ public abstract class Screen {
         if (optionsTitle == null || optionsTitle.trim().isEmpty()) {
             throw JavatroException.invalidOptionsTitle();
         }
-        this.optionsTitle = String.format("♥️ ♠️ \uD83C\uDCCF %s%s%s \uD83C\uDCCF ♦️ ♣️", BOLD, optionsTitle.trim(), END);
+        this.optionsTitle =
+                String.format(
+                        "♥️ ♠️ \uD83C\uDCCF %s%s%s \uD83C\uDCCF ♦️ ♣️",
+                        BOLD, optionsTitle.trim(), END);
     }
 
     /**
-     * Displays the screen content. This method must be implemented by subclasses to define
-     * the specific behavior and layout of the screen.
+     * Displays the screen content. This method must be implemented by subclasses to define the
+     * specific behavior and layout of the screen.
      */
     public abstract void displayScreen();
 
     /**
-     * Displays the available options in a formatted menu style.
-     * The menu includes a border, a centered title, and a list of options with descriptions.
+     * Displays the available options in a formatted menu style. The menu includes a border, a
+     * centered title, and a list of options with descriptions.
      */
     public void displayOptions() {
         // Top border
@@ -87,7 +92,10 @@ public abstract class Screen {
 
         // display options 《%d》 【%d】 『%d』 「%d」
         for (int i = 0; i < commandMap.size(); i++) {
-            String option = String.format("%s[%d]%s %s%s%s", BOLD, i + 1, END, ITALICS, commandMap.get(i).getDescription(), END);
+            String option =
+                    String.format(
+                            "%s[%d]%s %s%s%s",
+                            BOLD, i + 1, END, ITALICS, commandMap.get(i).getDescription(), END);
             System.out.println(centerText(option));
         }
 
@@ -98,8 +106,8 @@ public abstract class Screen {
     }
 
     /**
-     * Centers the given text within a specified width, padding it with spaces on both sides.
-     * This version handles ANSI escape codes and Unicode characters correctly.
+     * Centers the given text within a specified width, padding it with spaces on both sides. This
+     * version handles ANSI escape codes and Unicode characters correctly.
      *
      * @param text the text to center
      * @return the centered text surrounded by borders
@@ -114,9 +122,16 @@ public abstract class Screen {
 
         // Format the centered text with borders
         return String.format(
-                "%c%" + paddingSize + "s%s%" + (MENU_WIDTH - displayLength - paddingSize - 2) + "s%c",
-                VERTICAL, "", text, "", VERTICAL
-        );
+                "%c%"
+                        + paddingSize
+                        + "s%s%"
+                        + (MENU_WIDTH - displayLength - paddingSize - 2)
+                        + "s%c",
+                VERTICAL,
+                "",
+                text,
+                "",
+                VERTICAL);
     }
 
     /**

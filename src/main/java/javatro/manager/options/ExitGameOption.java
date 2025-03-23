@@ -1,8 +1,8 @@
 package javatro.manager.options;
 
 import javatro.core.JavatroException;
-import javatro.display.screens.StartScreen;
 import javatro.display.UI;
+import javatro.display.screens.StartScreen;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +29,8 @@ public class ExitGameOption implements Option {
 
     // Static block to initialize the End Screen from a file
     static {
-        try (InputStream inputStream = StartScreen.class.getResourceAsStream("/javatro/display/end_screen.txt")) {
+        try (InputStream inputStream =
+                StartScreen.class.getResourceAsStream("/javatro/display/end_screen.txt")) {
             if (inputStream == null) {
                 throw JavatroException.errorLoadingLogo("end_screen.txt");
             }
@@ -54,9 +55,7 @@ public class ExitGameOption implements Option {
         // display the farewell message with borders and ANSI formatting
         String title = "♥️ ♠️ 🃏 " + UI.BOLD + "GOODBYE" + UI.END + " 🃏 ♦️ ♣️";
 
-        String[] lines = {
-                UI.RED + "WE KNOW YOU WILL BE BACK SOON" + UI.END
-        };
+        String[] lines = {UI.RED + "WE KNOW YOU WILL BE BACK SOON" + UI.END};
 
         UI.printBorderedMessage(title, lines);
         System.exit(0); // Terminate the application

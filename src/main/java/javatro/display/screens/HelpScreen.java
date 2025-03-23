@@ -5,9 +5,9 @@ import javatro.manager.options.*;
 import javatro.manager.options.MainMenuOption;
 
 /**
- * The {@code HelpScreen} class represents a screen displaying the help menu in the javatro application.
- * It provides various help options, including an introduction, rules, how-to-play guide, and tips.
- * Users can also return to the main menu from this screen.
+ * The {@code HelpScreen} class represents a screen displaying the help menu in the javatro
+ * application. It provides various help options, including an introduction, rules, how-to-play
+ * guide, and tips. Users can also return to the main menu from this screen.
  */
 public class HelpScreen extends Screen {
 
@@ -26,8 +26,8 @@ public class HelpScreen extends Screen {
     }
 
     /**
-     * Displays the help screen.
-     * This method should be overridden to define how the help menu is presented.
+     * Displays the help screen. This method should be overridden to define how the help menu is
+     * presented.
      */
     @Override
     public void displayScreen() {}

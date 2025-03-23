@@ -1,8 +1,8 @@
 package javatro.manager.options;
 
 import javatro.core.JavatroException;
-import javatro.manager.JavatroManager;
 import javatro.display.UI;
+import javatro.manager.JavatroManager;
 
 /**
  * The HelpIntroOption class provides an introduction to javatro. This command is executed when the
@@ -26,11 +26,11 @@ public class HelpIntroOption implements Option {
         String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Welcome to javatro" + UI.END + " 🃏 ♦️ ♣️";
 
         String[] lines = {
-                "javatro is a text-based roguelike deck-building game inspired by Balatro.",
-                "Your goal is to strategically build a deck and progress through challenges.",
-                "Each turn, you'll play poker-style hands to defeat enemies and earn new cards.",
-                "",
-                "Think strategically, manage your deck wisely, and see how far you can go!"
+            "javatro is a text-based roguelike deck-building game inspired by Balatro.",
+            "Your goal is to strategically build a deck and progress through challenges.",
+            "Each turn, you'll play poker-style hands to defeat enemies and earn new cards.",
+            "",
+            "Think strategically, manage your deck wisely, and see how far you can go!"
         };
 
         UI.printBorderedMessage(title, lines);

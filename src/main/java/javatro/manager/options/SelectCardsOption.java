@@ -6,11 +6,11 @@ package javatro.manager.options;
 
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
-import javatro.manager.JavatroManager;
-import javatro.manager.Parser;
+import javatro.display.UI;
 import javatro.display.screens.DiscardScreen;
 import javatro.display.screens.PlayScreen;
-import javatro.display.UI;
+import javatro.manager.JavatroManager;
+import javatro.manager.Parser;
 
 import java.util.List;
 
@@ -49,10 +49,7 @@ public class SelectCardsOption implements Option {
     public void execute() throws JavatroException {
         List<Integer> userInput;
 
-        userInput =
-                Parser.getCardInput(
-                        JavatroCore.currentRound.getPlayerHand().size(), LIMIT);
-
+        userInput = Parser.getCardInput(JavatroCore.currentRound.getPlayerHand().size(), LIMIT);
 
         if (javatro.display.UI.getCurrentScreen() instanceof PlayScreen) {
             // Select and play the chosen cards

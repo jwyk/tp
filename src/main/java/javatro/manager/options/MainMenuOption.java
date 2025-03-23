@@ -1,12 +1,12 @@
 /**
- * The {@code MainMenuOption} class represents a command that loads the start screen,
- * allowing players to navigate to the main menu.
+ * The {@code MainMenuOption} class represents a command that loads the start screen, allowing
+ * players to navigate to the main menu.
  */
 package javatro.manager.options;
 
 import javatro.core.JavatroException;
-import javatro.manager.JavatroManager;
 import javatro.display.UI;
+import javatro.manager.JavatroManager;
 
 /** A command that loads the main menu (start screen) when executed. */
 public class MainMenuOption implements Option {

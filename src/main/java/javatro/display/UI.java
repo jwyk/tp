@@ -1,13 +1,14 @@
 package javatro.display;
 
 import javatro.core.JavatroException;
-import javatro.manager.Parser;
 import javatro.display.screens.*;
+import javatro.manager.Parser;
 
 /**
- * The {@code display} class is responsible for managing and displaying different screens in the application.
- * It handles user input, manages screen transitions, and notifies observers of user actions.
- * This class follows the Singleton pattern to ensure a single instance manages all display-related operations.
+ * The {@code display} class is responsible for managing and displaying different screens in the
+ * application. It handles user input, manages screen transitions, and notifies observers of user
+ * actions. This class follows the Singleton pattern to ensure a single instance manages all
+ * display-related operations.
  */
 public class UI {
 
@@ -16,6 +17,7 @@ public class UI {
 
     /** Predefined game-related screens. */
     private static final GameScreen GAME_SCREEN;
+
     private static final DiscardScreen DISCARD_SCREEN;
     private static final PlayScreen PLAY_SCREEN;
     private static final HelpScreen HELP_SCREEN;
@@ -38,9 +40,10 @@ public class UI {
         }
     }
 
-    //region Printing Message
+    // region Printing Message
     /** display-related constants for display formatting. */
     public static final String END = "\033[0m";
+
     public static final String BOLD = "\033[1m";
     public static final String ITALICS = "\033[3m";
     public static final String UNDERLINE = "\033[4m";
@@ -57,6 +60,7 @@ public class UI {
 
     /** Custom border characters */
     private static final char TOP_LEFT = '╔';
+
     private static final char TOP_RIGHT = '╗';
     private static final char BOTTOM_LEFT = '╚';
     private static final char BOTTOM_RIGHT = '╝';
@@ -110,11 +114,18 @@ public class UI {
 
         // Format the centered text with borders
         return String.format(
-                "%c%" + paddingSize + "s%s%" + (MESSAGE_WIDTH - displayLength - paddingSize - 2) + "s%c",
-                VERTICAL, "", text, "", VERTICAL
-        );
+                "%c%"
+                        + paddingSize
+                        + "s%s%"
+                        + (MESSAGE_WIDTH - displayLength - paddingSize - 2)
+                        + "s%c",
+                VERTICAL,
+                "",
+                text,
+                "",
+                VERTICAL);
     }
-    //endregion
+    // endregion
 
     /**
      * Sets the current screen and displays it.
@@ -141,10 +152,7 @@ public class UI {
         return currentScreen;
     }
 
-    /**
-     * Clears the console screen.
-     * This method uses ANSI escape codes to clear the console.
-     */
+    /** Clears the console screen. This method uses ANSI escape codes to clear the console. */
     public static void clearScreen() {
         final String FLUSH = "\033[H\033[2J";
         System.out.print(FLUSH);
@@ -160,7 +168,7 @@ public class UI {
         return PARSER;
     }
 
-    //region Screen Getters
+    // region Screen Getters
     /**
      * Gets the screen where users select cards to discard.
      *
@@ -205,5 +213,5 @@ public class UI {
     public static HelpScreen getHelpScreen() {
         return HELP_SCREEN;
     }
-    //endregion
+    // endregion
 }

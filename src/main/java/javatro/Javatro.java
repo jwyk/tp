@@ -2,9 +2,9 @@ package javatro;
 
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
-import javatro.manager.JavatroManager;
-import javatro.display.screens.StartScreen;
 import javatro.display.UI;
+import javatro.display.screens.StartScreen;
+import javatro.manager.JavatroManager;
 
 /**
  * The {@code javatro} class serves as the main entry point for the application. It initializes the

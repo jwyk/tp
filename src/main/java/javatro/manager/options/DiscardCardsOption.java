@@ -1,8 +1,8 @@
 package javatro.manager.options;
 
 import javatro.core.JavatroException;
-import javatro.manager.JavatroManager;
 import javatro.display.UI;
+import javatro.manager.JavatroManager;
 
 /**
  * The {@code DiscardCardsOption} class represents a command that allows the player to discard

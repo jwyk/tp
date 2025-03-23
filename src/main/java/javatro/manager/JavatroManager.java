@@ -1,14 +1,14 @@
 /**
  * The {@code JavatroManager} class serves as the main controller (manager) of the game,
- * coordinating interactions between the model ({@code JavatroCore}) and the view ({@code display}). It
- * listens for property changes and updates the game state accordingly.
+ * coordinating interactions between the model ({@code JavatroCore}) and the view ({@code display}).
+ * It listens for property changes and updates the game state accordingly.
  */
 package javatro.manager;
 
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
-import javatro.display.screens.Screen;
 import javatro.display.UI;
+import javatro.display.screens.Screen;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
