@@ -1,13 +1,12 @@
 package javatro.manager.options;
 
 import javatro.core.JavatroException;
-import javatro.display.UI;
 import javatro.display.screens.CardSelectScreen;
 import javatro.manager.JavatroManager;
 
 /**
- * An option that sorts the current holding hand by rank (Ace > King > Queen > ... > Two)
- * and redisplay the hand.
+ * An option that sorts the current holding hand by rank (Ace > King > Queen > ... > Two) and
+ * redisplay the hand.
  */
 public class SortByRankOption implements Option {
     private final CardSelectScreen screen;

@@ -1,5 +1,7 @@
 package javatro.display.screens;
 
+import static javatro.display.UI.*;
+
 import javatro.core.Card;
 import javatro.core.HoldingHand;
 import javatro.core.JavatroCore;
@@ -12,8 +14,6 @@ import javatro.manager.options.SortBySuitOption;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static javatro.display.UI.*;
 
 /**
  * The {@code CardSelectScreen} class represents an abstract screen where users select cards from
@@ -59,10 +59,12 @@ public abstract class CardSelectScreen extends Screen {
         BY_SUIT,
         BY_RANK,
     }
+
     private SortOrder currentSortOrder;
 
     /**
      * Updates the holding hand by retrieving the player's current hand from the game core.
+     *
      * @param sortOrder The sorting order to apply (null for no sorting)
      */
     public void updateHoldingHand(SortOrder sortOrder) {
@@ -99,8 +101,7 @@ public abstract class CardSelectScreen extends Screen {
     protected String getCardIndicesTitle(int cardCount) {
         StringBuilder title = new StringBuilder();
         for (int i = 1; i <= cardCount; i++) {
-            title.append(YELLOW)
-                    .append("【").append(i).append("】");
+            title.append(YELLOW).append("【").append(i).append("】");
             // Only add spacing if not the last element
             if (i < cardCount) {
                 title.append(HAIR_SPACE.repeat(27));
@@ -143,9 +144,9 @@ public abstract class CardSelectScreen extends Screen {
     }
 
     /**
-     * Displays the player's current hand of cards in a formatted layout with borders.
-     * The cards are displayed with their indices and ASCII art, with special formatting
-     * for the middle line of card art.
+     * Displays the player's current hand of cards in a formatted layout with borders. The cards are
+     * displayed with their indices and ASCII art, with special formatting for the middle line of
+     * card art.
      */
     public void displayHoldingHand() {
 
@@ -153,16 +154,15 @@ public abstract class CardSelectScreen extends Screen {
         updateHoldingHand(currentSortOrder);
 
         if (holdingHand.isEmpty()) {
-            printBorderedContent("CURRENT HOLDING HAND", List.of(RED + "YOU HAVE NO MORE CARDS!" + END));
+            printBorderedContent(
+                    "CURRENT HOLDING HAND", List.of(RED + "YOU HAVE NO MORE CARDS!" + END));
             return;
         }
 
         int cardCount = holdingHand.size();
 
         // Top border
-        printBlackB(TOP_LEFT +
-                String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) +
-                TOP_RIGHT);
+        printBlackB(TOP_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + TOP_RIGHT);
         System.out.println();
 
         // Card Indices title
@@ -171,9 +171,7 @@ public abstract class CardSelectScreen extends Screen {
         System.out.println();
 
         // Middle border
-        printBlackB(T_RIGHT +
-                String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) +
-                T_LEFT);
+        printBlackB(T_RIGHT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + T_LEFT);
         System.out.println();
 
         // Get and display card art
@@ -190,9 +188,8 @@ public abstract class CardSelectScreen extends Screen {
         }
 
         // Bottom border
-        printBlackB(BOTTOM_LEFT +
-                String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) +
-                BOTTOM_RIGHT);
+        printBlackB(
+                BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
         System.out.println();
     }
 

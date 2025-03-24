@@ -5,8 +5,8 @@ import javatro.display.screens.CardSelectScreen;
 import javatro.manager.JavatroManager;
 
 /**
- * An option that sorts the current holding hand by suit (Spades > Hearts > Clubs > Diamonds)
- * and redisplay the hand.
+ * An option that sorts the current holding hand by suit (Spades > Hearts > Clubs > Diamonds) and
+ * redisplay the hand.
  */
 public class SortBySuitOption implements Option {
     private final CardSelectScreen screen;

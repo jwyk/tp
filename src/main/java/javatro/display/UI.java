@@ -47,6 +47,7 @@ public class UI {
     // region FORMATTING STRINGS
     /** display-related constants for display formatting. */
     public static final String CARD = "\uD83C\uDCCF";
+
     public static final String HEARTS = "♥️";
     public static final String SPADES = "♠️";
     public static final String DIAMONDS = "♦️";
@@ -87,13 +88,13 @@ public class UI {
     public static final char T_RIGHT = '╠';
 
     // Unicode spacing characters for experimentation
-    public static final String NORMAL_SPACE = " ";             // U+0020
-    public static final String EN_SPACE = " ";              // U+2002 (1.5× normal space)
-    public static final String EM_SPACE = " ";              // U+2003 (2× normal space)
-    public static final String THIN_SPACE = " ";            // U+2009 (~½ normal space)
-    public static final String HAIR_SPACE = " ";             // U+200A (~⅓ normal space)
-    public static final String ZERO_WIDTH_SPACE = "​";      // U+200B (invisible)
-    public static final String ZERO_WIDTH_JOINER = "‍";      // U+200D
+    public static final String NORMAL_SPACE = " "; // U+0020
+    public static final String EN_SPACE = " "; // U+2002 (1.5× normal space)
+    public static final String EM_SPACE = " "; // U+2003 (2× normal space)
+    public static final String THIN_SPACE = " "; // U+2009 (~½ normal space)
+    public static final String HAIR_SPACE = " "; // U+200A (~⅓ normal space)
+    public static final String ZERO_WIDTH_SPACE = "​"; // U+200B (invisible)
+    public static final String ZERO_WIDTH_JOINER = "‍"; // U+200D
     public static final String ZERO_WIDTH_NON_JOINER = "‌"; // U+200C
 
     // endregion
@@ -103,14 +104,18 @@ public class UI {
     }
 
     /**
-     * Prints a bordered message or menu with a title and dynamically generated content.
-     * Uses a default width of 100.
+     * Prints a bordered message or menu with a title and dynamically generated content. Uses a
+     * default width of 100.
      *
      * @param title the title of the message or menu
      * @param content a list of content lines
      */
     public static void printBorderedContent(String title, List<String> content) {
-        printBorderedContent(title, content, BORDER_WIDTH, BORDER_WIDTH); // Calls the main method with default width
+        printBorderedContent(
+                title,
+                content,
+                BORDER_WIDTH,
+                BORDER_WIDTH); // Calls the main method with default width
     }
 
     /**
@@ -120,12 +125,11 @@ public class UI {
      * @param content a list of content lines
      * @param titleWidth the width of the bordered content title
      */
-    public static void printBorderedContent(String title, List<String> content, int titleWidth, int contentWidth) {
+    public static void printBorderedContent(
+            String title, List<String> content, int titleWidth, int contentWidth) {
 
         // Top border
-        printBlackB(TOP_LEFT +
-                String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) +
-                TOP_RIGHT);
+        printBlackB(TOP_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + TOP_RIGHT);
         System.out.println();
 
         // Centered title
@@ -133,9 +137,7 @@ public class UI {
         System.out.println();
 
         // Middle border
-        printBlackB(T_RIGHT +
-                String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) +
-                T_LEFT);
+        printBlackB(T_RIGHT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + T_LEFT);
         System.out.println();
 
         // Display content (lines from the provider)
@@ -145,9 +147,8 @@ public class UI {
         }
 
         // Bottom border
-        printBlackB(BOTTOM_LEFT +
-                String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) +
-                BOTTOM_RIGHT);
+        printBlackB(
+                BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
         System.out.println();
     }
 
@@ -173,18 +174,22 @@ public class UI {
         int extraPadding = (width - displayLength - 2) % 2; // Handles odd width cases
 
         // Format the centered text with borders
-        return BLACK_B +
-                VERTICAL +
-                BLACK_B + " ".repeat(paddingSize) +
-                BLACK_B + text +
-                BLACK_B + " ".repeat(paddingSize + extraPadding) +
-                BLACK_B + VERTICAL +
-                END;
+        return BLACK_B
+                + VERTICAL
+                + BLACK_B
+                + " ".repeat(paddingSize)
+                + BLACK_B
+                + text
+                + BLACK_B
+                + " ".repeat(paddingSize + extraPadding)
+                + BLACK_B
+                + VERTICAL
+                + END;
     }
 
     /**
-     * Calculates the visible display length of text, ignoring ANSI codes and
-     * accounting for special Unicode characters.
+     * Calculates the visible display length of text, ignoring ANSI codes and accounting for special
+     * Unicode characters.
      *
      * @param text the text to measure
      * @return the visible length of the text

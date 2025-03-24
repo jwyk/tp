@@ -1,7 +1,6 @@
 package javatro.display.screens;
 
 import javatro.core.JavatroException;
-import javatro.display.UI;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.HelpMenuOption;
 import javatro.manager.options.StartGameOption;
@@ -41,7 +40,7 @@ public class StartScreen extends Screen {
             System.err.println(JavatroException.errorLoadingLogo("javatro_logo.txt").getMessage());
         }
     }
-    
+
     /**
      * Constructs a {@code StartScreen} and initializes available commands.
      *

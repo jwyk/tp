@@ -134,32 +134,39 @@ public class HoldingHand {
     }
 
     /**
-     * Sorts the hand first by suit (Spades > Hearts > Clubs > Diamonds),
-     * then by rank (Ace > King > Queen > ... > Two) within each suit.
+     * Sorts the hand first by suit (Spades > Hearts > Clubs > Diamonds), then by rank (Ace > King >
+     * Queen > ... > Two) within each suit.
      */
     public void sortBySuit() {
-        Hand.sort(Comparator.comparingInt((Card card) -> switch (card.suit()) {
-            case SPADES -> 0;
-            case HEARTS -> 1;
-            case CLUBS -> 2;
-            case DIAMONDS -> 3;
-            default -> 4; // shouldn't happen
-        }).thenComparingInt(card -> -card.rank().ordinal()));
+        Hand.sort(
+                Comparator.comparingInt(
+                                (Card card) ->
+                                        switch (card.suit()) {
+                                            case SPADES -> 0;
+                                            case HEARTS -> 1;
+                                            case CLUBS -> 2;
+                                            case DIAMONDS -> 3;
+                                            default -> 4; // shouldn't happen
+                                        })
+                        .thenComparingInt(card -> -card.rank().ordinal()));
     }
 
     /**
-     * Sorts the hand first by rank (Ace > King > Queen > ... > Two),
-     * then by suit (Spades > Hearts > Clubs > Diamonds) within each rank.
+     * Sorts the hand first by rank (Ace > King > Queen > ... > Two), then by suit (Spades > Hearts
+     * > Clubs > Diamonds) within each rank.
      */
     public void sortByRank() {
-        Hand.sort(Comparator.comparingInt((Card card) -> -card.rank().ordinal())
-                .thenComparingInt(card -> switch (card.suit()) {
-                    case SPADES -> 0;
-                    case HEARTS -> 1;
-                    case CLUBS -> 2;
-                    case DIAMONDS -> 3;
-                    default -> 4; // shouldn't happen
-                }));
+        Hand.sort(
+                Comparator.comparingInt((Card card) -> -card.rank().ordinal())
+                        .thenComparingInt(
+                                card ->
+                                        switch (card.suit()) {
+                                            case SPADES -> 0;
+                                            case HEARTS -> 1;
+                                            case CLUBS -> 2;
+                                            case DIAMONDS -> 3;
+                                            default -> 4; // shouldn't happen
+                                        }));
     }
 
     /**
@@ -172,5 +179,7 @@ public class HoldingHand {
     }
 
     // Sets input as current hand
-    public void setHand(List<Card> hand) { this.Hand = hand; }
+    public void setHand(List<Card> hand) {
+        this.Hand = hand;
+    }
 }

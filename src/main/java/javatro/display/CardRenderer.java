@@ -1,8 +1,8 @@
 package javatro.display;
 
-import javatro.core.Card;
-
 import static javatro.display.UI.*;
+
+import javatro.core.Card;
 
 public class CardRenderer {
 
@@ -41,10 +41,10 @@ public class CardRenderer {
             case DIAMONDS -> "♦️";
             case CLUBS -> "♣️";
             case SPADES -> "♠️";
-//            case HEARTS -> "♥";
-//            case DIAMONDS -> "♦";
-//            case CLUBS -> "♣";
-//            case SPADES -> "♠";
+                //            case HEARTS -> "♥";
+                //            case DIAMONDS -> "♦";
+                //            case CLUBS -> "♣";
+                //            case SPADES -> "♠";
         };
     }
 

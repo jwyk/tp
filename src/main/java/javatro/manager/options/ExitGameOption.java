@@ -53,7 +53,7 @@ public class ExitGameOption implements Option {
         System.out.println(END_SCREEN);
 
         // display the farewell message with borders and ANSI formatting
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "GOODBYE" + " 🃏 ♦️ ♣️" + UI.END ;
+        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "GOODBYE" + " 🃏 ♦️ ♣️" + UI.END;
 
         String[] lines = {UI.RED + "WE KNOW YOU WILL BE BACK SOON" + UI.END};
 
