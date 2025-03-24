@@ -23,7 +23,7 @@ public class HelpTipsOption implements Option {
     /** Executes the command to display gameplay tips. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Pro Tips For javatro" + UI.END + " 🃏 ♦️ ♣️";
+        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Pro Tips For Javatro" + UI.END + " 🃏 ♦️ ♣️";
 
         String[] lines = {
             "- Focus on building a balanced deck with attack and defense cards.",

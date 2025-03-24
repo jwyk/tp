@@ -42,29 +42,32 @@ public class UI {
     // region Printing Message
     /** display-related constants for display formatting. */
     public static final String END = "\033[0m";
-
     public static final String BOLD = "\033[1m";
     public static final String ITALICS = "\033[3m";
     public static final String UNDERLINE = "\033[4m";
-    public static final String RED = "\033[31m";
+    public static final String RED = "\033[91m";
     public static final String GREEN = "\033[32m";
     public static final String YELLOW = "\033[33m";
-    public static final String BLUE = "\033[34m";
+    public static final String BLUE = "\033[94m";
     public static final String PURPLE = "\033[35m";
     public static final String CYAN = "\033[36m";
-    public static final String WHITE = "\033[37m";
+    public static final String ORANGE = "\033[38;2;255;165;0m";
 
     /** Fixed width for the bordered message display. */
     private static final int MESSAGE_WIDTH = 100;
 
     /** Custom border characters */
-    private static final char TOP_LEFT = '╔';
-
-    private static final char TOP_RIGHT = '╗';
-    private static final char BOTTOM_LEFT = '╚';
-    private static final char BOTTOM_RIGHT = '╝';
-    private static final char HORIZONTAL = '═';
-    private static final char VERTICAL = '║';
+    public static final char TOP_LEFT = '╔';
+    public static final char TOP_RIGHT = '╗';
+    public static final char BOTTOM_LEFT = '╚';
+    public static final char BOTTOM_RIGHT = '╝';
+    public static final char HORIZONTAL = '═';
+    public static final char VERTICAL = '║';
+    public static final char CROSS = '╬';
+    public static final char T_UP = '╩';
+    public static final char T_DOWN = '╦';
+    public static final char T_LEFT = '╣';
+    public static final char T_RIGHT = '╠';
 
     /**
      * Prints a bordered message with a title and content.
@@ -79,7 +82,7 @@ public class UI {
         System.out.println(TOP_RIGHT);
 
         // Centered title
-        System.out.println(centerText(BOLD + title + END));
+        System.out.println(centerText(BOLD + title + END, MESSAGE_WIDTH));
 
         // Middle border
         System.out.print(VERTICAL);
@@ -88,7 +91,7 @@ public class UI {
 
         // display lines
         for (String line : lines) {
-            System.out.println(centerText(line));
+            System.out.println(centerText(line, MESSAGE_WIDTH));
         }
 
         // Bottom border
@@ -99,29 +102,32 @@ public class UI {
 
     /**
      * Centers the given text within a specified width, padding it with spaces on both sides.
+     * This version handles ANSI escape codes and Unicode characters correctly.
      *
      * @param text the text to center
+     * @param width the message width
      * @return the centered text surrounded by borders
      */
-    private static String centerText(String text) {
+    public static String centerText(String text, int width) {
         // Remove ANSI escape codes to calculate the actual display length
         String strippedText = text.replaceAll("\033\\[[;\\d]*m", "");
         int displayLength = strippedText.length();
 
+        // Ensure width is sufficient
+        if (width <= displayLength + 2) {
+            return String.format("%s %s %s", VERTICAL, text, VERTICAL);
+        }
+
         // Calculate padding
-        int paddingSize = (MESSAGE_WIDTH - displayLength - 2) / 2;
+        int paddingSize = (width - displayLength - 2) / 2;
+        int extraPadding = (width - displayLength - 2) % 2; // Handles odd width cases
 
         // Format the centered text with borders
-        return String.format(
-                "%c%"
-                        + paddingSize
-                        + "s%s%"
-                        + (MESSAGE_WIDTH - displayLength - paddingSize - 2)
-                        + "s%c",
+        return String.format("%s%s%s%s%s",
                 VERTICAL,
-                "",
+                " ".repeat(paddingSize),
                 text,
-                "",
+                " ".repeat(paddingSize + extraPadding),
                 VERTICAL);
     }
     // endregion
@@ -136,10 +142,10 @@ public class UI {
         if (screen == null) {
             throw JavatroException.invalidScreen();
         }
-        System.out.println("Transitioning to: " + screen.getClass().getSimpleName());
+        System.out.printf("%s%sTransitioning to: %s%s\n", ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
         currentScreen = screen;
         currentScreen.displayScreen();
-        PARSER.getInput(); // This will handle retries internally
+        PARSER.getOptionInput(); // This will handle retries internally
     }
 
     /**

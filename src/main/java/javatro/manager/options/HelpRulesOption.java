@@ -23,7 +23,7 @@ public class HelpRulesOption implements Option {
     /** Executes the command to display the rules of the game. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "javatro Rules" + UI.END + " 🃏 ♦️ ♣️";
+        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Javatro Rules" + UI.END + " 🃏 ♦️ ♣️";
 
         String[] lines = {
             "1. Start with a basic deck of cards.",

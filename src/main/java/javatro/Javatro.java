@@ -19,8 +19,15 @@ public class Javatro {
     private static final JavatroCore javatroCore = new JavatroCore();
 
     /** The manager responsible for handling interactions between the view and core components. */
-    private static final JavatroManager javatroManager =
-            new JavatroManager(javatroView, javatroCore);
+    private static final JavatroManager javatroManager;
+
+    static {
+        try {
+            javatroManager = new JavatroManager(javatroView, javatroCore);
+        } catch (JavatroException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * The main entry point of the application. It initializes the start screen.
@@ -28,6 +35,7 @@ public class Javatro {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) throws JavatroException {
+        assert false : "dummy assertion set to fail";
         JavatroManager.setScreen(new StartScreen());
     }
 }

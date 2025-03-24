@@ -8,16 +8,27 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
  * Handles parsing and validation of user input for the javatro application.
  *
- * <p>This class is responsible for processing user input, such as card selections and menu
- * navigation, and notifying observers (e.g., {@code JavatroManager}) of changes in user input.
+ * <p>This class is responsible for:
+ * <ul>
+ *   <li>Processing user input for card selections</li>
+ *   <li>Handling menu navigation input</li>
+ *   <li>Validating input ranges and formats</li>
+ *   <li>Notifying observers (e.g., {@code JavatroManager}) of user input changes</li>
+ * </ul>
  */
 public class Parser {
+
+    private static final String MENU_PROMPT = UI.BLUE + UI.BOLD + "✍️ Enter Option Index (1-%d)\n╰┈➤ " + UI.END;
+
+    private static final String CARD_PROMPT = UI.BLUE + UI.BOLD +
+            "✍️ Enter Card Indices between 1-%d. Up to %d cards only. (e.g. 1,2,3,4,5)\n╰┈➤ " + UI.END;
 
     /** Property change support for notifying observers of user input changes. */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -27,94 +38,126 @@ public class Parser {
      *
      * @param pcl the property change listener to register
      */
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+    public void addPropertyChangeListener(PropertyChangeListener pcl) throws JavatroException {
+        if (pcl == null) {
+            throw JavatroException.invalidScreen();
+        }
         support.addPropertyChangeListener(pcl);
+    }
+
+    /**
+     * Handles user input for navigating the current screen and notifies observers.
+     *
+     * <p>This method:
+     * <ul>
+     *   <li>Displays current screen options</li>
+     *   <li>Validates input is within the allowed range</li>
+     *   <li>Notifies registered listeners of the valid input</li>
+     *   <li>Clears the screen after successful input</li>
+     * </ul>
+     *
+     * @throws JavatroException if no options are available in current screen
+     */
+    public void getOptionInput() throws JavatroException {
+        Scanner scanner = new Scanner(System.in);
+        int maxRange = getCurrentScreen().getOptionsSize();
+
+        if (maxRange <= 0) {
+            throw JavatroException.invalidOptionsSize();
+        }
+
+        while (true) {
+            try {
+                UI.clearScreen();
+                getCurrentScreen().displayOptions();
+                System.out.printf(MENU_PROMPT, maxRange);
+
+                if (!scanner.hasNextInt()) {
+//                    scanner.nextLine(); // Clear invalid input
+                    throw JavatroException.invalidInputType();
+                }
+
+                int input = scanner.nextInt();
+//                scanner.nextLine(); // Consume newline
+
+                if (input >= 1 && input <= maxRange) {
+                    support.firePropertyChange("userInput", null, input);
+                    return;
+                }
+
+                throw JavatroException.invalidMenuInput(maxRange);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                scanner.nextLine(); // Clear invalid input
+            }
+        }
     }
 
     /**
      * Prompts the user to select card numbers and returns a list of selected card indices.
      *
-     * @param maxCardsAvailable the maximum number of available cards
+     * @param maxCardsAvailable the maximum number of available cards (1-based)
      * @param maxCardsToSelect the maximum number of cards a user can select
-     * @return a list of selected card indices
-     * @throws JavatroException if the input is invalid or exceeds the allowed number of cards
+     * @return an unmodifiable list of selected card indices (0-based)
      */
-    public static List<Integer> getCardInput(int maxCardsAvailable, int maxCardsToSelect)
-            throws JavatroException {
+    public static List<Integer> getCardInput(int maxCardsAvailable, int maxCardsToSelect) {
         Scanner scanner = new Scanner(System.in);
-        List<Integer> userInput;
-
-        while (true) {
-            System.out.println(
-                    "Enter numbers (comma-separated, e.g., 1,2,3) from 1 to "
-                            + maxCardsAvailable
-                            + " (Allowed to select only "
-                            + maxCardsToSelect
-                            + "):");
-
-            String input = scanner.nextLine().trim();
-            String[] inputArray = input.split(",");
-
-            userInput =
-                    Arrays.stream(inputArray)
-                            .map(String::trim)
-                            .map(
-                                    numStr -> {
-                                        try {
-                                            return Integer.parseInt(numStr) - 1;
-                                        } catch (NumberFormatException e) {
-                                            return null;
-                                        }
-                                    })
-                            .filter(num -> num != null && num >= 0 && num < maxCardsAvailable)
-                            .collect(Collectors.toList());
-
-            if (userInput.isEmpty()) {
-                throw JavatroException.invalidCardInput();
-            }
-
-            if (userInput.size() > maxCardsToSelect) {
-                throw JavatroException.exceedsMaxCardSelection(maxCardsToSelect);
-            }
-
-            System.out.println("You selected the numbers: " + userInput);
-            break;
-        }
-        return userInput;
-    }
-
-    /** Handles user input for navigating the current screen and notifies observers. */
-    public void getInput() {
-        Scanner scanner = new Scanner(System.in);
-        int userInput;
-        int maxRange = getCurrentScreen().getOptionsSize();
 
         while (true) {
             try {
-                getCurrentScreen().displayOptions();
-                System.out.print("Enter a number (1 to " + maxRange + "): ");
+                // Clear screen and show header
+                UI.clearScreen();
+                System.out.printf(CARD_PROMPT, maxCardsAvailable, maxCardsToSelect);
 
-                if (scanner.hasNextInt()) {
-                    userInput = scanner.nextInt();
-                    if (userInput >= 1 && userInput <= maxRange) {
-                        break; // Exit the loop if input is valid
-                    } else {
-                        throw JavatroException.invalidMenuInput(maxRange);
-                    }
-                } else {
-                    throw JavatroException.invalidInputType();
+                String input = scanner.nextLine().trim();
+
+                if (input.isEmpty()) {
+                    throw JavatroException.invalidCardInput();
                 }
+
+                List<Integer> userInput = parseCardInput(input, maxCardsAvailable);
+
+                if (userInput.size() > maxCardsToSelect) {
+                    throw JavatroException.exceedsMaxCardSelection(maxCardsToSelect);
+                }
+
+                return List.copyOf(userInput);
             } catch (JavatroException e) {
-                System.out.println(e.getMessage()); // Print the error message
-                scanner.nextLine(); // Clear the invalid input from the scanner
-            } catch (Exception e) {
-                System.out.println("An unexpected error occurred: " + e.getMessage());
-                scanner.nextLine(); // Clear the invalid input from the scanner
+                System.out.println(e.getMessage());
             }
         }
+    }
 
-        // Notify listeners (e.g., JavatroManager) of the updated user input
-        support.firePropertyChange("userInput", null, userInput);
-        UI.clearScreen();
+    /**
+     * Parses and validates card input string.
+     *
+     * @param input the comma-separated input string
+     * @param maxCardsAvailable the maximum allowed card number
+     * @return list of validated card indices (0-based)
+     * @throws JavatroException if no valid numbers are found
+     */
+    private static List<Integer> parseCardInput(String input, int maxCardsAvailable)
+            throws JavatroException {
+        List<Integer> userInput = Arrays.stream(input.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(numStr -> {
+                    try {
+                        return Integer.parseInt(numStr);
+                    } catch (NumberFormatException e) {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .filter(num -> num >= 1 && num <= maxCardsAvailable)
+                .map(num -> num - 1)
+                .distinct()
+                .collect(Collectors.toList());
+
+        if (userInput.isEmpty()) {
+            throw JavatroException.invalidCardInput();
+        }
+
+        return userInput;
     }
 }
