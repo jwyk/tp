@@ -42,6 +42,7 @@ public class UI {
     // region Printing Message
     /** display-related constants for display formatting. */
     public static final String END = "\033[0m";
+
     public static final String BOLD = "\033[1m";
     public static final String ITALICS = "\033[3m";
     public static final String UNDERLINE = "\033[4m";
@@ -58,6 +59,7 @@ public class UI {
 
     /** Custom border characters */
     public static final char TOP_LEFT = '╔';
+
     public static final char TOP_RIGHT = '╗';
     public static final char BOTTOM_LEFT = '╚';
     public static final char BOTTOM_RIGHT = '╝';
@@ -101,8 +103,8 @@ public class UI {
     }
 
     /**
-     * Centers the given text within a specified width, padding it with spaces on both sides.
-     * This version handles ANSI escape codes and Unicode characters correctly.
+     * Centers the given text within a specified width, padding it with spaces on both sides. This
+     * version handles ANSI escape codes and Unicode characters correctly.
      *
      * @param text the text to center
      * @param width the message width
@@ -123,7 +125,8 @@ public class UI {
         int extraPadding = (width - displayLength - 2) % 2; // Handles odd width cases
 
         // Format the centered text with borders
-        return String.format("%s%s%s%s%s",
+        return String.format(
+                "%s%s%s%s%s",
                 VERTICAL,
                 " ".repeat(paddingSize),
                 text,
@@ -142,7 +145,9 @@ public class UI {
         if (screen == null) {
             throw JavatroException.invalidScreen();
         }
-        System.out.printf("%s%sTransitioning to: %s%s\n", ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
+        System.out.printf(
+                "%s%sTransitioning to: %s%s\n",
+                ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
         currentScreen = screen;
         currentScreen.displayScreen();
         PARSER.getOptionInput(); // This will handle retries internally

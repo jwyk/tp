@@ -124,7 +124,8 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the valid input range.
      */
     public static JavatroException invalidMenuInput(int maxRange) {
-        return new JavatroException("Invalid input! Please enter a number between 1 and " + maxRange + ".");
+        return new JavatroException(
+                "Invalid input! Please enter a number between 1 and " + maxRange + ".");
     }
 
     /**

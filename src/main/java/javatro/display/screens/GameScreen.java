@@ -24,6 +24,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
     /** display-related constants for display formatting. */
     public static final String END = "\033[0m";
+
     public static final String RED = "\033[31m";
     public static final String GREEN = "\033[32m";
     public static final String YELLOW = "\033[33m";

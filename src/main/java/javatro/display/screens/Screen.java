@@ -68,7 +68,12 @@ public abstract class Screen {
             String option =
                     String.format(
                             "%s[%d]%s %s%s%s",
-                            UI.BOLD, i + 1, UI.END, UI.ITALICS, commandMap.get(i).getDescription(), UI.END);
+                            UI.BOLD,
+                            i + 1,
+                            UI.END,
+                            UI.ITALICS,
+                            commandMap.get(i).getDescription(),
+                            UI.END);
             System.out.println(UI.centerText(option, MENU_WIDTH));
         }
 
