@@ -1,27 +1,31 @@
 package javatro.display.screens;
 
 import javatro.core.JavatroException;
-import javatro.manager.options.SelectCardsOption;
 
 /**
  * The {@code PlayScreen} class represents a screen where the user selects cards to play. It extends
- * {@code PlayDiscardScreen} and allows selecting up to a predefined limit of cards.
+ * {@code CardSelectScreen} and allows selecting up to a predefined limit of cards (default is 5).
+ *
+ * @see CardSelectScreen
  */
-public class PlayScreen extends PlayDiscardScreen {
+public class PlayScreen extends CardSelectScreen {
 
     /**
-     * Constructs a {@code PlayScreen} and sets the selection limit. Allows selecting up to 5 cards
-     * to play and initializes the selection command.
+     * Constructs a {@code PlayScreen} and sets the selection limit. The user can select up to 5
+     * cards to play, and the selection command is initialized.
+     *
+     * @throws JavatroException if an error occurs during initialization.
      */
     public PlayScreen() throws JavatroException {
-        super();
-        super.SELECTION_LIMIT = 5; // Maximum of 5 cards can be selected to play
-        super.commandMap.add(new SelectCardsOption(SELECTION_LIMIT));
+        super("SELECT CARDS TO PLAY");
     }
 
-    /** Displays the current cards in the user's holding hand for selection. */
+    /**
+     * Displays the current cards in the user's holding hand for selection. This method overrides
+     * the parent class implementation to provide specific behavior for playing cards.
+     */
     @Override
     public void displayScreen() {
-        super.displayCardsInHoldingHand();
+        super.displayHoldingHand();
     }
 }

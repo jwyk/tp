@@ -23,7 +23,7 @@ public class HelpHowOption implements Option {
     /** Executes the command to display instructions on how to play. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "How To Play javatro" + UI.END + " 🃏 ♦️ ♣️";
+        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "How To Play Javatro" + UI.END + " 🃏 ♦️ ♣️";
 
         String[] lines = {
             "1. Start a new game with 'start'.",

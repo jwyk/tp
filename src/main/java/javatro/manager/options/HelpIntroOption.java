@@ -23,10 +23,10 @@ public class HelpIntroOption implements Option {
     /** Executes the command to display the introduction message. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Welcome to javatro" + UI.END + " 🃏 ♦️ ♣️";
+        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Welcome to Javatro" + UI.END + " 🃏 ♦️ ♣️";
 
         String[] lines = {
-            "javatro is a text-based roguelike deck-building game inspired by Balatro.",
+            "Javatro is a text-based roguelike deck-building game inspired by Balatro.",
             "Your goal is to strategically build a deck and progress through challenges.",
             "Each turn, you'll play poker-style hands to defeat enemies and earn new cards.",
             "",

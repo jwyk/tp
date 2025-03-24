@@ -21,7 +21,7 @@ public final class JavatroException extends Exception {
      * @param message The detailed error message explaining the exception.
      */
     public JavatroException(String message) {
-        super(message);
+        super("⚠️ " + RED + message + END);
     }
 
     /**
@@ -43,7 +43,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the correct number of cards to play.
      */
     public static JavatroException invalidPlayedHand() {
-        return new JavatroException(RED + "A poker hand must contain between 1 and 5 cards." + END);
+        return new JavatroException("A poker hand must contain between 1 and 5 cards.");
     }
 
     /**
@@ -55,8 +55,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the correct number of plays per round.
      */
     public static JavatroException invalidPlaysPerRound() {
-        return new JavatroException(
-                RED + "Number of plays per round must be greater than 0." + END);
+        return new JavatroException("Number of plays per round must be greater than 0.");
     }
 
     /**
@@ -67,7 +66,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the correct blind score.
      */
     public static JavatroException invalidBlindScore() {
-        return new JavatroException(RED + "Blind score must be greater than or equal to 0." + END);
+        return new JavatroException("Blind score must be greater than or equal to 0.");
     }
 
     /**
@@ -78,7 +77,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the correct deck.
      */
     public static JavatroException invalidDeck() {
-        return new JavatroException(RED + "Deck cannot be null." + END);
+        return new JavatroException("Deck cannot be null.");
     }
 
     /**
@@ -89,7 +88,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating that no plays are remaining.
      */
     public static JavatroException noPlaysRemaining() {
-        return new JavatroException(RED + "No plays remaining." + END);
+        return new JavatroException("No plays remaining.");
     }
 
     /**
@@ -100,7 +99,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating invalid card input.
      */
     public static JavatroException invalidCardInput() {
-        return new JavatroException(RED + "Invalid input! Please enter valid numbers." + END);
+        return new JavatroException("Invalid input! Please enter valid numbers.");
     }
 
     /**
@@ -113,8 +112,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the maximum allowed card selection.
      */
     public static JavatroException exceedsMaxCardSelection(int maxCardsToSelect) {
-        return new JavatroException(
-                RED + "You can only select up to " + maxCardsToSelect + " cards." + END);
+        return new JavatroException("You can only select up to " + maxCardsToSelect + " cards.");
     }
 
     /**
@@ -127,7 +125,7 @@ public final class JavatroException extends Exception {
      */
     public static JavatroException invalidMenuInput(int maxRange) {
         return new JavatroException(
-                RED + "Invalid input! Please enter a number between 1 and " + maxRange + "." + END);
+                "Invalid input! Please enter a number between 1 and " + maxRange + ".");
     }
 
     /**
@@ -139,7 +137,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating that a number is required.
      */
     public static JavatroException invalidInputType() {
-        return new JavatroException(RED + "Invalid input! Please enter a number." + END);
+        return new JavatroException("Invalid input! Please enter a number.");
     }
 
     /**
@@ -150,7 +148,11 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the options title is invalid.
      */
     public static JavatroException invalidOptionsTitle() {
-        return new JavatroException(RED + "options title cannot be null or empty." + END);
+        return new JavatroException("Options title cannot be null or empty.");
+    }
+
+    public static JavatroException invalidOptionsSize() {
+        return new JavatroException("Number of options cannot be null or empty.");
     }
 
     /**
@@ -161,7 +163,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the screen is invalid.
      */
     public static JavatroException invalidScreen() {
-        return new JavatroException(RED + "Screen cannot be null." + END);
+        return new JavatroException("Screen cannot be null.");
     }
 
     /**
@@ -173,7 +175,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the index is out of bounds.
      */
     public static JavatroException indexOutOfBounds(int index) {
-        return new JavatroException(RED + "Index is out of bounds: " + index + END);
+        return new JavatroException("Index is out of bounds: " + index);
     }
 
     /**
@@ -185,6 +187,17 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the error loading the logo.
      */
     public static JavatroException errorLoadingLogo(String fileName) {
-        return new JavatroException(RED + "Error loading logo from: " + fileName + END);
+        return new JavatroException("Error loading logo from: " + fileName);
+    }
+
+    /**
+     * Creates an exception indicating an invalid selection limit.
+     *
+     * <p>This exception is thrown when the selection limit is less than 1.
+     *
+     * @return A {@code JavatroException} indicating the selection limit must be a positive value.
+     */
+    public static JavatroException invalidSelectionLimit() {
+        return new JavatroException("Selection limit must be a positive value.");
     }
 }

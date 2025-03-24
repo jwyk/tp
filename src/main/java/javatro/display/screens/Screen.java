@@ -1,6 +1,7 @@
 package javatro.display.screens;
 
 import javatro.core.JavatroException;
+import javatro.display.UI;
 import javatro.manager.options.Option;
 
 import java.util.ArrayList;
@@ -13,20 +14,6 @@ import java.util.List;
  */
 public abstract class Screen {
 
-    /** display-related constants for display formatting. */
-    public static final String END = "\033[0m";
-
-    public static final String BOLD = "\033[1m";
-    public static final String ITALICS = "\033[3m";
-    public static final String UNDERLINE = "\033[4m";
-    public static final String RED = "\033[31m";
-    public static final String GREEN = "\033[32m";
-    public static final String YELLOW = "\033[33m";
-    public static final String BLUE = "\033[34m";
-    public static final String PURPLE = "\033[35m";
-    public static final String CYAN = "\033[36m";
-    public static final String WHITE = "\033[37m";
-
     /** A list of commands associated with this screen. */
     protected final List<Option> commandMap = new ArrayList<>();
 
@@ -35,20 +22,6 @@ public abstract class Screen {
 
     /** Fixed width for the options menu display. */
     private static final int MENU_WIDTH = 100;
-
-    /** Custom border characters */
-    private final char TOP_LEFT = '╔';
-
-    private final char TOP_RIGHT = '╗';
-    private final char BOTTOM_LEFT = '╚';
-    private final char BOTTOM_RIGHT = '╝';
-    private final char HORIZONTAL = '═';
-    private final char VERTICAL = '║';
-    private final char CROSS = '╬';
-    private final char T_UP = '╩';
-    private final char T_DOWN = '╦';
-    private final char T_LEFT = '╣';
-    private final char T_RIGHT = '╠';
 
     /**
      * Constructs a screen with the specified options title.
@@ -63,7 +36,7 @@ public abstract class Screen {
         this.optionsTitle =
                 String.format(
                         "♥️ ♠️ \uD83C\uDCCF %s%s%s \uD83C\uDCCF ♦️ ♣️",
-                        BOLD, optionsTitle.trim(), END);
+                        UI.BOLD, optionsTitle.trim(), UI.END);
     }
 
     /**
@@ -78,60 +51,36 @@ public abstract class Screen {
      */
     public void displayOptions() {
         // Top border
-        System.out.print(TOP_LEFT);
-        System.out.print(String.valueOf(HORIZONTAL).repeat(MENU_WIDTH - 2));
-        System.out.println(TOP_RIGHT);
+        System.out.print(UI.TOP_LEFT);
+        System.out.print(String.valueOf(UI.HORIZONTAL).repeat(MENU_WIDTH - 2));
+        System.out.println(UI.TOP_RIGHT);
 
         // Centered title
-        System.out.println(centerText(optionsTitle));
+        System.out.println(UI.centerText(optionsTitle, MENU_WIDTH));
 
         // Middle border
-        System.out.print(T_RIGHT);
-        System.out.print(String.valueOf(HORIZONTAL).repeat(MENU_WIDTH - 2));
-        System.out.println(T_LEFT);
+        System.out.print(UI.T_RIGHT);
+        System.out.print(String.valueOf(UI.HORIZONTAL).repeat(MENU_WIDTH - 2));
+        System.out.println(UI.T_LEFT);
 
         // display options 《%d》 【%d】 『%d』 「%d」
         for (int i = 0; i < commandMap.size(); i++) {
             String option =
                     String.format(
                             "%s[%d]%s %s%s%s",
-                            BOLD, i + 1, END, ITALICS, commandMap.get(i).getDescription(), END);
-            System.out.println(centerText(option));
+                            UI.BOLD,
+                            i + 1,
+                            UI.END,
+                            UI.ITALICS,
+                            commandMap.get(i).getDescription(),
+                            UI.END);
+            System.out.println(UI.centerText(option, MENU_WIDTH));
         }
 
         // Bottom border
-        System.out.print(BOTTOM_LEFT);
-        System.out.print(String.valueOf(HORIZONTAL).repeat(MENU_WIDTH - 2));
-        System.out.println(BOTTOM_RIGHT);
-    }
-
-    /**
-     * Centers the given text within a specified width, padding it with spaces on both sides. This
-     * version handles ANSI escape codes and Unicode characters correctly.
-     *
-     * @param text the text to center
-     * @return the centered text surrounded by borders
-     */
-    private String centerText(String text) {
-        // Remove ANSI escape codes to calculate the actual display length
-        String strippedText = text.replaceAll("\033\\[[;\\d]*m", "");
-        int displayLength = strippedText.length();
-
-        // Calculate padding
-        int paddingSize = (MENU_WIDTH - displayLength - 2) / 2;
-
-        // Format the centered text with borders
-        return String.format(
-                "%c%"
-                        + paddingSize
-                        + "s%s%"
-                        + (MENU_WIDTH - displayLength - paddingSize - 2)
-                        + "s%c",
-                VERTICAL,
-                "",
-                text,
-                "",
-                VERTICAL);
+        System.out.print(UI.BOTTOM_LEFT);
+        System.out.print(String.valueOf(UI.HORIZONTAL).repeat(MENU_WIDTH - 2));
+        System.out.println(UI.BOTTOM_RIGHT);
     }
 
     /**
