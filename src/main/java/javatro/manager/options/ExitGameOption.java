@@ -7,6 +7,7 @@ import javatro.display.screens.StartScreen;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -56,7 +57,7 @@ public class ExitGameOption implements Option {
 
         String[] lines = {UI.RED + "WE KNOW YOU WILL BE BACK SOON" + UI.END};
 
-        UI.printBorderedMessage(title, lines);
+        UI.printBorderedContent(title, List.of(lines));
         System.exit(0); // Terminate the application
     }
 }

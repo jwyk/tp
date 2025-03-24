@@ -27,13 +27,14 @@ import java.util.stream.Collectors;
 public class Parser {
 
     private static final String MENU_PROMPT =
-            UI.BLUE + UI.BOLD + "✍️ Enter Option Index (1-%d)\n╰┈➤ " + UI.END;
+            UI.BLUE + UI.BOLD + UI.WRITE + "Enter Option Index (1-%d)\n" + UI.ARROW + UI.END;
 
     private static final String CARD_PROMPT =
             UI.BLUE
                     + UI.BOLD
-                    + "✍️ Enter Card Indices between 1-%d. Up to %d cards only. (e.g. 1,2,3,4,5)\n"
-                    + "╰┈➤ "
+                    + UI.WRITE
+                    + "Enter Card Indices between 1-%d. Up to %d cards only. (e.g. 1,2,3,4,5)\n"
+                    + UI.ARROW
                     + UI.END;
 
     /** Property change support for notifying observers of user input changes. */
