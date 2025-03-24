@@ -1,11 +1,14 @@
 package javatro.display.screens;
 
 import javatro.core.Card;
+import javatro.core.HoldingHand;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.CardRenderer;
 import javatro.manager.options.CardSelectOption;
 import javatro.manager.options.ResumeGameOption;
+import javatro.manager.options.SortByRankOption;
+import javatro.manager.options.SortBySuitOption;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +32,6 @@ import static javatro.display.UI.*;
  */
 public abstract class CardSelectScreen extends Screen {
 
-    /** The list of cards currently in the player's hand. */
-    private List<Card> holdingHand;
-
     /**
      * Constructs a {@code CardSelectScreen} with a custom options title and initializes it with a
      * resume game command.
@@ -45,12 +45,49 @@ public abstract class CardSelectScreen extends Screen {
 
         // Add the "Select Cards" and "Resume Game" options
         super.commandMap.add(new CardSelectOption());
+        super.commandMap.add(new SortBySuitOption(this));
+        super.commandMap.add(new SortByRankOption(this));
         super.commandMap.add(new ResumeGameOption());
     }
 
-    /** Updates the holding hand by retrieving the player's current hand from the game core. */
-    public void updateHoldingHand() {
-        this.holdingHand = JavatroCore.currentRound.getPlayerHand();
+    /** The list of cards currently in the player's hand. */
+    private List<Card> holdingHand;
+
+    // Add an enum for sorting options
+    public enum SortOrder {
+        ORIGINAL,
+        BY_SUIT,
+        BY_RANK,
+    }
+    private SortOrder currentSortOrder;
+
+    /**
+     * Updates the holding hand by retrieving the player's current hand from the game core.
+     * @param sortOrder The sorting order to apply (null for no sorting)
+     */
+    public void updateHoldingHand(SortOrder sortOrder) {
+        // Get current Holding Hand
+        this.holdingHand = new ArrayList<>(JavatroCore.currentRound.getPlayerHand());
+        this.currentSortOrder = sortOrder != null ? sortOrder : SortOrder.ORIGINAL;
+
+        // Apply sorting if requested
+        if (sortOrder != null && sortOrder != SortOrder.ORIGINAL) {
+            HoldingHand tempHand = new HoldingHand();
+            tempHand.Hand = new ArrayList<>(this.holdingHand);
+
+            switch (sortOrder) {
+                case BY_SUIT:
+                    tempHand.sortBySuit();
+                    break;
+                case BY_RANK:
+                    tempHand.sortByRank();
+                    break;
+            }
+
+            this.holdingHand = tempHand.getHand();
+        }
+        // Update holding hand for proper selection index
+        JavatroCore.currentRound.playerHand.setHand(holdingHand);
     }
 
     /**
@@ -96,7 +133,7 @@ public abstract class CardSelectScreen extends Screen {
             for (int i = 0; i < cardCount; i++) {
                 lineBuilder.append(renderedCards[i][line]);
                 if (i < cardCount - 1) { // Add space only if there's another card after this one
-                    lineBuilder.append("  ");
+                    lineBuilder.append(BLACK_B + "  " + END);
                 }
             }
             cardArtLines.add(lineBuilder.toString());
@@ -110,8 +147,10 @@ public abstract class CardSelectScreen extends Screen {
      * The cards are displayed with their indices and ASCII art, with special formatting
      * for the middle line of card art.
      */
-    protected void displayHoldingHand() {
-        updateHoldingHand();
+    public void displayHoldingHand() {
+
+        // Sort hand if chosen
+        updateHoldingHand(currentSortOrder);
 
         if (holdingHand.isEmpty()) {
             printBorderedContent("CURRENT HOLDING HAND", List.of(RED + "YOU HAVE NO MORE CARDS!" + END));

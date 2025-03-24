@@ -12,6 +12,16 @@ import javatro.manager.JavatroManager;
 public class PlayCardOption implements Option {
 
     /**
+     * Provides a brief description of the command.
+     *
+     * @return A string describing the command.
+     */
+    @Override
+    public String getDescription() {
+        return "Play Cards";
+    }
+
+    /**
      * Executes the play cards command, updating the game screen to the "Select Cards to Play"
      * interface.
      *
@@ -21,15 +31,5 @@ public class PlayCardOption implements Option {
     public void execute() throws JavatroException {
         // Update the main screen to show the "Select Cards to Play" screen
         JavatroManager.setScreen(UI.getPlayScreen());
-    }
-
-    /**
-     * Provides a brief description of the command.
-     *
-     * @return A string describing the command.
-     */
-    @Override
-    public String getDescription() {
-        return "Play Cards";
     }
 }
