@@ -76,11 +76,13 @@ public class Round {
 
         // Initial draw
         playerHand.draw(INITIAL_HAND_SIZE, this.deck);
-        
+
         // Post-construction invariants
         assert this.currentScore == 0 : "Initial score must be zero";
-        assert this.remainingDiscards == MAX_DISCARDS_PER_ROUND : "Initial discards must be set to maximum";
-        assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE : "Player should have exactly " + INITIAL_HAND_SIZE + " cards initially";
+        assert this.remainingDiscards == MAX_DISCARDS_PER_ROUND
+                : "Initial discards must be set to maximum";
+        assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE
+                : "Player should have exactly " + INITIAL_HAND_SIZE + " cards initially";
     }
 
     /**
@@ -124,19 +126,20 @@ public class Round {
         if (cardIndices.size() > POKER_HAND_SIZE || cardIndices.isEmpty()) {
             throw JavatroException.invalidPlayedHand();
         }
-        
+
         if (remainingPlays <= 0) {
             throw JavatroException.noPlaysRemaining();
         }
-        
+
         assert cardIndices != null : "Card indices cannot be null";
         assert !cardIndices.isEmpty() : "Card indices cannot be empty";
-        assert cardIndices.size() <= POKER_HAND_SIZE : "Cannot play more than " + POKER_HAND_SIZE + " cards";
+        assert cardIndices.size() <= POKER_HAND_SIZE
+                : "Cannot play more than " + POKER_HAND_SIZE + " cards";
         assert remainingPlays > 0 : "No plays remaining to execute this action";
-        
+
         int oldScore = currentScore;
         int oldRemainingPlays = remainingPlays;
-        
+
         List<Card> playedCards = playerHand.play(cardIndices, this.deck);
         PokerHand result = HandResult.evaluateHand(playedCards);
         Integer totalChips = result.getChips();
@@ -154,10 +157,12 @@ public class Round {
         remainingPlays--;
 
         // Post-condition assertions
-        assert remainingPlays == oldRemainingPlays - 1 : "Remaining plays should decrease by exactly 1";
+        assert remainingPlays == oldRemainingPlays - 1
+                : "Remaining plays should decrease by exactly 1";
         assert currentScore >= oldScore : "Score should not decrease after playing cards";
-        assert playerHand.getHand().size() == INITIAL_HAND_SIZE : "Hand size should be maintained after play";
-        
+        assert playerHand.getHand().size() == INITIAL_HAND_SIZE
+                : "Hand size should be maintained after play";
+
         updateRoundVariables();
     }
 
@@ -186,7 +191,7 @@ public class Round {
 
         // Handle duplicates by using a Set
         Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);
-        
+
         int handSizeBefore = playerHand.getHand().size();
         int oldRemainingDiscards = remainingDiscards;
 
@@ -194,10 +199,12 @@ public class Round {
         remainingDiscards--;
 
         playerHand.draw(indicesToDiscard.size(), deck);
-        
+
         // Post-condition assertions
-        assert remainingDiscards == oldRemainingDiscards - 1 : "Remaining discards should decrease by exactly 1";
-        assert playerHand.getHand().size() == handSizeBefore : "Hand size should be maintained after discard";
+        assert remainingDiscards == oldRemainingDiscards - 1
+                : "Remaining discards should decrease by exactly 1";
+        assert playerHand.getHand().size() == handSizeBefore
+                : "Hand size should be maintained after discard";
 
         updateRoundVariables();
     }
