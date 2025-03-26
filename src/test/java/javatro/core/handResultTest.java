@@ -17,9 +17,10 @@ import static javatro.core.Card.Suit.CLUBS;
 import static javatro.core.Card.Suit.DIAMONDS;
 import static javatro.core.Card.Suit.HEARTS;
 import static javatro.core.Card.Suit.SPADES;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static javatro.core.PokerHand.HandType.FLUSH_FIVE;
+import static javatro.core.PokerHand.HandType.FLUSH_HOUSE;
+import static javatro.core.PokerHand.HandType.FIVE_OF_A_KIND;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -525,5 +526,241 @@ class HandResultTest {
         PokerHand result = HandResult.evaluateHand(hand);
         assertNotEquals("Two Pair", result.getHandName());
         assertEquals("Four of a Kind", result.getHandName());
+    }
+
+    /* ==================== FLUSH FIVE TESTS ==================== */
+
+    /**
+     * Tests that a Flush Five is correctly identified (all 5 cards identical in rank and suit).
+     */
+    @Test
+    void testFlushFiveTrue() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertEquals(FLUSH_FIVE, result.handType());
+        assertEquals("Flush Five", result.getHandName());
+    }
+
+    /**
+     * Tests that a hand with same rank but different suits is not a Flush Five.
+     */
+    @Test
+    void testFlushFiveFalseDifferentSuits() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, DIAMONDS),
+                new Card(ACE, CLUBS),
+                new Card(ACE, SPADES),
+                new Card(ACE, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertNotEquals(FLUSH_FIVE, result.handType());
+        assertEquals(FIVE_OF_A_KIND, result.handType());
+    }
+
+    /**
+     * Tests that a hand with same suit but different ranks is not a Flush Five.
+     */
+    @Test
+    void testFlushFiveFalseDifferentRanks() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(KING, HEARTS),
+                new Card(QUEEN, HEARTS),
+                new Card(JACK, HEARTS),
+                new Card(TEN, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertNotEquals(FLUSH_FIVE, result.handType());
+        assertEquals("Royal Flush", result.getHandName());
+    }
+
+    /**
+     * Tests that a hand with less than 5 cards cannot be a Flush Five.
+     */
+    @Test
+    void testFlushFiveFalseLessThan5Cards() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertNotEquals(FLUSH_FIVE, result.handType());
+        assertEquals("Four of a Kind", result.getHandName());
+    }
+
+    /* ==================== FIVE OF A KIND TESTS ==================== */
+
+    /**
+     * Tests that Five of a Kind is correctly identified (all 5 cards same rank, suits can differ).
+     */
+    @Test
+    void testFiveOfAKindTrue() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, DIAMONDS),
+                new Card(ACE, CLUBS),
+                new Card(ACE, SPADES),
+                new Card(ACE, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertEquals(FIVE_OF_A_KIND, result.handType());
+        assertEquals("Five of a Kind", result.getHandName());
+    }
+
+    /**
+     * Tests that a hand with only 4 of a kind is not Five of a Kind.
+     */
+    @Test
+    void testFiveOfAKindFalseFourOfAKind() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, DIAMONDS),
+                new Card(ACE, CLUBS),
+                new Card(ACE, SPADES),
+                new Card(KING, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertNotEquals(FIVE_OF_A_KIND, result.handType());
+        assertEquals("Four of a Kind", result.getHandName());
+    }
+
+    /**
+     * Tests that a Flush Five is not mistakenly identified as Five of a Kind.
+     */
+    @Test
+    void testFiveOfAKindFalseFlushFive() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertNotEquals(FIVE_OF_A_KIND, result.handType());
+        assertEquals(FLUSH_FIVE, result.handType());
+    }
+
+    /* ==================== FLUSH HOUSE TESTS ==================== */
+
+    /**
+     * Tests that Flush House is correctly identified (full house with all cards same suit).
+     */
+    @Test
+    void testFlushHouseTrue() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(KING, HEARTS),
+                new Card(KING, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertEquals(FLUSH_HOUSE, result.handType());
+        assertEquals("Flush House", result.getHandName());
+    }
+
+    /**
+     * Tests that a regular full house with mixed suits is not a Flush House.
+     */
+    @Test
+    void testFlushHouseFalseMixedSuits() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, DIAMONDS),
+                new Card(ACE, CLUBS),
+                new Card(KING, HEARTS),
+                new Card(KING, SPADES));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertNotEquals(FLUSH_HOUSE, result.handType());
+        assertEquals("Full House", result.getHandName());
+    }
+
+    /**
+     * Tests that a flush without the full house composition is not a Flush House.
+     */
+    @Test
+    void testFlushHouseFalseNotFullHouse() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(KING, HEARTS),
+                new Card(QUEEN, HEARTS),
+                new Card(JACK, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertNotEquals(FLUSH_HOUSE, result.handType());
+        assertEquals("Flush", result.getHandName());
+    }
+
+    /**
+     * Tests that a Flush Five is not mistakenly identified as Flush House.
+     */
+    @Test
+    void testFlushHouseFalseFlushFive() throws JavatroException {
+        List<Card> hand = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS));
+        PokerHand result = HandResult.evaluateHand(hand);
+        assertNotEquals(FLUSH_HOUSE, result.handType());
+        assertEquals(FLUSH_FIVE, result.handType());
+    }
+
+    // Enum values are ordered from strongest to weakest in declaration
+    // ordinal() returns the position (0-based index) in the enum declaration
+    // compareTo() returns negative when the first is "less than" (stronger than) the second
+    /**
+     * Tests hand evaluation priority - Flush Five should beat Flush House.
+     */
+    @Test
+    void testHandPriorityFlushFiveVsFlushHouse() throws JavatroException {
+        List<Card> flushFive = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS),
+                new Card(ACE, HEARTS));
+
+        List<Card> flushHouse = List.of(
+                new Card(KING, DIAMONDS),
+                new Card(KING, DIAMONDS),
+                new Card(KING, DIAMONDS),
+                new Card(QUEEN, DIAMONDS),
+                new Card(QUEEN, DIAMONDS));
+
+        PokerHand result1 = HandResult.evaluateHand(flushFive);
+        PokerHand result2 = HandResult.evaluateHand(flushHouse);
+
+        // Verify Flush Five is stronger than Flush House
+        assertTrue(result1.handType().compareTo(result2.handType()) < 0);
+        assertTrue(result1.handType().ordinal() < result2.handType().ordinal());
+    }
+
+    /**
+     * Tests hand evaluation priority - Five of a Kind should beat Flush House.
+     */
+    @Test
+    void testHandPriorityFiveOfAKindVsFlushHouse() throws JavatroException {
+        List<Card> fiveKind = List.of(
+                new Card(ACE, HEARTS),
+                new Card(ACE, DIAMONDS),
+                new Card(ACE, CLUBS),
+                new Card(ACE, SPADES),
+                new Card(ACE, HEARTS));
+
+        List<Card> flushHouse = List.of(
+                new Card(KING, DIAMONDS),
+                new Card(KING, DIAMONDS),
+                new Card(KING, DIAMONDS),
+                new Card(QUEEN, DIAMONDS),
+                new Card(QUEEN, DIAMONDS));
+
+        PokerHand result1 = HandResult.evaluateHand(fiveKind);
+        PokerHand result2 = HandResult.evaluateHand(flushHouse);
+
+        assertTrue(result1.handType().compareTo(result2.handType()) > 0);
     }
 }

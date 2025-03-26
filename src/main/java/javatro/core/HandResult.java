@@ -56,7 +56,7 @@ public class HandResult {
             suitCount.put(card.suit(), suitCount.getOrDefault(card.suit(), 0) + 1);
         }
 
-        boolean isFlush = suitCount.size() == 1; // All cards same suit
+        boolean isFlush = suitCount.containsValue(5); // All 5 cards have the same suit
         boolean isStraight = isStraight(rankCount); // Cards form a consecutive sequence
         boolean isRoyal = isRoyal(rankCount); // Special case: A, K, Q, J, 10
 
