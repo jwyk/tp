@@ -226,10 +226,15 @@ public class RoundTest {
         int initialHandSize = round.getPlayerHand().size();
 
         // Discard 0 cards
-        round.discardCards(List.of());
+        try {
+            round.discardCards(List.of());
+            fail("Should have thrown an exception for discarding zero cards");
+        } catch (JavatroException e) {
+            assertEquals("Cannot discard zero cards", e.getMessage());
+        }
 
         // Should still use a discard
-        assertEquals(3, round.getRemainingDiscards());
+        assertEquals(4, round.getRemainingDiscards());
         assertEquals(initialHandSize, round.getPlayerHand().size());
     }
 
