@@ -43,4 +43,23 @@ public class Deck {
         Collections.shuffle(newDeck);
         return newDeck;
     }
+
+    /**
+     * Initialize a new shuffled 52 card deck for a new game Consists of the standard Poker Deck: 26
+     * Cards of the 2 Suites: Spades and Hearts.
+     */
+    private ArrayList<Card> populateNewCheckeredDeck() {
+        ArrayList<Card> newDeck = new ArrayList<Card>();
+        for (Card.Rank rank : Card.Rank.values()) {
+            //Populate for Hearts
+            Card.Suit suitHeart = Card.Suit.valueOf(Card.Suit.HEARTS.toString());
+            newDeck.add(new Card(rank, suitHeart));
+            //Populate for Spades
+            Card.Suit suitSpades = Card.Suit.valueOf(Card.Suit.SPADES.toString());
+            newDeck.add(new Card(rank, suitSpades));
+        }
+        Collections.shuffle(newDeck);
+        return newDeck;
+    }
+
 }
