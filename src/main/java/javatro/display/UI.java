@@ -15,6 +15,7 @@ public class UI {
 
     /** The current screen being displayed to the user. */
     private static Screen currentScreen;
+    private static Screen previousScreen;
 
     /** Predefined game-related screens. */
     private static final GameScreen GAME_SCREEN;
@@ -23,6 +24,7 @@ public class UI {
     private static final PlayScreen PLAY_SCREEN;
     private static final HelpScreen HELP_SCREEN;
     private static final StartScreen START_SCREEN;
+    private static final PokerHandScreen POKER_SCREEN;
 
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
@@ -37,6 +39,7 @@ public class UI {
             PLAY_SCREEN = new PlayScreen();
             HELP_SCREEN = new HelpScreen();
             START_SCREEN = new StartScreen();
+            POKER_SCREEN = new PokerHandScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
             e.printStackTrace();
@@ -99,6 +102,7 @@ public class UI {
 
     // endregion
 
+    // region PRINTING FUNCTIONS
     public static void printBlackB(String input) {
         System.out.print(UI.BLACK_B + input + UI.END);
     }
@@ -223,6 +227,8 @@ public class UI {
         return (int) Math.round(length);
     }
 
+    // endregion
+
     /**
      * Sets the current screen and displays it.
      *
@@ -233,6 +239,12 @@ public class UI {
         if (screen == null) {
             throw JavatroException.invalidScreen();
         }
+
+        // Store the current screen as previous before changing
+        if (currentScreen != null) {
+            previousScreen = currentScreen;
+        }
+
         System.out.printf(
                 "%s%sTransitioning to: %s%s\n",
                 ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
@@ -248,6 +260,27 @@ public class UI {
      */
     public static Screen getCurrentScreen() {
         return currentScreen;
+    }
+
+    /**
+     * Gets the previous screen that was displayed before the current one.
+     *
+     * @return the previous {@link Screen}, or null if there wasn't one
+     */
+    public static Screen getPreviousScreen() {
+        return previousScreen;
+    }
+
+    /**
+     * Navigates back to the previous screen if one exists.
+     *
+     * @throws JavatroException if there is no previous screen to return to
+     */
+    public void returnScreen() throws JavatroException {
+        if (previousScreen == null) {
+            throw new JavatroException("No previous screen to return to");
+        }
+        setCurrentScreen(previousScreen);
     }
 
     /** Clears the console screen. This method uses ANSI escape codes to clear the console. */
@@ -310,6 +343,15 @@ public class UI {
      */
     public static HelpScreen getHelpScreen() {
         return HELP_SCREEN;
+    }
+
+    /**
+     * Gets the poker hand screen.
+     *
+     * @return the {@link PokerHandScreen} instance
+     */
+    public static PokerHandScreen getPokerHandScreen() {
+        return POKER_SCREEN;
     }
     // endregion
 }

@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
+import static javatro.display.UI.*;
+
 /**
  * The {@code ExitGameOption} class represents a command that terminates the game. When executed, it
  * prints a farewell message and exits the application.
@@ -53,9 +55,9 @@ public class ExitGameOption implements Option {
         System.out.println(END_SCREEN);
 
         // display the farewell message with borders and ANSI formatting
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "GOODBYE" + " 🃏 ♦️ ♣️" + UI.END;
+        String title = "♥️ ♠️ 🃏 " + BOLD + "GOODBYE" + " 🃏 ♦️ ♣️" + END;
 
-        String[] lines = {UI.RED + "WE KNOW YOU WILL BE BACK SOON" + UI.END};
+        String[] lines = {RED + "WE KNOW YOU WILL BE BACK SOON" + END};
 
         UI.printBorderedContent(title, List.of(lines));
         System.exit(0); // Terminate the application

@@ -6,6 +6,9 @@ import javatro.manager.JavatroManager;
 
 import java.util.List;
 
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+
 /**
  * The HelpRulesOption class provides the rules for playing javatro. This command is executed when
  * the player requests game rules.
@@ -25,7 +28,7 @@ public class HelpRulesOption implements Option {
     /** Executes the command to display the rules of the game. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Javatro Rules" + " 🃏 ♦️ ♣️" + UI.END;
+        String title = "♥️ ♠️ 🃏 " + BOLD + "Javatro Rules" + " 🃏 ♦️ ♣️" + END;
 
         String[] lines = {
             "1. Start with a basic deck of cards.",

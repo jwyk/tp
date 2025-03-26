@@ -6,6 +6,9 @@ import javatro.manager.JavatroManager;
 
 import java.util.List;
 
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+
 /**
  * The HelpTipsOption class provides gameplay tips for javatro. This command is executed when the
  * player requests tips for improving their strategy.
@@ -25,7 +28,7 @@ public class HelpTipsOption implements Option {
     /** Executes the command to display gameplay tips. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Pro Tips For Javatro" + " 🃏 ♦️ ♣️" + UI.END;
+        String title = "♥️ ♠️ 🃏 " + BOLD + "Pro Tips For Javatro" + " 🃏 ♦️ ♣️" + END;
 
         String[] lines = {
             "- Focus on building a balanced deck with attack and defense cards.",
