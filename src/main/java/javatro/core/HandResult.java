@@ -9,16 +9,7 @@ import static javatro.core.Card.Rank.QUEEN;
 import static javatro.core.Card.Rank.TEN;
 import static javatro.core.Card.Rank.THREE;
 import static javatro.core.Card.Rank.TWO;
-import static javatro.core.PokerHand.HandType.FLUSH;
-import static javatro.core.PokerHand.HandType.FOUR_OF_A_KIND;
-import static javatro.core.PokerHand.HandType.FULL_HOUSE;
-import static javatro.core.PokerHand.HandType.HIGH_CARD;
-import static javatro.core.PokerHand.HandType.PAIR;
-import static javatro.core.PokerHand.HandType.ROYAL_FLUSH;
-import static javatro.core.PokerHand.HandType.STRAIGHT;
-import static javatro.core.PokerHand.HandType.STRAIGHT_FLUSH;
-import static javatro.core.PokerHand.HandType.THREE_OF_A_KIND;
-import static javatro.core.PokerHand.HandType.TWO_PAIR;
+import static javatro.core.PokerHand.HandType.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +34,11 @@ public class HandResult {
             throw JavatroException.invalidPlayedHand();
         }
 
+        // First check for Flush Five (all cards identical)
+        if (isFlushFive(cards)) {
+            return new PokerHand(FLUSH_FIVE);
+        }
+
         // Counts occurrences of each rank (e.g., {"A":1, "K":1, "Q":1, "J":1, "10":1} for a Royal
         // Flush).
         Map<Card.Rank, Integer> rankCount = new HashMap<>();
@@ -60,9 +56,15 @@ public class HandResult {
             suitCount.put(card.suit(), suitCount.getOrDefault(card.suit(), 0) + 1);
         }
 
-        boolean isFlush = suitCount.containsValue(5); // All cards have the same suit
+        boolean isFlush = suitCount.size() == 1; // All cards same suit
         boolean isStraight = isStraight(rankCount); // Cards form a consecutive sequence
         boolean isRoyal = isRoyal(rankCount); // Special case: A, K, Q, J, 10
+
+        // Check remaining special hands
+        PokerHand specialHand = checkSpecialHands(rankCount, isFlush);
+        if (specialHand != null) {
+            return specialHand;
+        }
 
         // Determine the best poker hand
         if (cards.size() == 1) {
@@ -70,6 +72,46 @@ public class HandResult {
         } else {
             return evaluateMultiCardHand(rankCount, isFlush, isStraight, isRoyal);
         }
+    }
+
+    /**
+     * Checks if all cards are exactly identical (same rank and suit)
+     */
+    private static boolean isFlushFive(List<Card> cards) {
+        if (cards.size() != 5) return false;
+
+        Card first = cards.get(0);
+        for (Card card : cards) {
+            if (!card.rank().equals(first.rank()) || !card.suit().equals(first.suit())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks for special poker hands (Flush Five, Flush House, Five of a Kind).
+     */
+    private static PokerHand checkSpecialHands(Map<Card.Rank, Integer> rankCount, boolean isFlush) {
+        // Five of a Kind (all cards same rank, but possibly different suits)
+        if (rankCount.size() == 1 && rankCount.values().iterator().next() == 5) {
+            return new PokerHand(FIVE_OF_A_KIND);
+        }
+
+        // Flush House (full house where all cards same suit)
+        if (isFlush && rankCount.size() == 2) {
+            boolean hasThree = false;
+            boolean hasTwo = false;
+            for (int count : rankCount.values()) {
+                if (count == 3) hasThree = true;
+                if (count == 2) hasTwo = true;
+            }
+            if (hasThree && hasTwo) {
+                return new PokerHand(FLUSH_HOUSE);
+            }
+        }
+
+        return null;
     }
 
     /**
