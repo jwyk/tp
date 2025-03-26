@@ -28,7 +28,7 @@ public class JavatroCore {
     private Round classicRound() {
         Deck d = new Deck();
         try {
-            return new Round(300, 4, d, "Classic", "Classic Round");
+            return new Round(4, d, "Classic", "Classic Round");
         } catch (JavatroException javatroException) {
             System.out.println(javatroException.getMessage());
         }
