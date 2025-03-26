@@ -3,6 +3,8 @@ package javatro.display;
 import javatro.core.JavatroException;
 import javatro.display.screens.*;
 
+import java.util.List;
+
 /**
  * The {@code display} class is responsible for managing and displaying different screens in the
  * application. It handles user input, manages screen transitions, and notifies observers of user
@@ -25,6 +27,9 @@ public class UI {
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
 
+    /** Fixed width for the bordered message display. */
+    public static final int BORDER_WIDTH = 100;
+
     static {
         try {
             GAME_SCREEN = new GameScreen();
@@ -39,23 +44,34 @@ public class UI {
         }
     }
 
-    // region Printing Message
+    // region FORMATTING STRINGS
     /** display-related constants for display formatting. */
+    public static final String CARD = "\uD83C\uDCCF";
+
+    public static final String HEARTS = "♥️";
+    public static final String SPADES = "♠️";
+    public static final String DIAMONDS = "♦️";
+    public static final String CLUBS = "♣️";
+    public static final String WARNING = "⚠️ ";
+    public static final String WRITE = "✍️ ";
+    public static final String ARROW = "╰┈➤ ";
+
     public static final String END = "\033[0m";
 
     public static final String BOLD = "\033[1m";
     public static final String ITALICS = "\033[3m";
     public static final String UNDERLINE = "\033[4m";
+
     public static final String RED = "\033[91m";
-    public static final String GREEN = "\033[32m";
-    public static final String YELLOW = "\033[33m";
+    public static final String GREEN = "\033[92m";
+    public static final String YELLOW = "\033[93m";
     public static final String BLUE = "\033[94m";
     public static final String PURPLE = "\033[35m";
     public static final String CYAN = "\033[36m";
     public static final String ORANGE = "\033[38;2;255;165;0m";
-
-    /** Fixed width for the bordered message display. */
-    private static final int MESSAGE_WIDTH = 100;
+    public static final String BLACK = "\033[30m";
+    public static final String WHITE_B = "\033[107m";
+    public static final String BLACK_B = "\033[40m";
 
     /** Custom border characters */
     public static final char TOP_LEFT = '╔';
@@ -71,35 +87,69 @@ public class UI {
     public static final char T_LEFT = '╣';
     public static final char T_RIGHT = '╠';
 
+    // Unicode spacing characters for experimentation
+    public static final String NORMAL_SPACE = " "; // U+0020
+    public static final String EN_SPACE = " "; // U+2002 (1.5× normal space)
+    public static final String EM_SPACE = " "; // U+2003 (2× normal space)
+    public static final String THIN_SPACE = " "; // U+2009 (~½ normal space)
+    public static final String HAIR_SPACE = " "; // U+200A (~⅓ normal space)
+    public static final String ZERO_WIDTH_SPACE = "​"; // U+200B (invisible)
+    public static final String ZERO_WIDTH_JOINER = "‍"; // U+200D
+    public static final String ZERO_WIDTH_NON_JOINER = "‌"; // U+200C
+
+    // endregion
+
+    public static void printBlackB(String input) {
+        System.out.print(UI.BLACK_B + input + UI.END);
+    }
+
     /**
-     * Prints a bordered message with a title and content.
+     * Prints a bordered message or menu with a title and dynamically generated content. Uses a
+     * default width of 100.
      *
-     * @param title the title of the message
-     * @param lines the content lines to display
+     * @param title the title of the message or menu
+     * @param content a list of content lines
      */
-    public static void printBorderedMessage(String title, String[] lines) {
+    public static void printBorderedContent(String title, List<String> content) {
+        printBorderedContent(
+                title,
+                content,
+                BORDER_WIDTH,
+                BORDER_WIDTH); // Calls the main method with default width
+    }
+
+    /**
+     * Prints a bordered message or menu with a title and dynamically generated content.
+     *
+     * @param title the title of the message or menu
+     * @param content a list of content lines
+     * @param titleWidth the width of the bordered content title
+     */
+    public static void printBorderedContent(
+            String title, List<String> content, int titleWidth, int contentWidth) {
+
         // Top border
-        System.out.print(TOP_LEFT);
-        System.out.print(String.valueOf(HORIZONTAL).repeat(MESSAGE_WIDTH - 2));
-        System.out.println(TOP_RIGHT);
+        printBlackB(TOP_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + TOP_RIGHT);
+        System.out.println();
 
         // Centered title
-        System.out.println(centerText(BOLD + title + END, MESSAGE_WIDTH));
+        printBlackB(centerText(title, titleWidth));
+        System.out.println();
 
         // Middle border
-        System.out.print(VERTICAL);
-        System.out.print(String.valueOf(HORIZONTAL).repeat(MESSAGE_WIDTH - 2));
-        System.out.println(VERTICAL);
+        printBlackB(T_RIGHT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + T_LEFT);
+        System.out.println();
 
-        // display lines
-        for (String line : lines) {
-            System.out.println(centerText(line, MESSAGE_WIDTH));
+        // Display content (lines from the provider)
+        for (String line : content) {
+            printBlackB(centerText(line, contentWidth));
+            System.out.println();
         }
 
         // Bottom border
-        System.out.print(BOTTOM_LEFT);
-        System.out.print(String.valueOf(HORIZONTAL).repeat(MESSAGE_WIDTH - 2));
-        System.out.println(BOTTOM_RIGHT);
+        printBlackB(
+                BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
+        System.out.println();
     }
 
     /**
@@ -107,17 +157,16 @@ public class UI {
      * version handles ANSI escape codes and Unicode characters correctly.
      *
      * @param text the text to center
-     * @param width the message width
+     * @param width the total width to center within
      * @return the centered text surrounded by borders
      */
     public static String centerText(String text, int width) {
-        // Remove ANSI escape codes to calculate the actual display length
-        String strippedText = text.replaceAll("\033\\[[;\\d]*m", "");
-        int displayLength = strippedText.length();
+        // Calculate display length accounting for ANSI codes and Unicode characters
+        int displayLength = getDisplayLength(text);
 
         // Ensure width is sufficient
         if (width <= displayLength + 2) {
-            return String.format("%s %s %s", VERTICAL, text, VERTICAL);
+            return BLACK_B + VERTICAL + " " + text + " " + VERTICAL + END;
         }
 
         // Calculate padding
@@ -125,15 +174,54 @@ public class UI {
         int extraPadding = (width - displayLength - 2) % 2; // Handles odd width cases
 
         // Format the centered text with borders
-        return String.format(
-                "%s%s%s%s%s",
-                VERTICAL,
-                " ".repeat(paddingSize),
-                text,
-                " ".repeat(paddingSize + extraPadding),
-                VERTICAL);
+        return BLACK_B
+                + VERTICAL
+                + BLACK_B
+                + " ".repeat(paddingSize)
+                + BLACK_B
+                + text
+                + BLACK_B
+                + " ".repeat(paddingSize + extraPadding)
+                + BLACK_B
+                + VERTICAL
+                + END;
     }
-    // endregion
+
+    /**
+     * Calculates the visible display length of text, ignoring ANSI codes and accounting for special
+     * Unicode characters.
+     *
+     * @param text the text to measure
+     * @return the visible length of the text
+     */
+    private static int getDisplayLength(String text) {
+        // Remove ANSI escape codes
+        String strippedText = text.replaceAll("\033\\[[;\\d]*m", "");
+
+        // Calculate adjusted length accounting for special characters
+        double length = 0;
+        for (int i = 0; i < strippedText.length(); i++) {
+            char c = strippedText.charAt(i);
+            if (c == '\u200A') { // Hair space
+                length += 0.3;
+            } else if (c == '\u2009') { // Thin space
+                length += 0.5;
+            } else if (c == '\u2002') { // En space
+                length += 1.5;
+            } else if (c == '\u2003') { // Em space
+                length += 2;
+            } else if (c == '\u200B' || c == '\u200C' || c == '\u200D') { // Zero-width
+                // No addition to length
+            } else if (c >= '\uD800' && c <= '\uDFFF') { // Surrogate pairs (emoji)
+                length += 2;
+                i++; // Skip the next char in the pair
+            } else {
+                length += 1;
+            }
+        }
+
+        return (int) Math.round(length);
+    }
 
     /**
      * Sets the current screen and displays it.

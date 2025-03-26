@@ -12,6 +12,16 @@ import javatro.manager.JavatroManager;
 public class DiscardCardOption implements Option {
 
     /**
+     * Provides a brief description of the command.
+     *
+     * @return A string describing the command.
+     */
+    @Override
+    public String getDescription() {
+        return "Discard Cards";
+    }
+
+    /**
      * Executes the discard cards command, updating the game screen to the "Select Cards to Discard"
      * interface.
      *
@@ -21,15 +31,5 @@ public class DiscardCardOption implements Option {
     public void execute() throws JavatroException {
         // Update the main screen to show the "Select Cards to Discard" screen
         JavatroManager.setScreen(UI.getDiscardScreen());
-    }
-
-    /**
-     * Provides a brief description of the command.
-     *
-     * @return A string describing the command.
-     */
-    @Override
-    public String getDescription() {
-        return "Discard Cards";
     }
 }

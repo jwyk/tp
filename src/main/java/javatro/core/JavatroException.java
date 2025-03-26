@@ -1,5 +1,7 @@
 package javatro.core;
 
+import javatro.display.UI;
+
 /**
  * Represents a custom exception class for handling domain-specific errors in the javatro
  * application.
@@ -12,16 +14,13 @@ package javatro.core;
  */
 public final class JavatroException extends Exception {
 
-    private static final String RED = "\033[31m";
-    private static final String END = "\033[0m";
-
     /**
      * Constructs a {@code JavatroException} with the specified error message.
      *
      * @param message The detailed error message explaining the exception.
      */
     public JavatroException(String message) {
-        super("⚠️ " + RED + message + END);
+        super(UI.WARNING + UI.RED + message + UI.END);
     }
 
     /**

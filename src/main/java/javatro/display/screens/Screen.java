@@ -20,9 +20,6 @@ public abstract class Screen {
     /** The title of the options menu displayed on the screen. */
     private final String optionsTitle;
 
-    /** Fixed width for the options menu display. */
-    private static final int MENU_WIDTH = 100;
-
     /**
      * Constructs a screen with the specified options title.
      *
@@ -35,8 +32,16 @@ public abstract class Screen {
         }
         this.optionsTitle =
                 String.format(
-                        "♥️ ♠️ \uD83C\uDCCF %s%s%s \uD83C\uDCCF ♦️ ♣️",
-                        UI.BOLD, optionsTitle.trim(), UI.END);
+                        "%s%s %s %s %s %s %s %s%s",
+                        UI.BOLD,
+                        UI.HEARTS,
+                        UI.SPADES,
+                        UI.CARD,
+                        optionsTitle.trim(),
+                        UI.CARD,
+                        UI.DIAMONDS,
+                        UI.CLUBS,
+                        UI.END);
     }
 
     /**
@@ -50,37 +55,25 @@ public abstract class Screen {
      * centered title, and a list of options with descriptions.
      */
     public void displayOptions() {
-        // Top border
-        System.out.print(UI.TOP_LEFT);
-        System.out.print(String.valueOf(UI.HORIZONTAL).repeat(MENU_WIDTH - 2));
-        System.out.println(UI.TOP_RIGHT);
+        List<String> optionLines = new ArrayList<>();
 
-        // Centered title
-        System.out.println(UI.centerText(optionsTitle, MENU_WIDTH));
-
-        // Middle border
-        System.out.print(UI.T_RIGHT);
-        System.out.print(String.valueOf(UI.HORIZONTAL).repeat(MENU_WIDTH - 2));
-        System.out.println(UI.T_LEFT);
-
-        // display options 《%d》 【%d】 『%d』 「%d」
         for (int i = 0; i < commandMap.size(); i++) {
+            String desc = UI.BLACK_B + commandMap.get(i).getDescription() + UI.END;
             String option =
-                    String.format(
-                            "%s[%d]%s %s%s%s",
-                            UI.BOLD,
-                            i + 1,
-                            UI.END,
-                            UI.ITALICS,
-                            commandMap.get(i).getDescription(),
-                            UI.END);
-            System.out.println(UI.centerText(option, MENU_WIDTH));
+                    UI.BLACK_B
+                            + UI.BOLD
+                            + "["
+                            + (i + 1)
+                            + "] "
+                            + UI.END
+                            + UI.ITALICS
+                            + desc
+                            + UI.END;
+
+            optionLines.add(option);
         }
 
-        // Bottom border
-        System.out.print(UI.BOTTOM_LEFT);
-        System.out.print(String.valueOf(UI.HORIZONTAL).repeat(MENU_WIDTH - 2));
-        System.out.println(UI.BOTTOM_RIGHT);
+        UI.printBorderedContent(optionsTitle, optionLines);
     }
 
     /**
