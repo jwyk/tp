@@ -59,7 +59,6 @@ public class Deck {
             Card.Suit suitSpades = Card.Suit.valueOf(Card.Suit.SPADES.toString());
             newDeck.add(new Card(rank, suitSpades));
             newDeck.add(new Card(rank, suitSpades));
-
         }
         Collections.shuffle(newDeck);
         return newDeck;
