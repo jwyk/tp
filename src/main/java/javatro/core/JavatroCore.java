@@ -9,6 +9,8 @@ public class JavatroCore {
 
     /** The current active round in the game. */
     public static Round currentRound;
+    public static Ante ante;
+
 
     /**
      * Starts a new round and assigns it to the current round.
@@ -28,7 +30,7 @@ public class JavatroCore {
     private Round classicRound() {
         Deck d = new Deck();
         try {
-            return new Round(300, 4, d, "Classic", "Classic Round");
+            return new Round(ante.getRoundScore(), 4, d, "Classic", "Classic Round");
         } catch (JavatroException javatroException) {
             System.out.println(javatroException.getMessage());
         }
@@ -41,6 +43,7 @@ public class JavatroCore {
      * @throws JavatroException If an error occurs while starting the game.
      */
     public void beginGame() {
+        ante = new Ante();
         startNewRound(classicRound());
     }
 }

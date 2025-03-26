@@ -32,6 +32,7 @@ public class StartGameOption implements Option {
         JavatroManager.beginGame();
         javatro.display.UI.getGameScreen().restoreGameCommands();
         // Update the main screen to show the game screen
+        JavatroManager.setScreen(UI.getBlindScreen());
         JavatroManager.setScreen(UI.getGameScreen());
     }
 }

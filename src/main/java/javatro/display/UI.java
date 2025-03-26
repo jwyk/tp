@@ -22,6 +22,7 @@ public class UI {
     private static final DiscardScreen DISCARD_SCREEN;
     private static final PlayScreen PLAY_SCREEN;
     private static final HelpScreen HELP_SCREEN;
+    private static final BlindScreen BLIND_SCREEN;
     private static final StartScreen START_SCREEN;
 
     /** Parser instance for handling user input. */
@@ -36,6 +37,7 @@ public class UI {
             DISCARD_SCREEN = new DiscardScreen();
             PLAY_SCREEN = new PlayScreen();
             HELP_SCREEN = new HelpScreen();
+            BLIND_SCREEN = new BlindScreen();
             START_SCREEN = new StartScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
@@ -181,11 +183,12 @@ public class UI {
                 + BLACK_B
                 + text
                 + BLACK_B
-                + " ".repeat(paddingSize + extraPadding)
+                + " ".repeat(paddingSize + extraPadding) // Apply the extra padding here
                 + BLACK_B
                 + VERTICAL
                 + END;
     }
+
 
     /**
      * Calculates the visible display length of text, ignoring ANSI codes and accounting for special
@@ -311,5 +314,9 @@ public class UI {
     public static HelpScreen getHelpScreen() {
         return HELP_SCREEN;
     }
-    // endregion
+
+    public static BlindScreen getBlindScreen() {
+    return BLIND_SCREEN;
+}
+// endregion
 }
