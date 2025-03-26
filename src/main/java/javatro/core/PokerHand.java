@@ -4,14 +4,72 @@ package javatro.core;
  * Represents the result of evaluating a poker hand with tracking for levels and play counts.
  *
  * @param handType The type of poker hand
- * @param level The current level of this hand (default 1)
- * @param playedCount How many times this hand has been played (default 0)
+ * @param playCount How many times this hand has been played (default 0)
  */
-public record PokerHand(HandType handType, int level, int playedCount) {
+public record PokerHand(HandType handType, int playCount) {
 
-    // Default constructor for when level and playedCount aren't specified
+    // Default constructor for when level and playCount aren't specified
     public PokerHand(HandType handType) {
-        this(handType, 1, 0);
+        this(handType, 0);
+    }
+
+    /**
+     * Returns the base chips for this poker hand adjusted by level.
+     *
+     * @return The base chips multiplied by level
+     */
+    public int getChips() {
+        int base = handType.getChips();
+        int level = PlanetCard.getLevel(handType);
+        int chipIncrement = PlanetCard.getChipIncrement(handType);
+        return base + (level - 1) * chipIncrement;
+    }
+
+    /**
+     * Returns the multiplier for this poker hand adjusted by level.
+     *
+     * @return The multiplier
+     */
+    public int getMultiplier() {
+        int base = handType.getMultiplier();
+        int level = PlanetCard.getLevel(handType);
+        int multiIncrement = PlanetCard.getMultiIncrement(handType);
+        return base + (level - 1) * multiIncrement;
+    }
+
+    /**
+     * Returns the hand name for this poker hand.
+     *
+     * @return The hand name.
+     */
+    public String getHandName() {
+        return handType.getHandName();
+    }
+
+    /**
+     * Creates a new PokerHand with an incremented played count.
+     *
+     * @return A new PokerHand instance with playCount + 1
+     */
+    public PokerHand incrementPlayed() {
+        return new PokerHand(handType, playCount + 1);
+    }
+
+    /**
+     * Creates a new PokerHand with a specific played count.
+     *
+     * @param count The new played count
+     * @return A new PokerHand instance with the specified playCount
+     */
+    public PokerHand withPlayedCount(int count) {
+        return new PokerHand(handType, count);
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%s (Level: %d, Chips: %d, Multiplier: %d, Played: %d)",
+                handType.getHandName(), PlanetCard.getLevel(handType), getChips(), handType.getMultiplier(), playCount);
     }
 
     /**
@@ -53,82 +111,5 @@ public record PokerHand(HandType handType, int level, int playedCount) {
         public int getMultiplier() {
             return multiplier;
         }
-    }
-
-    /**
-     * Returns the base chips for this poker hand adjusted by level.
-     *
-     * @return The base chips multiplied by level
-     */
-    public int getChips() {
-        return handType.getChips() * level;
-    }
-
-    /**
-     * Returns the multiplier for this poker hand adjusted by level.
-     *
-     * @return The multiplier
-     */
-    public int getMultiplier() {
-        return handType.getMultiplier();
-    }
-
-    /**
-     * Returns the hand name for this poker hand.
-     *
-     * @return The hand name.
-     */
-    public String getHandName() {
-        return handType.getHandName();
-    }
-
-    /**
-     * Creates a new PokerHand with an incremented played count.
-     *
-     * @return A new PokerHand instance with playedCount + 1
-     */
-    public PokerHand incrementPlayed() {
-        return new PokerHand(handType, level, playedCount + 1);
-    }
-
-    /**
-     * Creates a new PokerHand with a specific played count.
-     *
-     * @param count The new played count
-     * @return A new PokerHand instance with the specified playedCount
-     */
-    public PokerHand withPlayedCount(int count) {
-        return new PokerHand(handType, level, count);
-    }
-
-    /**
-     * Creates a new PokerHand with a specific level.
-     *
-     * @param newLevel The new level
-     * @return A new PokerHand instance with the specified level
-     */
-    public PokerHand withLevel(int newLevel) {
-        return new PokerHand(handType, newLevel, playedCount);
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "%s (Level: %d, Chips: %d, Multiplier: %d, Played: %d)",
-                handType.getHandName(), level, getChips(), handType.getMultiplier(), playedCount);
-    }
-
-    /**
-     * Formats the hand for display in the PokerHandScreen.
-     *
-     * @return Formatted string for UI display
-     */
-    public String toDisplayString() {
-        return String.format("%-10d%-15s%4d × %-10d# %d",
-                level,
-                handType.getHandName(),
-                handType.getChips(),
-                handType.getMultiplier(),
-                playedCount);
     }
 }
