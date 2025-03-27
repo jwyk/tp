@@ -122,51 +122,51 @@ public class RoundTest {
 
     @Test
     public void round_correctInitialization_success() throws JavatroException {
-        assertRoundInitialization(javatro.core.AnteBase.LEVEL_1, javatro.core.BlindType.SMALL, 3);
-        assertRoundInitialization(javatro.core.AnteBase.LEVEL_2, javatro.core.BlindType.SMALL, 5);
-        assertRoundInitialization(javatro.core.AnteBase.LEVEL_2, javatro.core.BlindType.LARGE, 7);
-        assertRoundInitialization(javatro.core.AnteBase.LEVEL_3, javatro.core.BlindType.BOSS, 1);
+        assertRoundInitialization(javatro.core.AnteBase.ANTE_1, javatro.core.BlindType.SMALL, 3);
+        assertRoundInitialization(javatro.core.AnteBase.ANTE_2, javatro.core.BlindType.SMALL, 5);
+        assertRoundInitialization(javatro.core.AnteBase.ANTE_2, javatro.core.BlindType.LARGE, 7);
+        assertRoundInitialization(javatro.core.AnteBase.ANTE_3, javatro.core.BlindType.BOSS, 1);
     }
 
     @Test
     public void round_incorrectInitializatioin() throws JavatroException {
         assertRoundInitializationFailure(
-                javatro.core.AnteBase.LEVEL_1,
+                javatro.core.AnteBase.ANTE_1,
                 javatro.core.BlindType.SMALL,
                 0,
                 new Deck(),
                 INVALIDPLAYSPERROUND);
         assertRoundInitializationFailure(
-                javatro.core.AnteBase.LEVEL_1, javatro.core.BlindType.SMALL, 3, null, INVALIDDECK);
+                javatro.core.AnteBase.ANTE_1, javatro.core.BlindType.SMALL, 3, null, INVALIDDECK);
     }
 
     @Test
     public void round_playCards_roundNotOver() throws JavatroException {
         // Test with first blind score and plays
-        assertRoundNotOver(javatro.core.AnteBase.LEVEL_1, javatro.core.BlindType.SMALL, 3, 1);
+        assertRoundNotOver(javatro.core.AnteBase.ANTE_1, javatro.core.BlindType.SMALL, 3, 1);
         // Test with high blind score
-        assertRoundNotOver(javatro.core.AnteBase.LEVEL_8, javatro.core.BlindType.BOSS, 3, 1);
+        assertRoundNotOver(javatro.core.AnteBase.ANTE_8, javatro.core.BlindType.BOSS, 3, 1);
         // Test with many remaining plays
-        assertRoundNotOver(javatro.core.AnteBase.LEVEL_2, javatro.core.BlindType.LARGE, 3000, 5);
+        assertRoundNotOver(javatro.core.AnteBase.ANTE_2, javatro.core.BlindType.LARGE, 3000, 5);
     }
 
     @Test
     public void round_playCards_roundOver() throws JavatroException {
         assertRoundOverAfterPlays(
-                javatro.core.AnteBase.LEVEL_8, javatro.core.BlindType.BOSS, 3, 3, true);
+                javatro.core.AnteBase.ANTE_8, javatro.core.BlindType.BOSS, 3, 3, true);
         assertRoundOverAfterPlays(
-                javatro.core.AnteBase.LEVEL_8, javatro.core.BlindType.BOSS, 5, 5, true);
+                javatro.core.AnteBase.ANTE_8, javatro.core.BlindType.BOSS, 5, 5, true);
         assertRoundOverAfterPlays(
-                javatro.core.AnteBase.LEVEL_8, javatro.core.BlindType.BOSS, 8, 8, true);
+                javatro.core.AnteBase.ANTE_8, javatro.core.BlindType.BOSS, 8, 8, true);
         assertRoundOverAfterPlays(
-                javatro.core.AnteBase.LEVEL_1, javatro.core.BlindType.SMALL, 1, 1, true);
+                javatro.core.AnteBase.ANTE_1, javatro.core.BlindType.SMALL, 1, 1, true);
     }
 
     @Test
     public void round_playCards_tooManyPlays() throws JavatroException {
         // Test with 3 plays
         assertPlayCardsFails(
-                javatro.core.AnteBase.LEVEL_1,
+                javatro.core.AnteBase.ANTE_1,
                 javatro.core.BlindType.SMALL,
                 3,
                 3,
@@ -174,14 +174,14 @@ public class RoundTest {
 
         // Test with 5 plays
         assertPlayCardsFails(
-                javatro.core.AnteBase.LEVEL_1,
+                javatro.core.AnteBase.ANTE_1,
                 javatro.core.BlindType.SMALL,
                 2,
                 2,
                 INVALIDPLAYSREMAINING);
         // Test with 0 plays
         assertPlayCardsFails(
-                javatro.core.AnteBase.LEVEL_1,
+                javatro.core.AnteBase.ANTE_1,
                 javatro.core.BlindType.SMALL,
                 0,
                 0,
@@ -191,26 +191,26 @@ public class RoundTest {
     @Test
     public void round_playCards_invalidHandSize() throws JavatroException {
         assertPlayCardsInvalidHandSize(
-                javatro.core.AnteBase.LEVEL_1,
+                javatro.core.AnteBase.ANTE_1,
                 javatro.core.BlindType.SMALL,
                 3,
                 List.of(0, 1, 2, 3, 4, 5),
                 INVALIDPLAYEDHANDERROR);
         assertPlayCardsInvalidHandSize(
-                javatro.core.AnteBase.LEVEL_1,
+                javatro.core.AnteBase.ANTE_1,
                 javatro.core.BlindType.SMALL,
                 3,
                 List.of(0, 1, 2, 3, 4, 5, 6),
                 INVALIDPLAYEDHANDERROR);
         assertPlayCardsInvalidHandSize(
-                javatro.core.AnteBase.LEVEL_1,
+                javatro.core.AnteBase.ANTE_1,
                 javatro.core.BlindType.SMALL,
                 3,
                 List.of(0, 1, 2, 3, 4, 5, 6, 7),
                 INVALIDPLAYEDHANDERROR);
         // Test with 0 cards
         assertPlayCardsInvalidHandSize(
-                javatro.core.AnteBase.LEVEL_1,
+                javatro.core.AnteBase.ANTE_1,
                 javatro.core.BlindType.SMALL,
                 3,
                 List.of(),
@@ -222,7 +222,7 @@ public class RoundTest {
         Deck deck = new Deck();
         Round round =
                 new Round(
-                        javatro.core.AnteBase.LEVEL_1,
+                        javatro.core.AnteBase.ANTE_1,
                         javatro.core.BlindType.SMALL,
                         3,
                         deck,
@@ -246,7 +246,7 @@ public class RoundTest {
         Deck deck = new Deck();
         Round round =
                 new Round(
-                        javatro.core.AnteBase.LEVEL_1,
+                        javatro.core.AnteBase.ANTE_1,
                         javatro.core.BlindType.SMALL,
                         3,
                         deck,
@@ -273,7 +273,7 @@ public class RoundTest {
         Deck deck = new Deck();
         Round round =
                 new Round(
-                        javatro.core.AnteBase.LEVEL_1,
+                        javatro.core.AnteBase.ANTE_1,
                         javatro.core.BlindType.SMALL,
                         3,
                         deck,
@@ -301,7 +301,7 @@ public class RoundTest {
         Deck deck = new Deck();
         Round round =
                 new Round(
-                        javatro.core.AnteBase.LEVEL_1,
+                        javatro.core.AnteBase.ANTE_1,
                         javatro.core.BlindType.SMALL,
                         3,
                         deck,

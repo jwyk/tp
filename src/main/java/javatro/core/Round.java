@@ -5,8 +5,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-// import javatro.core.AnteBase;
-// import javatro.core.BlindType;
 
 public class Round {
     /** The initial number of cards dealt to the player. */
@@ -103,7 +101,7 @@ public class Round {
      */
     public Round(int remainingPlays, Deck deck, String roundName, String roundDescription)
             throws JavatroException {
-        this(AnteBase.LEVEL_1, BlindType.SMALL, remainingPlays, deck, roundName, roundDescription);
+        this(AnteBase.ANTE_1, BlindType.SMALL, remainingPlays, deck, roundName, roundDescription);
     }
 
     /**
