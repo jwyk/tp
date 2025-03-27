@@ -40,7 +40,7 @@ public class Deck implements Cloneable {
     }
 
     /** Returns an DeckType containing the deck variant you are using */
-    public DeckType getdeckName() {
+    public DeckType getDeckName() {
         return deckType;
     }
 

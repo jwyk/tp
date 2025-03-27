@@ -79,7 +79,7 @@ public class Round {
 
         // Handle special Deck variants here.
 
-        DeckType deckName = deck.getdeckName();
+        DeckType deckName = deck.getDeckName();
         if (deckName == RED) {
             this.remainingDiscards += 1;
         } else if (deckName == DeckType.BLUE) {
