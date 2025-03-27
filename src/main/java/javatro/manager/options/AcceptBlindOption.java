@@ -13,8 +13,5 @@ public class AcceptBlindOption implements Option {
 
 
     @Override
-    public void execute() throws JavatroException {
-        JavatroCore.currentRound.updateRoundVariables();
-        JavatroManager.setScreen(UI.getGameScreen());
-    }
+    public void execute() throws JavatroException {}
 }
