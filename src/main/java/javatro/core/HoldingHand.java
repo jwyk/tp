@@ -185,8 +185,8 @@ public class HoldingHand {
     }
 
     /**
-     * Change the HOLDING_LIMIT of the HoldingHand Class.
-     * This function is used when you need to manually change the HOLDING_LIMIT
+     * Change the HOLDING_LIMIT of the HoldingHand Class. This function is used when you need to
+     * manually change the HOLDING_LIMIT
      */
     public void setHOLDING_LIMIT(int holdingLimit) {
         HOLDING_LIMIT = holdingLimit;

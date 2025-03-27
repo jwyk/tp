@@ -1,6 +1,5 @@
 package javatro.display;
 
-import javatro.core.Deck;
 import javatro.core.JavatroException;
 import javatro.display.screens.*;
 

@@ -5,8 +5,6 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
-import java.util.List;
-
 public class RedDeckSelectOption implements Option {
 
     /**
@@ -30,7 +28,5 @@ public class RedDeckSelectOption implements Option {
         javatro.display.UI.getGameScreen().restoreGameCommands();
         // Update the main screen to show the game screen
         JavatroManager.setScreen(UI.getGameScreen());
-
-
     }
 }
