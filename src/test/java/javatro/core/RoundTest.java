@@ -23,7 +23,9 @@ public class RoundTest {
     private static final String INVALIDPLAYSREMAINING = "No plays remaining.";
 
     enum isWon {
-        WON, LOST, UNKNOWN
+        WON,
+        LOST,
+        UNKNOWN
     }
 
     private void assertRoundInitialization(
@@ -161,14 +163,18 @@ public class RoundTest {
     @Test
     public void round_playCards_roundNotOver() throws JavatroException {
         // Test with first blind score and plays
-        assertRoundNotOver(javatro.core.AnteBase.ANTE_1, javatro.core.BlindType.SMALL, 3, 1, isWon.UNKNOWN);
+        assertRoundNotOver(
+                javatro.core.AnteBase.ANTE_1, javatro.core.BlindType.SMALL, 3, 1, isWon.UNKNOWN);
         // Test with high blind score
-        assertRoundNotOver(javatro.core.AnteBase.ANTE_8, javatro.core.BlindType.BOSS, 3, 1, isWon.UNKNOWN);
+        assertRoundNotOver(
+                javatro.core.AnteBase.ANTE_8, javatro.core.BlindType.BOSS, 3, 1, isWon.UNKNOWN);
         // Test with many remaining plays
-        assertRoundNotOver(javatro.core.AnteBase.ANTE_2, javatro.core.BlindType.LARGE, 3000, 5, isWon.UNKNOWN);
+        assertRoundNotOver(
+                javatro.core.AnteBase.ANTE_2, javatro.core.BlindType.LARGE, 3000, 5, isWon.UNKNOWN);
 
         // Test won
-        assertRoundNotOver(javatro.core.AnteBase.ANTE_1, javatro.core.BlindType.SMALL, 10000, 8, isWon.WON);
+        assertRoundNotOver(
+                javatro.core.AnteBase.ANTE_1, javatro.core.BlindType.SMALL, 10000, 8, isWon.WON);
     }
 
     @Test
