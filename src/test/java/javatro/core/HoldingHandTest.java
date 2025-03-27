@@ -31,17 +31,26 @@ import java.util.List;
 public class HoldingHandTest {
 
     private static Deck deck;
+    private static HoldingHand holdingHand;
+    private static Card cardOne;
+    private static Card cardTwo;
+    private static Card cardThree;
+    private static Card cardFour;
 
     /** Initialize a new deck for each test. */
     @BeforeEach
     void init() {
         deck = new Deck(Deck.DeckType.DEFAULT);
+        holdingHand = new HoldingHand();
+        cardOne = new Card(TWO, SPADES);
+        cardTwo = new Card(THREE, HEARTS);
+        cardThree = new Card(FOUR, CLUBS);
+        cardFour = new Card(FIVE, DIAMONDS);
     }
 
     /** Test that HoldingHand can add cards, draw and discard cards. */
     @Test
     void testHoldingHand() throws JavatroException {
-        HoldingHand holdingHand = new HoldingHand();
         for (int i = 0; i < 8; i++) {
             holdingHand.add(deck.draw());
         }
@@ -63,7 +72,6 @@ public class HoldingHandTest {
     /** Test that HoldingHand can return the hand held. */
     @Test
     void testGetHoldingHand() throws JavatroException {
-        HoldingHand holdingHand = new HoldingHand();
         Card cardOne = new Card(ACE, SPADES);
         Card cardTwo = new Card(TWO, SPADES);
         Card cardThree = new Card(THREE, SPADES);
@@ -87,11 +95,6 @@ public class HoldingHandTest {
     /** Test that HoldingHand can return cards in order. */
     @Test
     void testSortByRank() throws JavatroException {
-        HoldingHand holdingHand = new HoldingHand();
-        Card cardOne = new Card(TWO, SPADES);
-        Card cardTwo = new Card(THREE, SPADES);
-        Card cardThree = new Card(FOUR, SPADES);
-        Card cardFour = new Card(FIVE, SPADES);
         List<Card> cards =
                 new ArrayList<Card>() {
                     {
@@ -117,11 +120,6 @@ public class HoldingHandTest {
      */
     @Test
     void testSortBySuit() throws JavatroException {
-        HoldingHand holdingHand = new HoldingHand();
-        Card cardOne = new Card(TWO, SPADES);
-        Card cardTwo = new Card(THREE, HEARTS);
-        Card cardThree = new Card(FOUR, CLUBS);
-        Card cardFour = new Card(FIVE, DIAMONDS);
         List<Card> cards =
                 new ArrayList<Card>() {
                     {

@@ -9,24 +9,27 @@ import java.util.Collections;
  * Contains an ArrayList of type Card: with 0 being the top of the deck
  * and ArrayList.size() being the bottom
  */
-public class Deck implements Cloneable {
+public class Deck {
 
-    private static ArrayList<Card> deck;
-    private static DeckType deckType;
+    private ArrayList<Card> deck;
+    private DeckType deckType;
 
     /**
      * Initialize the deck with cards that the player owns If no new cards owned or a new game has
      * started, initializes a new deck
      */
     public Deck(DeckType deckType) {
-        Deck.deckType = deckType;
-        deck = populateNewDeck(deckType);
+        this.deckType = deckType;
+        this.deck = populateNewDeck(deckType);
     }
 
-    public Deck clone() throws CloneNotSupportedException {
-        Deck copiedDeck = (Deck) super.clone();
-        Collections.shuffle(copiedDeck.deck);
-        return copiedDeck;
+    /** Copy Constructor for deck class */
+    Deck(Deck oldDeck) {
+        this.deck = new ArrayList<Card>(oldDeck.deck.size());
+        this.deckType = oldDeck.deckType;
+        for (Card card : oldDeck.deck) {
+            this.deck.add(new Card(card));
+        }
     }
 
     /** Draws and returns a card from the top of the deck. */
@@ -40,7 +43,7 @@ public class Deck implements Cloneable {
     }
 
     /** Returns an DeckType containing the deck variant you are using */
-    public DeckType getdeckName() {
+    public DeckType getDeckName() {
         return deckType;
     }
 
