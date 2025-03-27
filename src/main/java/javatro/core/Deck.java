@@ -8,7 +8,7 @@ import java.util.Collections;
  * Contains an ArrayList of type Card: with 0 being the top of the deck
  * and ArrayList.size() being the bottom
  */
-public class Deck implements Cloneable{
+public class Deck implements Cloneable {
     private static ArrayList<Card> deck;
 
     /**

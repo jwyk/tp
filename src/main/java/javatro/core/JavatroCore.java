@@ -9,6 +9,7 @@ public class JavatroCore {
 
     /** The current active round in the game. */
     public static Round currentRound;
+
     public static Deck deck;
 
     /**
