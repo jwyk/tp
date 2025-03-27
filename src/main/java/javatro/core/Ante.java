@@ -98,7 +98,7 @@ public class Ante {
             anteCount++;
         }
     }
-    
+
     /**
      * Sets the blind level manually.
      *
