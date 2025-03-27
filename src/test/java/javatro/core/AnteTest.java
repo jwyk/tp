@@ -21,6 +21,11 @@ public class AnteTest {
         ante = new Ante();
     }
 
+    /**
+     * Tests the initial values of the Ante object.
+     * Ensures the Ante count starts at 1, the blind is set to SMALL_BLIND,
+     * and the round score is set to 300.
+     */
     @Test
     void testInitialValues() {
         assertEquals(1, ante.getAnteCount(), "Ante count should start at 1");
@@ -28,6 +33,10 @@ public class AnteTest {
         assertEquals(300, ante.getRoundScore(), "Initial round score should be 300");
     }
 
+    /**
+     * Tests the multipliers for different blinds.
+     * Verifies that each blind (SMALL_BLIND, LARGE_BLIND, BOSS_BLIND) has the expected multiplier.
+     */
     @Test
     void testBlindMultiplier() {
         ante.setBlind(Ante.Blind.SMALL_BLIND);
@@ -40,6 +49,11 @@ public class AnteTest {
         assertEquals(2.0, ante.getBlind().getMultiplier(), "BOSS_BLIND should have a multiplier of 2.0");
     }
 
+    /**
+     * Tests the progression of the blind and ante count across rounds.
+     * Verifies that after each round, the blind changes in the expected order,
+     * and the ante count increments correctly, resetting after reaching a cap.
+     */
     @Test
     void testNextRoundProgression() {
         ante.nextRound();
@@ -53,6 +67,10 @@ public class AnteTest {
         assertEquals(Ante.Blind.SMALL_BLIND, ante.getBlind(), "Blind should reset to SMALL_BLIND");
     }
 
+    /**
+     * Tests the calculation of the round score based on the current blind.
+     * Verifies that the score is calculated correctly for each blind.
+     */
     @Test
     void testRoundScoreCalculation() {
         ante.setBlind(Ante.Blind.SMALL_BLIND);
@@ -65,6 +83,10 @@ public class AnteTest {
         assertEquals(600, ante.getRoundScore(), "Score for BOSS_BLIND should be correct");
     }
 
+    /**
+     * Tests the maximum ante count cap.
+     * Ensures that the ante count does not exceed 8 after several rounds.
+     */
     @Test
     void testMaxAnteCap() {
         for (int i = 0; i < 8; i++) {
@@ -75,6 +97,10 @@ public class AnteTest {
         assertEquals(8, ante.getAnteCount(), "Ante count should not exceed 8");
     }
 
+    /**
+     * Tests the reset functionality for the ante.
+     * Verifies that the ante count and blind reset to their initial values after calling resetAnte().
+     */
     @Test
     void testResetAnte() {
         ante.nextRound();
