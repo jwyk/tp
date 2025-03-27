@@ -22,17 +22,6 @@ import java.util.stream.Collectors;
  */
 public class GameScreen extends Screen implements PropertyChangeListener {
 
-    /** display-related constants for display formatting. */
-    public static final String END = "\033[0m";
-
-    public static final String RED = "\033[31m";
-    public static final String GREEN = "\033[32m";
-    public static final String YELLOW = "\033[33m";
-    public static final String BLUE = "\033[34m";
-    public static final String PURPLE = "\033[35m";
-    public static final String CYAN = "\033[36m";
-    public static final String WHITE = "\033[37m";
-
     /** Indicator for whether the round is over. 1 for won, -1 for lost, 0 for ongoing. */
     public static int roundOver = 0;
 

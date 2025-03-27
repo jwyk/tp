@@ -1,7 +1,5 @@
 package javatro.display.screens;
 
-import static javatro.display.UI.printBorderedContent;
-
 import javatro.core.JavatroException;
 import javatro.core.PlanetCard;
 import javatro.core.PokerHand;
@@ -11,12 +9,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static javatro.display.UI.*;
+
 public class PokerHandScreen extends Screen {
 
     // %-X = X characters width
     private static final String TITLE =
             String.format(
-                    "%-8s  %-16s  %-12s  %-8s", "LEVEL", "POKER HAND", "CHIPS × MULTI", "PLAYED");
+                    "%s%s%-5s     %s%-15s     %s%-5s%s × %s%-5s%s    %s%-6s%s",
+                    BOLD,
+                    GREEN, "LEVEL",
+                    WHITE, "POKER HAND",
+                    BLUE_B, "CHIPS", BLACK_B,
+                    RED_B, "MULTI", BLACK_B,
+                    ORANGE, "PLAYS",
+                    END);
 
     private final List<PokerHand> pokerHands;
 
@@ -38,12 +45,12 @@ public class PokerHandScreen extends Screen {
                                 hand -> {
                                     PokerHand.HandType type = hand.handType();
                                     return String.format(
-                                            "%-8d  %-16s  %-4d × %-6d  %-8d",
-                                            PlanetCard.getLevel(type),
-                                            type.getHandName(),
-                                            hand.getChips(),
-                                            hand.getMultiplier(),
-                                            hand.playCount());
+                                            "%s%4d       %s%-15s     %s%5d%s × %s%-5d%s      %s%-6d%s",
+                                            GREEN, PlanetCard.getLevel(type),
+                                            WHITE, type.getHandName(),
+                                            BLUE_B, hand.getChips(), BLACK_B,
+                                            RED_B, hand.getMultiplier(), BLACK_B,
+                                            ORANGE, hand.playCount(), END);
                                 })
                         .collect(Collectors.toList());
 

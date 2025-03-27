@@ -66,6 +66,7 @@ public class UI {
     public static final String ITALICS = "\033[3m";
     public static final String UNDERLINE = "\033[4m";
 
+    public static final String WHITE = "\033[97m";
     public static final String RED = "\033[91m";
     public static final String GREEN = "\033[92m";
     public static final String YELLOW = "\033[93m";
@@ -76,6 +77,8 @@ public class UI {
     public static final String BLACK = "\033[30m";
     public static final String WHITE_B = "\033[107m";
     public static final String BLACK_B = "\033[40m";
+    public static final String BLUE_B = "\033[44m";
+    public static final String RED_B = "\033[41m";
 
     /** Custom border characters */
     public static final char TOP_LEFT = '╔';
