@@ -8,12 +8,31 @@ import javatro.manager.JavatroManager;
 
 import java.util.List;
 
+/**
+ * Represents an option to reject the current blind and move to the next available blind level.
+ * Implements the {@code Option} interface.
+ */
 public class RejectBlindOption implements Option {
+
+    /**
+     * Returns the description of this option.
+     *
+     * @return A string representing the description of the option.
+     */
     @Override
     public String getDescription() {
         return "Reject Blind";
     }
 
+    /**
+     * Executes the action of rejecting the current blind level.
+     * If the current blind is {@code SMALL_BLIND}, it moves to {@code LARGE_BLIND}.
+     * If the current blind is {@code LARGE_BLIND}, it moves to {@code BOSS_BLIND}.
+     * If already at {@code BOSS_BLIND}, a warning message is displayed,
+     * indicating that the player must play at this level.
+     *
+     * @throws JavatroException if an error occurs during execution.
+     */
     @Override
     public void execute() throws JavatroException {
         if(JavatroManager.ante.getBlind() == Ante.Blind.SMALL_BLIND){
