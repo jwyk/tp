@@ -34,7 +34,9 @@ public class DeckTest {
         assertEquals(51, deck.getRemainingCards());
     }
 
-    /** Test that a Checkered Deck has 52 cards, with 26 cards of Hearts, 26 cards of Spades. */
+    /**
+     * Test that a Checkered Deck has 52 cards, with 26 cards of Hearts, 26 cards of Spades.
+     */
     @Test
     void testCheckeredDeck() throws JavatroException {
         Deck checkeredDeck = new Deck(Deck.DeckType.CHECKERED);
