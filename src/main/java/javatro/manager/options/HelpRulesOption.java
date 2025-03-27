@@ -1,4 +1,4 @@
-//@@author swethacool
+// @@author swethacool
 package javatro.manager.options;
 
 import static javatro.display.UI.BOLD;

@@ -1,4 +1,4 @@
-//@@author swethacool
+// @@author swethacool
 package javatro.display.screens;
 
 import javatro.core.JavatroException;

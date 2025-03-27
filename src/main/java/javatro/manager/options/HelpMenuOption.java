@@ -1,4 +1,4 @@
-//@@author swethacool
+// @@author swethacool
 package javatro.manager.options;
 
 import javatro.core.JavatroException;
