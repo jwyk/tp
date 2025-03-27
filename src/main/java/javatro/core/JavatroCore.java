@@ -4,12 +4,13 @@
  */
 package javatro.core;
 
+import javatro.manager.JavatroManager;
+
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
 
     /** The current active round in the game. */
     public static Round currentRound;
-    public static Ante ante;
 
 
     /**
@@ -30,7 +31,7 @@ public class JavatroCore {
     private Round classicRound() {
         Deck d = new Deck();
         try {
-            return new Round(ante.getRoundScore(), 4, d, "Classic", "Classic Round");
+            return new Round(JavatroManager.ante.getRoundScore(), 4, d, "Classic", "Classic Round");
         } catch (JavatroException javatroException) {
             System.out.println(javatroException.getMessage());
         }
@@ -42,8 +43,8 @@ public class JavatroCore {
      *
      * @throws JavatroException If an error occurs while starting the game.
      */
-    public void beginGame() {
-        ante = new Ante();
+    public void beginGame() throws JavatroException {
+        JavatroManager.setScreen(javatro.display.UI.getBlindScreen());
         startNewRound(classicRound());
     }
 }
