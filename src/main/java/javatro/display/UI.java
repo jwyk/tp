@@ -13,10 +13,14 @@ import java.util.List;
  */
 public class UI {
 
-    /** The current screen being displayed to the user. */
+    /**
+     * The current screen being displayed to the user.
+     */
     private static Screen currentScreen;
 
-    /** Predefined game-related screens. */
+    /**
+     * Predefined game-related screens.
+     */
     private static final GameScreen GAME_SCREEN;
 
     private static final DiscardScreen DISCARD_SCREEN;
@@ -25,10 +29,14 @@ public class UI {
     private static final BlindScreen BLIND_SCREEN;
     private static final StartScreen START_SCREEN;
 
-    /** Parser instance for handling user input. */
+    /**
+     * Parser instance for handling user input.
+     */
     private static final Parser PARSER = new Parser();
 
-    /** Fixed width for the bordered message display. */
+    /**
+     * Fixed width for the bordered message display.
+     */
     public static final int BORDER_WIDTH = 100;
 
     static {
@@ -47,7 +55,9 @@ public class UI {
     }
 
     // region FORMATTING STRINGS
-    /** display-related constants for display formatting. */
+    /**
+     * display-related constants for display formatting.
+     */
     public static final String CARD = "\uD83C\uDCCF";
 
     public static final String HEARTS = "♥️";
@@ -75,7 +85,9 @@ public class UI {
     public static final String WHITE_B = "\033[107m";
     public static final String BLACK_B = "\033[40m";
 
-    /** Custom border characters */
+    /**
+     * Custom border characters
+     */
     public static final char TOP_LEFT = '╔';
 
     public static final char TOP_RIGHT = '╗';
@@ -253,7 +265,9 @@ public class UI {
         return currentScreen;
     }
 
-    /** Clears the console screen. This method uses ANSI escape codes to clear the console. */
+    /**
+     * Clears the console screen. This method uses ANSI escape codes to clear the console.
+     */
     public static void clearScreen() {
         final String FLUSH = "\033[H\033[2J";
         System.out.print(FLUSH);
@@ -270,6 +284,7 @@ public class UI {
     }
 
     // region Screen Getters
+
     /**
      * Gets the screen where users select cards to discard.
      *
@@ -316,7 +331,7 @@ public class UI {
     }
 
     public static BlindScreen getBlindScreen() {
-    return BLIND_SCREEN;
-}
-// endregion
+        return BLIND_SCREEN;
+    }
+    // endregion
 }
