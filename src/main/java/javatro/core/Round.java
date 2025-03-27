@@ -28,7 +28,7 @@ public class Round {
     /** The deck of cards used in the round. */
     private Deck deck;
     /** The player's current hand of cards. */
-    private HoldingHand playerHand;
+    public HoldingHand playerHand;
 
     /** The name of the current round. */
     private String roundName = "";

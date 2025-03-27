@@ -4,6 +4,8 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
+import java.util.List;
+
 /**
  * The HelpHowOption class explains how to play javatro. This command is executed when the player
  * requests gameplay instructions.
@@ -23,7 +25,7 @@ public class HelpHowOption implements Option {
     /** Executes the command to display instructions on how to play. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "How To Play javatro" + UI.END + " 🃏 ♦️ ♣️";
+        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "How To Play Javatro" + " 🃏 ♦️ ♣️" + UI.END;
 
         String[] lines = {
             "1. Start a new game with 'start'.",
@@ -38,7 +40,7 @@ public class HelpHowOption implements Option {
             "   - 'exit'    : Quit the game."
         };
 
-        UI.printBorderedMessage(title, lines);
+        UI.printBorderedContent(title, List.of(lines));
         JavatroManager.setScreen(UI.getHelpScreen());
     }
 }

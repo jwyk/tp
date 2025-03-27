@@ -1,24 +1,32 @@
 package javatro.display.screens;
 
 import javatro.core.JavatroException;
-import javatro.manager.options.SelectCardsOption;
 
 /**
  * The {@code DiscardScreen} class represents a screen where the user selects cards to discard. It
- * extends {@code PlayDiscardScreen} and includes commands for making a selection.
+ * extends {@code CardSelectScreen} and includes commands for making a selection. The user can
+ * select up to a predefined limit of cards (default is 5).
+ *
+ * @see CardSelectScreen
  */
-public class DiscardScreen extends PlayDiscardScreen {
+public class DiscardScreen extends CardSelectScreen {
 
-    /** Constructs a {@code DiscardScreen} and initializes the selection command. */
+    /**
+     * Constructs a {@code DiscardScreen} and initializes the selection command. The selection limit
+     * is set to 5, meaning a maximum of 5 cards can be selected to discard.
+     *
+     * @throws JavatroException if an error occurs during initialization.
+     */
     public DiscardScreen() throws JavatroException {
-        super();
-        super.SELECTION_LIMIT = 5; // Maximum of 5 cards can be selected to discard
-        super.commandMap.add(new SelectCardsOption(SELECTION_LIMIT));
+        super("SELECT CARDS TO DISCARD");
     }
 
-    /** Displays the current cards in the user's holding hand for selection. */
+    /**
+     * Displays the current cards in the user's holding hand for selection. This method overrides
+     * the parent class implementation to provide specific behavior for discarding cards.
+     */
     @Override
     public void displayScreen() {
-        super.displayCardsInHoldingHand();
+        super.displayHoldingHand();
     }
 }

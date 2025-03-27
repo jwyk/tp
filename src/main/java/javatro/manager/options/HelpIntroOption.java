@@ -4,6 +4,8 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
+import java.util.List;
+
 /**
  * The HelpIntroOption class provides an introduction to javatro. This command is executed when the
  * player requests an introduction.
@@ -23,17 +25,17 @@ public class HelpIntroOption implements Option {
     /** Executes the command to display the introduction message. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Welcome to javatro" + UI.END + " 🃏 ♦️ ♣️";
+        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Welcome to Javatro" + " 🃏 ♦️ ♣️" + UI.END;
 
         String[] lines = {
-            "javatro is a text-based roguelike deck-building game inspired by Balatro.",
+            "Javatro is a text-based roguelike deck-building game inspired by Balatro.",
             "Your goal is to strategically build a deck and progress through challenges.",
             "Each turn, you'll play poker-style hands to defeat enemies and earn new cards.",
             "",
             "Think strategically, manage your deck wisely, and see how far you can go!"
         };
 
-        UI.printBorderedMessage(title, lines);
+        UI.printBorderedContent(title, List.of(lines));
         JavatroManager.setScreen(UI.getHelpScreen());
     }
 }

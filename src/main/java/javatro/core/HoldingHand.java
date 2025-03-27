@@ -12,7 +12,7 @@ import java.util.Set;
  */
 
 public class HoldingHand {
-    protected List<Card> Hand;
+    public List<Card> Hand;
     private final int HOLDING_LIMIT = 8; // The maximum number of cards a hand can hold
 
     /** Instantiate an empty List of Cards. */
@@ -134,11 +134,52 @@ public class HoldingHand {
     }
 
     /**
+     * Sorts the hand first by suit (Spades > Hearts > Clubs > Diamonds), then by rank (Ace > King >
+     * Queen > ... > Two) within each suit.
+     */
+    public void sortBySuit() {
+        Hand.sort(
+                Comparator.comparingInt(
+                                (Card card) ->
+                                        switch (card.suit()) {
+                                            case SPADES -> 0;
+                                            case HEARTS -> 1;
+                                            case CLUBS -> 2;
+                                            case DIAMONDS -> 3;
+                                            default -> 4; // shouldn't happen
+                                        })
+                        .thenComparingInt(card -> -card.rank().ordinal()));
+    }
+
+    /**
+     * Sorts the hand first by rank (Ace > King > Queen > ... > Two), then by suit (Spades > Hearts
+     * > Clubs > Diamonds) within each rank.
+     */
+    public void sortByRank() {
+        Hand.sort(
+                Comparator.comparingInt((Card card) -> -card.rank().ordinal())
+                        .thenComparingInt(
+                                card ->
+                                        switch (card.suit()) {
+                                            case SPADES -> 0;
+                                            case HEARTS -> 1;
+                                            case CLUBS -> 2;
+                                            case DIAMONDS -> 3;
+                                            default -> 4; // shouldn't happen
+                                        }));
+    }
+
+    /**
      * Retrieves the list of cards in the player's hand.
      *
      * @return A {@code List} of {@code Card} objects representing the player's hand.
      */
     public List<Card> getHand() {
         return Hand;
+    }
+
+    // Sets input as current hand
+    public void setHand(List<Card> hand) {
+        this.Hand = hand;
     }
 }

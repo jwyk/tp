@@ -32,7 +32,7 @@ public class JavatroManager implements PropertyChangeListener {
      * @param ui The main view of the game.
      * @param jc The main model of the game.
      */
-    public JavatroManager(UI ui, JavatroCore jc) {
+    public JavatroManager(UI ui, JavatroCore jc) throws JavatroException {
         JavatroManager.ui = ui;
         JavatroManager.jc = jc;
         UI.getParser().addPropertyChangeListener(this); // Register as an observer
