@@ -84,7 +84,6 @@ public class JavatroManager implements PropertyChangeListener {
                 } catch (JavatroException ex) {
                     throw new RuntimeException(ex);
                 }
-                // throw new RuntimeException(e);
             }
         }
     }
