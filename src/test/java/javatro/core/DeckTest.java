@@ -3,10 +3,10 @@ package javatro.core;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 /**
  * This class contains unit tests for the {@link Deck} class. It tests the initialisation and
@@ -34,9 +34,7 @@ public class DeckTest {
         assertEquals(51, deck.getRemainingCards());
     }
 
-    /**
-     * Test that a Checkered Deck has 52 cards, with 26 cards of Hearts, 26 cards of Spades.
-     */
+    /** Test that a Checkered Deck has 52 cards, with 26 cards of Hearts, 26 cards of Spades. */
     @Test
     void testCheckeredDeck() throws JavatroException {
         Deck checkeredDeck = new Deck(Deck.DeckType.CHECKERED);
@@ -50,5 +48,4 @@ public class DeckTest {
             assertNotEquals(Card.Suit.DIAMONDS, card.suit());
         }
     }
-
 }

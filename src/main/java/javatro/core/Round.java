@@ -2,16 +2,12 @@ package javatro.core;
 
 import static javatro.core.Deck.DeckType;
 import static javatro.core.Deck.DeckType.RED;
-import static javatro.core.Deck.DeckType.BLUE;
-
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-
 
 public class Round {
     /** The initial number of cards dealt to the player. */
@@ -81,7 +77,7 @@ public class Round {
             throw JavatroException.invalidDeck();
         }
 
-        //Handle special Deck variants here.
+        // Handle special Deck variants here.
 
         DeckType deckName = deck.getdeckName();
         if (deckName == RED) {

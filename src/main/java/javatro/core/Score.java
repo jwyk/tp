@@ -1,4 +1,3 @@
 package javatro.core;
 
-public class Score {
-}
+public class Score {}

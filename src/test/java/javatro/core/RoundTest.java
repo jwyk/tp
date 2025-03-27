@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import javatro.display.UI;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
-import javatro.display.UI;
 
 public class RoundTest {
     private static final String INVALIDPLAYEDHANDERROR =
@@ -18,7 +18,8 @@ public class RoundTest {
     private static final String INVALIDBLINDSCORE =
             UI.WARNING + UI.RED + "Blind score must be greater than or equal to 0." + UI.END;
     private static final String INVALIDDECK = UI.WARNING + UI.RED + "Deck cannot be null." + UI.END;
-    private static final String INVALIDPLAYSREMAINING = UI.WARNING + UI.RED + "No plays remaining." + UI.END;
+    private static final String INVALIDPLAYSREMAINING =
+            UI.WARNING + UI.RED + "No plays remaining." + UI.END;
 
     private void assertRoundInitialization(int blindScore, int remainingPlays)
             throws JavatroException {
@@ -123,10 +124,13 @@ public class RoundTest {
 
     @Test
     public void round_incorrectInitializatioin() throws JavatroException {
-        assertRoundInitializationFailure(100, 0, new Deck(Deck.DeckType.DEFAULT), INVALIDPLAYSPERROUND);
-        assertRoundInitializationFailure(-100, 3, new Deck(Deck.DeckType.DEFAULT), INVALIDBLINDSCORE);
+        assertRoundInitializationFailure(
+                100, 0, new Deck(Deck.DeckType.DEFAULT), INVALIDPLAYSPERROUND);
+        assertRoundInitializationFailure(
+                -100, 3, new Deck(Deck.DeckType.DEFAULT), INVALIDBLINDSCORE);
         assertRoundInitializationFailure(100, 3, null, INVALIDDECK);
-        assertRoundInitializationFailure(-100, 0, new Deck(Deck.DeckType.DEFAULT), INVALIDBLINDSCORE);
+        assertRoundInitializationFailure(
+                -100, 0, new Deck(Deck.DeckType.DEFAULT), INVALIDBLINDSCORE);
         assertRoundInitializationFailure(-100, 3, null, INVALIDBLINDSCORE);
         assertRoundInitializationFailure(100, 0, null, INVALIDPLAYSPERROUND);
         assertRoundInitializationFailure(-100, 0, null, INVALIDBLINDSCORE);
@@ -212,7 +216,9 @@ public class RoundTest {
             round.discardCards(List.of(0));
             fail("Should have thrown an exception for too many discards");
         } catch (JavatroException e) {
-            assertEquals(UI.WARNING + UI.RED + "No remaining discards available" + UI.END , e.getMessage());
+            assertEquals(
+                    UI.WARNING + UI.RED + "No remaining discards available" + UI.END,
+                    e.getMessage());
         }
     }
 
@@ -230,7 +236,8 @@ public class RoundTest {
             round.discardCards(List.of());
             fail("Should have thrown an exception for discarding zero cards");
         } catch (JavatroException e) {
-            assertEquals(UI.WARNING + UI.RED + "Cannot discard zero cards" + UI.END, e.getMessage());
+            assertEquals(
+                    UI.WARNING + UI.RED + "Cannot discard zero cards" + UI.END, e.getMessage());
         }
 
         // Should still use a discard

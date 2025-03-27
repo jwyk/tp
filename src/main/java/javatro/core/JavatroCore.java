@@ -4,7 +4,6 @@
  */
 package javatro.core;
 
-import javatro.Javatro;
 
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
@@ -55,10 +54,10 @@ public class JavatroCore {
         totalPlays = 4;
         deck = new Deck(deckType);
 
-//        //Override deck
-//        if (deckType.getName().equals("Red")) {
-//            totalPlays = 4;
-//        };
+        //        //Override deck
+        //        if (deckType.getName().equals("Red")) {
+        //            totalPlays = 4;
+        //        };
 
         startNewRound(classicRound());
     }

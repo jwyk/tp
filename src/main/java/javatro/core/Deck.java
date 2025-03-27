@@ -13,7 +13,6 @@ public class Deck implements Cloneable {
     private static ArrayList<Card> deck;
     private static DeckType deckType;
 
-
     /**
      * Initialize the deck with cards that the player owns If no new cards owned or a new game has
      * started, initializes a new deck
@@ -28,31 +27,22 @@ public class Deck implements Cloneable {
         return copiedDeck;
     }
 
-    /**
-     * Draws and returns a card from the top of the deck.
-     */
+    /** Draws and returns a card from the top of the deck. */
     public Card draw() {
         return deck.remove(0);
     }
 
-    /**
-     * Returns an integer containing the cards left in the deck
-     */
+    /** Returns an integer containing the cards left in the deck */
     public int getRemainingCards() {
         return deck.size();
     }
 
-    /**
-     * Returns an DeckType containing the deck variant you are using
-     */
+    /** Returns an DeckType containing the deck variant you are using */
     public DeckType getdeckName() {
         return deckType;
     }
 
-    /**
-     * Initialize a new deck for the game, based on the deckType given.
-     *
-     */
+    /** Initialize a new deck for the game, based on the deckType given. */
     private ArrayList<Card> populateNewDeck(DeckType deckType) {
         ArrayList<Card> newDeck = new ArrayList<Card>();
 
@@ -63,7 +53,7 @@ public class Deck implements Cloneable {
             newDeck = populateDefaultDeck();
         }
         assert newDeck != null;
-        
+
         return newDeck;
     }
 
@@ -103,8 +93,7 @@ public class Deck implements Cloneable {
     }
 
     /**
-     * Enum representing the type of the deck.
-     * Test Deck is not to be used, and is a default deck.
+     * Enum representing the type of the deck. Test Deck is not to be used, and is a default deck.
      */
     public enum DeckType {
         RED("Red"),
@@ -126,6 +115,5 @@ public class Deck implements Cloneable {
         public String getName() {
             return name;
         }
-
     }
 }
