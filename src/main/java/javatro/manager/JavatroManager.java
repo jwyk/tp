@@ -5,6 +5,7 @@
  */
 package javatro.manager;
 
+import javatro.core.Deck;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
@@ -52,8 +53,8 @@ public class JavatroManager implements PropertyChangeListener {
      *
      * @throws JavatroException If an error occurs during game initialization.
      */
-    public static void beginGame() throws JavatroException {
-        jc.beginGame();
+    public static void beginGame(Deck.DeckType deckType) throws JavatroException {
+        jc.beginGame(deckType);
         JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
         // Fire property changes here
         JavatroCore.currentRound.updateRoundVariables();

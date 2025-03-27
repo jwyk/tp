@@ -1,5 +1,6 @@
 package javatro.display;
 
+import javatro.core.Deck;
 import javatro.core.JavatroException;
 import javatro.display.screens.*;
 
@@ -23,6 +24,7 @@ public class UI {
     private static final PlayScreen PLAY_SCREEN;
     private static final HelpScreen HELP_SCREEN;
     private static final StartScreen START_SCREEN;
+    private static final DeckSelectScreen DECK_SELECT_SCREEN;
 
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
@@ -37,6 +39,7 @@ public class UI {
             PLAY_SCREEN = new PlayScreen();
             HELP_SCREEN = new HelpScreen();
             START_SCREEN = new StartScreen();
+            DECK_SELECT_SCREEN = new DeckSelectScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
             e.printStackTrace();
@@ -311,5 +314,15 @@ public class UI {
     public static HelpScreen getHelpScreen() {
         return HELP_SCREEN;
     }
+
+    /**
+     * Gets the help screen.
+     *
+     * @return the {@link HelpScreen} instance
+     */
+    public static DeckSelectScreen getDeckSelectScreen() {
+        return DECK_SELECT_SCREEN;
+    }
+
     // endregion
 }

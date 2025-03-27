@@ -29,9 +29,6 @@ public class StartGameOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.beginGame();
-        javatro.display.UI.getGameScreen().restoreGameCommands();
-        // Update the main screen to show the game screen
-        JavatroManager.setScreen(UI.getGameScreen());
+        JavatroManager.setScreen(UI.getDeckSelectScreen());
     }
 }

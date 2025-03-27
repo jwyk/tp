@@ -9,37 +9,69 @@ import java.util.Collections;
  * and ArrayList.size() being the bottom
  */
 public class Deck implements Cloneable {
+
     private static ArrayList<Card> deck;
+    private static DeckType deckType;
+
 
     /**
      * Initialize the deck with cards that the player owns If no new cards owned or a new game has
      * started, initializes a new deck
      */
-    public Deck() {
-        deck = populateNewDeck();
+    public Deck(DeckType deckType) {
+        Deck.deckType = deckType;
+        deck = populateNewDeck(deckType);
     }
 
     public Deck clone() throws CloneNotSupportedException {
         Deck copiedDeck = (Deck) super.clone();
-
         return copiedDeck;
     }
 
-    /** Draws and returns a card from the top of the deck. */
+    /**
+     * Draws and returns a card from the top of the deck.
+     */
     public Card draw() {
         return deck.remove(0);
     }
 
-    /** Returns an integer containing the cards left in the deck */
+    /**
+     * Returns an integer containing the cards left in the deck
+     */
     public int getRemainingCards() {
         return deck.size();
+    }
+
+    /**
+     * Returns an DeckType containing the deck variant you are using
+     */
+    public DeckType getdeckName() {
+        return deckType;
+    }
+
+    /**
+     * Initialize a new deck for the game, based on the deckType given.
+     *
+     */
+    private ArrayList<Card> populateNewDeck(DeckType deckType) {
+        ArrayList<Card> newDeck = new ArrayList<Card>();
+
+        //
+        if (deckType == DeckType.CHECKERED) {
+            newDeck = populateNewCheckeredDeck();
+        } else {
+            newDeck = populateDefaultDeck();
+        }
+        assert newDeck != null;
+        
+        return newDeck;
     }
 
     /**
      * Initialize a new shuffled 52 card deck for a new game Consists of the standard Poker Deck: 13
      * Cards of the 4 Suits
      */
-    private ArrayList<Card> populateNewDeck() {
+    private ArrayList<Card> populateDefaultDeck() {
         ArrayList<Card> newDeck = new ArrayList<Card>();
         for (Card.Rank rank : Card.Rank.values()) {
             for (Card.Suit suit : Card.Suit.values()) {
@@ -68,5 +100,32 @@ public class Deck implements Cloneable {
         }
         Collections.shuffle(newDeck);
         return newDeck;
+    }
+
+    /**
+     * Enum representing the type of the deck.
+     * Test Deck is not to be used, and is a default deck.
+     */
+    public enum DeckType {
+        RED("Red"),
+        BLUE("Blue"),
+        CHECKERED("Checkered"),
+        DEFAULT("Default");
+
+        private final String name;
+
+        DeckType(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Returns the symbol of the rank.
+         *
+         * @return The symbol of the rank.
+         */
+        public String getName() {
+            return name;
+        }
+
     }
 }

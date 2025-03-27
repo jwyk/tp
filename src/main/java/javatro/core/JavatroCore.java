@@ -4,12 +4,18 @@
  */
 package javatro.core;
 
+import javatro.Javatro;
+
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
 
     /** The current active round in the game. */
     public static Round currentRound;
 
+    /** The number of plays give per round (Default value = 4). */
+    public static int totalPlays;
+
+    /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
     public static Deck deck;
 
     /**
@@ -28,12 +34,13 @@ public class JavatroCore {
      * @throws JavatroException If an error occurs while creating the round.
      */
     private Round classicRound() {
+        Deck d;
         try {
-            Deck d = deck.clone();
+            d = deck.clone();
             return new Round(300, 4, d, "Classic", "Classic Round");
         } catch (JavatroException javatroException) {
             System.out.println(javatroException.getMessage());
-        } catch (CloneNotSupportedException cloneNotSupportedException) {
+        } catch (CloneNotSupportedException e) {
             System.out.println(JavatroException.invalidDeck().getMessage());
         }
         return null;
@@ -44,8 +51,15 @@ public class JavatroCore {
      *
      * @throws JavatroException If an error occurs while starting the game.
      */
-    public void beginGame() {
-        deck = new Deck();
+    public void beginGame(Deck.DeckType deckType) {
+        totalPlays = 4;
+        deck = new Deck(deckType);
+
+//        //Override deck
+//        if (deckType.getName().equals("Red")) {
+//            totalPlays = 4;
+//        };
+
         startNewRound(classicRound());
     }
 }
