@@ -199,4 +199,37 @@ public final class JavatroException extends Exception {
     public static JavatroException invalidSelectionLimit() {
         return new JavatroException("Selection limit must be a positive value.");
     }
+
+    /**
+     * Creates an exception indicating no remaining discards are available.
+     *
+     * <p>This exception is thrown when the user tries to discard cards but no discards remain.
+     *
+     * @return A {@code JavatroException} indicating that no discards are available.
+     */
+    public static JavatroException noRemainingDiscards() {
+        return new JavatroException("No remaining discards available");
+    }
+
+    /**
+     * Creates an exception indicating too many cards are being discarded.
+     *
+     * <p>This exception is thrown when the user tries to discard more cards than allowed.
+     *
+     * @return A {@code JavatroException} indicating too many cards are being discarded.
+     */
+    public static JavatroException tooManyDiscards() {
+        return new JavatroException("Too many cards selected for discarding");
+    }
+
+    /**
+     * Creates an exception indicating an attempt to discard zero cards.
+     *
+     * <p>This exception is thrown when the user tries to discard zero cards.
+     *
+     * @return A {@code JavatroException} indicating that zero cards cannot be discarded.
+     */
+    public static JavatroException cannotDiscardZeroCards() {
+        return new JavatroException("Cannot discard zero cards");
+    }
 }
