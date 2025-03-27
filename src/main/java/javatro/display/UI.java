@@ -1,7 +1,5 @@
 package javatro.display;
 
-import java.util.List;
-
 import javatro.core.JavatroException;
 import javatro.display.screens.DeckSelectScreen;
 import javatro.display.screens.DiscardScreen;
@@ -11,6 +9,8 @@ import javatro.display.screens.PlayScreen;
 import javatro.display.screens.Screen;
 import javatro.display.screens.StartScreen;
 
+import java.util.List;
+
 /**
  * The {@code display} class is responsible for managing and displaying different screens in the
  * application. It handles user input, manages screen transitions, and notifies observers of user
@@ -19,14 +19,11 @@ import javatro.display.screens.StartScreen;
  */
 public class UI {
 
-    /**
-     * Fixed width for the bordered message display.
-     */
+    /** Fixed width for the bordered message display. */
     public static final int BORDER_WIDTH = 100;
-    /**
-     * display-related constants for display formatting.
-     */
+    /** display-related constants for display formatting. */
     public static final String CARD = "\uD83C\uDCCF";
+
     public static final String HEARTS = "♥️";
     public static final String SPADES = "♠️";
     public static final String DIAMONDS = "♦️";
@@ -50,10 +47,9 @@ public class UI {
     public static final String BLACK = "\033[30m";
     public static final String WHITE_B = "\033[107m";
     public static final String BLACK_B = "\033[40m";
-    /**
-     * Custom border characters
-     */
+    /** Custom border characters */
     public static final char TOP_LEFT = '╔';
+
     public static final char TOP_RIGHT = '╗';
     public static final char BOTTOM_LEFT = '╚';
     public static final char BOTTOM_RIGHT = '╝';
@@ -73,22 +69,17 @@ public class UI {
     public static final String ZERO_WIDTH_SPACE = "​"; // U+200B (invisible)
     public static final String ZERO_WIDTH_JOINER = "‍"; // U+200D
     public static final String ZERO_WIDTH_NON_JOINER = "‌"; // U+200C
-    /**
-     * Predefined game-related screens.
-     */
+    /** Predefined game-related screens. */
     private static final GameScreen GAME_SCREEN;
+
     private static final DiscardScreen DISCARD_SCREEN;
     private static final PlayScreen PLAY_SCREEN;
     private static final HelpScreen HELP_SCREEN;
     private static final StartScreen START_SCREEN;
     private static final DeckSelectScreen DECK_SELECT_SCREEN;
-    /**
-     * Parser instance for handling user input.
-     */
+    /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
-    /**
-     * The current screen being displayed to the user.
-     */
+    /** The current screen being displayed to the user. */
     private static Screen currentScreen;
 
     static {
@@ -116,7 +107,7 @@ public class UI {
      * Prints a bordered message or menu with a title and dynamically generated content. Uses a
      * default width of 100.
      *
-     * @param title   the title of the message or menu
+     * @param title the title of the message or menu
      * @param content a list of content lines
      */
     public static void printBorderedContent(String title, List<String> content) {
@@ -130,8 +121,8 @@ public class UI {
     /**
      * Prints a bordered message or menu with a title and dynamically generated content.
      *
-     * @param title      the title of the message or menu
-     * @param content    a list of content lines
+     * @param title the title of the message or menu
+     * @param content a list of content lines
      * @param titleWidth the width of the bordered content title
      */
     public static void printBorderedContent(
@@ -165,7 +156,7 @@ public class UI {
      * Centers the given text within a specified width, padding it with spaces on both sides. This
      * version handles ANSI escape codes and Unicode characters correctly.
      *
-     * @param text  the text to center
+     * @param text the text to center
      * @param width the total width to center within
      * @return the centered text surrounded by borders
      */
@@ -259,9 +250,7 @@ public class UI {
         PARSER.getOptionInput(); // This will handle retries internally
     }
 
-    /**
-     * Clears the console screen. This method uses ANSI escape codes to clear the console.
-     */
+    /** Clears the console screen. This method uses ANSI escape codes to clear the console. */
     public static void clearScreen() {
         final String FLUSH = "\033[H\033[2J";
         System.out.print(FLUSH);

@@ -15,9 +15,7 @@ public class HoldingHand {
     public List<Card> Hand;
     private int HOLDING_LIMIT; // The maximum number of cards a hand can hold
 
-    /**
-     * Instantiate an empty List of Cards.
-     */
+    /** Instantiate an empty List of Cards. */
     public HoldingHand() {
         Hand = new ArrayList<Card>();
         this.HOLDING_LIMIT = 8;
@@ -40,7 +38,7 @@ public class HoldingHand {
      * Draws a specified number of cards from the deck and adds them to the Hand.
      *
      * @param numberOfDraws The number of cards to draw from the deck
-     * @param deck          Deck containing the remaining cards
+     * @param deck Deck containing the remaining cards
      */
     public void draw(int numberOfDraws, Deck deck) throws JavatroException {
         for (int i = 0; i < numberOfDraws; i++) {
@@ -141,14 +139,14 @@ public class HoldingHand {
     public void sortBySuit() {
         Hand.sort(
                 Comparator.comparingInt(
-                        (Card card) ->
-                                switch (card.suit()) {
-                                case SPADES -> 0;
-                                case HEARTS -> 1;
-                                case CLUBS -> 2;
-                                case DIAMONDS -> 3;
-                                default -> 4; // shouldn't happen
-                                })
+                                (Card card) ->
+                                        switch (card.suit()) {
+                                            case SPADES -> 0;
+                                            case HEARTS -> 1;
+                                            case CLUBS -> 2;
+                                            case DIAMONDS -> 3;
+                                            default -> 4; // shouldn't happen
+                                        })
                         .thenComparingInt(card -> -card.rank().ordinal()));
     }
 
@@ -159,15 +157,15 @@ public class HoldingHand {
     public void sortByRank() {
         Hand.sort(
                 Comparator.comparingInt((Card card) -> -card.rank().ordinal())
-                    .thenComparingInt(
-                            card ->
-                                switch (card.suit()) {
-                                case SPADES -> 0;
-                                case HEARTS -> 1;
-                                case CLUBS -> 2;
-                                case DIAMONDS -> 3;
-                                default -> 4; // shouldn't happen
-                                }));
+                        .thenComparingInt(
+                                card ->
+                                        switch (card.suit()) {
+                                            case SPADES -> 0;
+                                            case HEARTS -> 1;
+                                            case CLUBS -> 2;
+                                            case DIAMONDS -> 3;
+                                            default -> 4; // shouldn't happen
+                                        }));
     }
 
     /**
