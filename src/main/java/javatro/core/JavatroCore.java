@@ -35,6 +35,7 @@ public class JavatroCore {
         Deck d;
         try {
             d = deck.clone();
+            d.shuffle();
             return new Round(300, 4, d, "Classic", "Classic Round");
         } catch (JavatroException javatroException) {
             System.out.println(javatroException.getMessage());

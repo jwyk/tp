@@ -48,4 +48,21 @@ public class DeckTest {
             assertNotEquals(Card.Suit.DIAMONDS, card.suit());
         }
     }
+
+    /** Test that a Abandoned Deck has 40 cards, with no Face Cards. */
+    @Test
+    void testAbandonedDeck() throws JavatroException {
+        Deck checkeredDeck = new Deck(Deck.DeckType.ABANDONED);
+        int cardsRemaining = checkeredDeck.getRemainingCards();
+        assertEquals(40, cardsRemaining);
+        ArrayList<Card> cardArrayList = new ArrayList<Card>();
+        for (int i = 0; i < 40; i++) {
+            Card card = checkeredDeck.draw();
+            assertNotEquals(Card.Rank.KING, card.suit());
+            assertNotEquals(Card.Rank.QUEEN, card.suit());
+            assertNotEquals(Card.Rank.JACK, card.suit());
+
+        }
+    }
+
 }

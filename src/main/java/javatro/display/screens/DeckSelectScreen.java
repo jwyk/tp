@@ -1,6 +1,7 @@
 package javatro.display.screens;
 
 import javatro.core.JavatroException;
+import javatro.manager.options.AbandonedDeckSelectOption;
 import javatro.manager.options.BlueDeckSelectOption;
 import javatro.manager.options.CheckeredDeckSelectOption;
 import javatro.manager.options.RedDeckSelectOption;
@@ -22,6 +23,7 @@ public class DeckSelectScreen extends Screen {
         super.commandMap.add(new RedDeckSelectOption());
         super.commandMap.add(new BlueDeckSelectOption());
         super.commandMap.add(new CheckeredDeckSelectOption());
+        super.commandMap.add(new AbandonedDeckSelectOption());
     }
 
     /** Displays the Deck Select screen. */

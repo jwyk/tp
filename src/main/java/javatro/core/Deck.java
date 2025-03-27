@@ -1,6 +1,7 @@
 package javatro.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 /*
@@ -24,6 +25,7 @@ public class Deck implements Cloneable {
 
     public Deck clone() throws CloneNotSupportedException {
         Deck copiedDeck = (Deck) super.clone();
+        Collections.shuffle(copiedDeck.deck);
         return copiedDeck;
     }
 
@@ -42,6 +44,12 @@ public class Deck implements Cloneable {
         return deckType;
     }
 
+    /** Shuffle the deck you are using */
+    public void shuffle() {
+        Collections.shuffle(deck);
+    }
+
+
     /** Initialize a new deck for the game, based on the deckType given. */
     private ArrayList<Card> populateNewDeck(DeckType deckType) {
         ArrayList<Card> newDeck = new ArrayList<Card>();
@@ -49,6 +57,8 @@ public class Deck implements Cloneable {
         //
         if (deckType == DeckType.CHECKERED) {
             newDeck = populateNewCheckeredDeck();
+        } else if (deckType == DeckType.ABANDONED) {
+            newDeck = populateNewAbandonedDeck();
         } else {
             newDeck = populateDefaultDeck();
         }
@@ -93,12 +103,31 @@ public class Deck implements Cloneable {
     }
 
     /**
+     * Initialize a new shuffled 52 card deck for a new game Consists of the standard Poker Deck: 26
+     * Cards of the 2 Suites: Spades and Hearts.
+     */
+    private ArrayList<Card> populateNewAbandonedDeck() {
+        ArrayList<Card> newDeck = new ArrayList<Card>();
+        Arrays.stream(Card.Rank.values())
+                .filter(rank -> rank != Card.Rank.KING && rank != Card.Rank.QUEEN && rank != Card.Rank.JACK)
+                .forEach(rank -> {
+                    Arrays.stream(Card.Suit.values())
+                            .forEach(suit -> newDeck.add(new Card(rank, suit)));
+                });
+        Collections.shuffle(newDeck);
+        return newDeck;
+    }
+
+
+
+    /**
      * Enum representing the type of the deck. Test Deck is not to be used, and is a default deck.
      */
     public enum DeckType {
-        RED("Red"),
+        ABANDONED("Abandoned"),
         BLUE("Blue"),
         CHECKERED("Checkered"),
+        RED("Red"),
         DEFAULT("Default");
 
         private final String name;
