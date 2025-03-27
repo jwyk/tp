@@ -23,9 +23,7 @@ public class Deck {
         this.deck = populateNewDeck(deckType);
     }
 
-    /**
-     * Copy Constructor for deck class
-     */
+    /** Copy Constructor for deck class */
     Deck(Deck oldDeck) {
         this.deck = new ArrayList<Card>(oldDeck.deck.size());
         this.deckType = oldDeck.deckType;

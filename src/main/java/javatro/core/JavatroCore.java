@@ -4,7 +4,6 @@
  */
 package javatro.core;
 
-import java.util.ArrayList;
 
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
