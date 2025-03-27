@@ -8,9 +8,7 @@ import java.util.Objects;
  */
 public record Card(Rank rank, Suit suit) {
 
-    /**
-     * Copy Constructor for the Card Class
-     */
+    /** Copy Constructor for the Card Class */
     public Card(Card other) {
         this(other.rank(), other.suit());
     }
