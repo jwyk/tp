@@ -1,13 +1,13 @@
 package javatro.manager.options;
 
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
 import java.util.List;
-
-import static javatro.display.UI.BOLD;
-import static javatro.display.UI.END;
 
 /**
  * The HelpIntroOption class provides an introduction to javatro. This command is executed when the

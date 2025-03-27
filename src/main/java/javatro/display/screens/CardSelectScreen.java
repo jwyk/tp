@@ -7,8 +7,6 @@ import javatro.core.HoldingHand;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.CardRenderer;
-import javatro.display.UI;
-import javatro.manager.JavatroManager;
 import javatro.manager.options.*;
 
 import java.util.ArrayList;
@@ -101,8 +99,7 @@ public abstract class CardSelectScreen extends Screen {
     protected String getCardIndicesTitle(int cardCount) {
         StringBuilder title = new StringBuilder();
         for (int i = 1; i <= cardCount; i++) {
-            title.append(YELLOW).append(BOLD).
-                    append("【").append(i).append("】");
+            title.append(YELLOW).append(BOLD).append("【").append(i).append("】");
             // Only add spacing if not the last element
             if (i < cardCount) {
                 title.append(HAIR_SPACE.repeat(18));

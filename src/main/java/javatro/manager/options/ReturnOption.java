@@ -1,16 +1,14 @@
 /**
- * The {@code ReturnOption} class represents a command that allows the player to return to the
- * main game screen after navigating away.
+ * The {@code ReturnOption} class represents a command that allows the player to return to the main
+ * game screen after navigating away.
  */
 package javatro.manager.options;
 
+import static javatro.display.UI.getPreviousScreen;
+
 import javatro.core.JavatroException;
-import javatro.display.UI;
-import javatro.display.screens.CardSelectScreen;
 import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
-
-import static javatro.display.UI.getPreviousScreen;
 
 /** A command that enables players to return to the game screen. */
 public class ReturnOption implements Option {

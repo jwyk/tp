@@ -1,5 +1,7 @@
 package javatro.manager.options;
 
+import static javatro.display.UI.*;
+
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.display.screens.StartScreen;
@@ -9,8 +11,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
-
-import static javatro.display.UI.*;
 
 /**
  * The {@code ExitGameOption} class represents a command that terminates the game. When executed, it

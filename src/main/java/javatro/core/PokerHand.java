@@ -69,7 +69,11 @@ public record PokerHand(HandType handType, int playCount) {
     public String toString() {
         return String.format(
                 "%s (Level: %d, Chips: %d, Multiplier: %d, Played: %d)",
-                handType.getHandName(), PlanetCard.getLevel(handType), getChips(), handType.getMultiplier(), playCount);
+                handType.getHandName(),
+                PlanetCard.getLevel(handType),
+                getChips(),
+                handType.getMultiplier(),
+                playCount);
     }
 
     /**

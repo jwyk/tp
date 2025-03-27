@@ -4,8 +4,10 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class PlanetCard {
-    private static final Map<PokerHand.HandType, Integer> LEVELS = new EnumMap<>(PokerHand.HandType.class);
-    private static final Map<PokerHand.HandType, PlanetCard> CARDS = new EnumMap<>(PokerHand.HandType.class);
+    private static final Map<PokerHand.HandType, Integer> LEVELS =
+            new EnumMap<>(PokerHand.HandType.class);
+    private static final Map<PokerHand.HandType, PlanetCard> CARDS =
+            new EnumMap<>(PokerHand.HandType.class);
 
     static {
         // Initialize all levels to 1
@@ -14,18 +16,41 @@ public class PlanetCard {
         }
 
         // Predefine all planet cards (matches your data)
-        CARDS.put(PokerHand.HandType.HIGH_CARD, new PlanetCard("Pluto", 10, 1, PokerHand.HandType.HIGH_CARD));
-        CARDS.put(PokerHand.HandType.PAIR, new PlanetCard("Mercury", 15, 1, PokerHand.HandType.PAIR));
-        CARDS.put(PokerHand.HandType.TWO_PAIR, new PlanetCard("Uranus", 20, 1, PokerHand.HandType.TWO_PAIR));
-        CARDS.put(PokerHand.HandType.THREE_OF_A_KIND, new PlanetCard("Venus", 20, 2, PokerHand.HandType.THREE_OF_A_KIND));
-        CARDS.put(PokerHand.HandType.STRAIGHT, new PlanetCard("Saturn", 30, 3, PokerHand.HandType.STRAIGHT));
-        CARDS.put(PokerHand.HandType.FLUSH, new PlanetCard("Jupiter", 15, 2, PokerHand.HandType.FLUSH));
-        CARDS.put(PokerHand.HandType.FULL_HOUSE, new PlanetCard("Earth", 25, 2, PokerHand.HandType.FULL_HOUSE));
-        CARDS.put(PokerHand.HandType.FOUR_OF_A_KIND, new PlanetCard("Mars", 30, 3, PokerHand.HandType.FOUR_OF_A_KIND));
-        CARDS.put(PokerHand.HandType.STRAIGHT_FLUSH, new PlanetCard("Neptune", 40, 4, PokerHand.HandType.STRAIGHT_FLUSH));
-        CARDS.put(PokerHand.HandType.FIVE_OF_A_KIND, new PlanetCard("Planet X", 35, 3, PokerHand.HandType.FIVE_OF_A_KIND));
-        CARDS.put(PokerHand.HandType.FLUSH_HOUSE, new PlanetCard("Ceres", 40, 4, PokerHand.HandType.FLUSH_HOUSE));
-        CARDS.put(PokerHand.HandType.FLUSH_FIVE, new PlanetCard("Eris", 50, 3, PokerHand.HandType.FLUSH_FIVE));
+        CARDS.put(
+                PokerHand.HandType.HIGH_CARD,
+                new PlanetCard("Pluto", 10, 1, PokerHand.HandType.HIGH_CARD));
+        CARDS.put(
+                PokerHand.HandType.PAIR, new PlanetCard("Mercury", 15, 1, PokerHand.HandType.PAIR));
+        CARDS.put(
+                PokerHand.HandType.TWO_PAIR,
+                new PlanetCard("Uranus", 20, 1, PokerHand.HandType.TWO_PAIR));
+        CARDS.put(
+                PokerHand.HandType.THREE_OF_A_KIND,
+                new PlanetCard("Venus", 20, 2, PokerHand.HandType.THREE_OF_A_KIND));
+        CARDS.put(
+                PokerHand.HandType.STRAIGHT,
+                new PlanetCard("Saturn", 30, 3, PokerHand.HandType.STRAIGHT));
+        CARDS.put(
+                PokerHand.HandType.FLUSH,
+                new PlanetCard("Jupiter", 15, 2, PokerHand.HandType.FLUSH));
+        CARDS.put(
+                PokerHand.HandType.FULL_HOUSE,
+                new PlanetCard("Earth", 25, 2, PokerHand.HandType.FULL_HOUSE));
+        CARDS.put(
+                PokerHand.HandType.FOUR_OF_A_KIND,
+                new PlanetCard("Mars", 30, 3, PokerHand.HandType.FOUR_OF_A_KIND));
+        CARDS.put(
+                PokerHand.HandType.STRAIGHT_FLUSH,
+                new PlanetCard("Neptune", 40, 4, PokerHand.HandType.STRAIGHT_FLUSH));
+        CARDS.put(
+                PokerHand.HandType.FIVE_OF_A_KIND,
+                new PlanetCard("Planet X", 35, 3, PokerHand.HandType.FIVE_OF_A_KIND));
+        CARDS.put(
+                PokerHand.HandType.FLUSH_HOUSE,
+                new PlanetCard("Ceres", 40, 4, PokerHand.HandType.FLUSH_HOUSE));
+        CARDS.put(
+                PokerHand.HandType.FLUSH_FIVE,
+                new PlanetCard("Eris", 50, 3, PokerHand.HandType.FLUSH_FIVE));
     }
 
     private final String name;
@@ -33,7 +58,8 @@ public class PlanetCard {
     private final int multiIncrement;
     private final PokerHand.HandType handType;
 
-    private PlanetCard(String name, int chipIncrement, int multiIncrement, PokerHand.HandType handType) {
+    private PlanetCard(
+            String name, int chipIncrement, int multiIncrement, PokerHand.HandType handType) {
         this.name = name;
         this.chipIncrement = chipIncrement;
         this.multiIncrement = multiIncrement;
@@ -68,10 +94,21 @@ public class PlanetCard {
     }
 
     // Getters
-    public String getName() { return name; }
-    public int getChipIncrement() { return chipIncrement; }
-    public int getMultiIncrement() { return multiIncrement; }
-    public PokerHand.HandType getHandType() { return handType; }
+    public String getName() {
+        return name;
+    }
+
+    public int getChipIncrement() {
+        return chipIncrement;
+    }
+
+    public int getMultiIncrement() {
+        return multiIncrement;
+    }
+
+    public PokerHand.HandType getHandType() {
+        return handType;
+    }
 
     /*
     To level up a hand: PlanetCard.getForHand(HandType.HIGH_CARD).apply();

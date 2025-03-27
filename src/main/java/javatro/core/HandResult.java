@@ -74,9 +74,7 @@ public class HandResult {
         }
     }
 
-    /**
-     * Checks if all cards are exactly identical (same rank and suit)
-     */
+    /** Checks if all cards are exactly identical (same rank and suit) */
     private static boolean isFlushFive(List<Card> cards) {
         if (cards.size() != 5) return false;
 
@@ -89,9 +87,7 @@ public class HandResult {
         return true;
     }
 
-    /**
-     * Checks for special poker hands (Flush Five, Flush House, Five of a Kind).
-     */
+    /** Checks for special poker hands (Flush Five, Flush House, Five of a Kind). */
     private static PokerHand checkSpecialHands(Map<Card.Rank, Integer> rankCount, boolean isFlush) {
         // Five of a Kind (all cards same rank, but possibly different suits)
         if (rankCount.size() == 1 && rankCount.values().iterator().next() == 5) {

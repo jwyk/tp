@@ -15,6 +15,7 @@ public class UI {
 
     /** The current screen being displayed to the user. */
     private static Screen currentScreen;
+
     private static Screen previousScreen;
 
     /** Predefined game-related screens. */
