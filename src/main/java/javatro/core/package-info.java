@@ -10,13 +10,11 @@
  * <ul>
  *   <li>{@link javatro.core.Card} - Represents an individual playing card.
  *   <li>{@link javatro.core.Deck} - Manages the deck of cards used in the game.
- *   <li>{@link javatro.core.HandResult} - Stores and evaluates the result of a player's
- *       hand.
+ *   <li>{@link javatro.core.HandResult} - Stores and evaluates the result of a player's hand.
  *   <li>{@link javatro.core.HoldingHand} - Represents the player's current hand.
- *   <li>{@link javatro.core.JavatroCore} - The main game model responsible for game state
- *       and round management.
- *   <li>{@link javatro.core.PokerHand} - Defines and evaluates different types of poker
- *       hands.
+ *   <li>{@link javatro.core.JavatroCore} - The main game model responsible for game state and round
+ *       management.
+ *   <li>{@link javatro.core.PokerHand} - Defines and evaluates different types of poker hands.
  *   <li>{@link javatro.core.Round} - Represents an individual game round.
  * </ul>
  */
