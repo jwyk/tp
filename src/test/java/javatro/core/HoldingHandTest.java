@@ -1,10 +1,16 @@
 package javatro.core;
 
+import javatro.display.UI;
+
 import static javatro.core.Card.Rank.ACE;
+import static javatro.core.Card.Rank.FIVE;
 import static javatro.core.Card.Rank.FOUR;
 import static javatro.core.Card.Rank.THREE;
 import static javatro.core.Card.Rank.TWO;
+import static javatro.core.Card.Suit.CLUBS;
+import static javatro.core.Card.Suit.HEARTS;
 import static javatro.core.Card.Suit.SPADES;
+import static javatro.core.Card.Suit.DIAMONDS;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +35,7 @@ public class HoldingHandTest {
     /** Initialize a new deck for each test. */
     @BeforeEach
     void init() {
-        deck = new Deck();
+        deck = new Deck(Deck.DeckType.DEFAULT);
     }
 
     /** Test that HoldingHand can add cards, draw and discard cards. */
@@ -68,6 +74,7 @@ public class HoldingHandTest {
                         add(cardOne);
                         add(cardTwo);
                         add(cardThree);
+                        add(cardFour);
                     }
                 };
         for (Card card : cards) {
@@ -76,6 +83,64 @@ public class HoldingHandTest {
         List<Card> hand = holdingHand.getHand();
         assertArrayEquals(new List[] {cards}, new List[] {hand});
     }
+
+    /** Test that HoldingHand can return cards in order. */
+    @Test
+    void testSortByRank() throws JavatroException {
+        HoldingHand holdingHand = new HoldingHand();
+        Card cardOne = new Card(TWO, SPADES);
+        Card cardTwo = new Card(THREE, SPADES);
+        Card cardThree = new Card(FOUR, SPADES);
+        Card cardFour = new Card(FIVE, SPADES);
+        List<Card> cards =
+                new ArrayList<Card>() {
+                    {
+                        add(cardFour);
+                        add(cardThree);
+                        add(cardTwo);
+                        add(cardOne);
+                    }
+                };
+        holdingHand.add(cardFour);
+        holdingHand.add(cardThree);
+        holdingHand.add(cardTwo);
+        holdingHand.add(cardOne);
+
+        holdingHand.sortByRank();
+        List<Card> hand = holdingHand.getHand();
+        assertArrayEquals(new List[] {cards}, new List[] {hand});
+    }
+
+    /** Test that HoldingHand can return suits in a particular order.
+     * SPADES > HEARTS > CLUBS > DIAMONDS
+     */
+    @Test
+    void testSortBySuit() throws JavatroException {
+        HoldingHand holdingHand = new HoldingHand();
+        Card cardOne = new Card(TWO, SPADES);
+        Card cardTwo = new Card(THREE, HEARTS);
+        Card cardThree = new Card(FOUR, CLUBS);
+        Card cardFour = new Card(FIVE, DIAMONDS);
+        List<Card> cards =
+                new ArrayList<Card>() {
+                    {
+                        add(cardOne);
+                        add(cardTwo);
+                        add(cardThree);
+                        add(cardFour);
+                    }
+                };
+        holdingHand.add(cardFour);
+        holdingHand.add(cardThree);
+        holdingHand.add(cardTwo);
+        holdingHand.add(cardOne);
+
+        holdingHand.sortBySuit();
+        List<Card> hand = holdingHand.getHand();
+        assertArrayEquals(new List[] {cards}, new List[] {hand});
+    }
+
+
 
     /***
      * Test that JavatroException is thrown when an illegal card selection is played.
@@ -93,7 +158,7 @@ public class HoldingHandTest {
             holdingHand.play(playedHand, deck);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
-            assertEquals("Invalid index in cards to be played: -1", e.getMessage());
+            assertEquals(UI.WARNING + UI.RED + "Invalid index in cards to be played: -1" + UI.END, e.getMessage());
         }
 
         playedHand.remove(0);
@@ -102,7 +167,7 @@ public class HoldingHandTest {
             holdingHand.play(playedHand, deck);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
-            assertEquals("Invalid index in cards to be played: 500", e.getMessage());
+            assertEquals(UI.WARNING + UI.RED + "Invalid index in cards to be played: 500" + UI.END, e.getMessage());
         }
 
         playedHand.remove(0);
@@ -113,7 +178,8 @@ public class HoldingHandTest {
             holdingHand.play(playedHand, deck);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
-            assertEquals("Number of cards played (8) exceeds maximum allowed. (5)", e.getMessage());
+            assertEquals(UI.WARNING + UI.RED + "Number of cards played (8) " +
+                    "exceeds maximum allowed. (5)" + UI.END, e.getMessage());
         }
     }
 
@@ -133,7 +199,7 @@ public class HoldingHandTest {
             holdingHand.discard(playedHand, deck);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
-            assertEquals("Invalid index in cards to be discarded: -1", e.getMessage());
+            assertEquals(UI.WARNING + UI.RED + "Invalid index in cards to be discarded: -1" + UI.END, e.getMessage());
         }
 
         playedHand.remove(0);
@@ -142,7 +208,7 @@ public class HoldingHandTest {
             holdingHand.discard(playedHand, deck);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
-            assertEquals("Invalid index in cards to be discarded: 500", e.getMessage());
+            assertEquals(UI.WARNING + UI.RED + "Invalid index in cards to be discarded: 500" + UI.END, e.getMessage());
         }
 
         playedHand.remove(0);
@@ -154,7 +220,7 @@ public class HoldingHandTest {
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
-                    "Number of cards discarded (8) exceeds maximum allowed. (5)", e.getMessage());
+                    UI.WARNING + UI.RED + "Number of cards discarded (8) exceeds maximum allowed. (5)" + UI.END, e.getMessage());
         }
     }
 

@@ -13,11 +13,12 @@ import java.util.Set;
 
 public class HoldingHand {
     public List<Card> Hand;
-    private final int HOLDING_LIMIT = 8; // The maximum number of cards a hand can hold
+    private int HOLDING_LIMIT; // The maximum number of cards a hand can hold
 
     /** Instantiate an empty List of Cards. */
     public HoldingHand() {
         Hand = new ArrayList<Card>();
+        this.HOLDING_LIMIT = 8;
     }
 
     /**
@@ -181,5 +182,13 @@ public class HoldingHand {
     // Sets input as current hand
     public void setHand(List<Card> hand) {
         this.Hand = hand;
+    }
+
+    /**
+     * Change the HOLDING_LIMIT of the HoldingHand Class.
+     * This function is used when you need to manually change the HOLDING_LIMIT
+     */
+    public void setHOLDING_LIMIT(int holdingLimit) {
+        HOLDING_LIMIT = holdingLimit;
     }
 }

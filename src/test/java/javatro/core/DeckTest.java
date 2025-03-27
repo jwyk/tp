@@ -1,6 +1,9 @@
 package javatro.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +19,7 @@ public class DeckTest {
     /** Initialize a new deck for each test. */
     @BeforeEach
     void init() {
-        deck = new Deck();
+        deck = new Deck(Deck.DeckType.DEFAULT);
     }
 
     /**
@@ -30,4 +33,22 @@ public class DeckTest {
         Card drawOne = deck.draw();
         assertEquals(51, deck.getRemainingCards());
     }
+
+    /**
+     * Test that a Checkered Deck has 52 cards, with 26 cards of Hearts, 26 cards of Spades.
+     */
+    @Test
+    void testCheckeredDeck() throws JavatroException {
+        Deck checkeredDeck = new Deck(Deck.DeckType.CHECKERED);
+        int cardsRemaining = checkeredDeck.getRemainingCards();
+        assertEquals(52, cardsRemaining);
+
+        ArrayList<Card> cardArrayList = new ArrayList<Card>();
+        for (int i = 0; i < 52; i++) {
+            Card card = checkeredDeck.draw();
+            assertNotEquals(Card.Suit.CLUBS, card.suit());
+            assertNotEquals(Card.Suit.DIAMONDS, card.suit());
+        }
+    }
+
 }
