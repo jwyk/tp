@@ -5,7 +5,7 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
-public class BlueDeckSelectOption implements Option {
+public class AbandonedDeckSelectOption implements Option {
 
     /**
      * Provides a brief description of the command.
@@ -13,7 +13,7 @@ public class BlueDeckSelectOption implements Option {
      * @return A string describing the command.
      */
     public String getDescription() {
-        return "Blue Deck: +1 Hands per Round";
+        return "Abandoned Deck: Start with no Face Cards (K, Q, J)";
     }
 
     /**
@@ -23,7 +23,7 @@ public class BlueDeckSelectOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        DeckType deckType = DeckType.BLUE;
+        DeckType deckType = DeckType.ABANDONED;
         JavatroManager.beginGame(deckType);
         javatro.display.UI.getGameScreen().restoreGameCommands();
         // Update the main screen to show the game screen

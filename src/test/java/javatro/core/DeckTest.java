@@ -3,10 +3,10 @@ package javatro.core;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 /**
  * This class contains unit tests for the {@link Deck} class. It tests the initialisation and
@@ -34,9 +34,7 @@ public class DeckTest {
         assertEquals(51, deck.getRemainingCards());
     }
 
-    /**
-     * Test that a Checkered Deck has 52 cards, with 26 cards of Hearts, 26 cards of Spades.
-     */
+    /** Test that a Checkered Deck has 52 cards, with 26 cards of Hearts, 26 cards of Spades. */
     @Test
     void testCheckeredDeck() throws JavatroException {
         Deck checkeredDeck = new Deck(Deck.DeckType.CHECKERED);
@@ -51,4 +49,18 @@ public class DeckTest {
         }
     }
 
+    /** Test that a Abandoned Deck has 40 cards, with no Face Cards. */
+    @Test
+    void testAbandonedDeck() throws JavatroException {
+        Deck checkeredDeck = new Deck(Deck.DeckType.ABANDONED);
+        int cardsRemaining = checkeredDeck.getRemainingCards();
+        assertEquals(40, cardsRemaining);
+        ArrayList<Card> cardArrayList = new ArrayList<Card>();
+        for (int i = 0; i < 40; i++) {
+            Card card = checkeredDeck.draw();
+            assertNotEquals(Card.Rank.KING, card.suit());
+            assertNotEquals(Card.Rank.QUEEN, card.suit());
+            assertNotEquals(Card.Rank.JACK, card.suit());
+        }
+    }
 }

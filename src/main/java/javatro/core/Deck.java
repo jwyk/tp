@@ -1,6 +1,7 @@
 package javatro.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 /*
@@ -13,7 +14,6 @@ public class Deck implements Cloneable {
     private static ArrayList<Card> deck;
     private static DeckType deckType;
 
-
     /**
      * Initialize the deck with cards that the player owns If no new cards owned or a new game has
      * started, initializes a new deck
@@ -25,45 +25,44 @@ public class Deck implements Cloneable {
 
     public Deck clone() throws CloneNotSupportedException {
         Deck copiedDeck = (Deck) super.clone();
+        Collections.shuffle(copiedDeck.deck);
         return copiedDeck;
     }
 
-    /**
-     * Draws and returns a card from the top of the deck.
-     */
+    /** Draws and returns a card from the top of the deck. */
     public Card draw() {
         return deck.remove(0);
     }
 
-    /**
-     * Returns an integer containing the cards left in the deck
-     */
+    /** Returns an integer containing the cards left in the deck */
     public int getRemainingCards() {
         return deck.size();
     }
 
-    /**
-     * Returns an DeckType containing the deck variant you are using
-     */
+    /** Returns an DeckType containing the deck variant you are using */
     public DeckType getdeckName() {
         return deckType;
     }
 
-    /**
-     * Initialize a new deck for the game, based on the deckType given.
-     *
-     */
+    /** Shuffle the deck you are using */
+    public void shuffle() {
+        Collections.shuffle(deck);
+    }
+
+    /** Initialize a new deck for the game, based on the deckType given. */
     private ArrayList<Card> populateNewDeck(DeckType deckType) {
         ArrayList<Card> newDeck = new ArrayList<Card>();
 
         //
         if (deckType == DeckType.CHECKERED) {
             newDeck = populateNewCheckeredDeck();
+        } else if (deckType == DeckType.ABANDONED) {
+            newDeck = populateNewAbandonedDeck();
         } else {
             newDeck = populateDefaultDeck();
         }
         assert newDeck != null;
-        
+
         return newDeck;
     }
 
@@ -103,13 +102,34 @@ public class Deck implements Cloneable {
     }
 
     /**
-     * Enum representing the type of the deck.
-     * Test Deck is not to be used, and is a default deck.
+     * Initialize a new shuffled 52 card deck for a new game Consists of the standard Poker Deck: 26
+     * Cards of the 2 Suites: Spades and Hearts.
+     */
+    private ArrayList<Card> populateNewAbandonedDeck() {
+        ArrayList<Card> newDeck = new ArrayList<Card>();
+        Arrays.stream(Card.Rank.values())
+                .filter(
+                        rank ->
+                                rank != Card.Rank.KING
+                                        && rank != Card.Rank.QUEEN
+                                        && rank != Card.Rank.JACK)
+                .forEach(
+                        rank -> {
+                            Arrays.stream(Card.Suit.values())
+                                    .forEach(suit -> newDeck.add(new Card(rank, suit)));
+                        });
+        Collections.shuffle(newDeck);
+        return newDeck;
+    }
+
+    /**
+     * Enum representing the type of the deck. Test Deck is not to be used, and is a default deck.
      */
     public enum DeckType {
-        RED("Red"),
+        ABANDONED("Abandoned"),
         BLUE("Blue"),
         CHECKERED("Checkered"),
+        RED("Red"),
         DEFAULT("Default");
 
         private final String name;
@@ -126,6 +146,5 @@ public class Deck implements Cloneable {
         public String getName() {
             return name;
         }
-
     }
 }
