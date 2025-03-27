@@ -12,8 +12,10 @@ import java.util.stream.Stream;
 import static javatro.display.UI.printBorderedContent;
 
 public class PokerHandScreen extends Screen {
+
+    // %-X = X characters width
     private static final String TITLE =
-            "LEVEL      HAND           CHIPS × MULTI      PLAYED";
+            String.format("%-8s  %-16s  %-12s  %-8s", "LEVEL", "POKER HAND", "CHIPS × MULTI", "PLAYED");
 
     private final List<PokerHand> pokerHands;
 
@@ -31,7 +33,7 @@ public class PokerHandScreen extends Screen {
         List<String> handDisplays = pokerHands.stream()
                 .map(hand -> {
                     PokerHand.HandType type = hand.handType();
-                    return String.format("%-10d%-15s%4d × %-10d# %d",
+                    return String.format("%-8d  %-16s  %-4d × %-6d  %-8d",
                             PlanetCard.getLevel(type),
                             type.getHandName(),
                             hand.getChips(),
