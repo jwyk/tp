@@ -53,12 +53,6 @@ public class JavatroCore {
     public void beginGame(Deck.DeckType deckType) {
         totalPlays = 4;
         deck = new Deck(deckType);
-
-        //        //Override deck
-        //        if (deckType.getName().equals("Red")) {
-        //            totalPlays = 4;
-        //        };
-
         startNewRound(classicRound());
     }
 }
