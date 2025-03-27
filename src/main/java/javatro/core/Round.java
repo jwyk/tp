@@ -76,6 +76,13 @@ public class Round {
 
         // Initial draw
         playerHand.draw(INITIAL_HAND_SIZE, this.deck);
+
+        // Post-construction invariants
+        assert this.currentScore == 0 : "Initial score must be zero";
+        assert this.remainingDiscards == MAX_DISCARDS_PER_ROUND
+                : "Initial discards must be set to maximum";
+        assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE
+                : "Player should have exactly " + INITIAL_HAND_SIZE + " cards initially";
     }
 
     /**
@@ -124,6 +131,15 @@ public class Round {
             throw JavatroException.noPlaysRemaining();
         }
 
+        assert cardIndices != null : "Card indices cannot be null";
+        assert !cardIndices.isEmpty() : "Card indices cannot be empty";
+        assert cardIndices.size() <= POKER_HAND_SIZE
+                : "Cannot play more than " + POKER_HAND_SIZE + " cards";
+        assert remainingPlays > 0 : "No plays remaining to execute this action";
+
+        int oldScore = currentScore;
+        int oldRemainingPlays = remainingPlays;
+
         List<Card> playedCards = playerHand.play(cardIndices, this.deck);
         PokerHand result = HandResult.evaluateHand(playedCards);
         Integer totalChips = result.getChips();
@@ -140,6 +156,13 @@ public class Round {
 
         remainingPlays--;
 
+        // Post-condition assertions
+        assert remainingPlays == oldRemainingPlays - 1
+                : "Remaining plays should decrease by exactly 1";
+        assert currentScore >= oldScore : "Score should not decrease after playing cards";
+        assert playerHand.getHand().size() == INITIAL_HAND_SIZE
+                : "Hand size should be maintained after play";
+
         updateRoundVariables();
     }
 
@@ -154,13 +177,34 @@ public class Round {
             throw new JavatroException("No remaining discards available");
         }
 
+        if (cardIndices.size() > remainingDiscards) {
+            throw new JavatroException("Too many discards");
+        }
+
+        if (cardIndices.size() < 1) {
+            throw new JavatroException("Cannot discard zero cards");
+        }
+
+        assert cardIndices != null : "Card indices cannot be null";
+        assert !cardIndices.isEmpty() : "Cannot discard zero cards";
+        assert remainingDiscards > 0 : "No discards remaining to execute this action";
+
         // Handle duplicates by using a Set
         Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);
+
+        int handSizeBefore = playerHand.getHand().size();
+        int oldRemainingDiscards = remainingDiscards;
 
         playerHand.discard(cardIndices, deck);
         remainingDiscards--;
 
         playerHand.draw(indicesToDiscard.size(), deck);
+
+        // Post-condition assertions
+        assert remainingDiscards == oldRemainingDiscards - 1
+                : "Remaining discards should decrease by exactly 1";
+        assert playerHand.getHand().size() == handSizeBefore
+                : "Hand size should be maintained after discard";
 
         updateRoundVariables();
     }
@@ -183,6 +227,7 @@ public class Round {
     }
 
     public List<Card> getPlayerHand() {
+        assert playerHand != null : "Player hand cannot be null";
         return playerHand.getHand();
     }
 
@@ -202,6 +247,7 @@ public class Round {
      * @return true if player won the round, false otherwise
      */
     public boolean isWon() {
+        assert isRoundOver() || remainingPlays > 0 : "Round state is inconsistent";
         return currentScore >= blindScore & isRoundOver();
     }
 
