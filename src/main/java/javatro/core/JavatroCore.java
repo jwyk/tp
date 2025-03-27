@@ -9,6 +9,7 @@ public class JavatroCore {
 
     /** The current active round in the game. */
     public static Round currentRound;
+    public static Deck deck;
 
     /**
      * Starts a new round and assigns it to the current round.
@@ -26,11 +27,13 @@ public class JavatroCore {
      * @throws JavatroException If an error occurs while creating the round.
      */
     private Round classicRound() {
-        Deck d = new Deck();
         try {
+            Deck d = deck.clone();
             return new Round(300, 4, d, "Classic", "Classic Round");
         } catch (JavatroException javatroException) {
             System.out.println(javatroException.getMessage());
+        } catch (CloneNotSupportedException cloneNotSupportedException) {
+            System.out.println(JavatroException.invalidDeck().getMessage());
         }
         return null;
     }
@@ -41,6 +44,7 @@ public class JavatroCore {
      * @throws JavatroException If an error occurs while starting the game.
      */
     public void beginGame() {
+        deck = new Deck();
         startNewRound(classicRound());
     }
 }

@@ -8,7 +8,7 @@ import java.util.Collections;
  * Contains an ArrayList of type Card: with 0 being the top of the deck
  * and ArrayList.size() being the bottom
  */
-public class Deck {
+public class Deck implements Cloneable{
     private static ArrayList<Card> deck;
 
     /**
@@ -17,6 +17,12 @@ public class Deck {
      */
     public Deck() {
         deck = populateNewDeck();
+    }
+
+    public Deck clone() throws CloneNotSupportedException {
+        Deck copiedDeck = (Deck) super.clone();
+
+        return copiedDeck;
     }
 
     /** Draws and returns a card from the top of the deck. */
