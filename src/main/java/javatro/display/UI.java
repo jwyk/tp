@@ -1,9 +1,15 @@
 package javatro.display;
 
-import javatro.core.JavatroException;
-import javatro.display.screens.*;
-
 import java.util.List;
+
+import javatro.core.JavatroException;
+import javatro.display.screens.DeckSelectScreen;
+import javatro.display.screens.DiscardScreen;
+import javatro.display.screens.GameScreen;
+import javatro.display.screens.HelpScreen;
+import javatro.display.screens.PlayScreen;
+import javatro.display.screens.Screen;
+import javatro.display.screens.StartScreen;
 
 /**
  * The {@code display} class is responsible for managing and displaying different screens in the
@@ -13,23 +19,77 @@ import java.util.List;
  */
 public class UI {
 
-    /** The current screen being displayed to the user. */
-    private static Screen currentScreen;
+    /**
+     * Fixed width for the bordered message display.
+     */
+    public static final int BORDER_WIDTH = 100;
+    /**
+     * display-related constants for display formatting.
+     */
+    public static final String CARD = "\uD83C\uDCCF";
+    public static final String HEARTS = "♥️";
+    public static final String SPADES = "♠️";
+    public static final String DIAMONDS = "♦️";
+    public static final String CLUBS = "♣️";
+    public static final String WARNING = "⚠️ ";
+    public static final String WRITE = "✍️ ";
+    public static final String ARROW = "╰┈➤ ";
+    public static final String END = "\033[0m";
 
-    /** Predefined game-related screens. */
+    // region FORMATTING STRINGS
+    public static final String BOLD = "\033[1m";
+    public static final String ITALICS = "\033[3m";
+    public static final String UNDERLINE = "\033[4m";
+    public static final String RED = "\033[91m";
+    public static final String GREEN = "\033[92m";
+    public static final String YELLOW = "\033[93m";
+    public static final String BLUE = "\033[94m";
+    public static final String PURPLE = "\033[35m";
+    public static final String CYAN = "\033[36m";
+    public static final String ORANGE = "\033[38;2;255;165;0m";
+    public static final String BLACK = "\033[30m";
+    public static final String WHITE_B = "\033[107m";
+    public static final String BLACK_B = "\033[40m";
+    /**
+     * Custom border characters
+     */
+    public static final char TOP_LEFT = '╔';
+    public static final char TOP_RIGHT = '╗';
+    public static final char BOTTOM_LEFT = '╚';
+    public static final char BOTTOM_RIGHT = '╝';
+    public static final char HORIZONTAL = '═';
+    public static final char VERTICAL = '║';
+    public static final char CROSS = '╬';
+    public static final char T_UP = '╩';
+    public static final char T_DOWN = '╦';
+    public static final char T_LEFT = '╣';
+    public static final char T_RIGHT = '╠';
+    // Unicode spacing characters for experimentation
+    public static final String NORMAL_SPACE = " "; // U+0020
+    public static final String EN_SPACE = " "; // U+2002 (1.5× normal space)
+    public static final String EM_SPACE = " "; // U+2003 (2× normal space)
+    public static final String THIN_SPACE = " "; // U+2009 (~½ normal space)
+    public static final String HAIR_SPACE = " "; // U+200A (~⅓ normal space)
+    public static final String ZERO_WIDTH_SPACE = "​"; // U+200B (invisible)
+    public static final String ZERO_WIDTH_JOINER = "‍"; // U+200D
+    public static final String ZERO_WIDTH_NON_JOINER = "‌"; // U+200C
+    /**
+     * Predefined game-related screens.
+     */
     private static final GameScreen GAME_SCREEN;
-
     private static final DiscardScreen DISCARD_SCREEN;
     private static final PlayScreen PLAY_SCREEN;
     private static final HelpScreen HELP_SCREEN;
     private static final StartScreen START_SCREEN;
     private static final DeckSelectScreen DECK_SELECT_SCREEN;
-
-    /** Parser instance for handling user input. */
+    /**
+     * Parser instance for handling user input.
+     */
     private static final Parser PARSER = new Parser();
-
-    /** Fixed width for the bordered message display. */
-    public static final int BORDER_WIDTH = 100;
+    /**
+     * The current screen being displayed to the user.
+     */
+    private static Screen currentScreen;
 
     static {
         try {
@@ -46,59 +106,6 @@ public class UI {
         }
     }
 
-    // region FORMATTING STRINGS
-    /** display-related constants for display formatting. */
-    public static final String CARD = "\uD83C\uDCCF";
-
-    public static final String HEARTS = "♥️";
-    public static final String SPADES = "♠️";
-    public static final String DIAMONDS = "♦️";
-    public static final String CLUBS = "♣️";
-    public static final String WARNING = "⚠️ ";
-    public static final String WRITE = "✍️ ";
-    public static final String ARROW = "╰┈➤ ";
-
-    public static final String END = "\033[0m";
-
-    public static final String BOLD = "\033[1m";
-    public static final String ITALICS = "\033[3m";
-    public static final String UNDERLINE = "\033[4m";
-
-    public static final String RED = "\033[91m";
-    public static final String GREEN = "\033[92m";
-    public static final String YELLOW = "\033[93m";
-    public static final String BLUE = "\033[94m";
-    public static final String PURPLE = "\033[35m";
-    public static final String CYAN = "\033[36m";
-    public static final String ORANGE = "\033[38;2;255;165;0m";
-    public static final String BLACK = "\033[30m";
-    public static final String WHITE_B = "\033[107m";
-    public static final String BLACK_B = "\033[40m";
-
-    /** Custom border characters */
-    public static final char TOP_LEFT = '╔';
-
-    public static final char TOP_RIGHT = '╗';
-    public static final char BOTTOM_LEFT = '╚';
-    public static final char BOTTOM_RIGHT = '╝';
-    public static final char HORIZONTAL = '═';
-    public static final char VERTICAL = '║';
-    public static final char CROSS = '╬';
-    public static final char T_UP = '╩';
-    public static final char T_DOWN = '╦';
-    public static final char T_LEFT = '╣';
-    public static final char T_RIGHT = '╠';
-
-    // Unicode spacing characters for experimentation
-    public static final String NORMAL_SPACE = " "; // U+0020
-    public static final String EN_SPACE = " "; // U+2002 (1.5× normal space)
-    public static final String EM_SPACE = " "; // U+2003 (2× normal space)
-    public static final String THIN_SPACE = " "; // U+2009 (~½ normal space)
-    public static final String HAIR_SPACE = " "; // U+200A (~⅓ normal space)
-    public static final String ZERO_WIDTH_SPACE = "​"; // U+200B (invisible)
-    public static final String ZERO_WIDTH_JOINER = "‍"; // U+200D
-    public static final String ZERO_WIDTH_NON_JOINER = "‌"; // U+200C
-
     // endregion
 
     public static void printBlackB(String input) {
@@ -109,7 +116,7 @@ public class UI {
      * Prints a bordered message or menu with a title and dynamically generated content. Uses a
      * default width of 100.
      *
-     * @param title the title of the message or menu
+     * @param title   the title of the message or menu
      * @param content a list of content lines
      */
     public static void printBorderedContent(String title, List<String> content) {
@@ -123,8 +130,8 @@ public class UI {
     /**
      * Prints a bordered message or menu with a title and dynamically generated content.
      *
-     * @param title the title of the message or menu
-     * @param content a list of content lines
+     * @param title      the title of the message or menu
+     * @param content    a list of content lines
      * @param titleWidth the width of the bordered content title
      */
     public static void printBorderedContent(
@@ -158,7 +165,7 @@ public class UI {
      * Centers the given text within a specified width, padding it with spaces on both sides. This
      * version handles ANSI escape codes and Unicode characters correctly.
      *
-     * @param text the text to center
+     * @param text  the text to center
      * @param width the total width to center within
      * @return the centered text surrounded by borders
      */
@@ -226,6 +233,15 @@ public class UI {
     }
 
     /**
+     * Gets the current screen being displayed.
+     *
+     * @return the current {@link Screen}
+     */
+    public static Screen getCurrentScreen() {
+        return currentScreen;
+    }
+
+    /**
      * Sets the current screen and displays it.
      *
      * @param screen the screen to be displayed
@@ -244,15 +260,8 @@ public class UI {
     }
 
     /**
-     * Gets the current screen being displayed.
-     *
-     * @return the current {@link Screen}
+     * Clears the console screen. This method uses ANSI escape codes to clear the console.
      */
-    public static Screen getCurrentScreen() {
-        return currentScreen;
-    }
-
-    /** Clears the console screen. This method uses ANSI escape codes to clear the console. */
     public static void clearScreen() {
         final String FLUSH = "\033[H\033[2J";
         System.out.print(FLUSH);
@@ -269,6 +278,7 @@ public class UI {
     }
 
     // region Screen Getters
+
     /**
      * Gets the screen where users select cards to discard.
      *

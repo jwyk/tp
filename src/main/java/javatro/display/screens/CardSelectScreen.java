@@ -17,6 +17,9 @@ import static javatro.display.UI.centerText;
 import static javatro.display.UI.printBlackB;
 import static javatro.display.UI.printBorderedContent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javatro.core.Card;
 import javatro.core.HoldingHand;
 import javatro.core.JavatroCore;
@@ -26,9 +29,6 @@ import javatro.manager.options.CardSelectOption;
 import javatro.manager.options.ResumeGameOption;
 import javatro.manager.options.SortByRankOption;
 import javatro.manager.options.SortBySuitOption;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The {@code CardSelectScreen} class represents an abstract screen where users select cards from
@@ -47,7 +47,9 @@ import java.util.List;
  */
 public abstract class CardSelectScreen extends Screen {
 
-    /** The list of cards currently in the player's hand. */
+    /**
+     * The list of cards currently in the player's hand.
+     */
     private List<Card> holdingHand;
 
     private SortOrder currentSortOrder;
@@ -57,7 +59,7 @@ public abstract class CardSelectScreen extends Screen {
      * resume game command.
      *
      * @param optionsTitle The title to display for the option menu.
-     * @throws JavatroException if an error occurs during initialization.
+     * @throws JavatroException         if an error occurs during initialization.
      * @throws IllegalArgumentException if the options title is null or empty.
      */
     public CardSelectScreen(String optionsTitle) throws JavatroException {
@@ -86,14 +88,14 @@ public abstract class CardSelectScreen extends Screen {
             tempHand.Hand = new ArrayList<>(this.holdingHand);
 
             switch (sortOrder) {
-                case BY_SUIT:
-                    tempHand.sortBySuit();
-                    break;
-                case BY_RANK:
-                    tempHand.sortByRank();
-                    break;
-                default: // Should not happen at all.
-                    break;
+            case BY_SUIT:
+                tempHand.sortBySuit();
+                break;
+            case BY_RANK:
+                tempHand.sortByRank();
+                break;
+            default: // Should not happen at all.
+                break;
             }
 
             this.holdingHand = tempHand.getHand();

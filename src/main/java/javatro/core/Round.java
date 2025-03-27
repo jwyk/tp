@@ -17,6 +17,8 @@ public class Round {
     /** The number of cards required to form a valid poker hand. */
     private static final int POKER_HAND_SIZE = 5;
 
+    /** The player's current hand of cards. */
+    public HoldingHand playerHand;
     /** The player's current score in the round. */
     private int currentScore;
     /** The minimum score required to win the round. */
@@ -26,8 +28,6 @@ public class Round {
     /** The number of remaining plays in the round. */
     private int remainingPlays;
 
-    /** The player's current hand of cards. */
-    public HoldingHand playerHand;
     /** The deck of cards used in the round. */
     private Deck deck;
 
