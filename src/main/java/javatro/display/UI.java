@@ -330,8 +330,12 @@ public class UI {
         return HELP_SCREEN;
     }
 
+    /**
+     * Returns the singleton instance of the {@code BlindScreen}.
+     *
+     * @return the {@code BlindScreen} instance.
+     */
     public static BlindScreen getBlindScreen() {
         return BLIND_SCREEN;
     }
-    // endregion
 }
