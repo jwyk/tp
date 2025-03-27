@@ -46,7 +46,6 @@ public class HoldingHandTest {
         cardTwo = new Card(THREE, HEARTS);
         cardThree = new Card(FOUR, CLUBS);
         cardFour = new Card(FIVE, DIAMONDS);
-
     }
 
     /** Test that HoldingHand can add cards, draw and discard cards. */
