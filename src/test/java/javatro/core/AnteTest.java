@@ -1,24 +1,24 @@
 package javatro.core;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Random;
 
 /**
- * Test class for the Ante class. This class tests the functionality of the Ante class,
+ * Test class for the {@link Ante} class. This class tests the functionality of the Ante class,
  * including the initialization of values, progression between rounds, blind multipliers,
  * and score calculations.
  */
 public class AnteTest {
     private Ante ante;
-
+    private Random random;
     /**
      * Initializes a new Ante object before each test.
      */
     @BeforeEach
     void setUp() {
         ante = new Ante();
+        random = new Random();
     }
 
     /**
@@ -98,16 +98,36 @@ public class AnteTest {
     }
 
     /**
-     * Tests the reset functionality for the ante.
-     * Verifies that the ante count and blind reset to their initial values after calling resetAnte().
+     * Tests random blinds and their respective scores.
+     * Verifies that for each randomly selected blind and ante count,
+     * the score matches the expected value based on the blind's multiplier.
      */
     @Test
-    void testResetAnte() {
-        ante.nextRound();
-        ante.nextRound();
-        ante.nextRound();
-        ante.resetAnte();
-        assertEquals(1, ante.getAnteCount(), "Ante count should reset to 1");
-        assertEquals(Ante.Blind.SMALL_BLIND, ante.getBlind(), "Blind should reset to SMALL_BLIND");
+    void testRandomBlindsAndScores() {
+        // Test for 10 random iterations
+        for (int i = 0; i < 10; i++) {
+            // Randomly select ante count (from 1 to 8)
+            int randomAnteCount = random.nextInt(8) + 1;
+
+            // Move to the selected ante count using nextRound
+            for (int j = 1; j < randomAnteCount; j++) {
+                ante.nextRound();
+            }
+
+            // Randomly select a blind
+            int blindIndex = random.nextInt(Ante.Blind.values().length);
+            Ante.Blind randomBlind = Ante.Blind.values()[blindIndex];
+            ante.setBlind(randomBlind);
+
+            // Get expected score
+            int expectedScore = (int) (ante.getAnteScore() * randomBlind.getMultiplier());
+
+            // Assert the score is correct
+            assertEquals(expectedScore, ante.getRoundScore(), "Random score calculation failed for Ante " + randomAnteCount + " and Blind " + randomBlind.getName());
+
+            // Reset the ante for the next iteration
+            ante.resetAnte();
+        }
     }
+
 }
