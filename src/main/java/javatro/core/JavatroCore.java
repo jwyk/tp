@@ -4,6 +4,8 @@
  */
 package javatro.core;
 
+import java.util.ArrayList;
+
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
 
@@ -34,13 +36,11 @@ public class JavatroCore {
     private Round classicRound() {
         Deck d;
         try {
-            d = deck.clone();
+            d = new Deck(deck);
             d.shuffle();
             return new Round(300, 4, d, "Classic", "Classic Round");
         } catch (JavatroException javatroException) {
             System.out.println(javatroException.getMessage());
-        } catch (CloneNotSupportedException e) {
-            System.out.println(JavatroException.invalidDeck().getMessage());
         }
         return null;
     }
@@ -53,6 +53,7 @@ public class JavatroCore {
     public void beginGame(Deck.DeckType deckType) {
         totalPlays = 4;
         deck = new Deck(deckType);
+
         startNewRound(classicRound());
     }
 }
