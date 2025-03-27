@@ -6,17 +6,19 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
+import javatro.display.UI;
+
 import java.util.List;
 
 public class RoundTest {
-    private static final String RED = "\033[31m";
-    private static final String END = "\033[0m";
-    private static final String INVALIDPLAYEDHANDERROR =
-            RED + "A poker hand must contain between 1 and 5 cards." + END;
-    private static final String INVALIDPLAYSPERROUND =
-            RED + "Number of plays per round must be greater than 0." + END;
-    private static final String INVALIDDECK = RED + "Deck cannot be null." + END;
-    private static final String INVALIDPLAYSREMAINING = RED + "No plays remaining." + END;
+    private static String getExceptionMessage(String message) {
+        return UI.WARNING + UI.RED + message + UI.END;
+    }
+
+    private static final String INVALIDPLAYEDHANDERROR = "A poker hand must contain between 1 and 5 cards.";
+    private static final String INVALIDPLAYSPERROUND = "Number of plays per round must be greater than 0.";
+    private static final String INVALIDDECK = "Deck cannot be null.";
+    private static final String INVALIDPLAYSREMAINING = "No plays remaining.";
 
     private void assertRoundInitialization(
             javatro.core.AnteBase ante, javatro.core.BlindType blind, int remainingPlays)
@@ -41,7 +43,7 @@ public class RoundTest {
             new Round(ante, blind, remainingPlays, deck, "", "");
             fail();
         } catch (JavatroException e) {
-            assertEquals(expectedMessage, e.getMessage());
+            assertEquals(getExceptionMessage(expectedMessage), e.getMessage());
         }
     }
 
@@ -82,7 +84,7 @@ public class RoundTest {
             round.playCards(List.of(0, 1, 2, 3, 4));
             fail();
         } catch (JavatroException e) {
-            assertEquals(expectedErrorMessage, e.getMessage());
+            assertEquals(getExceptionMessage(expectedErrorMessage), e.getMessage());
         }
     }
 
@@ -99,7 +101,7 @@ public class RoundTest {
             round.playCards(cardIndices);
             fail();
         } catch (JavatroException e) {
-            assertEquals(expectedErrorMessage, e.getMessage());
+            assertEquals(getExceptionMessage(expectedErrorMessage), e.getMessage());
         }
     }
 
@@ -220,14 +222,13 @@ public class RoundTest {
     @Test
     public void round_discardCards_success() throws JavatroException {
         Deck deck = new Deck();
-        Round round =
-                new Round(
-                        javatro.core.AnteBase.ANTE_1,
-                        javatro.core.BlindType.SMALL,
-                        3,
-                        deck,
-                        "",
-                        "");
+        Round round = new Round(
+                javatro.core.AnteBase.ANTE_1,
+                javatro.core.BlindType.SMALL,
+                3,
+                deck,
+                "",
+                "");
 
         // Initial state
         assertEquals(4, round.getRemainingDiscards());
@@ -244,14 +245,13 @@ public class RoundTest {
     @Test
     public void round_discardCards_tooManyDiscards() throws JavatroException {
         Deck deck = new Deck();
-        Round round =
-                new Round(
-                        javatro.core.AnteBase.ANTE_1,
-                        javatro.core.BlindType.SMALL,
-                        3,
-                        deck,
-                        "",
-                        "");
+        Round round = new Round(
+                javatro.core.AnteBase.ANTE_1,
+                javatro.core.BlindType.SMALL,
+                3,
+                deck,
+                "",
+                "");
 
         // Use all 4 discards
         round.discardCards(List.of(0));
@@ -264,21 +264,20 @@ public class RoundTest {
             round.discardCards(List.of(0));
             fail("Should have thrown an exception for too many discards");
         } catch (JavatroException e) {
-            assertEquals("No remaining discards available", e.getMessage());
+            assertEquals(getExceptionMessage("No remaining discards available"), e.getMessage());
         }
     }
 
     @Test
     public void round_emptyDiscardList() throws JavatroException {
         Deck deck = new Deck();
-        Round round =
-                new Round(
-                        javatro.core.AnteBase.ANTE_1,
-                        javatro.core.BlindType.SMALL,
-                        3,
-                        deck,
-                        "",
-                        "");
+        Round round = new Round(
+                javatro.core.AnteBase.ANTE_1,
+                javatro.core.BlindType.SMALL,
+                3,
+                deck,
+                "",
+                "");
 
         // Initial state
         assertEquals(4, round.getRemainingDiscards());
@@ -289,7 +288,7 @@ public class RoundTest {
             round.discardCards(List.of());
             fail("Should have thrown an exception for discarding zero cards");
         } catch (JavatroException e) {
-            assertEquals("Cannot discard zero cards", e.getMessage());
+            assertEquals(getExceptionMessage("Cannot discard zero cards"), e.getMessage());
         }
 
         assertEquals(4, round.getRemainingDiscards());
@@ -299,14 +298,13 @@ public class RoundTest {
     @Test
     public void round_setNameAndDescription() throws JavatroException {
         Deck deck = new Deck();
-        Round round =
-                new Round(
-                        javatro.core.AnteBase.ANTE_1,
-                        javatro.core.BlindType.SMALL,
-                        3,
-                        deck,
-                        "",
-                        "");
+        Round round = new Round(
+                javatro.core.AnteBase.ANTE_1,
+                javatro.core.BlindType.SMALL,
+                3,
+                deck,
+                "",
+                "");
 
         // Set new values
         round.setRoundName("New Round");
