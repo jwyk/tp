@@ -266,8 +266,7 @@ public class Round {
      * @return true if player won the round, false otherwise
      */
     public boolean isWon() {
-        assert isRoundOver() || remainingPlays > 0 : "Round state is inconsistent";
-        return currentScore >= blindScore & isRoundOver();
+        return currentScore >= blindScore;
     }
 
     public String getRoundName() {
