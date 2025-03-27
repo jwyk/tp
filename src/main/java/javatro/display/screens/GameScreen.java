@@ -2,10 +2,9 @@ package javatro.display.screens;
 
 import javatro.core.Card;
 import javatro.core.JavatroException;
-import javatro.manager.options.DiscardCardOption;
-import javatro.manager.options.ExitGameOption;
-import javatro.manager.options.MainMenuOption;
-import javatro.manager.options.PlayCardOption;
+import javatro.display.UI;
+import javatro.manager.JavatroManager;
+import javatro.manager.options.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -251,6 +250,31 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     @Override
     public void displayScreen() {
 
+        if(roundOver != 0){
+            String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Round Ended" + " 🃏 ♦️ ♣️" + UI.END;
+
+            String message;
+            if(roundOver == 1){
+                message = "YOU WON!!!!";
+            }
+            else{
+                message = "YOU LOST!!!!";
+            }
+
+            String[] lines = {
+                    "",
+                    "",
+                    message,
+                    "",
+                    "",
+            };
+
+            UI.printBorderedContent(title, List.of(lines));
+            return;
+        }
+
+
+
         String header = getHeaderString(screenWidth);
 
         // Prints the round name
@@ -283,7 +307,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         printCardRow("Cash: $ - ", "");
 
         // display ante info
-        printCardRow("Ante: X / X", secondRowHeader);
+        printCardRow("Ante: "+JavatroManager.ante.getAnteCount() +" / 8", secondRowHeader);
 
         // Generate the values for the second row (if applicable)
         if (secondRowCount > 0) {
@@ -293,7 +317,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         }
 
         // display current round info
-        printCardRow("Current Round: X", secondRowHeader);
+        printCardRow("Current Round: " + JavatroManager.roundCount, secondRowHeader);
 
         // Print end header
         System.out.println(header);
@@ -336,7 +360,12 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 "roundComplete",
                 value -> {
                     roundOver = (Integer) value;
-                    if (roundOver != 0) {
+                    if (roundOver == 1) {
+                        commandMap.clear();
+                        commandMap.add(new NextRoundOption());
+                        commandMap.add(new ExitGameOption());
+                    }
+                    else if (roundOver == -1) {
                         commandMap.clear();
                         commandMap.add(new MainMenuOption());
                         commandMap.add(new ExitGameOption());
