@@ -56,12 +56,12 @@ public class HoldingHandTest {
         }
         int cardsRemaining = deck.getRemainingCards();
         assertEquals(44, cardsRemaining);
-        holdingHand.discard(List.of(1, 3, 5), deck);
+        holdingHand.discard(List.of(1, 3, 5));
         for (int i = 0; i < 3; i++) {
             holdingHand.add(deck.draw());
         }
         assertEquals(41, deck.getRemainingCards());
-        List<Card> playedHand = holdingHand.play(List.of(1, 4, 5), deck);
+        List<Card> playedHand = holdingHand.play(List.of(1, 4, 5));
         assertEquals(3, playedHand.size());
         for (int i = 0; i < 3; i++) {
             holdingHand.add(deck.draw());
@@ -152,7 +152,7 @@ public class HoldingHandTest {
         }
 
         try {
-            holdingHand.play(playedHand, deck);
+            holdingHand.play(playedHand);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
@@ -163,7 +163,7 @@ public class HoldingHandTest {
         playedHand.remove(0);
         playedHand.add(500);
         try {
-            holdingHand.play(playedHand, deck);
+            holdingHand.play(playedHand);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
@@ -176,7 +176,7 @@ public class HoldingHandTest {
             playedHand.add(i);
         }
         try {
-            holdingHand.play(playedHand, deck);
+            holdingHand.play(playedHand);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
@@ -202,7 +202,7 @@ public class HoldingHandTest {
         }
 
         try {
-            holdingHand.discard(playedHand, deck);
+            holdingHand.discard(playedHand);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
@@ -213,7 +213,7 @@ public class HoldingHandTest {
         playedHand.remove(0);
         playedHand.add(500);
         try {
-            holdingHand.discard(playedHand, deck);
+            holdingHand.discard(playedHand);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
@@ -226,7 +226,7 @@ public class HoldingHandTest {
             playedHand.add(i);
         }
         try {
-            holdingHand.discard(playedHand, deck);
+            holdingHand.discard(playedHand);
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(

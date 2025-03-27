@@ -1,6 +1,24 @@
 package javatro.display.screens;
 
-import static javatro.display.UI.*;
+import static javatro.display.UI.BLACK_B;
+import static javatro.display.UI.BORDER_WIDTH;
+import static javatro.display.UI.BOTTOM_LEFT;
+import static javatro.display.UI.BOTTOM_RIGHT;
+import static javatro.display.UI.END;
+import static javatro.display.UI.HAIR_SPACE;
+import static javatro.display.UI.HORIZONTAL;
+import static javatro.display.UI.RED;
+import static javatro.display.UI.TOP_LEFT;
+import static javatro.display.UI.TOP_RIGHT;
+import static javatro.display.UI.T_LEFT;
+import static javatro.display.UI.T_RIGHT;
+import static javatro.display.UI.YELLOW;
+import static javatro.display.UI.centerText;
+import static javatro.display.UI.printBlackB;
+import static javatro.display.UI.printBorderedContent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javatro.core.Card;
 import javatro.core.HoldingHand;
@@ -11,9 +29,6 @@ import javatro.manager.options.CardSelectOption;
 import javatro.manager.options.ResumeGameOption;
 import javatro.manager.options.SortByRankOption;
 import javatro.manager.options.SortBySuitOption;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The {@code CardSelectScreen} class represents an abstract screen where users select cards from
@@ -33,11 +48,17 @@ import java.util.List;
 public abstract class CardSelectScreen extends Screen {
 
     /**
+     * The list of cards currently in the player's hand.
+     */
+    private List<Card> holdingHand;
+    private SortOrder currentSortOrder;
+
+    /**
      * Constructs a {@code CardSelectScreen} with a custom options title and initializes it with a
      * resume game command.
      *
      * @param optionsTitle The title to display for the option menu.
-     * @throws JavatroException if an error occurs during initialization.
+     * @throws JavatroException         if an error occurs during initialization.
      * @throws IllegalArgumentException if the options title is null or empty.
      */
     public CardSelectScreen(String optionsTitle) throws JavatroException {
@@ -49,18 +70,6 @@ public abstract class CardSelectScreen extends Screen {
         super.commandMap.add(new SortByRankOption(this));
         super.commandMap.add(new ResumeGameOption());
     }
-
-    /** The list of cards currently in the player's hand. */
-    private List<Card> holdingHand;
-
-    // Add an enum for sorting options
-    public enum SortOrder {
-        ORIGINAL,
-        BY_SUIT,
-        BY_RANK,
-    }
-
-    private SortOrder currentSortOrder;
 
     /**
      * Updates the holding hand by retrieving the player's current hand from the game core.
@@ -78,12 +87,14 @@ public abstract class CardSelectScreen extends Screen {
             tempHand.Hand = new ArrayList<>(this.holdingHand);
 
             switch (sortOrder) {
-                case BY_SUIT:
-                    tempHand.sortBySuit();
-                    break;
-                case BY_RANK:
-                    tempHand.sortByRank();
-                    break;
+            case BY_SUIT:
+                tempHand.sortBySuit();
+                break;
+            case BY_RANK:
+                tempHand.sortByRank();
+                break;
+            default: //Should not happen at all.
+                break;
             }
 
             this.holdingHand = tempHand.getHand();
@@ -199,4 +210,11 @@ public abstract class CardSelectScreen extends Screen {
      */
     @Override
     public abstract void displayScreen();
+
+    // Add an enum for sorting options
+    public enum SortOrder {
+        ORIGINAL,
+        BY_SUIT,
+        BY_RANK,
+    }
 }
