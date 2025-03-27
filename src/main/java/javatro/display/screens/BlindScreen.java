@@ -22,7 +22,7 @@ public class BlindScreen extends Screen{
     public void displayScreen()  {
         BorderStyle activeStyle = BorderStyle.DOUBLE;
         BorderStyle inactiveStyle = BorderStyle.SINGLE;
-        int c = (JavatroCore.ante.getBlind() == Ante.Blind.SMALL_BLIND)?0:(JavatroCore.ante.getBlind() == Ante.Blind.LARGE_BLIND)?1:2;
+        int c = (JavatroManager.ante.getBlind() == Ante.Blind.SMALL_BLIND) ? 0 : (JavatroManager.ante.getBlind() == Ante.Blind.LARGE_BLIND)?1:2;
         int h = 15;
         int w = 80;
 
@@ -55,7 +55,7 @@ public class BlindScreen extends Screen{
                     System.out.print(getColoredSymbol(c==l, centerPad(blind.getName(), w / 3)));
                 }
                 else if (i == h / 2 + 1){
-                    System.out.print(getColoredSymbol(c==l, centerPad(String.valueOf((int)(JavatroCore.ante.getAnteScore()*blind.getMultiplier())), w / 3)));
+                    System.out.print(getColoredSymbol(c==l, centerPad(String.valueOf((int)(JavatroManager.ante.getAnteScore()*blind.getMultiplier())), w / 3)));
                 }
                 else System.out.print(centerPad(" ", w/3));
 
