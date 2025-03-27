@@ -61,8 +61,6 @@ public class DeckTest {
             assertNotEquals(Card.Rank.KING, card.suit());
             assertNotEquals(Card.Rank.QUEEN, card.suit());
             assertNotEquals(Card.Rank.JACK, card.suit());
-
         }
     }
-
 }
