@@ -1,7 +1,8 @@
-package javatro.core.jokers;
+package javatro.core.jokers.addmult;
 
 import javatro.core.Card;
 import javatro.core.Score;
+import javatro.core.jokers.Joker;
 
 /** Represents a WrathfulJoker Joker. */
 public class WrathfulJoker extends Joker {

@@ -1,12 +1,13 @@
-package javatro.core.jokers;
+package javatro.core.jokers.addmult;
 
 import javatro.core.Card;
 import javatro.core.Score;
+import javatro.core.jokers.Joker;
 
-/** Represents a GluttonousJoker Joker. */
-public class GluttonousJoker extends Joker {
+/** Represents a GreedyJoker Joker. */
+public class GreedyJoker extends Joker {
 
-    public GluttonousJoker() {
+    public GreedyJoker() {
         super();
         this.description = "Played cards with Diamond suit give +3 Mult when scored";
         this.scoreType = ScoreType.ONCARDPLAY;
@@ -17,10 +18,5 @@ public class GluttonousJoker extends Joker {
         if (playedCard.suit() == Card.Suit.DIAMONDS) {
             scoreClass.totalMultiplier += 3;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "+3 Mult Spades";
     }
 }

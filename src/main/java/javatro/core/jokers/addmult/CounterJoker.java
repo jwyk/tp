@@ -1,7 +1,8 @@
-package javatro.core.jokers;
+package javatro.core.jokers.addmult;
 
 import javatro.core.Card;
 import javatro.core.Score;
+import javatro.core.jokers.Joker;
 
 /** Represents a CounterJoker Joker, based off the Abstract Joker of Balatro. */
 public class CounterJoker extends Joker {
@@ -25,6 +26,6 @@ public class CounterJoker extends Joker {
 
     @Override
     public String toString() {
-        return "+3 Mult Spades";
+        return "+3 Mult per Joker";
     }
 }

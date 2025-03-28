@@ -1,8 +1,9 @@
-package javatro.core.jokers;
+package javatro.core.jokers.passive;
 
 import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.Score;
+import javatro.core.jokers.PassiveJoker;
 
 public class DrunkardJoker extends PassiveJoker {
 
