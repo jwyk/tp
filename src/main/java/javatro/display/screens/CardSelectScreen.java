@@ -6,7 +6,6 @@ import static javatro.display.UI.BORDER_WIDTH;
 import static javatro.display.UI.BOTTOM_LEFT;
 import static javatro.display.UI.BOTTOM_RIGHT;
 import static javatro.display.UI.END;
-import static javatro.display.UI.HAIR_SPACE;
 import static javatro.display.UI.HORIZONTAL;
 import static javatro.display.UI.RED;
 import static javatro.display.UI.TOP_LEFT;

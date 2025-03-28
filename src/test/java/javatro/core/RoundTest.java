@@ -14,14 +14,13 @@ import java.util.List;
 
 public class RoundTest {
     private static final String INVALIDPLAYEDHANDERROR =
-             UI.RED + "A poker hand must contain between 1 and 5 cards." + UI.END;
+            UI.RED + "A poker hand must contain between 1 and 5 cards." + UI.END;
     private static final String INVALIDPLAYSPERROUND =
-             UI.RED + "Number of plays per round must be greater than 0." + UI.END;
+            UI.RED + "Number of plays per round must be greater than 0." + UI.END;
     private static final String INVALIDBLINDSCORE =
-             UI.RED + "Blind score must be greater than or equal to 0." + UI.END;
-    private static final String INVALIDDECK =  UI.RED + "Deck cannot be null." + UI.END;
-    private static final String INVALIDPLAYSREMAINING =
-             UI.RED + "No plays remaining." + UI.END;
+            UI.RED + "Blind score must be greater than or equal to 0." + UI.END;
+    private static final String INVALIDDECK = UI.RED + "Deck cannot be null." + UI.END;
+    private static final String INVALIDPLAYSREMAINING = UI.RED + "No plays remaining." + UI.END;
 
     private static HeldJokers heldJokers;
 
@@ -225,9 +224,7 @@ public class RoundTest {
             round.discardCards(List.of(0));
             fail("Should have thrown an exception for too many discards");
         } catch (JavatroException e) {
-            assertEquals(
-                     UI.RED + "No remaining discards available" + UI.END,
-                    e.getMessage());
+            assertEquals(UI.RED + "No remaining discards available" + UI.END, e.getMessage());
         }
     }
 
@@ -245,8 +242,7 @@ public class RoundTest {
             round.discardCards(List.of());
             fail("Should have thrown an exception for discarding zero cards");
         } catch (JavatroException e) {
-            assertEquals(
-                     UI.RED + "Cannot discard zero cards" + UI.END, e.getMessage());
+            assertEquals(UI.RED + "Cannot discard zero cards" + UI.END, e.getMessage());
         }
 
         // Should still use a discard
