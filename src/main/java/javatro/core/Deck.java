@@ -1,5 +1,6 @@
 package javatro.core;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,7 +33,7 @@ public class Deck {
         }
     }
 
-    /** Draws and returns a card from the top of the deck. */
+    /** Draws and returns a card from the top of the deck */
     public Card draw() {
         return deck.remove(0);
     }
@@ -41,6 +42,17 @@ public class Deck {
     public int getRemainingCards() {
         return deck.size();
     }
+
+    /** Returns an ArrayList containing all the remaining cards in the deck */
+    public ArrayList<Card> getWholeDeck() {
+        ArrayList<Card> wholeDeckList = new ArrayList<Card>(deck.size());
+        for (Card card : deck) {
+            wholeDeckList.add(new Card(card));
+        }
+
+        return wholeDeckList;
+    }
+
 
     /** Returns an DeckType containing the deck variant you are using */
     public DeckType getDeckName() {

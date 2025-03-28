@@ -29,7 +29,7 @@ public class Round {
     private int remainingPlays;
 
     /** The deck of cards used in the round. */
-    private Deck deck;
+    public static Deck deck;
 
     /** The name of the current round. */
     private String roundName = "";

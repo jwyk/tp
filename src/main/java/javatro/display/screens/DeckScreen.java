@@ -23,10 +23,11 @@ import static javatro.display.UI.centerText;
 import static javatro.display.UI.padToWidth;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javatro.core.Card;
+import javatro.core.Deck;
 import javatro.core.JavatroException;
+import javatro.core.Round;
 import javatro.manager.options.ReturnOption;
 
 /**
@@ -41,7 +42,8 @@ public class DeckScreen extends Screen {
     // Overall dimensions: total width = LEFT_WIDTH + RIGHT_WIDTH + 3 (for the vertical borders)
     private static final int LEFT_WIDTH = 17; // For deck name or suit names (including suit totals)
     private static final int RIGHT_WIDTH = 80; // For rank headers and the numbers matrix
-    private static ArrayList<Card> deck;
+    private static Deck deck;
+    private static ArrayList<Card> remainingCardList;
     // Total width = 17 + 80 + 3 = 100
 
     /**
@@ -52,23 +54,18 @@ public class DeckScreen extends Screen {
     public DeckScreen() throws JavatroException {
         super("Your Current Deck");
         super.commandMap.add(new ReturnOption());
-
-        // NEED TO CHANGE THIS TO GET CURRENT DECK FROM CURRENT ROUND
-        deck = new ArrayList<>();
-        for (Card.Rank rank : Card.Rank.values()) {
-            for (Card.Suit suit : Card.Suit.values()) {
-                deck.add(new Card(rank, suit));
-            }
-        }
-        Collections.shuffle(deck);
     }
 
     @Override
     public void displayScreen() {
         // Step 1: Build the data matrix.
         // There are 4 suits and 13 ranks.
+
+        deck = Round.deck;
+        remainingCardList = deck.getWholeDeck();
+        String deckType = String.valueOf(deck.getDeckName());
         int[][] counts = new int[4][13];
-        for (Card card : deck) {
+        for (Card card : remainingCardList) {
             int suitIndex = getSuitIndex(card.suit());
             int rankIndex = getRankIndex(card.rank());
             if (suitIndex != -1 && rankIndex != -1) {
@@ -112,8 +109,7 @@ public class DeckScreen extends Screen {
 
         // --------- Top Row Content: Left Box (Deck Name) and Right Box (Rank Header) ---------
         // Left box: deck name centered in LEFT_WIDTH.
-        // NEED TO UPDATE THIS TO GET CURRENT DECK NAME
-        String deckName = centerText("DEFAULT DECK", LEFT_WIDTH + 2);
+        String deckName = centerText(deckType, LEFT_WIDTH + 2);
         // Right box: rank headers.
         // For 13 ranks, use 5 chars each, and for the total header use 15 chars.
         StringBuilder rankHeader = new StringBuilder();
