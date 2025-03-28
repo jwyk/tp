@@ -1,10 +1,10 @@
 package javatro.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javatro.core.jokers.HeldJokers;
 import javatro.core.jokers.Joker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** Contains the algorithm for calculating the final score and played hand. */
 public class Score {
@@ -27,7 +27,7 @@ public class Score {
         totalChips = (double) pokerHand.getChips();
         totalMultiplier = (double) pokerHand.getMultiplier();
 
-        //Score the cards and apply any Jokers that have effects on play here.
+        // Score the cards and apply any Jokers that have effects on play here.
         for (Card currentCard : playedCardList) {
             totalChips += currentCard.getChips();
             //From here, check each joker in heldJokers can apply effects on card play, in the order they are placed.

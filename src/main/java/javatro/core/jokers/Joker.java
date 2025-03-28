@@ -5,9 +5,9 @@ import javatro.core.JavatroCore;
 import javatro.core.Score;
 
 /**
- * Represents a Joker card. Each Joker card has a description and a string representation of the Joker Object.
+ * Represents a Joker card. Each Joker card has a description and a string representation of the
+ * Joker Object.
  */
-
 public abstract class Joker {
     public String description;
     public ScoreType scoreType;
