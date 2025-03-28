@@ -140,7 +140,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
      */
     private void displayRoundName(String header) {
         System.out.println(header);
-        String winStatus = roundOver == 1 ? "YOU WON! \uD83C\uDF89\uD83C\uDFC6\uD83E\uDD73\uD83D\uDCB0\uD83D\uDD25" : roundOver == -1 ? "YOU LOST! \uD83D\uDE22\uD83D\uDC80\uD83D\uDE2D\uD83D\uDC4E\uD83D\uDD25" : "";
+        String winStatus = roundOver == 1 ? "YOU WON! \uD83C\uDF89 � \uD83D\uDE0E" : roundOver == -1 ? "YOU LOST!  \uD83D\uDE22 \uD83D\uDC80 \uD83D\uDE2D" : "";
         if (roundOver == 1 || roundOver == -1) {
             System.out.println("|" + getDisplayStringCenter(winStatus, screenWidth) + "|");
         } else {
