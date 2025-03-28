@@ -43,10 +43,9 @@ public class ScoreTest {
                         new Card(KING, SPADES));
     }
 
-    /** Test that each hand played gives the correct score. */
+    /** Test that a hand played with no jokers gives the correct score. */
     @Test
     void testScore() throws JavatroException {
-
         result = HandResult.evaluateHand(playedCardList);
         Score scoreObject = new Score();
         long finalScore = scoreObject.getScore(result, playedCardList, heldJokers);

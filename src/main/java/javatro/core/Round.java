@@ -2,12 +2,15 @@ package javatro.core;
 
 import static javatro.core.Deck.DeckType;
 import static javatro.core.Deck.DeckType.RED;
+import static javatro.core.JavatroCore.heldJokers;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javatro.core.jokers.HeldJokers;
 
 public class Round {
     /** The initial number of cards dealt to the player. */
@@ -19,6 +22,8 @@ public class Round {
 
     /** The player's current hand of cards. */
     public HoldingHand playerHand;
+    /** The player's current held jokers. */
+    public HeldJokers playerJokers;
     /** The player's current score in the round. */
     private long currentScore;
     /** The minimum score required to win the round. */
@@ -51,6 +56,7 @@ public class Round {
             int blindScore,
             int remainingPlays,
             Deck deck,
+            HeldJokers heldJokers,
             String roundName,
             String roundDescription)
             throws JavatroException {
@@ -60,7 +66,7 @@ public class Round {
         this.remainingPlays = remainingPlays;
         this.deck = deck;
         this.playerHand = new HoldingHand();
-
+        this.playerJokers = heldJokers;
         // Default descriptions and names
         this.roundName = roundName;
         this.roundDescription = roundDescription;
@@ -154,14 +160,9 @@ public class Round {
 
         List<Card> playedCards = playerHand.play(cardIndices);
         PokerHand result = HandResult.evaluateHand(playedCards);
-        Integer totalChips = result.getChips();
 
-        for (Card card : playedCards) {
-            totalChips += card.getChips();
-        }
-
-        // Update round state
-        currentScore += totalChips * result.getMultiplier();
+        Score handScore = new Score();
+        currentScore += handScore.getScore(result, playedCards, playerJokers);
 
         // Draw new cards to replace played ones
         playerHand.draw(cardIndices.size(), deck);

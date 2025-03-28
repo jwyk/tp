@@ -9,20 +9,23 @@ import static javatro.core.Card.Suit.CLUBS;
 import static javatro.core.Card.Suit.DIAMONDS;
 import static javatro.core.Card.Suit.HEARTS;
 import static javatro.core.Card.Suit.SPADES;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javatro.core.Card;
 import javatro.core.HandResult;
 import javatro.core.JavatroException;
 import javatro.core.PokerHand;
 import javatro.core.Score;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
+import javatro.core.jokers.addmult.CounterJoker;
+import javatro.core.jokers.addmult.GluttonousJoker;
+import javatro.core.jokers.addmult.HalfJoker;
+import javatro.core.jokers.addmult.WrathfulJoker;
 
 public class HeldJokersTest {
     private static List<Card> playedCardList;
@@ -34,10 +37,17 @@ public class HeldJokersTest {
     private static Card cardThree;
     private static Card cardFour;
     private static Card cardFive;
-
-    /** Initialize a test run. */
+    private static Joker gluttonousJoker;
+    /**
+     * Initialize a test run.
+     */
     @BeforeEach
     void init() throws JavatroException {
+        Joker gluttonousJoker = new GluttonousJoker();
+        Joker counterJoker = new CounterJoker(1);
+        Joker wrathfulJoker = new WrathfulJoker();
+        Joker halfJoker = new HalfJoker();
+
         heldJokers = new HeldJokers();
         playedCardList =
                 List.of(
@@ -66,17 +76,48 @@ public class HeldJokersTest {
     }
 
     /**
+     * Test that a normal HeldJokers cannot delete a Joker at illegal positions
+     */
+    @Test
+    void testIllegalDelete() {
+        Joker gluttonousJoker = new GluttonousJoker();
+        try {
+            heldJokers.add(gluttonousJoker);
+            heldJokers.remove(0);
+            heldJokers.remove(1);
+            fail();
+        } catch (JavatroException e) {
+            assertEquals(JavatroException.indexOutOfBounds(1).getMessage(), e.getMessage());
+        }
+    }
+
+
+    /**
+     * Test that a hand played triggers multiple joker effects correctly and has the right score.
+     */
+    void assertScoreEquals(HeldJokers currentJokers, int expectedScore) throws JavatroException {
+        result = HandResult.evaluateHand(playedCardList);
+        Score scoreObject = new Score();
+        long finalScore = scoreObject.getScore(result, playedCardList, currentJokers);
+        assertEquals(expectedScore, finalScore);
+    }
+
+    /**
      * Test that a hand played triggers multiple joker effects correctly and has the right score.
      */
     @Test
-    void testMultipleJokers() throws JavatroException {
+    void testMultipleJokersSuite() throws JavatroException {
         Joker gluttonousJoker = new GluttonousJoker();
         Joker counterJoker = new CounterJoker(1);
+        Joker wrathfulJoker = new WrathfulJoker();
+        Joker halfJoker = new HalfJoker();
+
         heldJokers.add(counterJoker);
         heldJokers.add(gluttonousJoker);
-        result = HandResult.evaluateHand(playedCardList);
-        Score scoreObject = new Score();
-        long finalScore = scoreObject.getScore(result, playedCardList, heldJokers);
-        assertEquals(1027, finalScore);
+        heldJokers.add(halfJoker);
+        heldJokers.add(wrathfulJoker);
+
+        assertScoreEquals(heldJokers, 1975);
     }
+
 }

@@ -42,7 +42,7 @@ public class JavatroCore {
         try {
             d = new Deck(deck);
             d.shuffle();
-            return new Round(300, 4, d, "Classic", "Classic Round");
+            return new Round(300, 4, d, heldJokers, "Classic", "Classic Round");
         } catch (JavatroException javatroException) {
             System.out.println(javatroException.getMessage());
         }
@@ -54,10 +54,9 @@ public class JavatroCore {
      *
      * @throws JavatroException If an error occurs while starting the game.
      */
-    //    public void beginGame(Deck.DeckType deckType) {
     public void beginGame() throws JavatroException {
         totalPlays = 4;
-        //        deck = new Deck(deckType);
+        heldJokers = new HeldJokers();
         JavatroManager.setScreen(javatro.display.UI.getBlindScreen());
         startNewRound(classicRound());
     }

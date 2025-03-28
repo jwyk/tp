@@ -24,8 +24,17 @@ public class HeldJokers {
         heldJokers.add(joker);
     }
 
+    /** Removes the Joker from the specified index. */
+    public void remove(int index) throws JavatroException {
+        if (index < 0 || index >= heldJokers.size()) {
+            throw JavatroException.indexOutOfBounds(index);
+        }
+        heldJokers.remove(index);
+    }
+
+
     /** Returns a soft copy of the ArrayList of HeldJokers. */
     public ArrayList<Joker> getJokers() {
-        return new ArrayList<Joker>(heldJokers);
+        return heldJokers;
     }
 }

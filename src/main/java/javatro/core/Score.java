@@ -1,19 +1,32 @@
 package javatro.core;
 
-import javatro.core.jokers.HeldJokers;
-import javatro.core.jokers.Joker;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/** Contains the algorithm for calculating the final score and played hand. */
+import javatro.core.jokers.HeldJokers;
+import javatro.core.jokers.Joker;
+
+/**
+ * Contains the algorithm for calculating the final score and played hand.
+ */
 public class Score {
     public static double totalChips = 0;
     public static double totalMultiplier = 0;
     public static List<Card> playedCardsList;
     public static ArrayList<Joker> jokerList;
 
-    /** Returns the score of the played hand by calculating the value of the hand. */
+    /**
+     * Returns the final score from total chips * total multiplier, after rounding.
+     * @param totalChips The chip total of the played hand
+     * @param totalMultiplier The multiplier total of the played hand
+     */
+    private static long calculateFinalScore(double totalChips, double totalMultiplier) {
+        return (long) Math.ceil(Math.round(totalChips) * Math.round(totalMultiplier));
+    }
+
+    /**
+     * Returns the score of the played hand by calculating the value of the hand.
+     */
     public long getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
             throws JavatroException {
 
@@ -49,12 +62,6 @@ public class Score {
         }
 
         // Round the score and return the correct score value.
-        return calculateFinalScore();
-    }
-
-    public static long calculateFinalScore() {
-        Math.round(totalChips);
-        Math.round(totalMultiplier);
-        return (long) Math.ceil(totalChips * totalMultiplier);
+        return calculateFinalScore(totalChips, totalMultiplier);
     }
 }
