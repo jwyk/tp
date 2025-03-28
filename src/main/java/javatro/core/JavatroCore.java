@@ -50,10 +50,10 @@ public class JavatroCore {
      *
      * @throws JavatroException If an error occurs while starting the game.
      */
-//    public void beginGame(Deck.DeckType deckType) {
+    //    public void beginGame(Deck.DeckType deckType) {
     public void beginGame() throws JavatroException {
         totalPlays = 4;
-//        deck = new Deck(deckType);
+        //        deck = new Deck(deckType);
         JavatroManager.setScreen(javatro.display.UI.getBlindScreen());
         startNewRound(classicRound());
     }

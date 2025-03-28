@@ -387,7 +387,7 @@ public class UI {
         return DECK_SELECT_SCREEN;
     }
 
-    //@@author swethaiscool
+    // @@author swethaiscool
     /**
      * Returns the singleton instance of the {@code BlindScreen}.
      *
@@ -396,7 +396,7 @@ public class UI {
     public static BlindScreen getBlindScreen() {
         return BLIND_SCREEN;
     }
-    //@@author swethaiscool
+    // @@author swethaiscool
 
     // endregion
 }

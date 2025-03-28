@@ -1,13 +1,12 @@
 package javatro.manager.options;
 
-import javatro.core.Deck;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
-//@author swethaiscool
-public class NextRoundOption implements Option  {
+// @author swethaiscool
+public class NextRoundOption implements Option {
     @Override
     public String getDescription() {
         return "Start Next Round";
