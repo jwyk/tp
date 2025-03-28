@@ -32,15 +32,9 @@ public abstract class Screen {
         }
         this.optionsTitle =
                 String.format(
-                        "%s%s %s %s %s %s %s %s%s",
+                        "%s::: %s :::%s",
                         UI.BOLD,
-                        UI.HEARTS,
-                        UI.SPADES,
-                        UI.CARD,
                         optionsTitle.trim(),
-                        UI.CARD,
-                        UI.DIAMONDS,
-                        UI.CLUBS,
                         UI.END);
     }
 
