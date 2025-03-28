@@ -1,6 +1,7 @@
 package javatro.display;
 
 import javatro.core.JavatroException;
+import javatro.display.screens.BlindScreen;
 import javatro.display.screens.DeckScreen;
 import javatro.display.screens.DiscardScreen;
 import javatro.display.screens.GameScreen;
@@ -86,6 +87,7 @@ public class UI {
     private static final SelectDeckScreen DECK_SELECT_SCREEN;
     private static final DeckScreen DECK_SCREEN;
     private static final PokerHandScreen POKER_SCREEN;
+    private static final BlindScreen BLIND_SCREEN;
 
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
@@ -104,6 +106,7 @@ public class UI {
             DECK_SCREEN = new DeckScreen();
             DECK_SELECT_SCREEN = new SelectDeckScreen();
             POKER_SCREEN = new PokerHandScreen();
+            BLIND_SCREEN = new BlindScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
             e.printStackTrace();
@@ -383,6 +386,17 @@ public class UI {
     public static SelectDeckScreen getDeckSelectScreen() {
         return DECK_SELECT_SCREEN;
     }
+
+    //@@author swethaiscool
+    /**
+     * Returns the singleton instance of the {@code BlindScreen}.
+     *
+     * @return the {@code BlindScreen} instance.
+     */
+    public static BlindScreen getBlindScreen() {
+        return BLIND_SCREEN;
+    }
+    //@@author swethaiscool
 
     // endregion
 }

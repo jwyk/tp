@@ -1,5 +1,6 @@
 package javatro.manager.options;
 
+import javatro.core.Deck;
 import javatro.core.Deck.DeckType;
 import javatro.core.JavatroException;
 import javatro.display.UI;
@@ -24,6 +25,7 @@ public class AbandonedDeckSelectOption implements Option {
     @Override
     public void execute() throws JavatroException {
         DeckType deckType = DeckType.ABANDONED;
+        JavatroManager.jc.deck = new Deck(deckType);
         JavatroManager.beginGame(deckType);
         javatro.display.UI.getGameScreen().restoreGameCommands();
         // Update the main screen to show the game screen

@@ -260,7 +260,7 @@ public class Round {
      */
     public boolean isWon() {
         assert isRoundOver() || remainingPlays > 0 : "Round state is inconsistent";
-        return currentScore >= blindScore & isRoundOver();
+        return currentScore >= blindScore;
     }
 
     public String getRoundName() {
