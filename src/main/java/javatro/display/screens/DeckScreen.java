@@ -1,6 +1,8 @@
 package javatro.display.screens;
 
 import static javatro.display.UI.BLACK_B;
+import static javatro.display.UI.BLUE;
+import static javatro.display.UI.BLUE_B;
 import static javatro.display.UI.BOLD;
 import static javatro.display.UI.BOTTOM_LEFT;
 import static javatro.display.UI.BOTTOM_RIGHT;
@@ -8,6 +10,10 @@ import static javatro.display.UI.CROSS;
 import static javatro.display.UI.END;
 import static javatro.display.UI.HAIR_SPACE;
 import static javatro.display.UI.HORIZONTAL;
+import static javatro.display.UI.ORANGE;
+import static javatro.display.UI.ORANGE_B;
+import static javatro.display.UI.PURPLE;
+import static javatro.display.UI.PURPLE_B;
 import static javatro.display.UI.RED;
 import static javatro.display.UI.RED_B;
 import static javatro.display.UI.THIN_SPACE;

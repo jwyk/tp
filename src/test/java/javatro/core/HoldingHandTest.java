@@ -156,7 +156,7 @@ public class HoldingHandTest {
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
-                    UI.WARNING + UI.RED + "Invalid index in cards to be played: -1" + UI.END,
+                    UI.RED + "Invalid index in cards to be played: -1" + UI.END,
                     e.getMessage());
         }
 
@@ -167,7 +167,7 @@ public class HoldingHandTest {
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
-                    UI.WARNING + UI.RED + "Invalid index in cards to be played: 500" + UI.END,
+                    UI.RED + "Invalid index in cards to be played: 500" + UI.END,
                     e.getMessage());
         }
 
@@ -180,8 +180,7 @@ public class HoldingHandTest {
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
-                    UI.WARNING
-                            + UI.RED
+                    UI.RED
                             + "Number of cards played (8) "
                             + "exceeds maximum allowed. (5)"
                             + UI.END,
@@ -206,7 +205,7 @@ public class HoldingHandTest {
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
-                    UI.WARNING + UI.RED + "Invalid index in cards to be discarded: -1" + UI.END,
+                    UI.RED + "Invalid index in cards to be discarded: -1" + UI.END,
                     e.getMessage());
         }
 
@@ -217,7 +216,7 @@ public class HoldingHandTest {
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
-                    UI.WARNING + UI.RED + "Invalid index in cards to be discarded: 500" + UI.END,
+                    UI.RED + "Invalid index in cards to be discarded: 500" + UI.END,
                     e.getMessage());
         }
 
@@ -230,8 +229,7 @@ public class HoldingHandTest {
             fail("Should have thrown an exception for illegal card index");
         } catch (JavatroException e) {
             assertEquals(
-                    UI.WARNING
-                            + UI.RED
+                    UI.RED
                             + "Number of cards discarded (8) exceeds maximum allowed. (5)"
                             + UI.END,
                     e.getMessage());
