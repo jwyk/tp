@@ -1,6 +1,6 @@
 package javatro.display;
 
-import static javatro.display.UI.getCurrentScreen;
+import static javatro.display.UI.*;
 
 import javatro.core.JavatroException;
 
@@ -27,10 +27,10 @@ import java.util.stream.Collectors;
 public class Parser {
 
     private static final String MENU_PROMPT =
-            UI.BLUE + UI.BOLD + UI.WRITE + "Enter Option Index (1-%d)\n" + UI.ARROW + UI.END;
+            BLUE + BOLD + WRITE + "Enter Option Index (1-%d)\n" + ARROW + END;
 
     private static final String CARD_PROMPT =
-            UI.BLUE
+            BLUE
                     + UI.BOLD
                     + UI.WRITE
                     + "Enter Card Indices between 1-%d. Up to %d cards only. (e.g. 1,2,3,4,5)\n"

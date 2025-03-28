@@ -2,8 +2,6 @@ package javatro.display.screens;
 
 import javatro.core.Card;
 import javatro.core.JavatroException;
-import javatro.display.UI;
-import javatro.manager.JavatroManager;
 import javatro.manager.options.*;
 
 import java.beans.PropertyChangeEvent;
@@ -20,17 +18,6 @@ import java.util.stream.Collectors;
  * update the game state dynamically.
  */
 public class GameScreen extends Screen implements PropertyChangeListener {
-
-    /** display-related constants for display formatting. */
-    public static final String END = "\033[0m";
-
-    public static final String RED = "\033[31m";
-    public static final String GREEN = "\033[32m";
-    public static final String YELLOW = "\033[33m";
-    public static final String BLUE = "\033[34m";
-    public static final String PURPLE = "\033[35m";
-    public static final String CYAN = "\033[36m";
-    public static final String WHITE = "\033[37m";
 
     /** Indicator for whether the round is over. 1 for won, -1 for lost, 0 for ongoing. */
     public static int roundOver = 0;
@@ -68,6 +55,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         commandMap.clear();
         commandMap.add(new PlayCardOption());
         commandMap.add(new DiscardCardOption());
+        commandMap.add(new DeckOption());
         commandMap.add(new MainMenuOption());
         commandMap.add(new ExitGameOption());
     }
@@ -140,7 +128,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
      */
     private void displayRoundName(String header) {
         System.out.println(header);
-        String winStatus = roundOver == 1 ? "YOU WON! \uD83C\uDF89 � \uD83D\uDE0E" : roundOver == -1 ? "YOU LOST!  \uD83D\uDE22 \uD83D\uDC80 \uD83D\uDE2D" : "";
+        String winStatus = roundOver == 1 ? "YOU WON!" : roundOver == -1 ? "YOU LOST!" : "";
         if (roundOver == 1 || roundOver == -1) {
             System.out.println("|" + getDisplayStringCenter(winStatus, screenWidth) + "|");
         } else {
@@ -250,31 +238,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     @Override
     public void displayScreen() {
 
-        if(roundOver != 0){
-            String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Round Ended" + " 🃏 ♦️ ♣️" + UI.END;
-
-            String message;
-            if(roundOver == 1){
-                message = "YOU WON!!!!";
-            }
-            else{
-                message = "YOU LOST!!!!";
-            }
-
-            String[] lines = {
-                    "",
-                    "",
-                    message,
-                    "",
-                    "",
-            };
-
-            UI.printBorderedContent(title, List.of(lines));
-            return;
-        }
-
-
-
         String header = getHeaderString(screenWidth);
 
         // Prints the round name
@@ -307,7 +270,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         printCardRow("Cash: $ - ", "");
 
         // display ante info
-        printCardRow("Ante: "+JavatroManager.ante.getAnteCount() +" / 8", secondRowHeader);
+        printCardRow("Ante: X / X", secondRowHeader);
 
         // Generate the values for the second row (if applicable)
         if (secondRowCount > 0) {
@@ -317,7 +280,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         }
 
         // display current round info
-        printCardRow("Current Round: " + JavatroManager.roundCount, secondRowHeader);
+        printCardRow("Current Round: X", secondRowHeader);
 
         // Print end header
         System.out.println(header);
@@ -360,12 +323,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 "roundComplete",
                 value -> {
                     roundOver = (Integer) value;
-                    if (roundOver == 1) {
-                        commandMap.clear();
-                        commandMap.add(new NextRoundOption());
-                        commandMap.add(new ExitGameOption());
-                    }
-                    else if (roundOver == -1) {
+                    if (roundOver != 0) {
                         commandMap.clear();
                         commandMap.add(new MainMenuOption());
                         commandMap.add(new ExitGameOption());
