@@ -74,9 +74,9 @@ public class DeckScreen extends Screen {
         // Y-axis (rows): Spades, Hearts, Clubs, Diamonds.
         String[] suitOrder = {"Spades", "Hearts", "Clubs", "Diamonds"};
         // Suit Colours
-        String[] suitColour = { PURPLE, RED, BLUE, ORANGE };
+        String[] suitColour = {PURPLE, RED, BLUE, ORANGE};
         // Suit Colour Backgrounds
-        String[] suitColourB = { PURPLE_B, RED_B, BLUE_B, ORANGE_B };
+        String[] suitColourB = {PURPLE_B, RED_B, BLUE_B, ORANGE_B};
 
         // Step 3: Build the 4-box table manually.
         StringBuilder sb = new StringBuilder();
@@ -129,12 +129,12 @@ public class DeckScreen extends Screen {
         // --- Bottom Content Rows ---
         // We need to print 5 rows: 4 suit rows and 1 totals row (merged into the same box).
         // For each suit row:
-//        String[] suitSpace = {
-//            HAIR_SPACE.repeat(9) + THIN_SPACE,
-//            HAIR_SPACE.repeat(10),
-//            HAIR_SPACE.repeat(10),
-//            HAIR_SPACE.repeat(8)
-//        };
+        //        String[] suitSpace = {
+        //            HAIR_SPACE.repeat(9) + THIN_SPACE,
+        //            HAIR_SPACE.repeat(10),
+        //            HAIR_SPACE.repeat(10),
+        //            HAIR_SPACE.repeat(8)
+        //        };
         for (int i = 0; i < suitOrder.length; i++) {
             // Left box: Suit label
             String suitLabel = String.format("%s%s%s", suitColour[i], suitOrder[i], END);

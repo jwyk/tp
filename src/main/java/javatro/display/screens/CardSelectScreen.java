@@ -102,7 +102,7 @@ public abstract class CardSelectScreen extends Screen {
             title.append(YELLOW).append(BOLD).append("<").append(i).append(">");
             // Only add spacing if not the last element
             if (i < cardCount) {
-//                title.append(HAIR_SPACE.repeat(18));
+                //                title.append(HAIR_SPACE.repeat(18));
                 title.append(" ".repeat(8));
             }
         }
@@ -166,7 +166,7 @@ public abstract class CardSelectScreen extends Screen {
 
         // Card Indices title
         String indicesTitle = getCardIndicesTitle(cardCount);
-        printBlackB(centerText(indicesTitle, 100)); //81
+        printBlackB(centerText(indicesTitle, 100)); // 81
         System.out.println();
 
         // Middle border
@@ -179,7 +179,7 @@ public abstract class CardSelectScreen extends Screen {
             String line = cardArtLines.get(i);
             // Apply a different border style for the 3rd line (index 2)
             if (i == 2) {
-                printBlackB(centerText(line, 100)); //110
+                printBlackB(centerText(line, 100)); // 110
             } else {
                 printBlackB(centerText(line, BORDER_WIDTH));
             }

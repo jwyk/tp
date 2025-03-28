@@ -30,12 +30,7 @@ public abstract class Screen {
         if (optionsTitle == null || optionsTitle.trim().isEmpty()) {
             throw JavatroException.invalidOptionsTitle();
         }
-        this.optionsTitle =
-                String.format(
-                        "%s::: %s :::%s",
-                        UI.BOLD,
-                        optionsTitle.trim(),
-                        UI.END);
+        this.optionsTitle = String.format("%s::: %s :::%s", UI.BOLD, optionsTitle.trim(), UI.END);
     }
 
     /**
