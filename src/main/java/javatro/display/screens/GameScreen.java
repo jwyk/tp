@@ -2,10 +2,7 @@ package javatro.display.screens;
 
 import javatro.core.Card;
 import javatro.core.JavatroException;
-import javatro.manager.options.DiscardCardOption;
-import javatro.manager.options.ExitGameOption;
-import javatro.manager.options.MainMenuOption;
-import javatro.manager.options.PlayCardOption;
+import javatro.manager.options.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -58,6 +55,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         commandMap.clear();
         commandMap.add(new PlayCardOption());
         commandMap.add(new DiscardCardOption());
+        commandMap.add(new DeckOption());
         commandMap.add(new MainMenuOption());
         commandMap.add(new ExitGameOption());
     }

@@ -26,6 +26,7 @@ public class UI {
     private static final HelpScreen HELP_SCREEN;
     private static final StartScreen START_SCREEN;
     private static final PokerHandScreen POKER_SCREEN;
+    private static final DeckScreen DECK_SCREEN;
 
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
@@ -41,6 +42,7 @@ public class UI {
             HELP_SCREEN = new HelpScreen();
             START_SCREEN = new StartScreen();
             POKER_SCREEN = new PokerHandScreen();
+            DECK_SCREEN = new DeckScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
             e.printStackTrace();
@@ -184,15 +186,27 @@ public class UI {
         // Format the centered text with borders
         return BLACK_B
                 + VERTICAL
-                + BLACK_B
                 + " ".repeat(paddingSize)
-                + BLACK_B
                 + text
                 + BLACK_B
                 + " ".repeat(paddingSize + extraPadding)
-                + BLACK_B
                 + VERTICAL
                 + END;
+    }
+
+    // Helper: pad or truncate a string to exactly 'width' characters.
+    public static String padToWidth(String text, int width) {
+        if (getDisplayLength(text) > width) {
+            return text.substring(0, width);
+        } else {
+            return String.format("%-" + width + "s", text);
+        }
+    }
+
+    // Helper method to pad a string to the right to a specified length.
+    public static String padRight(String text, int width) {
+        if (getDisplayLength(text) >= width) return text.substring(0, width);
+        return String.format("%-" + width + "s", text);
     }
 
     /**
@@ -356,6 +370,15 @@ public class UI {
      */
     public static PokerHandScreen getPokerHandScreen() {
         return POKER_SCREEN;
+    }
+
+    /**
+     * Gets the Deck screen.
+     *
+     * @return the {@link DeckScreen} instance
+     */
+    public static DeckScreen getDeckScreen() {
+        return DECK_SCREEN;
     }
     // endregion
 }
