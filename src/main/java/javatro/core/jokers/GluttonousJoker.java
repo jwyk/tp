@@ -3,11 +3,8 @@ package javatro.core.jokers;
 import javatro.core.Card;
 import javatro.core.Score;
 
-/**
- * Represents a GluttonousJoker Joker.
- */
-
-public class GluttonousJoker extends Joker{
+/** Represents a GluttonousJoker Joker. */
+public class GluttonousJoker extends Joker {
 
     public GluttonousJoker() {
         super();
@@ -15,7 +12,7 @@ public class GluttonousJoker extends Joker{
     }
 
     @Override
-    public void interact (Score scoreClass, Card playedCard) {
+    public void interact(Score scoreClass, Card playedCard) {
         if (playedCard.suit() == Card.Suit.DIAMONDS) {
             scoreClass.totalMultiplier += 3;
         }

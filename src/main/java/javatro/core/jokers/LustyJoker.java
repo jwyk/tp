@@ -3,7 +3,7 @@ package javatro.core.jokers;
 import javatro.core.Card;
 import javatro.core.Score;
 
-public class LustyJoker extends Joker{
+public class LustyJoker extends Joker {
 
     public LustyJoker() {
         super();
@@ -11,7 +11,7 @@ public class LustyJoker extends Joker{
     }
 
     @Override
-    public void interact (Score scoreClass, Card playedCard) {
+    public void interact(Score scoreClass, Card playedCard) {
         if (playedCard.suit() == Card.Suit.HEARTS) {
             scoreClass.totalMultiplier += 3;
         }

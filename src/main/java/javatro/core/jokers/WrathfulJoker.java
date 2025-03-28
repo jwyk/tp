@@ -11,7 +11,7 @@ public class WrathfulJoker extends Joker {
     }
 
     @Override
-    public void interact (Score scoreClass, Card playedCard) {
+    public void interact(Score scoreClass, Card playedCard) {
         if (playedCard.suit() == Card.Suit.SPADES) {
             scoreClass.totalMultiplier += 3;
         }
