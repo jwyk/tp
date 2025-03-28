@@ -1,16 +1,10 @@
 package javatro.core.jokers;
 
+import javatro.core.JavatroException;
+
 import java.util.ArrayList;
 
-import javatro.core.Card;
-import javatro.core.JavatroException;
-import javatro.core.Score;
-
-
-/**
- * Holds all the Jokers the player has in an ArrayList of type Joker.
- */
-
+/** Holds all the Jokers the player has in an ArrayList of type Joker. */
 public class HeldJokers {
     private static int HOLDING_LIMIT;
     public ArrayList<Joker> heldJokers;
@@ -18,7 +12,7 @@ public class HeldJokers {
     /** Constructor for the HeldJokers Class. */
     public HeldJokers() {
         heldJokers = new ArrayList<Joker>(5);
-        //By Default, HOLDING_LIMIT is 5.
+        // By Default, HOLDING_LIMIT is 5.
         HOLDING_LIMIT = 5;
     }
 
@@ -30,11 +24,8 @@ public class HeldJokers {
         heldJokers.add(joker);
     }
 
-    /**
-     * Returns a soft copy of the ArrayList of HeldJokers.
-     */
+    /** Returns a soft copy of the ArrayList of HeldJokers. */
     public ArrayList<Joker> getJokers() {
         return new ArrayList<Joker>(heldJokers);
     }
-
 }

@@ -13,15 +13,11 @@ public class DrunkardJoker extends PassiveJoker {
         JavatroCore.totalPlays += 1;
     }
 
+    @Override
+    public void interact(Score scoreClass, Card playedCard) {}
 
     @Override
-    public void interact (Score scoreClass, Card playedCard) {
-    }
-
-    @Override
-    public void delete(JavatroCore javatroCore) {
-
-    }
+    public void delete(JavatroCore javatroCore) {}
 
     @Override
     public String toString() {

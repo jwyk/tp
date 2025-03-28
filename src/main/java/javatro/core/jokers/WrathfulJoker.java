@@ -1,13 +1,9 @@
 package javatro.core.jokers;
 
 import javatro.core.Card;
-import javatro.core.JavatroCore;
 import javatro.core.Score;
 
-/**
- * Represents a WrathfulJoker Joker.
- */
-
+/** Represents a WrathfulJoker Joker. */
 public class WrathfulJoker extends Joker {
 
     public WrathfulJoker() {
@@ -22,5 +18,4 @@ public class WrathfulJoker extends Joker {
             scoreClass.totalMultiplier += 3;
         }
     }
-
 }

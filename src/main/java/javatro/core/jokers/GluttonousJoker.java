@@ -1,7 +1,6 @@
 package javatro.core.jokers;
 
 import javatro.core.Card;
-import javatro.core.JavatroCore;
 import javatro.core.Score;
 
 /** Represents a GluttonousJoker Joker. */
@@ -24,5 +23,4 @@ public class GluttonousJoker extends Joker {
     public String toString() {
         return "+3 Mult Spades";
     }
-
 }

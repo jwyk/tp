@@ -9,32 +9,28 @@ import static javatro.core.Card.Suit.CLUBS;
 import static javatro.core.Card.Suit.DIAMONDS;
 import static javatro.core.Card.Suit.HEARTS;
 import static javatro.core.Card.Suit.SPADES;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import javatro.core.jokers.HeldJokers;
-import javatro.core.Score;
-import javatro.display.UI;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-//public class RoundTest {
+// public class RoundTest {
 //    private static final String INVALIDPLAYEDHANDERROR =
 //            UI.WARNING + UI.RED + "A poker hand must contain between 1 and 5 cards." + UI.END;
 //    private static final String INVALIDPLAYSPERROUND =
 //            UI.WARNING + UI.RED + "Number of plays per round must be greater than 0." + UI.END;
 //    private static final String INVALIDBLINDSCORE =
 //            UI.WARNING + UI.RED + "Blind score must be greater than or equal to 0." + UI.END;
-//    private static final String INVALIDDECK = UI.WARNING + UI.RED + "Deck cannot be null." + UI.END;
+//    private static final String INVALIDDECK = UI.WARNING + UI.RED + "Deck cannot be null." +
+// UI.END;
 //    private static final String INVALIDPLAYSREMAINING =
 //            UI.WARNING + UI.RED + "No plays remaining." + UI.END;
-//}
+// }
 
 public class ScoreTest {
     private static List<Card> playedCardList;
@@ -49,7 +45,7 @@ public class ScoreTest {
 
     /** Initialize a test run. */
     @BeforeEach
-    void init() throws JavatroException{
+    void init() throws JavatroException {
         heldJokers = new HeldJokers();
         playedCardList =
                 List.of(
@@ -58,7 +54,7 @@ public class ScoreTest {
                         new Card(JACK, CLUBS),
                         new Card(QUEEN, SPADES),
                         new Card(KING, SPADES));
-//        result = HandResult.evaluateHand(playedCardList);
+        //        result = HandResult.evaluateHand(playedCardList);
     }
 
     /** Test that each hand played gives the correct score. */
@@ -67,8 +63,7 @@ public class ScoreTest {
 
         result = HandResult.evaluateHand(playedCardList);
         Score scoreObject = new Score();
-        long finalScore = scoreObject.getScore(result,playedCardList, heldJokers);
+        long finalScore = scoreObject.getScore(result, playedCardList, heldJokers);
         assertEquals(316, finalScore);
     }
-
 }

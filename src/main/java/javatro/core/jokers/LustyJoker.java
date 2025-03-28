@@ -1,14 +1,10 @@
 package javatro.core.jokers;
 
 import javatro.core.Card;
-import javatro.core.JavatroCore;
 import javatro.core.Score;
 
-/**
- * Represents a LustyJoker Joker.
- */
-
-public class LustyJoker extends Joker{
+/** Represents a LustyJoker Joker. */
+public class LustyJoker extends Joker {
 
     public LustyJoker() {
         super();

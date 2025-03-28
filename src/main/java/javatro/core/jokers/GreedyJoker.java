@@ -1,7 +1,6 @@
 package javatro.core.jokers;
 
 import javatro.core.Card;
-import javatro.core.JavatroCore;
 import javatro.core.Score;
 
 /** Represents a GreedyJoker Joker. */
@@ -19,5 +18,4 @@ public class GreedyJoker extends Joker {
             scoreClass.totalMultiplier += 3;
         }
     }
-
 }

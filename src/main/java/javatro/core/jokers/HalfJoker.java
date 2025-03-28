@@ -1,12 +1,9 @@
 package javatro.core.jokers;
 
 import javatro.core.Card;
-import javatro.core.JavatroCore;
 import javatro.core.Score;
 
-/**
- * Represents a HalfJoker Joker.
- */
+/** Represents a HalfJoker Joker. */
 public class HalfJoker extends Joker {
     public HalfJoker() {
         super();
@@ -15,10 +12,9 @@ public class HalfJoker extends Joker {
     }
 
     @Override
-    public void interact (Score scoreClass, Card playedCard) {
+    public void interact(Score scoreClass, Card playedCard) {
         if (scoreClass.playedCardsList.size() <= 3) {
             scoreClass.totalMultiplier += 20;
         }
     }
-
 }

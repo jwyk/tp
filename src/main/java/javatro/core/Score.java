@@ -13,13 +13,12 @@ public class Score {
     public static List<Card> playedCardsList;
     public static ArrayList<Joker> jokerList;
 
-    /**
-     * Returns the score of the played hand by calculating the value of the hand.
-     */
-    public long getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers) throws JavatroException {
+    /** Returns the score of the played hand by calculating the value of the hand. */
+    public long getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
+            throws JavatroException {
 
-        //Highlight any boss blind effects that apply here
-        //Cannot play suits, cannot play Face Cards, Must play 5 cards
+        // Highlight any boss blind effects that apply here
+        // Cannot play suits, cannot play Face Cards, Must play 5 cards
         jokerList = heldJokers.getJokers();
         playedCardsList = playedCardList;
 
@@ -30,7 +29,8 @@ public class Score {
         // Score the cards and apply any Jokers that have effects on play here.
         for (Card currentCard : playedCardList) {
             totalChips += currentCard.getChips();
-            //From here, check each joker in heldJokers can apply effects on card play, in the order they are placed.
+            // From here, check each joker in heldJokers can apply effects on card play, in the
+            // order they are placed.
             for (int i = 0; i < jokerList.size(); i++) {
                 Joker currentJoker = jokerList.get(i);
                 if (currentJoker.scoreType == Joker.ScoreType.ONCARDPLAY) {
@@ -39,7 +39,8 @@ public class Score {
             }
         }
 
-        //From here, check each joker in heldJokers applies post round effects, in the order they are placed.
+        // From here, check each joker in heldJokers applies post round effects, in the order they
+        // are placed.
         for (int i = 0; i < jokerList.size(); i++) {
             Joker currentJoker = jokerList.get(i);
             if (currentJoker.scoreType == Joker.ScoreType.AFTERPLAYHAND) {
@@ -56,5 +57,4 @@ public class Score {
         Math.round(totalMultiplier);
         return (long) Math.ceil(totalChips * totalMultiplier);
     }
-
 }
