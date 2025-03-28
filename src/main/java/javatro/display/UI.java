@@ -1,6 +1,7 @@
 package javatro.display;
 
 import javatro.core.JavatroException;
+import javatro.display.screens.*;
 import javatro.display.screens.DeckSelectScreen;
 import javatro.display.screens.DiscardScreen;
 import javatro.display.screens.GameScreen;
@@ -37,6 +38,8 @@ public class UI {
     public static final String BOLD = "\033[1m";
     public static final String ITALICS = "\033[3m";
     public static final String UNDERLINE = "\033[4m";
+
+    public static final String WHITE = "\033[97m";
     public static final String RED = "\033[91m";
     public static final String GREEN = "\033[92m";
     public static final String YELLOW = "\033[93m";
@@ -47,6 +50,9 @@ public class UI {
     public static final String BLACK = "\033[30m";
     public static final String WHITE_B = "\033[107m";
     public static final String BLACK_B = "\033[40m";
+    public static final String BLUE_B = "\033[44m";
+    public static final String RED_B = "\033[41m";
+
     /** Custom border characters */
     public static final char TOP_LEFT = '╔';
 
@@ -77,10 +83,14 @@ public class UI {
     private static final HelpScreen HELP_SCREEN;
     private static final StartScreen START_SCREEN;
     private static final DeckSelectScreen DECK_SELECT_SCREEN;
+    private static final DeckSelectScreen DECK_SCREEN;
+
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
     /** The current screen being displayed to the user. */
     private static Screen currentScreen;
+    /** The screen displayed before current screen. */
+    private static Screen previousScreen;
 
     static {
         try {
@@ -99,6 +109,7 @@ public class UI {
 
     // endregion
 
+    // region PRINTING FUNCTIONS
     public static void printBlackB(String input) {
         System.out.print(UI.BLACK_B + input + UI.END);
     }
@@ -176,15 +187,27 @@ public class UI {
         // Format the centered text with borders
         return BLACK_B
                 + VERTICAL
-                + BLACK_B
                 + " ".repeat(paddingSize)
-                + BLACK_B
                 + text
                 + BLACK_B
                 + " ".repeat(paddingSize + extraPadding)
-                + BLACK_B
                 + VERTICAL
                 + END;
+    }
+
+    // Helper: pad or truncate a string to exactly 'width' characters.
+    public static String padToWidth(String text, int width) {
+        if (getDisplayLength(text) > width) {
+            return text.substring(0, width);
+        } else {
+            return String.format("%-" + width + "s", text);
+        }
+    }
+
+    // Helper method to pad a string to the right to a specified length.
+    public static String padRight(String text, int width) {
+        if (getDisplayLength(text) >= width) return text.substring(0, width);
+        return String.format("%-" + width + "s", text);
     }
 
     /**
@@ -223,6 +246,8 @@ public class UI {
         return (int) Math.round(length);
     }
 
+    // endregion
+
     /**
      * Gets the current screen being displayed.
      *
@@ -242,6 +267,12 @@ public class UI {
         if (screen == null) {
             throw JavatroException.invalidScreen();
         }
+
+        // Store the current screen as previous before changing
+        if (currentScreen != null) {
+            previousScreen = currentScreen;
+        }
+
         System.out.printf(
                 "%s%sTransitioning to: %s%s\n",
                 ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
@@ -311,6 +342,24 @@ public class UI {
      */
     public static HelpScreen getHelpScreen() {
         return HELP_SCREEN;
+    }
+
+    /**
+     * Gets the poker hand screen.
+     *
+     * @return the {@link PokerHandScreen} instance
+     */
+    public static PokerHandScreen getPokerHandScreen() {
+        return POKER_SCREEN;
+    }
+
+    /**
+     * Gets the Deck screen.
+     *
+     * @return the {@link DeckScreen} instance
+     */
+    public static DeckScreen getDeckScreen() {
+        return DECK_SCREEN;
     }
 
     /**

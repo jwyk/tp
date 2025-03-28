@@ -22,7 +22,7 @@ public class Round {
     /** The player's current score in the round. */
     private int currentScore;
     /** The minimum score required to win the round. */
-    private int blindScore;
+    private final int blindScore;
     /** The number of remaining discards allowed. */
     private int remainingDiscards;
     /** The number of remaining plays in the round. */
