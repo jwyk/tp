@@ -1,21 +1,19 @@
 package javatro.display.screens;
 
+import static javatro.display.UI.*;
+
 import javatro.core.*;
 import javatro.manager.options.ReturnOption;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import static javatro.display.UI.*;
 
 /**
- * DeckScreen prints the current deck as a two-dimensional table with totals.
- * - The rows represent card suits (Spades, Hearts, Clubs, Diamonds) with an extra column at the end
- *   showing the total number of cards in that suit.
- * - The columns represent card ranks in descending order: A, K, Q, J, 10, 9, …, 2,
- *   with an extra row at the bottom showing the total count for each rank.
- * The bottom right cell displays the grand total.
+ * DeckScreen prints the current deck as a two-dimensional table with totals. - The rows represent
+ * card suits (Spades, Hearts, Clubs, Diamonds) with an extra column at the end showing the total
+ * number of cards in that suit. - The columns represent card ranks in descending order: A, K, Q, J,
+ * 10, 9, …, 2, with an extra row at the bottom showing the total count for each rank. The bottom
+ * right cell displays the grand total.
  */
 public class DeckScreen extends Screen {
 
@@ -59,8 +57,8 @@ public class DeckScreen extends Screen {
         }
 
         // Step 2: Compute totals.
-        int[] suitTotals = new int[4];   // Total cards per suit.
-        int[] rankTotals = new int[13];  // Total cards per rank.
+        int[] suitTotals = new int[4]; // Total cards per suit.
+        int[] rankTotals = new int[13]; // Total cards per rank.
         int grandTotal = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 13; j++) {
@@ -80,9 +78,9 @@ public class DeckScreen extends Screen {
         // Step 3: Build the 4-box table manually.
         StringBuilder sb = new StringBuilder();
 
-
         // --- Top Border (spanning both boxes) ---
-        // Format: TOP_LEFT + left box top border (LEFT_WIDTH chars) + T_DOWN + right box top border (RIGHT_WIDTH chars) + TOP_RIGHT
+        // Format: TOP_LEFT + left box top border (LEFT_WIDTH chars) + T_DOWN + right box top border
+        // (RIGHT_WIDTH chars) + TOP_RIGHT
         sb.append(BLACK_B)
                 .append(TOP_LEFT)
                 .append(String.valueOf(HORIZONTAL).repeat(LEFT_WIDTH))
@@ -91,7 +89,6 @@ public class DeckScreen extends Screen {
                 .append(TOP_RIGHT)
                 .append(END)
                 .append("\n");
-
 
         // --------- Top Row Content: Left Box (Deck Name) and Right Box (Rank Header) ---------
         // Left box: deck name centered in LEFT_WIDTH.
@@ -105,16 +102,18 @@ public class DeckScreen extends Screen {
         }
         rankHeader.append(String.format("%15s", "Total" + "     "));
         // Now, print the row with vertical borders.
-        sb.append(BOLD).append(deckName)
-                .append(BOLD).append(BLACK_B)
+        sb.append(BOLD)
+                .append(deckName)
+                .append(BOLD)
+                .append(BLACK_B)
                 .append(rankHeader)
                 .append(VERTICAL)
                 .append(END)
                 .append("\n");
 
-
         // --- Separator between top and bottom boxes ---
-        // Format: T_RIGHT + left box separator (LEFT_WIDTH chars) + CROSS + right box separator (RIGHT_WIDTH chars) + T_LEFT
+        // Format: T_RIGHT + left box separator (LEFT_WIDTH chars) + CROSS + right box separator
+        // (RIGHT_WIDTH chars) + T_LEFT
         sb.append(BLACK_B)
                 .append(T_RIGHT)
                 .append(String.valueOf(HORIZONTAL).repeat(LEFT_WIDTH))
@@ -124,21 +123,24 @@ public class DeckScreen extends Screen {
                 .append(END)
                 .append("\n");
 
-
         // --- Bottom Content Rows ---
         // We need to print 5 rows: 4 suit rows and 1 totals row (merged into the same box).
         // For each suit row:
         String[] suitSpace = {
-                HAIR_SPACE.repeat(9) + THIN_SPACE,
-                HAIR_SPACE.repeat(10),
-                HAIR_SPACE.repeat(10),
-                HAIR_SPACE.repeat(8)
+            HAIR_SPACE.repeat(9) + THIN_SPACE,
+            HAIR_SPACE.repeat(10),
+            HAIR_SPACE.repeat(10),
+            HAIR_SPACE.repeat(8)
         };
         for (int i = 0; i < suitOrder.length; i++) {
             // Left box: Suit label
             String redC = (i == 1 || i == 3) ? RED : WHITE;
-            String leftContent = String.format("   %s%-10s%s%s",redC, suitIcons[i]+ " " + suitOrder[i], suitSpace[i], END);
-            // Right box: For this suit, print 13 numbers (each in 5 chars) then pad the totals column with spaces (15 chars).
+            String leftContent =
+                    String.format(
+                            "   %s%-10s%s%s",
+                            redC, suitIcons[i] + " " + suitOrder[i], suitSpace[i], END);
+            // Right box: For this suit, print 13 numbers (each in 5 chars) then pad the totals
+            // column with spaces (15 chars).
             StringBuilder rightContent = new StringBuilder();
             for (int j = 0; j < rankOrder.length; j++) {
                 rightContent.append(String.format("%5d", counts[i][j]));
@@ -147,11 +149,14 @@ public class DeckScreen extends Screen {
             String redB = (i == 1 || i == 3) ? RED_B + WHITE : BLACK_B;
             String rightRow = redB + padToWidth(rightContent.toString(), RIGHT_WIDTH);
             // Print the row with vertical borders.
-            sb.append(BLACK_B).append(BOLD)
+            sb.append(BLACK_B)
+                    .append(BOLD)
                     .append(VERTICAL)
-                    .append(leftContent).append(BLACK_B)
+                    .append(leftContent)
+                    .append(BLACK_B)
                     .append(VERTICAL)
-                    .append(rightRow).append(BLACK_B)
+                    .append(rightRow)
+                    .append(BLACK_B)
                     .append(VERTICAL)
                     .append(END)
                     .append("\n");
@@ -164,16 +169,17 @@ public class DeckScreen extends Screen {
         }
         rightTotals.append(String.format("%9d", grandTotal));
         String rightTotalsRow = padToWidth(rightTotals.toString(), RIGHT_WIDTH);
-        sb.append(BOLD).append(leftTotals)
+        sb.append(BOLD)
+                .append(leftTotals)
                 .append(BLACK_B)
                 .append(rightTotalsRow)
                 .append(VERTICAL)
                 .append(END)
                 .append("\n");
 
-
         // --- Bottom Border ---
-        // Format: BOTTOM_LEFT + left box bottom border (LEFT_WIDTH chars) + T_UP + right box bottom border (RIGHT_WIDTH chars) + BOTTOM_RIGHT
+        // Format: BOTTOM_LEFT + left box bottom border (LEFT_WIDTH chars) + T_UP + right box bottom
+        // border (RIGHT_WIDTH chars) + BOTTOM_RIGHT
         sb.append(BLACK_B)
                 .append(BOTTOM_LEFT)
                 .append(String.valueOf(HORIZONTAL).repeat(LEFT_WIDTH))
@@ -187,8 +193,7 @@ public class DeckScreen extends Screen {
     }
 
     /**
-     * Maps a card suit to a row index.
-     * Order: Spades -> 0, Hearts -> 1, Clubs -> 2, Diamonds -> 3.
+     * Maps a card suit to a row index. Order: Spades -> 0, Hearts -> 1, Clubs -> 2, Diamonds -> 3.
      */
     private int getSuitIndex(Card.Suit suit) {
         return switch (suit) {
@@ -200,9 +205,7 @@ public class DeckScreen extends Screen {
         };
     }
 
-    /**
-     * Maps a card rank to a column index based on the desired order: A, K, Q, J, 10, 9, …, 2.
-     */
+    /** Maps a card rank to a column index based on the desired order: A, K, Q, J, 10, 9, …, 2. */
     private int getRankIndex(Card.Rank rank) {
         String symbol = rank.getSymbol();
         return switch (symbol) {

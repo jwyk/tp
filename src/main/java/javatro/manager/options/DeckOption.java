@@ -16,4 +16,3 @@ public class DeckOption implements Option {
         JavatroManager.setScreen(UI.getDeckScreen());
     }
 }
-
