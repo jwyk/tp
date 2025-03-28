@@ -154,9 +154,11 @@ public class DeckScreen extends Screen {
                     .append(VERTICAL)
                     .append(leftContent)
                     .append(BLACK_B)
-                    .append(VERTICAL).append(WHITE)
+                    .append(VERTICAL)
+                    .append(WHITE)
                     .append(rightRow)
-                    .append(END).append(BLACK_B)
+                    .append(END)
+                    .append(BLACK_B)
                     .append(VERTICAL)
                     .append(END)
                     .append("\n");

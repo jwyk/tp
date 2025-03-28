@@ -53,7 +53,7 @@ public class PokerHandScreen extends Screen {
                                     PokerHand.HandType type = hand.handType();
                                     return String.format(
                                             "%s%4d       %s%-15s       %s%5d%s × %s%-5d%s      "
-                                                + " %s%-5d%s",
+                                                    + " %s%-5d%s",
                                             GREEN,
                                             PlanetCard.getLevel(type),
                                             WHITE,
