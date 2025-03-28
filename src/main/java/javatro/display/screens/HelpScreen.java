@@ -7,6 +7,7 @@ import javatro.manager.options.HelpIntroOption;
 import javatro.manager.options.HelpRulesOption;
 import javatro.manager.options.HelpTipsOption;
 import javatro.manager.options.MainMenuOption;
+import javatro.manager.options.PokerHandOption;
 
 /**
  * The {@code HelpScreen} class represents a screen displaying the help menu in the javatro
@@ -35,5 +36,6 @@ public class HelpScreen extends Screen {
      * presented.
      */
     @Override
-    public void displayScreen() {}
+    public void displayScreen() {
+    }
 }

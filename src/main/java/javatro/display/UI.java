@@ -1,12 +1,13 @@
 package javatro.display;
 
 import javatro.core.JavatroException;
-import javatro.display.screens.*;
-import javatro.display.screens.DeckSelectScreen;
+import javatro.display.screens.DeckScreen;
+import javatro.display.screens.SelectDeckScreen;
 import javatro.display.screens.DiscardScreen;
 import javatro.display.screens.GameScreen;
 import javatro.display.screens.HelpScreen;
 import javatro.display.screens.PlayScreen;
+import javatro.display.screens.PokerHandScreen;
 import javatro.display.screens.Screen;
 import javatro.display.screens.StartScreen;
 
@@ -82,8 +83,9 @@ public class UI {
     private static final PlayScreen PLAY_SCREEN;
     private static final HelpScreen HELP_SCREEN;
     private static final StartScreen START_SCREEN;
-    private static final DeckSelectScreen DECK_SELECT_SCREEN;
-    private static final DeckSelectScreen DECK_SCREEN;
+    private static final SelectDeckScreen DECK_SELECT_SCREEN;
+    private static final DeckScreen DECK_SCREEN;
+    private static final PokerHandScreen POKER_SCREEN;
 
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
@@ -99,7 +101,9 @@ public class UI {
             PLAY_SCREEN = new PlayScreen();
             HELP_SCREEN = new HelpScreen();
             START_SCREEN = new StartScreen();
-            DECK_SELECT_SCREEN = new DeckSelectScreen();
+            DECK_SCREEN = new DeckScreen();
+            DECK_SELECT_SCREEN = new SelectDeckScreen();
+            POKER_SCREEN = new PokerHandScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
             e.printStackTrace();
@@ -258,6 +262,15 @@ public class UI {
     }
 
     /**
+     * Gets the previous screen that was displayed before the current one.
+     *
+     * @return the previous {@link Screen}, or null if there wasn't one
+     */
+    public static Screen getPreviousScreen() {
+        return previousScreen;
+    }
+
+    /**
      * Sets the current screen and displays it.
      *
      * @param screen the screen to be displayed
@@ -367,7 +380,7 @@ public class UI {
      *
      * @return the {@link HelpScreen} instance
      */
-    public static DeckSelectScreen getDeckSelectScreen() {
+    public static SelectDeckScreen getDeckSelectScreen() {
         return DECK_SELECT_SCREEN;
     }
 

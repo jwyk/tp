@@ -1,12 +1,33 @@
 package javatro.display.screens;
 
-import static javatro.display.UI.*;
-
-import javatro.core.*;
-import javatro.manager.options.ReturnOption;
+import static javatro.display.UI.BLACK_B;
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.BOTTOM_LEFT;
+import static javatro.display.UI.BOTTOM_RIGHT;
+import static javatro.display.UI.CROSS;
+import static javatro.display.UI.END;
+import static javatro.display.UI.HAIR_SPACE;
+import static javatro.display.UI.HORIZONTAL;
+import static javatro.display.UI.RED;
+import static javatro.display.UI.RED_B;
+import static javatro.display.UI.THIN_SPACE;
+import static javatro.display.UI.TOP_LEFT;
+import static javatro.display.UI.TOP_RIGHT;
+import static javatro.display.UI.T_DOWN;
+import static javatro.display.UI.T_LEFT;
+import static javatro.display.UI.T_RIGHT;
+import static javatro.display.UI.T_UP;
+import static javatro.display.UI.VERTICAL;
+import static javatro.display.UI.WHITE;
+import static javatro.display.UI.centerText;
+import static javatro.display.UI.padToWidth;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javatro.core.Card;
+import javatro.core.JavatroException;
+import javatro.manager.options.ReturnOption;
 
 /**
  * DeckScreen prints the current deck as a two-dimensional table with totals. - The rows represent
@@ -17,11 +38,10 @@ import java.util.Collections;
  */
 public class DeckScreen extends Screen {
 
-    private static ArrayList<Card> deck;
-
     // Overall dimensions: total width = LEFT_WIDTH + RIGHT_WIDTH + 3 (for the vertical borders)
     private static final int LEFT_WIDTH = 17; // For deck name or suit names (including suit totals)
     private static final int RIGHT_WIDTH = 80; // For rank headers and the numbers matrix
+    private static ArrayList<Card> deck;
     // Total width = 17 + 80 + 3 = 100
 
     /**
@@ -127,10 +147,10 @@ public class DeckScreen extends Screen {
         // We need to print 5 rows: 4 suit rows and 1 totals row (merged into the same box).
         // For each suit row:
         String[] suitSpace = {
-            HAIR_SPACE.repeat(9) + THIN_SPACE,
-            HAIR_SPACE.repeat(10),
-            HAIR_SPACE.repeat(10),
-            HAIR_SPACE.repeat(8)
+                HAIR_SPACE.repeat(9) + THIN_SPACE,
+                HAIR_SPACE.repeat(10),
+                HAIR_SPACE.repeat(10),
+                HAIR_SPACE.repeat(8)
         };
         for (int i = 0; i < suitOrder.length; i++) {
             // Left box: Suit label
@@ -207,7 +227,9 @@ public class DeckScreen extends Screen {
         };
     }
 
-    /** Maps a card rank to a column index based on the desired order: A, K, Q, J, 10, 9, …, 2. */
+    /**
+     * Maps a card rank to a column index based on the desired order: A, K, Q, J, 10, 9, …, 2.
+     */
     private int getRankIndex(Card.Rank rank) {
         String symbol = rank.getSymbol();
         return switch (symbol) {
