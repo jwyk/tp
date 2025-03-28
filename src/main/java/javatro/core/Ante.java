@@ -6,6 +6,7 @@ package javatro.core;
  */
 public class Ante {
     private Ante ante;
+    private static final int MAX_ANTE_COUNT = 8;
 
     /**
      * Enum representing different blind levels with associated multipliers and names.
@@ -94,7 +95,7 @@ public class Ante {
         } else if (blind == Blind.LARGE_BLIND) {
             blind = Blind.BOSS_BLIND;
         } else {
-            if (anteCount == 8) return;
+            if (anteCount == MAX_ANTE_COUNT) return;
             blind = Blind.SMALL_BLIND;
             anteCount++;
         }
