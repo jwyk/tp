@@ -1,4 +1,4 @@
-package javatro.core;
+package javatro.core.jokers;
 
 import static javatro.core.Card.Rank.JACK;
 import static javatro.core.Card.Rank.KING;
@@ -9,17 +9,22 @@ import static javatro.core.Card.Suit.CLUBS;
 import static javatro.core.Card.Suit.DIAMONDS;
 import static javatro.core.Card.Suit.HEARTS;
 import static javatro.core.Card.Suit.SPADES;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import javatro.core.jokers.HeldJokers;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import javatro.core.Card;
+import javatro.core.HandResult;
+import javatro.core.JavatroException;
+import javatro.core.PokerHand;
+import javatro.core.Score;
+import javatro.display.UI;
 
-public class ScoreTest {
+public class HeldJokersTest {
     private static List<Card> playedCardList;
     private static HeldJokers heldJokers;
     private static HandResult handResult;
@@ -43,13 +48,34 @@ public class ScoreTest {
                         new Card(KING, SPADES));
     }
 
-    /** Test that each hand played gives the correct score. */
+    /** Test that a normal HeldJokers cannot add more than 5 Jokers without exceeding the maximum limit. */
     @Test
-    void testScore() throws JavatroException {
+    void testIllegalAdd() {
+        Joker gluttonousJoker = new GluttonousJoker();
+        try {
+            for (int i = 0; i < 10; i++) {
+                heldJokers.add(gluttonousJoker);
+            }
+            fail();
+        } catch (JavatroException e) {
+            assertEquals(JavatroException.exceedsMaxJokers().getMessage(),e.getMessage());
+        }
+    }
 
+    /** Test that a hand played triggers multiple joker effects correctly
+     * and has the right score. */
+    @Test
+    void testMultipleJokers() throws JavatroException {
+        Joker gluttonousJoker = new GluttonousJoker();
+        Joker counterJoker = new CounterJoker(1);
+        heldJokers.add(counterJoker);
+        heldJokers.add(gluttonousJoker);
         result = HandResult.evaluateHand(playedCardList);
         Score scoreObject = new Score();
-        long finalScore = scoreObject.getScore(result, playedCardList, heldJokers);
-        assertEquals(316, finalScore);
+        long finalScore = scoreObject.getScore(result,playedCardList, heldJokers);
+        assertEquals(1027, finalScore);
     }
+
+
+
 }

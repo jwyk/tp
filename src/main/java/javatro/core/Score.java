@@ -52,7 +52,7 @@ public class Score {
         return calculateFinalScore();
     }
 
-    public static long calculateFinalScore() throws JavatroException {
+    public static long calculateFinalScore() {
         Math.round(totalChips);
         Math.round(totalMultiplier);
         return (long) Math.ceil(totalChips * totalMultiplier);
