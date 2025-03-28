@@ -22,13 +22,13 @@ import static javatro.display.UI.WHITE;
 import static javatro.display.UI.centerText;
 import static javatro.display.UI.padToWidth;
 
-import java.util.ArrayList;
-
 import javatro.core.Card;
 import javatro.core.Deck;
 import javatro.core.JavatroException;
 import javatro.core.Round;
 import javatro.manager.options.ReturnOption;
+
+import java.util.ArrayList;
 
 /**
  * DeckScreen prints the current deck as a two-dimensional table with totals. - The rows represent
@@ -143,10 +143,10 @@ public class DeckScreen extends Screen {
         // We need to print 5 rows: 4 suit rows and 1 totals row (merged into the same box).
         // For each suit row:
         String[] suitSpace = {
-                HAIR_SPACE.repeat(9) + THIN_SPACE,
-                HAIR_SPACE.repeat(10),
-                HAIR_SPACE.repeat(10),
-                HAIR_SPACE.repeat(8)
+            HAIR_SPACE.repeat(9) + THIN_SPACE,
+            HAIR_SPACE.repeat(10),
+            HAIR_SPACE.repeat(10),
+            HAIR_SPACE.repeat(8)
         };
         for (int i = 0; i < suitOrder.length; i++) {
             // Left box: Suit label
@@ -223,9 +223,7 @@ public class DeckScreen extends Screen {
         };
     }
 
-    /**
-     * Maps a card rank to a column index based on the desired order: A, K, Q, J, 10, 9, …, 2.
-     */
+    /** Maps a card rank to a column index based on the desired order: A, K, Q, J, 10, 9, …, 2. */
     private int getRankIndex(Card.Rank rank) {
         String symbol = rank.getSymbol();
         return switch (symbol) {

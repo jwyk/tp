@@ -1,6 +1,5 @@
 package javatro.core;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,7 +51,6 @@ public class Deck {
 
         return wholeDeckList;
     }
-
 
     /** Returns an DeckType containing the deck variant you are using */
     public DeckType getDeckName() {

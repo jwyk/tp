@@ -36,6 +36,5 @@ public class HelpScreen extends Screen {
      * presented.
      */
     @Override
-    public void displayScreen() {
-    }
+    public void displayScreen() {}
 }

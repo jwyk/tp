@@ -2,13 +2,13 @@ package javatro.display;
 
 import javatro.core.JavatroException;
 import javatro.display.screens.DeckScreen;
-import javatro.display.screens.SelectDeckScreen;
 import javatro.display.screens.DiscardScreen;
 import javatro.display.screens.GameScreen;
 import javatro.display.screens.HelpScreen;
 import javatro.display.screens.PlayScreen;
 import javatro.display.screens.PokerHandScreen;
 import javatro.display.screens.Screen;
+import javatro.display.screens.SelectDeckScreen;
 import javatro.display.screens.StartScreen;
 
 import java.util.List;

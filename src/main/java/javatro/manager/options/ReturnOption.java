@@ -10,9 +10,7 @@ import javatro.core.JavatroException;
 import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
 
-/**
- * A command that enables players to return to the game screen.
- */
+/** A command that enables players to return to the game screen. */
 public class ReturnOption implements Option {
 
     private Screen prev_screen;

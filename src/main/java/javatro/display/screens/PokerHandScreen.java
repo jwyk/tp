@@ -10,14 +10,14 @@ import static javatro.display.UI.RED_B;
 import static javatro.display.UI.WHITE;
 import static javatro.display.UI.printBorderedContent;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import javatro.core.JavatroException;
 import javatro.core.PlanetCard;
 import javatro.core.PokerHand;
 import javatro.manager.options.ReturnOption;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PokerHandScreen extends Screen {
 
