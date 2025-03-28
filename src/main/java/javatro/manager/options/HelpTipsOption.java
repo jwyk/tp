@@ -1,4 +1,8 @@
+// @@author swethacool
 package javatro.manager.options;
+
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
 
 import javatro.core.JavatroException;
 import javatro.display.UI;
@@ -25,7 +29,7 @@ public class HelpTipsOption implements Option {
     /** Executes the command to display gameplay tips. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Pro Tips For Javatro" + " 🃏 ♦️ ♣️" + UI.END;
+        String title = "♥️ ♠️ 🃏 " + BOLD + "Pro Tips For Javatro" + " 🃏 ♦️ ♣️" + END;
 
         String[] lines = {
             "- Focus on building a balanced deck with attack and defense cards.",

@@ -1,5 +1,7 @@
 package javatro.manager.options;
 
+import static javatro.display.UI.*;
+
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.display.screens.StartScreen;
@@ -53,9 +55,9 @@ public class ExitGameOption implements Option {
         System.out.println(END_SCREEN);
 
         // display the farewell message with borders and ANSI formatting
-        String title = "♥️ ♠️ 🃏 " + UI.BOLD + "GOODBYE" + " 🃏 ♦️ ♣️" + UI.END;
+        String title = "♥️ ♠️ 🃏 " + BOLD + "GOODBYE" + " 🃏 ♦️ ♣️" + END;
 
-        String[] lines = {UI.RED + "WE KNOW YOU WILL BE BACK SOON" + UI.END};
+        String[] lines = {RED + "WE KNOW YOU WILL BE BACK SOON" + END};
 
         UI.printBorderedContent(title, List.of(lines));
         System.exit(0); // Terminate the application

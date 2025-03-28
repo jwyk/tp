@@ -7,10 +7,7 @@ import javatro.core.HoldingHand;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.CardRenderer;
-import javatro.manager.options.CardSelectOption;
-import javatro.manager.options.ResumeGameOption;
-import javatro.manager.options.SortByRankOption;
-import javatro.manager.options.SortBySuitOption;
+import javatro.manager.options.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +44,7 @@ public abstract class CardSelectScreen extends Screen {
         super.commandMap.add(new CardSelectOption());
         super.commandMap.add(new SortBySuitOption(this));
         super.commandMap.add(new SortByRankOption(this));
+        super.commandMap.add(new PokerHandOption());
         super.commandMap.add(new ResumeGameOption());
     }
 
@@ -101,10 +99,10 @@ public abstract class CardSelectScreen extends Screen {
     protected String getCardIndicesTitle(int cardCount) {
         StringBuilder title = new StringBuilder();
         for (int i = 1; i <= cardCount; i++) {
-            title.append(YELLOW).append("【").append(i).append("】");
+            title.append(YELLOW).append(BOLD).append("【").append(i).append("】");
             // Only add spacing if not the last element
             if (i < cardCount) {
-                title.append(HAIR_SPACE.repeat(27));
+                title.append(HAIR_SPACE.repeat(18));
             }
         }
         title.append(END);
@@ -167,7 +165,7 @@ public abstract class CardSelectScreen extends Screen {
 
         // Card Indices title
         String indicesTitle = getCardIndicesTitle(cardCount);
-        printBlackB(centerText(indicesTitle, 100));
+        printBlackB(centerText(indicesTitle, 81));
         System.out.println();
 
         // Middle border
