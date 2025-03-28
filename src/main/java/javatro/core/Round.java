@@ -17,19 +17,19 @@ public class Round {
     /** The number of cards required to form a valid poker hand. */
     private static final int POKER_HAND_SIZE = 5;
 
+    /** The player's current hand of cards. */
+    public HoldingHand playerHand;
     /** The player's current score in the round. */
     private int currentScore;
     /** The minimum score required to win the round. */
-    private int blindScore;
+    private final int blindScore;
     /** The number of remaining discards allowed. */
     private int remainingDiscards;
     /** The number of remaining plays in the round. */
     private int remainingPlays;
 
     /** The deck of cards used in the round. */
-    private Deck deck;
-    /** The player's current hand of cards. */
-    public HoldingHand playerHand;
+    public static Deck deck;
 
     /** The name of the current round. */
     private String roundName = "";
@@ -152,7 +152,7 @@ public class Round {
         int oldScore = currentScore;
         int oldRemainingPlays = remainingPlays;
 
-        List<Card> playedCards = playerHand.play(cardIndices, this.deck);
+        List<Card> playedCards = playerHand.play(cardIndices);
         PokerHand result = HandResult.evaluateHand(playedCards);
         Integer totalChips = result.getChips();
 
@@ -207,7 +207,7 @@ public class Round {
         int handSizeBefore = playerHand.getHand().size();
         int oldRemainingDiscards = remainingDiscards;
 
-        playerHand.discard(cardIndices, deck);
+        playerHand.discard(cardIndices);
         remainingDiscards--;
 
         playerHand.draw(indicesToDiscard.size(), deck);

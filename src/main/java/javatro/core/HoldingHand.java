@@ -58,9 +58,8 @@ public class HoldingHand {
      * <p>This function should not be called if there are no cards played.
      *
      * @param cardsToPlay List containing cards to be played
-     * @param deck Deck containing the remaining cards
      */
-    public List<Card> play(List<Integer> cardsToPlay, Deck deck) throws JavatroException {
+    public List<Card> play(List<Integer> cardsToPlay) throws JavatroException {
         List<Card> playList = new ArrayList<>();
 
         // Validate that cardsToPlay and the played card positions are valid inputs
@@ -105,9 +104,8 @@ public class HoldingHand {
      * left is 0.
      *
      * @param cardsToDiscard List containing the cards at specified positions to be discarded
-     * @param deck Deck containing the remaining cards
      */
-    public void discard(List<Integer> cardsToDiscard, Deck deck) throws JavatroException {
+    public void discard(List<Integer> cardsToDiscard) throws JavatroException {
 
         // Validate that cardsToDiscard and the played card positions are valid inputs
         if (cardsToDiscard.size() > 5) {
@@ -188,7 +186,7 @@ public class HoldingHand {
      * Change the HOLDING_LIMIT of the HoldingHand Class. This function is used when you need to
      * manually change the HOLDING_LIMIT
      */
-    public void setHOLDING_LIMIT(int holdingLimit) {
+    public void setHOLDINGLIMIT(int holdingLimit) {
         HOLDING_LIMIT = holdingLimit;
     }
 }
