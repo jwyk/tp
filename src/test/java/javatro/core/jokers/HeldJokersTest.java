@@ -9,13 +9,9 @@ import static javatro.core.Card.Suit.CLUBS;
 import static javatro.core.Card.Suit.DIAMONDS;
 import static javatro.core.Card.Suit.HEARTS;
 import static javatro.core.Card.Suit.SPADES;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import javatro.core.Card;
 import javatro.core.HandResult;
@@ -26,6 +22,11 @@ import javatro.core.jokers.addmult.CounterJoker;
 import javatro.core.jokers.addmult.GluttonousJoker;
 import javatro.core.jokers.addmult.HalfJoker;
 import javatro.core.jokers.addmult.WrathfulJoker;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 public class HeldJokersTest {
     private static List<Card> playedCardList;
@@ -38,9 +39,7 @@ public class HeldJokersTest {
     private static Card cardFour;
     private static Card cardFive;
     private static Joker gluttonousJoker;
-    /**
-     * Initialize a test run.
-     */
+    /** Initialize a test run. */
     @BeforeEach
     void init() throws JavatroException {
         Joker gluttonousJoker = new GluttonousJoker();
@@ -75,9 +74,7 @@ public class HeldJokersTest {
         }
     }
 
-    /**
-     * Test that a normal HeldJokers cannot delete a Joker at illegal positions
-     */
+    /** Test that a normal HeldJokers cannot delete a Joker at illegal positions */
     @Test
     void testIllegalDelete() {
         Joker gluttonousJoker = new GluttonousJoker();
@@ -90,7 +87,6 @@ public class HeldJokersTest {
             assertEquals(JavatroException.indexOutOfBounds(1).getMessage(), e.getMessage());
         }
     }
-
 
     /**
      * Test that a hand played triggers multiple joker effects correctly and has the right score.
@@ -119,5 +115,4 @@ public class HeldJokersTest {
 
         assertScoreEquals(heldJokers, 1975);
     }
-
 }

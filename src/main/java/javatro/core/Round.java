@@ -4,13 +4,13 @@ import static javatro.core.Deck.DeckType;
 import static javatro.core.Deck.DeckType.RED;
 import static javatro.core.JavatroCore.heldJokers;
 
+import javatro.core.jokers.HeldJokers;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javatro.core.jokers.HeldJokers;
 
 public class Round {
     /** The initial number of cards dealt to the player. */

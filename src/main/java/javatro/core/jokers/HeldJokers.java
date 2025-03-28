@@ -32,7 +32,6 @@ public class HeldJokers {
         heldJokers.remove(index);
     }
 
-
     /** Returns a soft copy of the ArrayList of HeldJokers. */
     public ArrayList<Joker> getJokers() {
         return heldJokers;

@@ -59,7 +59,7 @@ public class RoundTest {
             boolean expectedIsWon)
             throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Round round = new Round(blindScore, totalPlays, deck, heldJokers,"", "");
+        Round round = new Round(blindScore, totalPlays, deck, heldJokers, "", "");
 
         for (int i = 0; i < playsToMake; i++) {
             round.playCards(List.of(0, 1, 2, 3, 4));
@@ -77,7 +77,7 @@ public class RoundTest {
 
         try {
             Deck deck = new Deck(Deck.DeckType.DEFAULT);
-            Round round = new Round(blindScore, remainingPlays, deck, heldJokers,"", "");
+            Round round = new Round(blindScore, remainingPlays, deck, heldJokers, "", "");
 
             // Make the specified number of valid plays
             for (int i = 0; i < playsToMake; i++) {
@@ -99,7 +99,7 @@ public class RoundTest {
             String expectedErrorMessage)
             throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Round round = new Round(blindScore, remainingPlays, deck, heldJokers,"", "");
+        Round round = new Round(blindScore, remainingPlays, deck, heldJokers, "", "");
 
         try {
             round.playCards(cardIndices);
@@ -112,7 +112,7 @@ public class RoundTest {
     private void assertRoundNotOver(int blindScore, int remainingPlays, int playsToMake)
             throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Round round = new Round(blindScore, remainingPlays, deck, heldJokers,"", "");
+        Round round = new Round(blindScore, remainingPlays, deck, heldJokers, "", "");
 
         for (int i = 0; i < playsToMake; i++) {
             round.playCards(List.of(0, 1, 2, 3, 4));
@@ -194,7 +194,7 @@ public class RoundTest {
     @Test
     public void round_discardCards_success() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Round round = new Round(100, 3, deck, heldJokers,"", "");
+        Round round = new Round(100, 3, deck, heldJokers, "", "");
 
         // Initial state
         assertEquals(4, round.getRemainingDiscards());
@@ -212,7 +212,7 @@ public class RoundTest {
     @Test
     public void round_discardCards_tooManyDiscards() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Round round = new Round(100, 3, deck, heldJokers,"", "");
+        Round round = new Round(100, 3, deck, heldJokers, "", "");
 
         // Use all 4 discards
         round.discardCards(List.of(0));
@@ -234,7 +234,7 @@ public class RoundTest {
     @Test
     public void round_emptyDiscardList() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Round round = new Round(100, 3, deck, heldJokers,"", "");
+        Round round = new Round(100, 3, deck, heldJokers, "", "");
 
         // Initial state
         assertEquals(4, round.getRemainingDiscards());
@@ -257,7 +257,7 @@ public class RoundTest {
     @Test
     public void round_setNameAndDescription() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Round round = new Round(100, 3, deck, heldJokers,"", "");
+        Round round = new Round(100, 3, deck, heldJokers, "", "");
 
         // Set new values
         round.setRoundName("New Round");

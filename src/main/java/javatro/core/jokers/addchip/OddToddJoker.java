@@ -4,9 +4,7 @@ import javatro.core.Card;
 import javatro.core.Score;
 import javatro.core.jokers.Joker;
 
-/**
- * Represents a OddToddJoker Joker
- */
+/** Represents a OddToddJoker Joker */
 public class OddToddJoker extends Joker {
 
     public OddToddJoker(int numberOfJokers) {
