@@ -119,7 +119,7 @@ public class Round {
         support.firePropertyChange("holdingHand", null, getPlayerHand());
         support.firePropertyChange("currentScore", null, currentScore);
 
-        if (isRoundOver() && isWon()) {
+        if (isWon()) {
             support.firePropertyChange("roundComplete", null, 1);
         } else if (isRoundOver() && !isWon()) {
             support.firePropertyChange("roundComplete", null, -1);
@@ -189,7 +189,7 @@ public class Round {
             throw new JavatroException("No remaining discards available");
         }
 
-        if (cardIndices.size() > remainingDiscards) {
+        if (cardIndices.size() > POKER_HAND_SIZE) {
             throw new JavatroException("Too many discards");
         }
 

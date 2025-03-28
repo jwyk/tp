@@ -4,6 +4,7 @@
  */
 package javatro.core;
 
+import javatro.core.jokers.HeldJokers;
 import javatro.manager.JavatroManager;
 
 /** The core game logic class that manages the game state and rounds. */
@@ -17,6 +18,9 @@ public class JavatroCore {
 
     /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
     public static Deck deck;
+
+    /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
+    public static HeldJokers heldJokers;
 
     /**
      * Starts a new round and assigns it to the current round.
