@@ -20,7 +20,7 @@ public class Round {
     /** The player's current hand of cards. */
     public HoldingHand playerHand;
     /** The player's current score in the round. */
-    private int currentScore;
+    private long currentScore;
     /** The minimum score required to win the round. */
     private final int blindScore;
     /** The number of remaining discards allowed. */
@@ -149,7 +149,7 @@ public class Round {
                 : "Cannot play more than " + POKER_HAND_SIZE + " cards";
         assert remainingPlays > 0 : "No plays remaining to execute this action";
 
-        int oldScore = currentScore;
+        long oldScore = currentScore;
         int oldRemainingPlays = remainingPlays;
 
         List<Card> playedCards = playerHand.play(cardIndices);
@@ -222,7 +222,7 @@ public class Round {
     }
 
     // Getters
-    public int getCurrentScore() {
+    public long getCurrentScore() {
         return currentScore;
     }
 

@@ -28,7 +28,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     /** The score required to pass the round. */
     private static int blindScore = 0;
     /** The player's score for the current round. */
-    private static int roundScore = 0;
+    private static long roundScore = 0;
     /** The number of hands left to play. */
     private static int handsLeft = 0;
     /** The number of discards remaining. */
@@ -303,7 +303,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         propertyHandlers.put("roundName", value -> roundName = value.toString());
         propertyHandlers.put("remainingPlays", value -> handsLeft = (Integer) value);
         propertyHandlers.put("remainingDiscards", value -> discardsLeft = (Integer) value);
-        propertyHandlers.put("currentScore", value -> roundScore = (Integer) value);
+        propertyHandlers.put("currentScore", value -> roundScore = (Long) value);
         propertyHandlers.put("roundDescription", value -> roundDescription = value.toString());
         propertyHandlers.put("blindScore", value -> blindScore = (Integer) value);
         propertyHandlers.put(
