@@ -13,7 +13,7 @@ public class CheckeredDeckSelectOption implements Option {
      * @return A string describing the command.
      */
     public String getDescription() {
-        return "Checkered Deck: Start with 26 Hearts ♥\uFE0F, 26 Spades ♠\uFE0F";
+        return "Checkered Deck: Start with 26 Hearts, 26 Spades";
     }
 
     /**
