@@ -146,7 +146,7 @@ public class DeckScreen extends Screen {
                 rightContent.append(String.format("%5d", counts[i][j]));
             }
             rightContent.append(String.format("%15s", suitTotals[i] + "      "));
-            String redB = (i == 1 || i == 3) ? RED_B + WHITE : BLACK_B;
+            String redB = (i == 1 || i == 3) ? RED_B : BLACK_B;
             String rightRow = redB + padToWidth(rightContent.toString(), RIGHT_WIDTH);
             // Print the row with vertical borders.
             sb.append(BLACK_B)
@@ -154,9 +154,9 @@ public class DeckScreen extends Screen {
                     .append(VERTICAL)
                     .append(leftContent)
                     .append(BLACK_B)
-                    .append(VERTICAL)
+                    .append(VERTICAL).append(WHITE)
                     .append(rightRow)
-                    .append(BLACK_B)
+                    .append(END).append(BLACK_B)
                     .append(VERTICAL)
                     .append(END)
                     .append("\n");
