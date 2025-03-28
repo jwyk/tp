@@ -1,13 +1,19 @@
 package javatro.core.jokers;
 
 import javatro.core.Card;
+import javatro.core.JavatroCore;
 import javatro.core.Score;
+
+/**
+ * Represents a WrathfulJoker Joker.
+ */
 
 public class WrathfulJoker extends Joker {
 
     public WrathfulJoker() {
         super();
-        this.description = "Played cards with Heart suit give +3 Mult when scored ";
+        this.description = "Played cards with Spade suit give +3 Mult when scored ";
+        this.scoreType = ScoreType.ONCARDPLAY;
     }
 
     @Override
@@ -16,4 +22,5 @@ public class WrathfulJoker extends Joker {
             scoreClass.totalMultiplier += 3;
         }
     }
+
 }

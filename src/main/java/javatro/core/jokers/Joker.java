@@ -1,6 +1,7 @@
 package javatro.core.jokers;
 
 import javatro.core.Card;
+import javatro.core.JavatroCore;
 import javatro.core.Score;
 
 /**
@@ -8,10 +9,23 @@ import javatro.core.Score;
  */
 
 public abstract class Joker {
-    protected String description;
+    public String description;
+    public ScoreType scoreType;
+
+    /** Enum representing the type of Joker Card. */
+    public enum ScoreType {
+        AFTERPLAYHAND,
+        ONCARDPLAY,
+        PASSIVE,
+    }
 
     /**
-     * Abstract method of Joker for scoring purposes. Overriden by Joker subclasses.
+     * Abstract method of Joker for scoring purposes. The playedCard parameter should be null if not required.
+     * Overriden by Joker subclasses.
+     * @param playedCard
+     * @param scoreClass Score Class containing relevant information such as totalChips, totalMultiplier.
      */
     public abstract void interact (Score scoreClass, Card playedCard);
+
+
 }

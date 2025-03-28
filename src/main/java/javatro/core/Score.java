@@ -8,15 +8,20 @@ import javatro.core.jokers.Joker;
 
 /** Contains the algorithm for calculating the final score and played hand. */
 public class Score {
-    public double totalChips = 0;
-    public double totalMultiplier = 0;
+    public static double totalChips = 0;
+    public static double totalMultiplier = 0;
+    public static List<Card> playedCardsList;
+    public static ArrayList<Joker> jokerList;
 
-    /** Returns the score of the played hand by calculating the value of the hand. */
-    public int getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers) throws JavatroException {
+    /**
+     * Returns the score of the played hand by calculating the value of the hand.
+     */
+    public long getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers) throws JavatroException {
 
         //Highlight any boss blind effects that apply here
         //Cannot play suits, cannot play Face Cards, Must play 5 cards
-        ArrayList<Joker> jokerList = heldJokers.getJokers();
+        jokerList = heldJokers.getJokers();
+        playedCardsList = playedCardList;
 
         // First add pokerHand's chip and mult base to the scores.
         totalChips = (double) pokerHand.getChips();
@@ -25,18 +30,31 @@ public class Score {
         //Score the cards and apply any Jokers that have effects on play here.
         for (Card currentCard : playedCardList) {
             totalChips += currentCard.getChips();
-            //From here, check each joker in heldJokers can be played.
-            for (Joker currentJoker :jokerList) {
-                currentJoker.interact(this, currentCard);
+            //From here, check each joker in heldJokers can apply effects on card play, in the order they are placed.
+            for (int i = 0; i < jokerList.size(); i++) {
+                Joker currentJoker = jokerList.get(i);
+                if (currentJoker.scoreType == Joker.ScoreType.ONCARDPLAY) {
+                    currentJoker.interact(this, currentCard);
+                }
             }
         }
 
-        //Apply any
+        //From here, check each joker in heldJokers applies post round effects, in the order they are placed.
+        for (int i = 0; i < jokerList.size(); i++) {
+            Joker currentJoker = jokerList.get(i);
+            if (currentJoker.scoreType == Joker.ScoreType.AFTERPLAYHAND) {
+                currentJoker.interact(this, null);
+            }
+        }
 
         // Round the score and return the correct score value.
+        return calculateFinalScore();
+    }
+
+    public static long calculateFinalScore() throws JavatroException {
         Math.round(totalChips);
         Math.round(totalMultiplier);
-        totalMultiplier = (int) Math.ceil(totalChips * totalMultiplier);
-        return 0;
+        return (long) Math.ceil(totalChips * totalMultiplier);
     }
+
 }

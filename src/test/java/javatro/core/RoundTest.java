@@ -139,13 +139,13 @@ public class RoundTest {
     @Test
     public void round_playCards_roundNotOver() throws JavatroException {
         // Test with regular blind score and plays
-        assertRoundNotOver(100, 3, 1);
+        assertRoundNotOver(300, 3, 1);
 
         // Test with high blind score
         assertRoundNotOver(1000, 3, 1);
 
         // Test with many remaining plays
-        assertRoundNotOver(100, 3000, 5);
+        assertRoundNotOver(1000, 3000, 5);
     }
 
     @Test
