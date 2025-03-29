@@ -28,7 +28,7 @@ public class JavatroCore {
     /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
     public static HeldJokers heldJokers;
 
-    //@author swethaiscool
+    // @author swethaiscool
     /**
      * Retrieves the current ante.
      *
@@ -62,7 +62,7 @@ public class JavatroCore {
         heldJokers = new HeldJokers();
         deck = new Deck(deckType);
     }
-    //@author swethaiscool
+    // @author swethaiscool
 
     /**
      * Starts a new round and assigns it to the current round.
