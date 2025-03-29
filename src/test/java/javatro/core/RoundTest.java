@@ -18,7 +18,7 @@ public class RoundTest {
     private static final String INVALIDPLAYSPERROUND =
             UI.RED + "Number of plays per round must be greater than 0." + UI.END;
     private static final String INVALIDBLINDSCORE =
-            UI.RED + "Blind score must be greater than or equal to 0." + UI.END;
+            UI.RED + "Blind score must be greater than or equal to 0!" + UI.END;
     private static final String INVALIDDECK = UI.RED + "Deck cannot be null." + UI.END;
     private static final String INVALIDPLAYSREMAINING = UI.RED + "No plays remaining." + UI.END;
 
