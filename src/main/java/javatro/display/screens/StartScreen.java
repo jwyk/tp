@@ -28,7 +28,7 @@ public class StartScreen extends Screen {
     // Static block to initialize the javatro logo from a file
     static {
         try (InputStream inputStream =
-                StartScreen.class.getResourceAsStream("/javatro/display/javatro_logo.txt")) {
+                StartScreen.class.getResourceAsStream("/javatro/display/ansi/javatro_logo.txt")) {
             if (inputStream == null) {
                 throw JavatroException.errorLoadingLogo("javatro_logo.txt");
             }

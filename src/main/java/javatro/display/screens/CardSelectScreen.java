@@ -21,11 +21,7 @@ import javatro.core.Card;
 import javatro.core.HoldingHand;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
-import javatro.manager.options.CardSelectOption;
-import javatro.manager.options.PokerHandOption;
-import javatro.manager.options.ResumeGameOption;
-import javatro.manager.options.SortByRankOption;
-import javatro.manager.options.SortBySuitOption;
+import javatro.manager.options.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +64,7 @@ public abstract class CardSelectScreen extends Screen {
         super.commandMap.add(new SortBySuitOption(this));
         super.commandMap.add(new SortByRankOption(this));
         super.commandMap.add(new PokerHandOption());
+        super.commandMap.add(new DeckViewOption());
         super.commandMap.add(new ResumeGameOption());
     }
 

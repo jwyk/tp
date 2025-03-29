@@ -2,6 +2,7 @@ package javatro.core;
 
 import static javatro.core.Deck.DeckType;
 import static javatro.core.Deck.DeckType.RED;
+import static javatro.core.JavatroCore.getAnte;
 import static javatro.core.JavatroCore.heldJokers;
 
 import javatro.core.jokers.HeldJokers;
@@ -126,14 +127,6 @@ public class Round {
         support.firePropertyChange("roundDescription", null, roundDescription);
         support.firePropertyChange("holdingHand", null, getPlayerHand());
         support.firePropertyChange("currentScore", null, currentScore);
-
-        if (isWon()) {
-            support.firePropertyChange("roundComplete", null, 1);
-        } else if (isRoundOver()) {
-            support.firePropertyChange("roundComplete", null, -1);
-        } else {
-            support.firePropertyChange("roundComplete", null, 0);
-        }
     }
 
     /**
@@ -249,13 +242,13 @@ public class Round {
     }
 
     /**
-     * Checks if the round is over based on game rules.
+     * Checks if the game is lost based on game rules.
      *
-     * @return true if the round is over, false otherwise
+     * @return true if the game is lost, false otherwise
      */
-    public boolean isRoundOver() {
-        // Round ends if no plays are remaining
-        return remainingPlays <= 0 | isWon();
+    public boolean isLost() {
+        // Game ends if no plays are remaining
+        return remainingPlays <= 0 && !isWon();
     }
 
     /**

@@ -13,6 +13,6 @@ public class DeckViewOption implements Option {
 
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.setScreen(UI.getDeckScreen());
+        JavatroManager.setScreen(UI.getDeckViewScreen());
     }
 }

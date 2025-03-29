@@ -88,9 +88,12 @@ public class UI {
     private static final HelpScreen HELP_SCREEN;
     private static final StartScreen START_SCREEN;
     private static final DeckSelectScreen DECK_SELECT_SCREEN;
-    private static final DeckViewScreen DECK_SCREEN;
+    private static final DeckViewScreen DECK_VIEW_SCREEN;
     private static final PokerHandScreen POKER_SCREEN;
     private static final BlindSelectScreen BLIND_SCREEN;
+    private static final WinRoundScreen WIN_ROUND_SCREEN;
+    private static final WinGameScreen WIN_GAME_SCREEN;
+    private static final LoseScreen LOSE_SCREEN;
 
     /** The current screen being displayed to the user. */
     private static Screen currentScreen;
@@ -104,10 +107,13 @@ public class UI {
             PLAY_SCREEN = new PlayCardScreen();
             HELP_SCREEN = new HelpScreen();
             START_SCREEN = new StartScreen();
-            DECK_SCREEN = new DeckViewScreen();
+            DECK_VIEW_SCREEN = new DeckViewScreen();
             DECK_SELECT_SCREEN = new DeckSelectScreen();
             POKER_SCREEN = new PokerHandScreen();
             BLIND_SCREEN = new BlindSelectScreen();
+            WIN_ROUND_SCREEN = new WinRoundScreen();
+            WIN_GAME_SCREEN = new WinGameScreen();
+            LOSE_SCREEN = new LoseScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
             e.printStackTrace();
@@ -116,6 +122,7 @@ public class UI {
     }
 
     // region PRINTING FUNCTIONS
+
     public static void printBlackB(String input) {
         System.out.print(UI.BLACK_B + input + UI.END);
     }
@@ -405,8 +412,8 @@ public class UI {
      *
      * @return the {@link DeckViewScreen} instance
      */
-    public static DeckViewScreen getDeckScreen() {
-        return DECK_SCREEN;
+    public static DeckViewScreen getDeckViewScreen() {
+        return DECK_VIEW_SCREEN;
     }
 
     /**
@@ -416,6 +423,33 @@ public class UI {
      */
     public static DeckSelectScreen getDeckSelectScreen() {
         return DECK_SELECT_SCREEN;
+    }
+
+    /**
+     * Gets the help screen.
+     *
+     * @return the {@link HelpScreen} instance
+     */
+    public static WinRoundScreen getWinRoundScreen() {
+        return WIN_ROUND_SCREEN;
+    }
+
+    /**
+     * Gets the help screen.
+     *
+     * @return the {@link HelpScreen} instance
+     */
+    public static WinGameScreen getWinGameScreen() {
+        return WIN_GAME_SCREEN;
+    }
+
+    /**
+     * Gets the help screen.
+     *
+     * @return the {@link HelpScreen} instance
+     */
+    public static LoseScreen getLoseScreen() {
+        return LOSE_SCREEN;
     }
 
     // @@author swethaiscool
@@ -428,6 +462,4 @@ public class UI {
         return BLIND_SCREEN;
     }
     // @@author swethaiscool
-
-    // endregion
 }

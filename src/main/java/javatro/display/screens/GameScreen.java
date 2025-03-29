@@ -3,6 +3,8 @@ package javatro.display.screens;
 import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
+import javatro.display.UI;
+import javatro.manager.JavatroManager;
 import javatro.manager.options.*;
 
 import java.beans.PropertyChangeEvent;
@@ -15,7 +17,6 @@ import static javatro.display.UI.*;
 
 public class GameScreen extends Screen implements PropertyChangeListener {
 
-    public static int roundOver = 0;
     private static int blindScore = 0;
     private static long roundScore = 0;
     private static int handsLeft = 0;
@@ -29,32 +30,15 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         super("GAME MENU");
         commandMap.add(new PlayCardOption());
         commandMap.add(new DiscardCardOption());
-        commandMap.add(new MainMenuOption());
-        commandMap.add(new ExitGameOption());
-    }
-
-    public void restoreGameCommands() {
-        commandMap.clear();
-        commandMap.add(new PlayCardOption());
-        commandMap.add(new DiscardCardOption());
+        commandMap.add(new PokerHandOption());
         commandMap.add(new DeckViewOption());
         commandMap.add(new MainMenuOption());
         commandMap.add(new ExitGameOption());
     }
 
-    private void printRoundOver() {
-        String title = "::: " + BOLD + "Round Ended" + " :::" + END;
-        String message = roundOver == 1 ? "YOU WON!!!!" : "YOU LOST!!!!";
-        printBorderedContent(title, List.of("", message, ""));
-    }
-
     @Override
     public void displayScreen() {
         clearScreen();
-
-        if (roundOver != 0) {
-            printRoundOver();
-        }
 
         List<String> content = new ArrayList<>();
 
@@ -127,24 +111,13 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         handlers.put("currentScore", v -> roundScore = (Long) v);
         handlers.put("roundDescription", v -> roundDescription = v.toString());
         handlers.put("blindScore", v -> blindScore = (Integer) v);
+
         handlers.put("holdingHand", v -> {
             List<?> rawList = (List<?>) v;
             holdingHand = rawList.stream()
                     .filter(Card.class::isInstance)
                     .map(Card.class::cast)
                     .collect(Collectors.toList());
-        });
-        handlers.put("roundComplete", v -> {
-            roundOver = (Integer) v;
-            if (roundOver == 1) {
-                commandMap.clear();
-                commandMap.add(new NextRoundOption());
-                commandMap.add(new ExitGameOption());
-            } else if (roundOver == -1) {
-                commandMap.clear();
-                commandMap.add(new MainMenuOption());
-                commandMap.add(new ExitGameOption());
-            }
         });
 
         handlers.getOrDefault(propertyName, val -> {}).accept(newValue);

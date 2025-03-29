@@ -86,7 +86,18 @@ public class CardSelectOption implements Option {
             printBorderedContent(handName, cardArtLines);
         }
 
-        // Return to the game screen after selection
-        JavatroManager.setScreen(UI.getGameScreen());
+        if (JavatroCore.currentRound.isWon() && JavatroCore.getAnte().getAnteCount() == 8 && JavatroCore.getAnte().getBlind() == Ante.Blind.BOSS_BLIND) {
+            // Game Winning Screen
+            JavatroManager.setScreen(UI.getWinGameScreen());
+        } else if (JavatroCore.currentRound.isLost()) {
+            // Game Losing Screen
+            JavatroManager.setScreen(UI.getLoseScreen());
+        } else if (JavatroCore.currentRound.isWon()) {
+            // Round Winning Screen
+            JavatroManager.setScreen(UI.getWinRoundScreen());
+        } else {
+            // Return to the game screen after selection
+            JavatroManager.setScreen(UI.getGameScreen());
+        }
     }
 }

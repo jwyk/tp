@@ -32,7 +32,7 @@ public class ExitGameOption implements Option {
     // Static block to initialize the End Screen from a file
     static {
         try (InputStream inputStream =
-                StartScreen.class.getResourceAsStream("/javatro/display/end_screen.txt")) {
+                StartScreen.class.getResourceAsStream("/javatro/display/ansi/end_screen.txt")) {
             if (inputStream == null) {
                 throw JavatroException.errorLoadingLogo("end_screen.txt");
             }
