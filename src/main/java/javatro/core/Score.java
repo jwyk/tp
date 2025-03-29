@@ -11,7 +11,7 @@ public class Score {
     public double totalChips = 0;
     public double totalMultiplier = 0;
     public static List<Card> playedCardsList;
-    public static ArrayList<Joker> jokerList;
+    public ArrayList<Joker> jokerList;
 
     /**
      * Returns the final score from total chips * total multiplier, after rounding.
@@ -33,8 +33,8 @@ public class Score {
         playedCardsList = playedCardList;
 
         // First add pokerHand's chip and mult base to the scores.
-        totalChips = (double) pokerHand.getChips();
-        totalMultiplier = (double) pokerHand.getMultiplier();
+        totalChips = pokerHand.getChips();
+        totalMultiplier = pokerHand.getMultiplier();
 
         // Score the cards and apply any Jokers that have effects on play here.
         for (Card currentCard : playedCardList) {
@@ -64,7 +64,7 @@ public class Score {
      * @param
      */
     private boolean isValidCard(Card card) {
-        //To be checked for in boss blind
+        //Apply boss blind logic to return this as true or false based on the card's characteristics.
         return true;
     }
 

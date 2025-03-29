@@ -1,9 +1,7 @@
 package javatro.core.jokers.addchip;
 
-import static javatro.core.Card.Rank.JACK;
 import static javatro.core.Card.Rank.KING;
 import static javatro.core.Card.Rank.NINE;
-import static javatro.core.Card.Rank.QUEEN;
 import static javatro.core.Card.Rank.TEN;
 import static javatro.core.Card.Suit.DIAMONDS;
 import static javatro.core.Card.Suit.HEARTS;
@@ -24,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class ScaryFaceJokerTest {
+public class OddToddJokerTest {
     private static List<Card> playedCardList;
     private static HeldJokers heldJokers;
     private static PokerHand result;
@@ -33,24 +31,19 @@ public class ScaryFaceJokerTest {
     private static Card cardThree;
     private static Card cardFour;
     private static Card cardFive;
-    private static Card cardSix;
-    private static Card cardSeven;
-    private static Joker scaryFaceJoker;
+    private static Joker oddToddJoker;
 
     /** Initialize a test run. */
     @BeforeEach
     void init() throws JavatroException {
-        scaryFaceJoker = new ScaryFaceJoker();
+        oddToddJoker = new OddToddJoker();
         heldJokers = new HeldJokers();
-        heldJokers.add(scaryFaceJoker);
+        heldJokers.add(oddToddJoker);
         cardOne = new Card(NINE, DIAMONDS);
         cardTwo = new Card(NINE, DIAMONDS);
         cardThree = new Card(TEN, HEARTS);
         cardFour = new Card(TEN, HEARTS);
         cardFive = new Card(KING, SPADES);
-        cardSix = new Card(QUEEN, SPADES);
-        cardSeven = new Card(JACK, SPADES);
-
     }
 
     /** Test that a hand played triggers joker effects correctly and has the right score. */
@@ -63,15 +56,15 @@ public class ScaryFaceJokerTest {
 
     /** Test that a hand with 3 cards played correctly triggers the ScaryFaceJoker. */
     @Test
-    void testHalfJokerCorrect() throws JavatroException {
-        playedCardList = List.of(cardFive, cardSix, cardSeven);
-        assertScoreEquals(heldJokers, 125);
+    void testOddToddJokerCorrect() throws JavatroException {
+        playedCardList = List.of(cardOne,cardTwo);
+        assertScoreEquals(heldJokers, 180);
     }
 
     /** Test that a hand without face cards does not trigger the ScaryFaceJoker. */
     @Test
-    void testScaryFaceJokerDisabled() throws JavatroException {
-        playedCardList = List.of(cardOne, cardTwo, cardThree, cardFour);
-        assertScoreEquals(heldJokers, 116);
+    void testOddToddJokerDisabled() throws JavatroException {
+        playedCardList = List.of(cardThree, cardFour, cardFive);
+        assertScoreEquals(heldJokers, 80);
     }
 }

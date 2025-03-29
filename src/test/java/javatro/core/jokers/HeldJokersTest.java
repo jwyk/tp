@@ -20,7 +20,8 @@ import javatro.core.PokerHand;
 import javatro.core.Score;
 import javatro.core.jokers.addmult.CounterJoker;
 import javatro.core.jokers.addmult.GluttonousJoker;
-import javatro.core.jokers.addmult.HalfJoker;
+import javatro.core.jokers.addmult.GreedyJoker;
+import javatro.core.jokers.addmult.LustyJoker;
 import javatro.core.jokers.addmult.WrathfulJoker;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -94,13 +95,17 @@ public class HeldJokersTest {
         Joker gluttonousJoker = new GluttonousJoker();
         Joker counterJoker = new CounterJoker();
         Joker wrathfulJoker = new WrathfulJoker();
-        Joker halfJoker = new HalfJoker();
+        Joker lustyJoker = new LustyJoker();
+        Joker greedyJoker = new GreedyJoker();
 
         heldJokers.add(counterJoker);
         heldJokers.add(gluttonousJoker);
-        heldJokers.add(halfJoker);
+        heldJokers.add(lustyJoker);
         heldJokers.add(wrathfulJoker);
 
-        assertScoreEquals(heldJokers, 1975);
+        assertScoreEquals(heldJokers, 2212);
+        heldJokers.add(greedyJoker);
+        assertScoreEquals(heldJokers, 2686);
+
     }
 }
