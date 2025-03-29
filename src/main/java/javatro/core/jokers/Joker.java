@@ -35,5 +35,4 @@ public abstract class Joker {
     public String getDescription() {
         return description;
     }
-
 }
