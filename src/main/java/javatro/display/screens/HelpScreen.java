@@ -1,3 +1,4 @@
+// @@author swethacool
 package javatro.display.screens;
 
 import javatro.core.JavatroException;
@@ -22,6 +23,7 @@ public class HelpScreen extends Screen {
         commandMap.add(new HelpRulesOption());
         commandMap.add(new HelpHowOption());
         commandMap.add(new HelpTipsOption());
+        commandMap.add(new PokerHandOption());
         commandMap.add(new MainMenuOption());
     }
 

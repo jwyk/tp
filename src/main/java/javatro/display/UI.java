@@ -16,6 +16,8 @@ public class UI {
     /** The current screen being displayed to the user. */
     private static Screen currentScreen;
 
+    private static Screen previousScreen;
+
     /** Predefined game-related screens. */
     private static final GameScreen GAME_SCREEN;
 
@@ -23,6 +25,8 @@ public class UI {
     private static final PlayScreen PLAY_SCREEN;
     private static final HelpScreen HELP_SCREEN;
     private static final StartScreen START_SCREEN;
+    private static final PokerHandScreen POKER_SCREEN;
+    private static final DeckScreen DECK_SCREEN;
 
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
@@ -37,6 +41,8 @@ public class UI {
             PLAY_SCREEN = new PlayScreen();
             HELP_SCREEN = new HelpScreen();
             START_SCREEN = new StartScreen();
+            POKER_SCREEN = new PokerHandScreen();
+            DECK_SCREEN = new DeckScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
             e.printStackTrace();
@@ -62,16 +68,22 @@ public class UI {
     public static final String ITALICS = "\033[3m";
     public static final String UNDERLINE = "\033[4m";
 
+    public static final String WHITE = "\033[97m";
     public static final String RED = "\033[91m";
     public static final String GREEN = "\033[92m";
     public static final String YELLOW = "\033[93m";
     public static final String BLUE = "\033[94m";
-    public static final String PURPLE = "\033[35m";
+    //    public static final String PURPLE = "\033[95m";
+    public static final String PURPLE = "\033[38;2;115;14;147m";
     public static final String CYAN = "\033[36m";
     public static final String ORANGE = "\033[38;2;255;165;0m";
     public static final String BLACK = "\033[30m";
     public static final String WHITE_B = "\033[107m";
     public static final String BLACK_B = "\033[40m";
+    public static final String BLUE_B = "\033[104m";
+    public static final String RED_B = "\033[41m";
+    public static final String PURPLE_B = "\033[48;2;115;14;147m";
+    public static final String ORANGE_B = "\033[48;2;255;165;0m";
 
     /** Custom border characters */
     public static final char TOP_LEFT = '╔';
@@ -99,6 +111,7 @@ public class UI {
 
     // endregion
 
+    // region PRINTING FUNCTIONS
     public static void printBlackB(String input) {
         System.out.print(UI.BLACK_B + input + UI.END);
     }
@@ -176,15 +189,27 @@ public class UI {
         // Format the centered text with borders
         return BLACK_B
                 + VERTICAL
-                + BLACK_B
                 + " ".repeat(paddingSize)
-                + BLACK_B
                 + text
                 + BLACK_B
                 + " ".repeat(paddingSize + extraPadding)
-                + BLACK_B
                 + VERTICAL
                 + END;
+    }
+
+    // Helper: pad or truncate a string to exactly 'width' characters.
+    public static String padToWidth(String text, int width) {
+        if (getDisplayLength(text) > width) {
+            return text.substring(0, width);
+        } else {
+            return String.format("%-" + width + "s", text);
+        }
+    }
+
+    // Helper method to pad a string to the right to a specified length.
+    public static String padRight(String text, int width) {
+        if (getDisplayLength(text) >= width) return text.substring(0, width);
+        return String.format("%-" + width + "s", text);
     }
 
     /**
@@ -223,6 +248,8 @@ public class UI {
         return (int) Math.round(length);
     }
 
+    // endregion
+
     /**
      * Sets the current screen and displays it.
      *
@@ -233,6 +260,12 @@ public class UI {
         if (screen == null) {
             throw JavatroException.invalidScreen();
         }
+
+        // Store the current screen as previous before changing
+        if (currentScreen != null) {
+            previousScreen = currentScreen;
+        }
+
         System.out.printf(
                 "%s%sTransitioning to: %s%s\n",
                 ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
@@ -248,6 +281,27 @@ public class UI {
      */
     public static Screen getCurrentScreen() {
         return currentScreen;
+    }
+
+    /**
+     * Gets the previous screen that was displayed before the current one.
+     *
+     * @return the previous {@link Screen}, or null if there wasn't one
+     */
+    public static Screen getPreviousScreen() {
+        return previousScreen;
+    }
+
+    /**
+     * Navigates back to the previous screen if one exists.
+     *
+     * @throws JavatroException if there is no previous screen to return to
+     */
+    public void returnScreen() throws JavatroException {
+        if (previousScreen == null) {
+            throw new JavatroException("No previous screen to return to");
+        }
+        setCurrentScreen(previousScreen);
     }
 
     /** Clears the console screen. This method uses ANSI escape codes to clear the console. */
@@ -310,6 +364,24 @@ public class UI {
      */
     public static HelpScreen getHelpScreen() {
         return HELP_SCREEN;
+    }
+
+    /**
+     * Gets the poker hand screen.
+     *
+     * @return the {@link PokerHandScreen} instance
+     */
+    public static PokerHandScreen getPokerHandScreen() {
+        return POKER_SCREEN;
+    }
+
+    /**
+     * Gets the Deck screen.
+     *
+     * @return the {@link DeckScreen} instance
+     */
+    public static DeckScreen getDeckScreen() {
+        return DECK_SCREEN;
     }
     // endregion
 }
