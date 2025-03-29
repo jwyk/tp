@@ -1,7 +1,6 @@
 package javatro.core.jokers;
 
 import javatro.core.Card;
-import javatro.core.Round;
 import javatro.core.Score;
 
 /**
@@ -29,5 +28,4 @@ public abstract class Joker {
      *     totalMultiplier.
      */
     public abstract void interact(Score scoreClass, Card playedCard);
-
 }

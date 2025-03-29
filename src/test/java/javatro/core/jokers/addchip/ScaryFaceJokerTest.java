@@ -5,8 +5,8 @@ import static javatro.core.Card.Rank.NINE;
 import static javatro.core.Card.Rank.TEN;
 import static javatro.core.Card.Suit.DIAMONDS;
 import static javatro.core.Card.Suit.HEARTS;
-
 import static javatro.core.Card.Suit.SPADES;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javatro.core.Card;
