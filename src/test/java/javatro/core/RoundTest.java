@@ -31,7 +31,7 @@ public class RoundTest {
     private void assertRoundInitialization(
             javatro.core.AnteBase ante, javatro.core.BlindType blind, int remainingPlays)
             throws JavatroException {
-        Deck deck = new Deck();
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Round round = new Round(ante, blind, remainingPlays, deck, "", "");
         int expectedBlindScore = (int) (ante.getValue() * blind.getMultiplier());
         assertEquals(expectedBlindScore, round.getBlindScore());
@@ -62,7 +62,7 @@ public class RoundTest {
             int playsToMake,
             boolean expectedIsOver)
             throws JavatroException {
-        Deck deck = new Deck();
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Round round = new Round(ante, blind, totalPlays, deck, "", "");
 
         for (int i = 0; i < playsToMake; i++) {
@@ -80,7 +80,7 @@ public class RoundTest {
             String expectedErrorMessage)
             throws JavatroException {
         try {
-            Deck deck = new Deck();
+            Deck deck = new Deck(Deck.DeckType.DEFAULT);
             Round round = new Round(ante, blind, remainingPlays, deck, "", "");
 
             // Make the specified number of valid plays
@@ -103,7 +103,7 @@ public class RoundTest {
             List<Integer> cardIndices,
             String expectedErrorMessage)
             throws JavatroException {
-        Deck deck = new Deck();
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Round round = new Round(ante, blind, remainingPlays, deck, "", "");
         try {
             round.playCards(cardIndices);
@@ -120,7 +120,7 @@ public class RoundTest {
             int playsToMake,
             isWon expectedIsWon)
             throws JavatroException {
-        Deck deck = new Deck();
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Round round = new Round(ante, blind, remainingPlays, deck, "", "");
 
         for (int i = 0; i < playsToMake; i++) {
@@ -246,7 +246,7 @@ public class RoundTest {
 
     @Test
     public void round_discardCards_success() throws JavatroException {
-        Deck deck = new Deck();
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Round round =
                 new Round(
                         javatro.core.AnteBase.ANTE_1,
@@ -270,7 +270,7 @@ public class RoundTest {
 
     @Test
     public void round_discardCards_tooManyDiscards() throws JavatroException {
-        Deck deck = new Deck();
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Round round =
                 new Round(
                         javatro.core.AnteBase.ANTE_1,
@@ -297,7 +297,7 @@ public class RoundTest {
 
     @Test
     public void round_emptyDiscardList() throws JavatroException {
-        Deck deck = new Deck();
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Round round =
                 new Round(
                         javatro.core.AnteBase.ANTE_1,
@@ -325,7 +325,7 @@ public class RoundTest {
 
     @Test
     public void round_setNameAndDescription() throws JavatroException {
-        Deck deck = new Deck();
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Round round =
                 new Round(
                         javatro.core.AnteBase.ANTE_1,

@@ -22,7 +22,7 @@ public class JavatroManager implements PropertyChangeListener {
     /** The main view responsible for rendering the user interface. */
     private static UI ui;
     /** The main model responsible for handling game logic. */
-    private static JavatroCore jc;
+    public static JavatroCore jc;
     /** Stores the last recorded user input. */
     private static int userInput;
 
@@ -78,7 +78,6 @@ public class JavatroManager implements PropertyChangeListener {
                 } catch (JavatroException ex) {
                     throw new RuntimeException(ex);
                 }
-                // throw new RuntimeException(e);
             }
         }
     }
