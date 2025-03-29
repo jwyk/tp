@@ -1,5 +1,8 @@
 package javatro.core;
 
+import static javatro.core.Deck.DeckType;
+import static javatro.core.Deck.DeckType.RED;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashSet;
@@ -14,6 +17,8 @@ public class Round {
     /** The number of cards required to form a valid poker hand. */
     private static final int POKER_HAND_SIZE = 5;
 
+    /** The player's current hand of cards. */
+    public HoldingHand playerHand;
     /** The player's current score in the round. */
     private int currentScore;
     /** The minimum score required to win the round. */
@@ -24,9 +29,7 @@ public class Round {
     private int remainingPlays;
 
     /** The deck of cards used in the round. */
-    public Deck deck;
-    /** The player's current hand of cards. */
-    public HoldingHand playerHand;
+    public static Deck deck;
 
     /** The name of the current round. */
     private String roundName = "";
@@ -72,6 +75,15 @@ public class Round {
 
         if (deck == null) {
             throw JavatroException.invalidDeck();
+        }
+
+        // Handle special Deck variants here.
+
+        DeckType deckName = deck.getDeckName();
+        if (deckName == RED) {
+            this.remainingDiscards += 1;
+        } else if (deckName == DeckType.BLUE) {
+            this.remainingPlays += 1;
         }
 
         // Initial draw
@@ -140,7 +152,7 @@ public class Round {
         int oldScore = currentScore;
         int oldRemainingPlays = remainingPlays;
 
-        List<Card> playedCards = playerHand.play(cardIndices, this.deck);
+        List<Card> playedCards = playerHand.play(cardIndices);
         PokerHand result = HandResult.evaluateHand(playedCards);
         Integer totalChips = result.getChips();
 
@@ -195,7 +207,7 @@ public class Round {
         int handSizeBefore = playerHand.getHand().size();
         int oldRemainingDiscards = remainingDiscards;
 
-        playerHand.discard(cardIndices, deck);
+        playerHand.discard(cardIndices);
         remainingDiscards--;
 
         playerHand.draw(indicesToDiscard.size(), deck);

@@ -4,6 +4,7 @@
  */
 package javatro.manager.options;
 
+import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
@@ -29,8 +30,10 @@ public class StartGameOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.beginGame();
-        javatro.display.UI.getGameScreen().restoreGameCommands();
-        JavatroManager.setScreen(UI.getGameScreen());
+        // Return to game if there is an existing game.
+        if (JavatroCore.currentRound != null) {
+            JavatroManager.setScreen(UI.getGameScreen());
+        }
+        JavatroManager.setScreen(UI.getDeckSelectScreen());
     }
 }
