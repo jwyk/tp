@@ -5,6 +5,8 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.display.screens.LoseScreen;
 import javatro.display.screens.StartScreen;
+import javatro.display.screens.WinGameScreen;
+import javatro.display.screens.WinRoundScreen;
 import javatro.manager.JavatroManager;
 
 /**
@@ -37,7 +39,6 @@ public class Javatro {
      */
     public static void main(String[] args) throws JavatroException {
         assert false : "dummy assertion set to fail";
-        JavatroManager.setScreen(new LoseScreen());
         JavatroManager.setScreen(new StartScreen());
     }
 }

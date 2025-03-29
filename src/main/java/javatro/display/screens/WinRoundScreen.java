@@ -7,10 +7,36 @@ import javatro.display.UI;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.NextRoundOption;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class WinRoundScreen extends Screen {
+
+//    /**
+//     * Variable to hold the jimbo content. This is used to display a visually appealing
+//     * welcome message. The logo is loaded from an external file during class initialization.
+//     */
+//    private static String JIMBO;
+//
+//    // Static block to initialize the jimbo logo from a file
+//    static {
+//        try (InputStream inputStream =
+//                     StartScreen.class.getResourceAsStream("/javatro/display/ansi/jimbo.txt")) {
+//            if (inputStream == null) {
+//                throw JavatroException.errorLoadingLogo("jimbo.txt");
+//            }
+//            try (Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8)) {
+//                JIMBO = scanner.useDelimiter("\\A").next(); // Read the entire file
+//            }
+//        } catch (IOException | JavatroException e) {
+//            JIMBO = "JIMBO"; // Fallback in case of error
+//            System.err.println(JavatroException.errorLoadingLogo("jimbo.txt").getMessage());
+//        }
+//    }
 
     /**
      * Constructs a screen with the specified options title.
@@ -18,7 +44,7 @@ public class WinRoundScreen extends Screen {
      * @throws JavatroException if the options title is null or empty
      */
     public WinRoundScreen() throws JavatroException {
-        super("win");
+        super("You beat the Blind!");
         commandMap.add(new NextRoundOption());
         commandMap.add(new ExitGameOption());
     }
@@ -30,10 +56,10 @@ public class WinRoundScreen extends Screen {
     @Override
     public void displayScreen() {
 
+        // Give the player a random joker card if boss blind is beaten
         if (JavatroCore.getAnte().getBlind() == Ante.Blind.BOSS_BLIND) {
-            // Give the player a random joker card, and move to next round.
             Joker randomJoker = JokerFactory.createRandomJoker();
-            String title = "Won the round! Got a free " + randomJoker.getName() + " card.";
+            String title = "You got a free " + randomJoker.getName() + " card!";
             String[] lines = {randomJoker.getName() + ": " + randomJoker.getDescription() + "."};
             try {
                 JavatroCore.heldJokers.add(randomJoker);
@@ -43,16 +69,16 @@ public class WinRoundScreen extends Screen {
                 UI.printBorderedContent(title, List.of(lines));
             }
 
+        // Give the player a random free planet card if normal blinds are beaten
         } else {
-            // Give the player a random free planet card, and move to next round.
             PokerHand.HandType[] handTypes = PokerHand.HandType.values();
             Random random = new Random();
             PokerHand.HandType randomPlanetCard = handTypes[random.nextInt(handTypes.length)];
             PlanetCard.getForHand(randomPlanetCard).apply();
             String title =
-                    "Won the round! Got a free "
+                    "You got a free "
                             + PlanetCard.getForHand(randomPlanetCard).getName()
-                            + " card.";
+                            + " card!";
 
             String[] lines = {
                     randomPlanetCard.getHandName()
