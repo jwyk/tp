@@ -69,7 +69,7 @@ public class CardSelectOption implements Option {
 
             // Print Hand Name and Cards played
             PokerHand playedHand = JavatroCore.currentRound.playedHand;
-            String handName = BOLD + "Achieved: <" + playedHand.getHandName() + "> Hand"+ END + BLACK_B;
+            String handName = String.format("Achieved: %s%s<%s>%s%s Hand", BOLD, YELLOW, playedHand.getHandName(), END, BLACK_B);
             List<String> cardArtLines = getCardArtLines(JavatroCore.currentRound.selectedCards);
             printBorderedContent(handName, cardArtLines);
 

@@ -195,17 +195,13 @@ public class Round {
         assert !cardIndices.isEmpty() : "Cannot discard zero cards";
         assert remainingDiscards > 0 : "No discards remaining to execute this action";
 
-        selectedCards = playerHand.play(cardIndices);
-        playedHand = HandResult.evaluateHand(selectedCards);
-        Score handScore = new Score();
-        currentScore += handScore.getScore(playedHand, selectedCards, playerJokers);
 
         // Handle duplicates by using a Set
         Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);
         int handSizeBefore = playerHand.getHand().size();
         int oldRemainingDiscards = remainingDiscards;
 
-        playerHand.discard(cardIndices);
+        selectedCards = playerHand.discard(cardIndices);
         remainingDiscards--;
 
         playerHand.draw(indicesToDiscard.size(), deck);

@@ -42,7 +42,7 @@ public class UI {
     public static final String BLUE = "\033[94m";
     //    public static final String PURPLE = "\033[95m";
     public static final String PURPLE = "\033[38;2;115;14;147m";
-    public static final String CYAN = "\033[36m";
+    public static final String CYAN = "\033[96m";
     public static final String ORANGE = "\033[38;2;255;165;0m";
     public static final String BLACK = "\033[30m";
     public static final String WHITE_B = "\033[107m";
