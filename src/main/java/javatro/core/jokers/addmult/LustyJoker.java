@@ -9,6 +9,7 @@ public class LustyJoker extends Joker {
 
     public LustyJoker() {
         super();
+        name = "Lusty";
         this.description = "Played cards with Heart suit give +3 Mult when scored ";
         this.scoreType = ScoreType.ONCARDPLAY;
     }

@@ -92,7 +92,7 @@ public class HeldJokersTest {
     @Test
     void testMultipleJokersSuite() throws JavatroException {
         Joker gluttonousJoker = new GluttonousJoker();
-        Joker counterJoker = new CounterJoker(1);
+        Joker counterJoker = new CounterJoker();
         Joker wrathfulJoker = new WrathfulJoker();
         Joker halfJoker = new HalfJoker();
 

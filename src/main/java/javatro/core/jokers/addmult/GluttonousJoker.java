@@ -9,6 +9,7 @@ public class GluttonousJoker extends Joker {
 
     public GluttonousJoker() {
         super();
+        name = "Gluttonous";
         this.description = "Played cards with Club suit give +3 Mult when scored";
         this.scoreType = ScoreType.ONCARDPLAY;
     }

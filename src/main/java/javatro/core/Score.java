@@ -38,14 +38,8 @@ public class Score {
 
         // Score the cards and apply any Jokers that have effects on play here.
         for (Card currentCard : playedCardList) {
-            totalChips += currentCard.getChips();
-            // From here, check each joker in heldJokers can apply effects on card play, in the
-            // order they are placed.
-            for (int i = 0; i < jokerList.size(); i++) {
-                Joker currentJoker = jokerList.get(i);
-                if (currentJoker.scoreType == Joker.ScoreType.ONCARDPLAY) {
-                    currentJoker.interact(this, currentCard);
-                }
+            if(isValidCard(currentCard)) {
+                scoreCard(currentCard);
             }
         }
 
@@ -61,4 +55,36 @@ public class Score {
         // Round the score and return the correct score value.
         return calculateFinalScore(totalChips, totalMultiplier);
     }
+
+    /**
+     * Returns whether the card should be considered for scoring.
+     * This boolean will return false if the card falls under boss blind conditions.
+     *
+     * @param card The card to be checked for validity
+     * @param
+     */
+    private boolean isValidCard(Card card) {
+        //To be checked for in boss blind
+        return true;
+    }
+
+    /**
+     * Adds the card's value to the score, and check for any joker interactions with the card.
+     *
+     * @param card The card to be scored
+     * @param
+     */
+    private void scoreCard(Card card) {
+        totalChips += card.getChips();
+        // From here, check each joker in heldJokers can apply effects on card play, in the
+        // order they are placed.
+        for (int i = 0; i < jokerList.size(); i++) {
+            Joker currentJoker = jokerList.get(i);
+            if (currentJoker.scoreType == Joker.ScoreType.ONCARDPLAY) {
+                currentJoker.interact(this, card);
+            }
+        }
+    }
 }
+
+

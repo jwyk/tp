@@ -200,7 +200,6 @@ public class Round {
 
         // Handle duplicates by using a Set
         Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);
-
         int handSizeBefore = playerHand.getHand().size();
         int oldRemainingDiscards = remainingDiscards;
 

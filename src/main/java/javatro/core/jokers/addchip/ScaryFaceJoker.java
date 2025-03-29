@@ -9,6 +9,7 @@ public class ScaryFaceJoker extends Joker {
 
     public ScaryFaceJoker() {
         super();
+        name = "Scary Face";
         this.description = "Played Face (K, Q, J) Cards give +30 Chips";
         this.scoreType = ScoreType.ONCARDPLAY;
     }

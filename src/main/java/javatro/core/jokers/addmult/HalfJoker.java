@@ -8,6 +8,7 @@ import javatro.core.jokers.Joker;
 public class HalfJoker extends Joker {
     public HalfJoker() {
         super();
+        name = "Half";
         this.description = "+20 Mult if played hand has 3 or fewer cards.";
         this.scoreType = ScoreType.AFTERHANDPLAY;
     }

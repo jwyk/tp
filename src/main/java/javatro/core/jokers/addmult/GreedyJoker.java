@@ -9,6 +9,7 @@ public class GreedyJoker extends Joker {
 
     public GreedyJoker() {
         super();
+        name = "Greedy";
         this.description = "Played cards with Diamond suit give +3 Mult when scored";
         this.scoreType = ScoreType.ONCARDPLAY;
     }

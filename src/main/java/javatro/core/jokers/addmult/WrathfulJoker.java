@@ -9,6 +9,7 @@ public class WrathfulJoker extends Joker {
 
     public WrathfulJoker() {
         super();
+        name = "Wrathful";
         this.description = "Played cards with Spade suit give +3 Mult when scored ";
         this.scoreType = ScoreType.ONCARDPLAY;
     }

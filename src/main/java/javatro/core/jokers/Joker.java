@@ -8,7 +8,8 @@ import javatro.core.Score;
  * Joker Object.
  */
 public abstract class Joker {
-    public String description;
+    protected static String description;
+    protected static String name;
     public ScoreType scoreType;
 
     /** Enum representing the type of Joker Card. */
@@ -16,8 +17,6 @@ public abstract class Joker {
         AFTERHANDPLAY,
         ONCARDPLAY,
     }
-
-    public Joker() {}
 
     /**
      * Abstract method of Joker for scoring purposes. The playedCard parameter should be null if not
@@ -28,4 +27,13 @@ public abstract class Joker {
      *     totalMultiplier.
      */
     public abstract void interact(Score scoreClass, Card playedCard);
+
+    public String getName() {
+        return name + " Joker";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
 }
