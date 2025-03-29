@@ -19,4 +19,10 @@ public class WrathfulJoker extends Joker {
             scoreClass.totalMultiplier += 3;
         }
     }
+
+    @Override
+    public String toString() {
+        return "+3 Mult Spade";
+    }
+
 }

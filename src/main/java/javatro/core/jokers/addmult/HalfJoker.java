@@ -18,4 +18,10 @@ public class HalfJoker extends Joker {
             scoreClass.totalMultiplier += 20;
         }
     }
+
+    @Override
+    public String toString() {
+        return "If <= 3 Cards Played, +20 Mult";
+    }
+
 }
