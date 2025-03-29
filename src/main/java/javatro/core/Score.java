@@ -38,7 +38,7 @@ public class Score {
 
         // Score the cards and apply any Jokers that have effects on play here.
         for (Card currentCard : playedCardList) {
-            if(isValidCard(currentCard)) {
+            if (isValidCard(currentCard)) {
                 scoreCard(currentCard);
             }
         }
@@ -57,13 +57,14 @@ public class Score {
     }
 
     /**
-     * Returns whether the card should be considered for scoring.
-     * This boolean will return false if the card falls under boss blind conditions.
+     * Returns whether the card should be considered for scoring. This boolean will return false if
+     * the card falls under boss blind conditions.
      *
      * @param card The card to be checked for validity
      * @param
      */
     private boolean isValidCard(Card card) {
+        // To be checked for in boss blind
         //Apply boss blind logic to return this as true or false based on the card's characteristics.
         return true;
     }
@@ -86,5 +87,3 @@ public class Score {
         }
     }
 }
-
-
