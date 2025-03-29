@@ -24,7 +24,7 @@ public class CheckeredDeckSelectOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        Deck.DeckType deckType = Deck.DeckType.CHECKERED; 
+        Deck.DeckType deckType = Deck.DeckType.CHECKERED;
         JavatroCore.deck = new Deck(deckType);
         JavatroManager.jc.setupNewGame(deckType);
         JavatroManager.setScreen(UI.getBlindScreen());

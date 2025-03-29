@@ -5,12 +5,9 @@ import static javatro.core.Deck.DeckType.RED;
 import static javatro.core.JavatroCore.heldJokers;
 
 import javatro.core.jokers.HeldJokers;
-import javatro.core.jokers.Joker;
-import javatro.core.jokers.PassiveJoker;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

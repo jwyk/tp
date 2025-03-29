@@ -12,8 +12,7 @@ public abstract class Joker {
     public String description;
     public ScoreType scoreType;
 
-    public void apply(Round round) {
-    }
+    public void apply(Round round) {}
 
     /** Enum representing the type of Joker Card. */
     public enum ScoreType {
