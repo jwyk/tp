@@ -7,7 +7,7 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
-public class NextRoundOption implements Option  {
+public class NextRoundOption implements Option {
     @Override
     public String getDescription() {
         return "Start Next Round";

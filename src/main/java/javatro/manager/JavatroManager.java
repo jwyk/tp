@@ -26,7 +26,6 @@ public class JavatroManager implements PropertyChangeListener {
     /** Stores the last recorded user input. */
     private static int userInput;
 
-
     /**
      * Constructs a {@code JavatroManager} and registers it as an observer to the view.
      *
