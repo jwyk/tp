@@ -24,5 +24,4 @@ public class GreedyJoker extends Joker {
     public String toString() {
         return "+3 Mult Diamond";
     }
-
 }

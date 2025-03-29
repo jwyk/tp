@@ -23,5 +23,4 @@ public class HalfJoker extends Joker {
     public String toString() {
         return "If <= 3 Cards Played, +20 Mult";
     }
-
 }

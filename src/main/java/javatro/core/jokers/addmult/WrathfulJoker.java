@@ -24,5 +24,4 @@ public class WrathfulJoker extends Joker {
     public String toString() {
         return "+3 Mult Spade";
     }
-
 }

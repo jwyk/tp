@@ -24,5 +24,4 @@ public class LustyJoker extends Joker {
     public String toString() {
         return "+3 Mult Hearts";
     }
-
 }
