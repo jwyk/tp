@@ -13,7 +13,7 @@ public class CounterJoker extends Joker {
         this.description =
                 "+3 Mult for each Joker card held." + "Current Multiplier: " + numberOfJokers;
         this.numberOfJokers = numberOfJokers;
-        this.scoreType = ScoreType.AFTERPLAYHAND;
+        this.scoreType = ScoreType.AFTERHANDPLAY;
     }
 
     @Override

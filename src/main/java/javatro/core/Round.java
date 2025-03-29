@@ -5,9 +5,12 @@ import static javatro.core.Deck.DeckType.RED;
 import static javatro.core.JavatroCore.heldJokers;
 
 import javatro.core.jokers.HeldJokers;
+import javatro.core.jokers.Joker;
+import javatro.core.jokers.PassiveJoker;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -74,17 +77,14 @@ public class Round {
         if (blindScore < 0) {
             throw JavatroException.invalidBlindScore();
         }
-
         if (remainingPlays <= 0) {
             throw JavatroException.invalidPlaysPerRound();
         }
-
         if (deck == null) {
             throw JavatroException.invalidDeck();
         }
 
         // Handle special Deck variants here.
-
         DeckType deckName = deck.getDeckName();
         if (deckName == RED) {
             this.remainingDiscards += 1;

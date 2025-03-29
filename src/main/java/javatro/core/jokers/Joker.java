@@ -1,6 +1,7 @@
 package javatro.core.jokers;
 
 import javatro.core.Card;
+import javatro.core.Round;
 import javatro.core.Score;
 
 /**
@@ -11,11 +12,13 @@ public abstract class Joker {
     public String description;
     public ScoreType scoreType;
 
+    public void apply(Round round) {
+    }
+
     /** Enum representing the type of Joker Card. */
     public enum ScoreType {
-        AFTERPLAYHAND,
+        AFTERHANDPLAY,
         ONCARDPLAY,
-        PASSIVE,
     }
 
     public Joker() {}

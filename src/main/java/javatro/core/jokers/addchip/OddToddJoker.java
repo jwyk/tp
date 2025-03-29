@@ -11,7 +11,7 @@ public class OddToddJoker extends Joker {
         super();
         this.description =
                 "+3 Mult for each Joker card held." + "Current Multiplier: " + numberOfJokers;
-        this.scoreType = ScoreType.AFTERPLAYHAND;
+        this.scoreType = ScoreType.AFTERHANDPLAY;
     }
 
     @Override

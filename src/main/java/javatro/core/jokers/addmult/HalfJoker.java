@@ -9,7 +9,7 @@ public class HalfJoker extends Joker {
     public HalfJoker() {
         super();
         this.description = "+20 Mult if played hand has 3 or fewer cards.";
-        this.scoreType = ScoreType.AFTERPLAYHAND;
+        this.scoreType = ScoreType.AFTERHANDPLAY;
     }
 
     @Override

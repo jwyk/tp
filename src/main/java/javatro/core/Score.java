@@ -53,7 +53,7 @@ public class Score {
         // are placed.
         for (int i = 0; i < jokerList.size(); i++) {
             Joker currentJoker = jokerList.get(i);
-            if (currentJoker.scoreType == Joker.ScoreType.AFTERPLAYHAND) {
+            if (currentJoker.scoreType == Joker.ScoreType.AFTERHANDPLAY) {
                 currentJoker.interact(this, null);
             }
         }
