@@ -8,8 +8,8 @@ import java.util.List;
 
 /** Contains the algorithm for calculating the final score and played hand. */
 public class Score {
-    public static double totalChips = 0;
-    public static double totalMultiplier = 0;
+    public double totalChips = 0;
+    public double totalMultiplier = 0;
     public static List<Card> playedCardsList;
     public static ArrayList<Joker> jokerList;
 

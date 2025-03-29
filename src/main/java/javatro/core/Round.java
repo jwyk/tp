@@ -64,7 +64,7 @@ public class Round {
         this.blindScore = blindScore;
         this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
         this.remainingPlays = remainingPlays;
-        this.deck = deck;
+        Round.deck = deck;
         this.playerHand = new HoldingHand();
         this.playerJokers = heldJokers;
         // Default descriptions and names
@@ -90,7 +90,7 @@ public class Round {
         }
 
         // Initial draw
-        playerHand.draw(INITIAL_HAND_SIZE, this.deck);
+        playerHand.draw(INITIAL_HAND_SIZE, deck);
 
         // Post-construction invariants
         assert this.currentScore == 0 : "Initial score must be zero";

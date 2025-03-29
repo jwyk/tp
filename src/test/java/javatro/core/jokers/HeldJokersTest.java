@@ -31,22 +31,10 @@ import java.util.List;
 public class HeldJokersTest {
     private static List<Card> playedCardList;
     private static HeldJokers heldJokers;
-    private static HandResult handResult;
     private static PokerHand result;
-    private static Card cardOne;
-    private static Card cardTwo;
-    private static Card cardThree;
-    private static Card cardFour;
-    private static Card cardFive;
-    private static Joker gluttonousJoker;
     /** Initialize a test run. */
     @BeforeEach
     void init() throws JavatroException {
-        Joker gluttonousJoker = new GluttonousJoker();
-        Joker counterJoker = new CounterJoker(1);
-        Joker wrathfulJoker = new WrathfulJoker();
-        Joker halfJoker = new HalfJoker();
-
         heldJokers = new HeldJokers();
         playedCardList =
                 List.of(
