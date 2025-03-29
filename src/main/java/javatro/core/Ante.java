@@ -11,9 +11,9 @@ public class Ante {
 
     /** Enum representing different blind levels with associated multipliers and names. */
     public enum Blind {
-        SMALL_BLIND(1.0, "SMALL BLIND"),
-        LARGE_BLIND(1.5, "LARGE BLIND"),
-        BOSS_BLIND(2.0, "BOSS BLIND");
+        SMALL_BLIND(0.1, "SMALL BLIND"),
+        LARGE_BLIND(0.1, "LARGE BLIND"),
+        BOSS_BLIND(0.1, "BOSS BLIND");
 
         private final double multiplier;
         private final String name;

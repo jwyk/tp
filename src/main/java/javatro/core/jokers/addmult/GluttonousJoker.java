@@ -4,13 +4,21 @@ import javatro.core.Card;
 import javatro.core.Score;
 import javatro.core.jokers.Joker;
 
+import static javatro.display.UI.BLACK_B;
+import static javatro.display.UI.RED;
+import static javatro.display.UI.BLUE;
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+
 /** Represents a GluttonousJoker Joker. */
 public class GluttonousJoker extends Joker {
 
     public GluttonousJoker() {
         super();
         name = "Gluttonous";
-        this.description = "Played cards with Club suit give +3 Mult when scored";
+        description = String.format("Played cards with %s%sClub%s%s suit give %s%s+3 Mult%s%s when scored",
+                BLUE, BOLD, END, BLACK_B, RED, BOLD, END, BLACK_B);
+        path = "joker_gluttonous.txt";
         this.scoreType = ScoreType.ONCARDPLAY;
     }
 
@@ -23,6 +31,6 @@ public class GluttonousJoker extends Joker {
 
     @Override
     public String toString() {
-        return "+3 Mult Clubs";
+        return "+3 Mult for Clubs";
     }
 }

@@ -4,12 +4,20 @@ import javatro.core.Card;
 import javatro.core.Score;
 import javatro.core.jokers.Joker;
 
+import static javatro.display.UI.BLACK_B;
+import static javatro.display.UI.RED;
+import static javatro.display.UI.YELLOW;
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+
 /** Represents a HalfJoker Joker. */
 public class HalfJoker extends Joker {
     public HalfJoker() {
         super();
         name = "Half";
-        this.description = "+20 Mult if played hand has 3 or fewer cards.";
+        description = String.format("%s%s+20 Mult%s%s if played hand has %s%s3 or fewer%s%s cards",
+                RED, BOLD, END, BLACK_B, YELLOW, BOLD, END, BLACK_B);
+        path = "joker_half.txt";
         this.scoreType = ScoreType.AFTERHANDPLAY;
     }
 
@@ -22,6 +30,6 @@ public class HalfJoker extends Joker {
 
     @Override
     public String toString() {
-        return "If <= 3 Cards Played, +20 Mult";
+        return "+20 Mult for <= 3 Cards";
     }
 }

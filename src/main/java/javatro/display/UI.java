@@ -5,8 +5,12 @@ import javatro.core.JavatroException;
 import javatro.display.screens.*;
 import javatro.display.screens.DeckViewScreen;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * The {@code display} class is responsible for managing and displaying different screens in the
@@ -290,6 +294,35 @@ public class UI {
 
         return cardArtLines;
     }
+
+    public static void printANSI(String fileName) {
+        try (InputStream inputStream = WinRoundScreen.class.getResourceAsStream("/javatro/display/ansi/" + fileName)) {
+            if (inputStream == null) {
+                throw JavatroException.errorLoadingLogo(fileName);
+            }
+            try (Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8)) {
+                System.out.println(scanner.useDelimiter("\\A").next()); // Print file content directly
+            }
+        } catch (IOException | JavatroException e) {
+            System.err.println(JavatroException.errorLoadingLogo(fileName).getMessage());
+            System.out.println("JIMBO"); // Fallback print if file is not found
+        }
+    }
+
+    //    static {
+//        try (InputStream inputStream =
+//                     StartScreen.class.getResourceAsStream("/javatro/display/ansi/jimbo.txt")) {
+//            if (inputStream == null) {
+//                throw JavatroException.errorLoadingLogo("jimbo.txt");
+//            }
+//            try (Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8)) {
+//                JIMBO = scanner.useDelimiter("\\A").next(); // Read the entire file
+//            }
+//        } catch (IOException | JavatroException e) {
+//            JIMBO = "JIMBO"; // Fallback in case of error
+//            System.err.println(JavatroException.errorLoadingLogo("jimbo.txt").getMessage());
+//        }
+//    }
 
     // endregion
 
