@@ -107,9 +107,9 @@ public class Round {
         support.firePropertyChange("holdingHand", null, getPlayerHand());
         support.firePropertyChange("currentScore", null, currentScore);
 
-        if (isRoundOver() && isWon()) {
+        if (isWon()) {
             support.firePropertyChange("roundComplete", null, 1);
-        } else if (isRoundOver() && !isWon()) {
+        } else if (isRoundOver()) {
             support.firePropertyChange("roundComplete", null, -1);
         } else {
             support.firePropertyChange("roundComplete", null, 0);
@@ -247,8 +247,7 @@ public class Round {
      * @return true if player won the round, false otherwise
      */
     public boolean isWon() {
-        assert isRoundOver() || remainingPlays > 0 : "Round state is inconsistent";
-        return currentScore >= blindScore & isRoundOver();
+        return currentScore >= blindScore;
     }
 
     public String getRoundName() {

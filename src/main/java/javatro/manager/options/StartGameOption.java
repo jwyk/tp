@@ -22,7 +22,7 @@ public class StartGameOption implements Option {
     }
 
     /**
-     * Executes the command to begin the game, restore available commands, and update the screen to
+     * Executes the command to begin the game, restore available commands, and update the main screen to
      * display the game interface.
      *
      * @throws JavatroException If an error occurs while starting the game.
@@ -31,7 +31,6 @@ public class StartGameOption implements Option {
     public void execute() throws JavatroException {
         JavatroManager.beginGame();
         javatro.display.UI.getGameScreen().restoreGameCommands();
-        // Update the main screen to show the game screen
         JavatroManager.setScreen(UI.getGameScreen());
     }
 }

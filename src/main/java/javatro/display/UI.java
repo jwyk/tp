@@ -27,6 +27,7 @@ public class UI {
     private static final StartScreen START_SCREEN;
     private static final PokerHandScreen POKER_SCREEN;
     private static final DeckScreen DECK_SCREEN;
+    private static final BlindScreen BLIND_SCREEN;
 
     /** Parser instance for handling user input. */
     private static final Parser PARSER = new Parser();
@@ -43,6 +44,7 @@ public class UI {
             START_SCREEN = new StartScreen();
             POKER_SCREEN = new PokerHandScreen();
             DECK_SCREEN = new DeckScreen();
+            BLIND_SCREEN = new BlindScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
             e.printStackTrace();
@@ -383,5 +385,9 @@ public class UI {
     public static DeckScreen getDeckScreen() {
         return DECK_SCREEN;
     }
-    // endregion
+
+
+    public static BlindScreen getBlindScreen() {
+        return BLIND_SCREEN;
+    }
 }

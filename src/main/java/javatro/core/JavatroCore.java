@@ -4,11 +4,53 @@
  */
 package javatro.core;
 
+import javatro.manager.JavatroManager;
+
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
 
     /** The current active round in the game. */
     public static Round currentRound;
+
+    /** The current ante for the game. */
+    protected static Ante ante;
+
+    /** The current round count of the game. */
+    protected static int roundCount;
+
+    /**
+     * Retrieves the current ante.
+     *
+     * @return the current {@link Ante} instance
+     */
+    public static Ante getAnte(){
+        return ante;
+    }
+
+    /**
+     * Retrieves the current round count.
+     *
+     * @return the current round count
+     */
+    public static int getRoundCount(){
+        return roundCount;
+    }
+
+    /**
+     * Advances the game to the next round, updating the ante and incrementing the round count.
+     */
+    public static void nextRound(){
+        ante.nextRound();
+        roundCount++;
+    }
+
+    /**
+     * Initializes a new game by resetting the ante and round count.
+     */
+    public static void setupNewGame(){
+        ante = new Ante();
+        roundCount = 1;
+    }
 
     /**
      * Starts a new round and assigns it to the current round.
@@ -28,7 +70,7 @@ public class JavatroCore {
     private Round classicRound() {
         Deck d = new Deck();
         try {
-            return new Round(300, 4, d, "Classic", "Classic Round");
+            return new Round(ante.getRoundScore(), 4, d, "Classic", "Classic Round");
         } catch (JavatroException javatroException) {
             System.out.println(javatroException.getMessage());
         }
@@ -40,7 +82,8 @@ public class JavatroCore {
      *
      * @throws JavatroException If an error occurs while starting the game.
      */
-    public void beginGame() {
+    public void beginGame() throws JavatroException {
+        JavatroManager.setScreen(javatro.display.UI.getBlindScreen());
         startNewRound(classicRound());
     }
 }
