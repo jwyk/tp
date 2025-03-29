@@ -134,7 +134,6 @@ public class Round {
      * Plays a set of cards as a poker hand.
      *
      * @param cardIndices Indices of cards to play from the holding hand
-     * 
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
         if (cardIndices.size() > POKER_HAND_SIZE || cardIndices.isEmpty()) {

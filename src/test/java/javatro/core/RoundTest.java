@@ -1,9 +1,9 @@
 package javatro.core;
 
 import static javatro.core.Deck.DeckType.DEFAULT;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import javatro.display.UI;
@@ -17,17 +17,20 @@ public class RoundTest {
         return UI.RED + message + UI.END;
     }
 
-    private static final String INVALIDPLAYEDHANDERROR = "A poker hand must contain between 1 and 5 cards.";
-    private static final String INVALIDPLAYSPERROUND = "Number of plays per round must be greater than 0.";
+    private static final String INVALIDPLAYEDHANDERROR =
+            "A poker hand must contain between 1 and 5 cards.";
+    private static final String INVALIDPLAYSPERROUND =
+            "Number of plays per round must be greater than 0.";
     private static final String INVALIDDECK = "Deck cannot be null.";
     private static final String INVALIDPLAYSREMAINING = "No plays remaining.";
 
     enum isWon {
-        WON, LOST, UNKNOWN
+        WON,
+        LOST,
+        UNKNOWN
     }
 
-    private void assertRoundInitialization(
-            int anteCount, Ante.Blind blind, int remainingPlays)
+    private void assertRoundInitialization(int anteCount, Ante.Blind blind, int remainingPlays)
             throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
@@ -61,10 +64,7 @@ public class RoundTest {
     }
 
     private void assertRoundOverAfterPlays(
-            int blindScore,
-            int totalPlays,
-            int playsToMake,
-            boolean expectedIsOver)
+            int blindScore, int totalPlays, int playsToMake, boolean expectedIsOver)
             throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Round round = new Round(blindScore, totalPlays, deck, "", "");
@@ -130,7 +130,7 @@ public class RoundTest {
             Ante.Blind blind,
             int remainingPlays,
             int playsToMake,
-                    boolean expectedIsOver)
+            boolean expectedIsOver)
             throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
@@ -157,31 +157,21 @@ public class RoundTest {
     @Test
     public void round_incorrectInitializatioin() throws JavatroException {
         assertRoundInitializationFailure(
-                1,
-                Ante.Blind.SMALL_BLIND,
-                0,
-                new Deck(DEFAULT),
-                INVALIDPLAYSPERROUND);
-        assertRoundInitializationFailure(
-                1, Ante.Blind.SMALL_BLIND, 3, null, INVALIDDECK);
+                1, Ante.Blind.SMALL_BLIND, 0, new Deck(DEFAULT), INVALIDPLAYSPERROUND);
+        assertRoundInitializationFailure(1, Ante.Blind.SMALL_BLIND, 3, null, INVALIDDECK);
     }
 
     @Test
     public void round_playCards_roundNotOver() throws JavatroException {
         // Test with first blind score and plays
-        assertRoundOver(
-                1, Ante.Blind.SMALL_BLIND, 3, 1, false);
+        assertRoundOver(1, Ante.Blind.SMALL_BLIND, 3, 1, false);
         // Test with high blind score
-        assertRoundOver(
-                1, Ante.Blind.LARGE_BLIND, 10000, 1, false);
+        assertRoundOver(1, Ante.Blind.LARGE_BLIND, 10000, 1, false);
 
-        //Test with high ante count and plays
-        assertRoundOver(
-                8, Ante.Blind.SMALL_BLIND, 10000, 1, false);
+        // Test with high ante count and plays
+        assertRoundOver(8, Ante.Blind.SMALL_BLIND, 10000, 1, false);
         // Test with many remaining plays
-        assertRoundOver(
-                8, Ante.Blind.LARGE_BLIND, 10000, 1, false);
-                
+        assertRoundOver(8, Ante.Blind.LARGE_BLIND, 10000, 1, false);
 
         // Test won
         assertRoundOver(1, Ante.Blind.SMALL_BLIND, 10000, 8, true);
@@ -213,43 +203,20 @@ public class RoundTest {
     @Test
     public void round_playCards_tooManyPlays() throws JavatroException {
         // Test with 3 plays
-        assertPlayCardsFails(
-                1,
-                Ante.Blind.SMALL_BLIND,
-                3,
-                3,
-                INVALIDPLAYSREMAINING);
+        assertPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 3, 3, INVALIDPLAYSREMAINING);
 
         // Test with 5 plays
-        assertPlayCardsFails(
-                1,
-                Ante.Blind.SMALL_BLIND,
-                2,
-                2,
-                INVALIDPLAYSREMAINING);
+        assertPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 2, 2, INVALIDPLAYSREMAINING);
         // Test with 0 plays
-        assertPlayCardsFails(
-                1,
-                Ante.Blind.SMALL_BLIND,
-                0,
-                0,
-                INVALIDPLAYSPERROUND);
+        assertPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 0, 0, INVALIDPLAYSPERROUND);
     }
 
     @Test
     public void round_playCards_invalidHandSize() throws JavatroException {
         assertPlayCardsInvalidHandSize(
-                1,
-                Ante.Blind.SMALL_BLIND,
-                3,
-                List.of(0, 1, 2, 3, 4, 5),
-                INVALIDPLAYEDHANDERROR);
+                1, Ante.Blind.SMALL_BLIND, 3, List.of(0, 1, 2, 3, 4, 5), INVALIDPLAYEDHANDERROR);
         assertPlayCardsInvalidHandSize(
-                1,
-                Ante.Blind.SMALL_BLIND,
-                3,
-                List.of(0, 1, 2, 3, 4, 5, 6),
-                INVALIDPLAYEDHANDERROR);
+                1, Ante.Blind.SMALL_BLIND, 3, List.of(0, 1, 2, 3, 4, 5, 6), INVALIDPLAYEDHANDERROR);
         assertPlayCardsInvalidHandSize(
                 1,
                 Ante.Blind.SMALL_BLIND,
@@ -258,11 +225,7 @@ public class RoundTest {
                 INVALIDPLAYEDHANDERROR);
         // Test with 0 cards
         assertPlayCardsInvalidHandSize(
-                1,
-                Ante.Blind.SMALL_BLIND,
-                3,
-                List.of(),
-                INVALIDPLAYEDHANDERROR);
+                1, Ante.Blind.SMALL_BLIND, 3, List.of(), INVALIDPLAYEDHANDERROR);
     }
 
     @Test
