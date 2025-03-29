@@ -212,5 +212,4 @@ public final class JavatroException extends Exception {
         return new JavatroException(
                 "Cannot add more Jokers, or the maximum limit will be exceeded.");
     }
-
 }

@@ -1,22 +1,22 @@
 package javatro.core;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Random;
 
-//@author swethaiscool
+// @author swethaiscool
 /**
  * Test class for the {@link Ante} class. This class tests the functionality of the Ante class,
- * including the initialization of values, progression between rounds, blind multipliers,
- * and score calculations.
+ * including the initialization of values, progression between rounds, blind multipliers, and score
+ * calculations.
  */
 public class AnteTest {
     private Ante ante;
     private Random random;
-    /**
-     * Initializes a new Ante object before each test.
-     */
+    /** Initializes a new Ante object before each test. */
     @BeforeEach
     void setUp() {
         ante = new Ante();
@@ -24,37 +24,44 @@ public class AnteTest {
     }
 
     /**
-     * Tests the initial values of the Ante object.
-     * Ensures the Ante count starts at 1, the blind is set to SMALL_BLIND,
-     * and the round score is set to 300.
+     * Tests the initial values of the Ante object. Ensures the Ante count starts at 1, the blind is
+     * set to SMALL_BLIND, and the round score is set to 300.
      */
     @Test
     void testInitialValues() {
         assertEquals(1, ante.getAnteCount(), "Ante count should start at 1");
-        assertEquals(Ante.Blind.SMALL_BLIND, ante.getBlind(), "Initial blind should be SMALL_BLIND");
+        assertEquals(
+                Ante.Blind.SMALL_BLIND, ante.getBlind(), "Initial blind should be SMALL_BLIND");
         assertEquals(300, ante.getRoundScore(), "Initial round score should be 300");
     }
 
     /**
-     * Tests the multipliers for different blinds.
-     * Verifies that each blind (SMALL_BLIND, LARGE_BLIND, BOSS_BLIND) has the expected multiplier.
+     * Tests the multipliers for different blinds. Verifies that each blind (SMALL_BLIND,
+     * LARGE_BLIND, BOSS_BLIND) has the expected multiplier.
      */
     @Test
     void testBlindMultiplier() {
         ante.setBlind(Ante.Blind.SMALL_BLIND);
-        assertEquals(1.0, ante.getBlind().getMultiplier(), "SMALL_BLIND should have a multiplier of 1.0");
+        assertEquals(
+                1.0,
+                ante.getBlind().getMultiplier(),
+                "SMALL_BLIND should have a multiplier of 1.0");
 
         ante.setBlind(Ante.Blind.LARGE_BLIND);
-        assertEquals(1.5, ante.getBlind().getMultiplier(), "LARGE_BLIND should have a multiplier of 1.5");
+        assertEquals(
+                1.5,
+                ante.getBlind().getMultiplier(),
+                "LARGE_BLIND should have a multiplier of 1.5");
 
         ante.setBlind(Ante.Blind.BOSS_BLIND);
-        assertEquals(2.0, ante.getBlind().getMultiplier(), "BOSS_BLIND should have a multiplier of 2.0");
+        assertEquals(
+                2.0, ante.getBlind().getMultiplier(), "BOSS_BLIND should have a multiplier of 2.0");
     }
 
     /**
-     * Tests the progression of the blind and ante count across rounds.
-     * Verifies that after each round, the blind changes in the expected order,
-     * and the ante count increments correctly, resetting after reaching a cap.
+     * Tests the progression of the blind and ante count across rounds. Verifies that after each
+     * round, the blind changes in the expected order, and the ante count increments correctly,
+     * resetting after reaching a cap.
      */
     @Test
     void testNextRoundProgression() {
@@ -70,8 +77,8 @@ public class AnteTest {
     }
 
     /**
-     * Tests the calculation of the round score based on the current blind.
-     * Verifies that the score is calculated correctly for each blind.
+     * Tests the calculation of the round score based on the current blind. Verifies that the score
+     * is calculated correctly for each blind.
      */
     @Test
     void testRoundScoreCalculation() {
@@ -86,8 +93,8 @@ public class AnteTest {
     }
 
     /**
-     * Tests the maximum ante count cap.
-     * Ensures that the ante count does not exceed 8 after several rounds.
+     * Tests the maximum ante count cap. Ensures that the ante count does not exceed 8 after several
+     * rounds.
      */
     @Test
     void testMaxAnteCap() {
@@ -100,9 +107,8 @@ public class AnteTest {
     }
 
     /**
-     * Tests random blinds and their respective scores.
-     * Verifies that for each randomly selected blind and ante count,
-     * the score matches the expected value based on the blind's multiplier.
+     * Tests random blinds and their respective scores. Verifies that for each randomly selected
+     * blind and ante count, the score matches the expected value based on the blind's multiplier.
      */
     @Test
     void testRandomBlindsAndScores() {
@@ -125,11 +131,16 @@ public class AnteTest {
             int expectedScore = (int) (ante.getAnteScore() * randomBlind.getMultiplier());
 
             // Assert the score is correct
-            assertEquals(expectedScore, ante.getRoundScore(), "Random score calculation failed for Ante " + randomAnteCount + " and Blind " + randomBlind.getName());
+            assertEquals(
+                    expectedScore,
+                    ante.getRoundScore(),
+                    "Random score calculation failed for Ante "
+                            + randomAnteCount
+                            + " and Blind "
+                            + randomBlind.getName());
 
             // Reset the ante for the next iteration
             ante.resetAnte();
         }
     }
-
 }

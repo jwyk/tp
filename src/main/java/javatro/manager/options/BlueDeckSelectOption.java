@@ -28,9 +28,9 @@ public class BlueDeckSelectOption implements Option {
         JavatroManager.jc.deck = new Deck(deckType);
         JavatroManager.jc.setupNewGame(deckType);
         JavatroManager.setScreen(UI.getBlindScreen());
-//        JavatroManager.beginGame(deckType);
-//        javatro.display.UI.getGameScreen().restoreGameCommands();
-//        // Update the main screen to show the game screen
-//        JavatroManager.setScreen(UI.getGameScreen());
+        //        JavatroManager.beginGame(deckType);
+        //        javatro.display.UI.getGameScreen().restoreGameCommands();
+        //        // Update the main screen to show the game screen
+        //        JavatroManager.setScreen(UI.getGameScreen());
     }
 }

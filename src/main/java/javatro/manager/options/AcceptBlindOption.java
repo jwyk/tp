@@ -1,6 +1,5 @@
 package javatro.manager.options;
 
-import javatro.core.Ante;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;

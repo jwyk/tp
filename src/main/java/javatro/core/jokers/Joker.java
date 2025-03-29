@@ -18,9 +18,7 @@ public abstract class Joker {
         PASSIVE,
     }
 
-    public Joker() {
-
-    }
+    public Joker() {}
 
     /**
      * Abstract method of Joker for scoring purposes. The playedCard parameter should be null if not
