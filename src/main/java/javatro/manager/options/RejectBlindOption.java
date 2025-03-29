@@ -35,12 +35,12 @@ public class RejectBlindOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        if(JavatroManager.ante.getBlind() == Ante.Blind.SMALL_BLIND){
-            JavatroManager.ante.setBlind(Ante.Blind.LARGE_BLIND);
+        if(JavatroCore.getAnte().getBlind() == Ante.Blind.SMALL_BLIND){
+            JavatroCore.getAnte().setBlind(Ante.Blind.LARGE_BLIND);
             JavatroManager.setScreen(UI.getBlindScreen());
         }
-        else if(JavatroManager.ante.getBlind() == Ante.Blind.LARGE_BLIND){
-            JavatroManager.ante.setBlind(Ante.Blind.BOSS_BLIND);
+        else if(JavatroCore.getAnte().getBlind() == Ante.Blind.LARGE_BLIND){
+            JavatroCore.getAnte().setBlind(Ante.Blind.BOSS_BLIND);
             JavatroManager.setScreen(UI.getBlindScreen());
         }
         else{

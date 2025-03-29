@@ -10,194 +10,142 @@ import javatro.manager.options.AcceptBlindOption;
 import javatro.manager.options.HelpIntroOption;
 import javatro.manager.options.RejectBlindOption;
 
-/**
- * Represents the Blind selection screen in the Javatro game.
- * This screen allows players to choose between different blind levels: Small Blind, Large Blind, or Boss Blind.
- * It visually highlights the currently selected blind and provides options to accept or reject the blind.
- */
-public class BlindScreen extends Screen{
+import java.util.ArrayList;
+import java.util.List;
 
-    /**
-     * Constructs a BlindScreen with predefined options for accepting or rejecting blinds.
-     *
-     * @throws JavatroException if there is an issue initializing the screen.
-     */
-    public BlindScreen() throws JavatroException{
+public class BlindScreen extends Screen {
+
+    public BlindScreen() throws JavatroException {
         super("BLIND MENU");
 
         commandMap.add(new AcceptBlindOption());
         commandMap.add(new RejectBlindOption());
     }
 
-    /**
-     * Displays the Blind selection screen with appropriate visual formatting.
-     * Highlights the currently selected blind and displays corresponding ante values.
-     */
     @Override
-    public void displayScreen()  {
-        BorderStyle activeStyle = BorderStyle.DOUBLE;
-        BorderStyle inactiveStyle = BorderStyle.SINGLE;
-        int c = (JavatroManager.ante.getBlind() == Ante.Blind.SMALL_BLIND) ? 0 : (JavatroManager.ante.getBlind() == Ante.Blind.LARGE_BLIND)?1:2;
-        int h = 15;
-        int w = 80;
+    public void displayScreen() {
+        int activeSelection = getCurrentBlindIndex();
+        int sectionWidth = UI.BORDER_WIDTH / 3;
 
-        System.out.print(getColoredSymbol(c == 0, c == 0 ? activeStyle.topLeft : inactiveStyle.topLeft));
+        drawTopBorder(activeSelection, sectionWidth);
+        drawContentRows(activeSelection, sectionWidth);
+        drawBottomBorder(activeSelection, sectionWidth);
+    }
+
+    private int getCurrentBlindIndex() {
+        Ante.Blind currentBlind = JavatroCore.getAnte().getBlind();
+        return (currentBlind == Ante.Blind.SMALL_BLIND) ? 0 :
+                (currentBlind == Ante.Blind.LARGE_BLIND) ? 1 : 2;
+    }
+
+    private void drawTopBorder(int activeSelection, int sectionWidth) {
+        System.out.print(getHighlightedChar(activeSelection == 0, UI.TOP_LEFT));
 
         for (int i = 0; i < 3; i++) {
             if (i == 1) {
-                System.out.print(getColoredSymbol(c == 0 || c == 1, (c == 0 || c == 1) ? activeStyle.topIntersection : inactiveStyle.topIntersection));
+                System.out.print(getHighlightedChar(activeSelection <= 1, UI.T_DOWN));
             }
-            for (int j = 0; j < w/3; j++) {
-                System.out.print(getColoredSymbol(i == c, i == c ? activeStyle.horizontal : inactiveStyle.horizontal));
-            }
+
+            String horizontalLine = String.valueOf(UI.HORIZONTAL).repeat(sectionWidth - 1);
+            System.out.print(getHighlightedChar(activeSelection == i, horizontalLine));
+
             if (i == 1) {
-                System.out.print(getColoredSymbol(c == 1 || c == 2, (c == 1 || c == 2) ? activeStyle.topIntersection : inactiveStyle.topIntersection));
+                System.out.print(getHighlightedChar(activeSelection >= 1, UI.T_DOWN));
             }
         }
 
+        System.out.println(getHighlightedChar(activeSelection == 2, UI.TOP_RIGHT));
+    }
 
-        System.out.println(getColoredSymbol(c == 2, c == 2 ? activeStyle.topRight : inactiveStyle.topRight));
-        for (int i = 1; i < h - 1; i++) {
-            System.out.print(getColoredSymbol(c == 0, c == 0 ? activeStyle.vertical : inactiveStyle.vertical));
 
-            for (int l = 0; l < 3; l++) {
-                if (l == 1) {
-                    System.out.print(getColoredSymbol(c == 0 || c == 1, (c == 0 || c == 1) ? activeStyle.vertical : inactiveStyle.vertical));
+    private void drawContentRows(int activeSelection, int sectionWidth) {
+        List<String[]> contentRows = generateContentData();
+
+        for (String[] row : contentRows) {
+            System.out.print(getHighlightedChar(activeSelection == 0, UI.VERTICAL));
+
+            for (int i = 0; i < 3; i++) {
+                if (i == 1) {
+                    System.out.print(getHighlightedChar(activeSelection <= 1, UI.VERTICAL));
                 }
 
-                Ante.Blind blind = (l == 0) ? Ante.Blind.SMALL_BLIND : (l == 1) ? Ante.Blind.LARGE_BLIND : Ante.Blind.BOSS_BLIND;
-                if (i == h / 2 - 1) {
-                    System.out.print(getColoredSymbol(c==l, centerPad(blind.getName(), w / 3)));
-                }
-                else if (i == h / 2 + 1){
-                    System.out.print(getColoredSymbol(c==l, centerPad(String.valueOf((int)(JavatroManager.ante.getAnteScore()*blind.getMultiplier())), w / 3)));
-                }
-                else System.out.print(centerPad(" ", w/3));
+                String centeredText = centerInSection(row[i], sectionWidth - 1);
+                System.out.print(getHighlightedChar(activeSelection == i, centeredText));
 
-
-                if (l == 1) {
-                    System.out.print(getColoredSymbol(c == 1 || c == 2, (c == 1 || c == 2) ? activeStyle.vertical : inactiveStyle.vertical));
+                if (i == 1) {
+                    System.out.print(getHighlightedChar(activeSelection >= 1, UI.VERTICAL));
                 }
             }
 
-            System.out.print(getColoredSymbol(c == 2, c == 2 ? activeStyle.vertical : inactiveStyle.vertical));
-            System.out.println();
+            System.out.println(getHighlightedChar(activeSelection == 2, UI.VERTICAL));
+        }
+    }
+
+    private List<String[]> generateContentData() {
+        List<String[]> contentRows = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            contentRows.add(new String[]{"", "", ""});
         }
 
-        System.out.print(getColoredSymbol(c == 0, c == 0 ? activeStyle.bottomLeft : inactiveStyle.bottomLeft));
+        contentRows.add(new String[]{
+                Ante.Blind.SMALL_BLIND.getName(),
+                Ante.Blind.LARGE_BLIND.getName(),
+                Ante.Blind.BOSS_BLIND.getName()
+        });
+
+        contentRows.add(new String[]{"", "", ""});
+
+        contentRows.add(new String[]{
+                String.valueOf((int)(JavatroCore.getAnte().getAnteScore() * Ante.Blind.SMALL_BLIND.getMultiplier())),
+                String.valueOf((int)(JavatroCore.getAnte().getAnteScore() * Ante.Blind.LARGE_BLIND.getMultiplier())),
+                String.valueOf((int)(JavatroCore.getAnte().getAnteScore() * Ante.Blind.BOSS_BLIND.getMultiplier()))
+        });
+
+        for (int i = 0; i < 6; i++) {
+            contentRows.add(new String[]{"", "", ""});
+        }
+
+        return contentRows;
+    }
+
+    private void drawBottomBorder(int activeSelection, int sectionWidth) {
+        System.out.print(getHighlightedChar(activeSelection == 0, UI.BOTTOM_LEFT));
 
         for (int i = 0; i < 3; i++) {
             if (i == 1) {
-                System.out.print(getColoredSymbol(c == 0 || c == 1, (c == 0 || c == 1) ? activeStyle.bottomIntersection : inactiveStyle.bottomIntersection));
+                System.out.print(getHighlightedChar(activeSelection <= 1, UI.T_UP));
             }
-            for (int j = 0; j < w/3; j++) {
-                System.out.print(getColoredSymbol(i == c, i == c ? activeStyle.horizontal : inactiveStyle.horizontal));
-            }
+
+            String horizontalLine = String.valueOf(UI.HORIZONTAL).repeat(sectionWidth - 1);
+            System.out.print(getHighlightedChar(activeSelection == i, horizontalLine));
+
             if (i == 1) {
-                System.out.print(getColoredSymbol(c == 1 || c == 2, (c == 1 || c == 2) ? activeStyle.bottomIntersection : inactiveStyle.bottomIntersection));
+                System.out.print(getHighlightedChar(activeSelection >= 1, UI.T_UP));
             }
         }
 
-        System.out.println(getColoredSymbol(c == 2, c == 2 ? activeStyle.bottomRight : inactiveStyle.bottomRight));
+        System.out.println(getHighlightedChar(activeSelection == 2, UI.BOTTOM_RIGHT));
     }
 
-    /**
-     * Represents different styles of borders used in the UI.
-     */
-    private enum BorderStyle {
-        SINGLE("┌", "┐", "└", "┘", "─", "│", "┬", "┴", "┼"),
-        DOUBLE("╔", "╗", "╚", "╝", "═", "║", "╦", "╩", "╬");
+    private String centerInSection(String text, int width) {
+        int textLength = text.length();
+        int padding = Math.max(0, width - textLength);
+        int leftPad = padding / 2;
+        int rightPad = padding - leftPad;
 
-        private final String topLeft;
-        private final String topRight;
-        private final String bottomLeft;
-        private final String bottomRight;
-        private final String horizontal;
-        private final String vertical;
-        private final String topIntersection;
-        private final String bottomIntersection;
-        private final String crossIntersection;
+        return " ".repeat(leftPad) + text + " ".repeat(rightPad);
+    }
 
-        /**
-         * Constructs a BorderStyle with specified symbols.
-         *
-         * @param topLeft the top-left corner character
-         * @param topRight the top-right corner character
-         * @param bottomLeft the bottom-left corner character
-         * @param bottomRight the bottom-right corner character
-         * @param horizontal the horizontal border character
-         * @param vertical the vertical border character
-         * @param topIntersection the top intersection character
-         * @param bottomIntersection the bottom intersection character
-         * @param crossIntersection the cross intersection character
-         */
-        BorderStyle(String topLeft, String topRight, String bottomLeft, String bottomRight,
-                    String horizontal, String vertical, String topIntersection,
-                    String bottomIntersection, String crossIntersection) {
-            this.topLeft = topLeft;
-            this.topRight = topRight;
-            this.bottomLeft = bottomLeft;
-            this.bottomRight = bottomRight;
-            this.horizontal = horizontal;
-            this.vertical = vertical;
-            this.topIntersection = topIntersection;
-            this.bottomIntersection = bottomIntersection;
-            this.crossIntersection = crossIntersection;
+    private String getHighlightedChar(boolean isActive, char character) {
+        return getHighlightedChar(isActive, String.valueOf(character));
+    }
+
+    private String getHighlightedChar(boolean isActive, String text) {
+        if (isActive) {
+            return UI.YELLOW + text + UI.END;
+        } else {
+            return text;
         }
-    }
-
-    /**
-     * Represents different ANSI color codes for UI styling.
-     */
-    private enum Color {
-        RESET("\u001B[0m"),
-        RED("\u001B[31m"),
-        GREEN("\u001B[32m"),
-        YELLOW("\u001B[33m"),
-        BLUE("\u001B[34m"),
-        MAGENTA("\u001B[35m"),
-        CYAN("\u001B[36m"),
-        WHITE("\u001B[37m");
-
-        private final String code;
-
-        /**
-         * Constructs a Color enum with the given ANSI escape code.
-         *
-         * @param code the ANSI escape code for the color
-         */
-        Color(String code) {
-            this.code = code;
-        }
-    }
-
-    /**
-     * Centers and pads a string within a given size.
-     *
-     * @param str the string to center
-     * @param size the total width in which the string should be centered
-     * @return a padded string that is centered within the specified width
-     */
-    private static String centerPad(String str, int size) {
-        if (str.length() >= size) {
-            return str;
-        }
-
-        int totalPadding = size - str.length();
-        int leftPadding = totalPadding / 2;
-        int rightPadding = totalPadding - leftPadding;
-
-        return " ".repeat(leftPadding) + str + " ".repeat(rightPadding);
-    }
-
-    /**
-     * Returns a symbol formatted with a color if the condition is met.
-     *
-     * @param isActive whether the symbol should be highlighted
-     * @param symbol the symbol to format
-     * @return the colored symbol string
-     */
-    private static String getColoredSymbol(boolean isActive, String symbol) {
-        return (isActive ? Color.YELLOW.code: Color.RESET.code) + symbol + Color.RESET.code;
     }
 }
