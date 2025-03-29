@@ -65,7 +65,7 @@ public final class JavatroException extends Exception {
      * @return A {@code JavatroException} indicating the correct blind score.
      */
     public static JavatroException invalidBlindScore() {
-        return new JavatroException("Blind score must be greater than or equal to 0.");
+        return new JavatroException("Blind score must be greater than or equal to 0!");
     }
 
     /**
@@ -212,4 +212,5 @@ public final class JavatroException extends Exception {
         return new JavatroException(
                 "Cannot add more Jokers, or the maximum limit will be exceeded.");
     }
+
 }

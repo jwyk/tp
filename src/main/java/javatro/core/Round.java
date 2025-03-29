@@ -127,7 +127,7 @@ public class Round {
 
         if (isWon()) {
             support.firePropertyChange("roundComplete", null, 1);
-        } else if (isRoundOver() && !isWon()) {
+        } else if (isRoundOver()) {
             support.firePropertyChange("roundComplete", null, -1);
         } else {
             support.firePropertyChange("roundComplete", null, 0);

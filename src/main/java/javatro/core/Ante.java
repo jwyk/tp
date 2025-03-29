@@ -1,19 +1,22 @@
 package javatro.core;
 
-// @@author swethacool
 
+//@author swethaiscool
 /**
- * The {@code Ante} class represents the ante system in a poker game, managing the current round,
- * ante values, and blind progression.
+ * The {@code Ante} class represents the ante system in a poker game,
+ * managing the current round, ante values, and blind progression.
  */
 public class Ante {
     private Ante ante;
+    private static final int MAX_ANTE_COUNT = 8;
 
-    /** Enum representing different blind levels with associated multipliers and names. */
+    /**
+     * Enum representing different blind levels with associated multipliers and names.
+     */
     public enum Blind {
-        SMALL_BLIND(1, "SMALL BLIND"),
+        SMALL_BLIND(1.0, "SMALL BLIND"),
         LARGE_BLIND(1.5, "LARGE BLIND"),
-        BOSS_BLIND(2, "BOSS BLIND");
+        BOSS_BLIND(2.0, "BOSS BLIND");
 
         private final double multiplier;
         private final String name;
@@ -22,7 +25,7 @@ public class Ante {
          * Constructs a Blind with a multiplier and a name.
          *
          * @param multiplier The multiplier applied to the ante score.
-         * @param name The name of the blind level.
+         * @param name       The name of the blind level.
          */
         Blind(double multiplier, String name) {
             this.multiplier = multiplier;
@@ -48,9 +51,9 @@ public class Ante {
         }
     }
 
-    private int anteCount;
+    private static int anteCount;
     private Blind blind;
-    private int[] anteScore = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000};
+    private final int[] anteScore = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000};
 
     /**
      * Constructs an {@code Ante} object with an initial ante count of 1 and the small blind level.
@@ -78,19 +81,23 @@ public class Ante {
         return anteScore[anteCount - 1];
     }
 
-    /** Resets the ante to the first round with the small blind. */
+    /**
+     * Resets the ante to the first round with the small blind.
+     */
     public void resetAnte() {
         anteCount = 1;
     }
 
-    /** Moves to the next round of the ante system, adjusting the blind level and ante count. */
+    /**
+     * Moves to the next round of the ante system, adjusting the blind level and ante count.
+     */
     public void nextRound() {
         if (blind == Blind.SMALL_BLIND) {
             blind = Blind.LARGE_BLIND;
         } else if (blind == Blind.LARGE_BLIND) {
             blind = Blind.BOSS_BLIND;
         } else {
-            if (anteCount == 8) return;
+            if (anteCount == MAX_ANTE_COUNT) return;
             blind = Blind.SMALL_BLIND;
             anteCount++;
         }
@@ -122,4 +129,5 @@ public class Ante {
     public int getAnteCount() {
         return anteCount;
     }
+
 }

@@ -1,13 +1,13 @@
 package javatro.manager.options;
 
 import javatro.core.Ante;
+import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
 import java.util.List;
 
-// @@author swethaiscool
 /**
  * Represents an option to reject the current blind and move to the next available blind level.
  * Implements the {@code Option} interface.
@@ -25,26 +25,29 @@ public class RejectBlindOption implements Option {
     }
 
     /**
-     * Executes the action of rejecting the current blind level. If the current blind is {@code
-     * SMALL_BLIND}, it moves to {@code LARGE_BLIND}. If the current blind is {@code LARGE_BLIND},
-     * it moves to {@code BOSS_BLIND}. If already at {@code BOSS_BLIND}, a warning message is
-     * displayed, indicating that the player must play at this level.
+     * Executes the action of rejecting the current blind level.
+     * If the current blind is {@code SMALL_BLIND}, it moves to {@code LARGE_BLIND}.
+     * If the current blind is {@code LARGE_BLIND}, it moves to {@code BOSS_BLIND}.
+     * If already at {@code BOSS_BLIND}, a warning message is displayed,
+     * indicating that the player must play at this level.
      *
      * @throws JavatroException if an error occurs during execution.
      */
     @Override
     public void execute() throws JavatroException {
-        if (JavatroManager.ante.getBlind() == Ante.Blind.SMALL_BLIND) {
-            JavatroManager.ante.setBlind(Ante.Blind.LARGE_BLIND);
+        if(JavatroCore.getAnte().getBlind() == Ante.Blind.SMALL_BLIND){
+            JavatroCore.getAnte().setBlind(Ante.Blind.LARGE_BLIND);
             JavatroManager.setScreen(UI.getBlindScreen());
-        } else if (JavatroManager.ante.getBlind() == Ante.Blind.LARGE_BLIND) {
-            JavatroManager.ante.setBlind(Ante.Blind.BOSS_BLIND);
+        }
+        else if(JavatroCore.getAnte().getBlind() == Ante.Blind.LARGE_BLIND){
+            JavatroCore.getAnte().setBlind(Ante.Blind.BOSS_BLIND);
             JavatroManager.setScreen(UI.getBlindScreen());
-        } else {
+        }
+        else{
             String title = "⚠\uFE0F " + UI.BOLD + "WARNING" + " ⚠\uFE0F" + UI.END;
 
             String[] lines = {
-                "Oops! you have to play the BOSS blind to proceed, no skipping! :D",
+                    "Oops! you have to play the BOSS blind to proceed, no skipping! :D",
             };
 
             UI.printBorderedContent(title, List.of(lines));

@@ -5,8 +5,7 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
-// @author swethaiscool
-public class NextRoundOption implements Option {
+public class NextRoundOption implements Option  {
     @Override
     public String getDescription() {
         return "Start Next Round";
@@ -14,9 +13,7 @@ public class NextRoundOption implements Option {
 
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.ante.nextRound();
-        JavatroManager.roundCount++;
-        JavatroManager.jc.beginGame();
+        JavatroManager.jc.nextRound();
         JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
         JavatroCore.currentRound.updateRoundVariables();
         javatro.display.UI.getGameScreen().restoreGameCommands();
