@@ -10,7 +10,7 @@ import javatro.manager.options.RedDeckSelectOption;
  * The {@code DeckSelectScreen} class represents the game screen where players can select the
  * desired deck they want.
  */
-public class SelectDeckScreen extends Screen {
+public class DeckSelectScreen extends Screen {
 
     /**
      * Constructs a {@code StartScreen} and initializes available commands.
@@ -18,7 +18,7 @@ public class SelectDeckScreen extends Screen {
      * @throws JavatroException if the options title is invalid or if there is an error initializing
      *     the screen
      */
-    public SelectDeckScreen() throws JavatroException {
+    public DeckSelectScreen() throws JavatroException {
         super("Select Your Deck");
         super.commandMap.add(new RedDeckSelectOption());
         super.commandMap.add(new BlueDeckSelectOption());

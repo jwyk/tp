@@ -1,14 +1,15 @@
 package javatro.manager.options;
 
-import javatro.core.JavatroCore;
-import javatro.core.JavatroException;
+import javatro.core.*;
 import javatro.display.Parser;
 import javatro.display.UI;
-import javatro.display.screens.DiscardScreen;
-import javatro.display.screens.PlayScreen;
+import javatro.display.screens.DiscardCardScreen;
+import javatro.display.screens.PlayCardScreen;
 import javatro.manager.JavatroManager;
 
 import java.util.List;
+
+import static javatro.display.UI.*;
 
 /**
  * The {@code CardSelectOption} class represents a command that allows the player to make a
@@ -62,12 +63,27 @@ public class CardSelectOption implements Option {
                 Parser.getCardInput(
                         JavatroCore.currentRound.getPlayerHand().size(), selectionLimit);
 
-        if (UI.getCurrentScreen() instanceof PlayScreen) {
-            // Select and play the chosen cards
+        // Select and play the chosen cards
+        if (UI.getCurrentScreen() instanceof PlayCardScreen) {
             JavatroCore.currentRound.playCards(userInput);
-        } else if (UI.getCurrentScreen() instanceof DiscardScreen) {
-            // Discard the selected cards
+
+            // Print Hand Name and Cards played
+            PokerHand playedHand = JavatroCore.currentRound.playedHand;
+            String handName = BOLD + "Achieved: <" + playedHand.getHandName() + "> Hand"+ END + BLACK_B;
+            List<String> cardArtLines = getCardArtLines(JavatroCore.currentRound.selectedCards);
+            printBorderedContent(handName, cardArtLines);
+
+            // Increment hand play count
+            playedHand.incrementPlayed();
+
+        // Discard the selected cards
+        } else if (UI.getCurrentScreen() instanceof DiscardCardScreen) {
             JavatroCore.currentRound.discardCards(userInput);
+
+            // Print Cards discarded
+            String handName = BOLD + "Cards Discarded"+ END + BLACK_B;
+            List<String> cardArtLines = getCardArtLines(JavatroCore.currentRound.selectedCards);
+            printBorderedContent(handName, cardArtLines);
         }
 
         // Return to the game screen after selection

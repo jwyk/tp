@@ -44,11 +44,12 @@ public class Round {
     /** Manages property change listeners for game state updates. */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
+    public PokerHand playedHand;
+    public List<Card> selectedCards;
+
     /**
      * Constructs a new round with the specified ante and blind settings.
      *
-     * @param anteBase The selected ante base level.
-     * @param blindType The type of blind which multiplies the ante base.
      * @param remainingPlays The number of plays available.
      * @param deck The deck of cards used in the round.
      * @param roundName The name for the round.
@@ -67,7 +68,6 @@ public class Round {
 
         this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
         this.remainingPlays = remainingPlays;
-        Round.deck = deck;
         Round.deck = deck;
         this.playerHand = new HoldingHand();
         this.playerJokers = heldJokers;
@@ -159,10 +159,10 @@ public class Round {
         long oldScore = currentScore;
         int oldRemainingPlays = remainingPlays;
 
-        List<Card> playedCards = playerHand.play(cardIndices);
-        PokerHand result = HandResult.evaluateHand(playedCards);
+        selectedCards = playerHand.play(cardIndices);
+        playedHand = HandResult.evaluateHand(selectedCards);
         Score handScore = new Score();
-        currentScore += handScore.getScore(result, playedCards, playerJokers);
+        currentScore += handScore.getScore(playedHand, selectedCards, playerJokers);
 
         // Draw new cards to replace played ones
         playerHand.draw(cardIndices.size(), deck);
@@ -201,6 +201,11 @@ public class Round {
         assert cardIndices != null : "Card indices cannot be null";
         assert !cardIndices.isEmpty() : "Cannot discard zero cards";
         assert remainingDiscards > 0 : "No discards remaining to execute this action";
+
+        selectedCards = playerHand.play(cardIndices);
+        playedHand = HandResult.evaluateHand(selectedCards);
+        Score handScore = new Score();
+        currentScore += handScore.getScore(playedHand, selectedCards, playerJokers);
 
         // Handle duplicates by using a Set
         Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);

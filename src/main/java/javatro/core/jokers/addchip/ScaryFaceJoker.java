@@ -25,6 +25,6 @@ public class ScaryFaceJoker extends Joker {
 
     @Override
     public String toString() {
-        return "+3 Mult per Joker";
+        return "+30 Chips if Face Card";
     }
 }
