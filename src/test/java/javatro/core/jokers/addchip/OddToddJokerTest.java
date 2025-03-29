@@ -57,7 +57,7 @@ public class OddToddJokerTest {
     /** Test that a hand with 3 cards played correctly triggers the ScaryFaceJoker. */
     @Test
     void testOddToddJokerCorrect() throws JavatroException {
-        playedCardList = List.of(cardOne,cardTwo);
+        playedCardList = List.of(cardOne, cardTwo);
         assertScoreEquals(heldJokers, 180);
     }
 

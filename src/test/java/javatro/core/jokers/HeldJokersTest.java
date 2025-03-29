@@ -106,6 +106,5 @@ public class HeldJokersTest {
         assertScoreEquals(heldJokers, 2212);
         heldJokers.add(greedyJoker);
         assertScoreEquals(heldJokers, 2686);
-
     }
 }

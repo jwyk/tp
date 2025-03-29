@@ -50,7 +50,6 @@ public class ScaryFaceJokerTest {
         cardFive = new Card(KING, SPADES);
         cardSix = new Card(QUEEN, SPADES);
         cardSeven = new Card(JACK, SPADES);
-
     }
 
     /** Test that a hand played triggers joker effects correctly and has the right score. */

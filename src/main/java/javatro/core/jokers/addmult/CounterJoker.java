@@ -12,16 +12,14 @@ public class CounterJoker extends Joker {
         super();
         name = "Counter";
         this.numberOfJokers = 1;
-        description =
-                "+3 Mult for each Joker card held." + "Current Multiplier: " + numberOfJokers;
+        description = "+3 Mult for each Joker card held." + "Current Multiplier: " + numberOfJokers;
         this.scoreType = ScoreType.AFTERHANDPLAY;
     }
 
     @Override
     public void interact(Score scoreClass, Card playedCard) {
         this.numberOfJokers = scoreClass.jokerList.size();
-        description =
-                "+3 Mult for each Joker card held." + "Current Multiplier: " + numberOfJokers;
+        description = "+3 Mult for each Joker card held." + "Current Multiplier: " + numberOfJokers;
         scoreClass.totalMultiplier += numberOfJokers * 3;
     }
 

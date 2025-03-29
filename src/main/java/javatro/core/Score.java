@@ -65,7 +65,8 @@ public class Score {
      */
     private boolean isValidCard(Card card) {
         // To be checked for in boss blind
-        //Apply boss blind logic to return this as true or false based on the card's characteristics.
+        // Apply boss blind logic to return this as true or false based on the card's
+        // characteristics.
         return true;
     }
 
