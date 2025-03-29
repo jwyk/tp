@@ -27,7 +27,7 @@ public class AbandonedDeckSelectOption implements Option {
     public void execute() throws JavatroException {
         Deck.DeckType deckType = DeckType.ABANDONED;
         JavatroCore.deck = new Deck(deckType);
-        JavatroManager.jc.setupNewGame(deckType);
+        JavatroManager.beginGame(deckType);
         JavatroManager.setScreen(UI.getBlindScreen());
     }
 }

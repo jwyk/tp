@@ -5,6 +5,7 @@
 package javatro.core;
 
 import javatro.core.Deck.DeckType;
+import javatro.core.jokers.HeldJokers;
 
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
@@ -24,6 +25,10 @@ public class JavatroCore {
     /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
     public static Deck deck;
 
+    /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
+    public static HeldJokers heldJokers;
+
+    // @author swethaiscool
     /**
      * Retrieves the current ante.
      *
@@ -54,8 +59,10 @@ public class JavatroCore {
         ante = new Ante();
         roundCount = 1;
         totalPlays = 4;
+        heldJokers = new HeldJokers();
         deck = new Deck(deckType);
     }
+    // @author swethaiscool
 
     /**
      * Starts a new round and assigns it to the current round.
@@ -65,6 +72,7 @@ public class JavatroCore {
      */
     private static void startNewRound(Round round) {
         currentRound = round;
+        assert currentRound != null;
     }
     /**
      * Creates a new classic round with predefined settings.
@@ -81,6 +89,7 @@ public class JavatroCore {
                     ante.getRoundScore(),
                     4,
                     d,
+                    heldJokers,
                     ante.getBlind().getName(),
                     ante.getBlind().getName());
         } catch (JavatroException javatroException) {
@@ -97,7 +106,5 @@ public class JavatroCore {
      */
     public void beginGame() throws JavatroException {
         startNewRound(classicRound());
-        // Fire property changes here
-        //        JavatroCore.currentRound.updateRoundVariables();
     }
 }

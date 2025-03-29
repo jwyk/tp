@@ -2,6 +2,9 @@ package javatro.core;
 
 import static javatro.core.Deck.DeckType;
 import static javatro.core.Deck.DeckType.RED;
+import static javatro.core.JavatroCore.heldJokers;
+
+import javatro.core.jokers.HeldJokers;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -19,8 +22,10 @@ public class Round {
 
     /** The player's current hand of cards. */
     public HoldingHand playerHand;
+    /** The player's current held jokers. */
+    public HeldJokers playerJokers;
     /** The player's current score in the round. */
-    private int currentScore;
+    private long currentScore;
     /** The minimum score required to win the round. */
     private final int blindScore;
     /** The number of remaining discards allowed. */
@@ -51,6 +56,7 @@ public class Round {
             int blindScore,
             int remainingPlays,
             Deck deck,
+            HeldJokers heldJokers,
             String roundName,
             String roundDescription)
             throws JavatroException {
@@ -58,9 +64,9 @@ public class Round {
         this.blindScore = blindScore;
         this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
         this.remainingPlays = remainingPlays;
-        this.deck = deck;
+        Round.deck = deck;
         this.playerHand = new HoldingHand();
-
+        this.playerJokers = heldJokers;
         // Default descriptions and names
         this.roundName = roundName;
         this.roundDescription = roundDescription;
@@ -68,17 +74,14 @@ public class Round {
         if (blindScore < 0) {
             throw JavatroException.invalidBlindScore();
         }
-
         if (remainingPlays <= 0) {
             throw JavatroException.invalidPlaysPerRound();
         }
-
         if (deck == null) {
             throw JavatroException.invalidDeck();
         }
 
         // Handle special Deck variants here.
-
         DeckType deckName = deck.getDeckName();
         if (deckName == RED) {
             this.remainingDiscards += 1;
@@ -87,7 +90,7 @@ public class Round {
         }
 
         // Initial draw
-        playerHand.draw(INITIAL_HAND_SIZE, this.deck);
+        playerHand.draw(INITIAL_HAND_SIZE, deck);
 
         // Post-construction invariants
         assert this.currentScore == 0 : "Initial score must be zero";
@@ -149,19 +152,13 @@ public class Round {
                 : "Cannot play more than " + POKER_HAND_SIZE + " cards";
         assert remainingPlays > 0 : "No plays remaining to execute this action";
 
-        int oldScore = currentScore;
+        long oldScore = currentScore;
         int oldRemainingPlays = remainingPlays;
 
         List<Card> playedCards = playerHand.play(cardIndices);
         PokerHand result = HandResult.evaluateHand(playedCards);
-        Integer totalChips = result.getChips();
-
-        for (Card card : playedCards) {
-            totalChips += card.getChips();
-        }
-
-        // Update round state
-        currentScore += totalChips * result.getMultiplier();
+        Score handScore = new Score();
+        currentScore += handScore.getScore(result, playedCards, playerJokers);
 
         // Draw new cards to replace played ones
         playerHand.draw(cardIndices.size(), deck);
@@ -189,7 +186,7 @@ public class Round {
             throw new JavatroException("No remaining discards available");
         }
 
-        if (cardIndices.size() > remainingDiscards) {
+        if (cardIndices.size() > POKER_HAND_SIZE) {
             throw new JavatroException("Too many discards");
         }
 
@@ -203,7 +200,6 @@ public class Round {
 
         // Handle duplicates by using a Set
         Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);
-
         int handSizeBefore = playerHand.getHand().size();
         int oldRemainingDiscards = remainingDiscards;
 
@@ -222,7 +218,7 @@ public class Round {
     }
 
     // Getters
-    public int getCurrentScore() {
+    public long getCurrentScore() {
         return currentScore;
     }
 
@@ -259,6 +255,7 @@ public class Round {
      * @return true if player won the round, false otherwise
      */
     public boolean isWon() {
+        assert isRoundOver() || remainingPlays > 0 : "Round state is inconsistent";
         return currentScore >= blindScore;
     }
 
