@@ -5,7 +5,6 @@
  */
 package javatro.manager;
 
-import javatro.core.Ante;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
@@ -26,7 +25,6 @@ public class JavatroManager implements PropertyChangeListener {
     public static JavatroCore jc;
     /** Stores the last recorded user input. */
     private static int userInput;
-
 
     /**
      * Constructs a {@code JavatroManager} and registers it as an observer to the view.
@@ -55,7 +53,6 @@ public class JavatroManager implements PropertyChangeListener {
      * @throws JavatroException If an error occurs during game initialization.
      */
     public static void beginGame() throws JavatroException {
-        JavatroCore.setupNewGame();
         jc.beginGame();
         JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
         // Fire property changes here
