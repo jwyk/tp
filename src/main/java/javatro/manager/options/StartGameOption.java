@@ -22,8 +22,8 @@ public class StartGameOption implements Option {
     }
 
     /**
-     * Executes the command to begin the game, restore available commands, and update the main screen to
-     * display the game interface.
+     * Executes the command to begin the game, restore available commands, and update the main
+     * screen to display the game interface.
      *
      * @throws JavatroException If an error occurs while starting the game.
      */

@@ -1,21 +1,18 @@
 package javatro.display.screens;
 
-import javatro.Javatro;
 import javatro.core.Ante;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
-import javatro.manager.JavatroManager;
 import javatro.manager.options.AcceptBlindOption;
-import javatro.manager.options.HelpIntroOption;
 import javatro.manager.options.RejectBlindOption;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the screen for selecting the blind in the game.
- * This screen provides options to accept or reject the blind and visually displays the current blind settings.
+ * Represents the screen for selecting the blind in the game. This screen provides options to accept
+ * or reject the blind and visually displays the current blind settings.
  */
 public class BlindScreen extends Screen {
 
@@ -32,7 +29,8 @@ public class BlindScreen extends Screen {
     }
 
     /**
-     * Displays the Blind Selection screen with highlighted sections based on the current blind setting.
+     * Displays the Blind Selection screen with highlighted sections based on the current blind
+     * setting.
      */
     @Override
     public void displayScreen() {
@@ -47,12 +45,14 @@ public class BlindScreen extends Screen {
     /**
      * Determines the index of the current active blind setting.
      *
-     * @return the index of the current blind (0 for Small Blind, 1 for Large Blind, 2 for Boss Blind).
+     * @return the index of the current blind (0 for Small Blind, 1 for Large Blind, 2 for Boss
+     *     Blind).
      */
     private int getCurrentBlindIndex() {
         Ante.Blind currentBlind = JavatroCore.getAnte().getBlind();
-        return (currentBlind == Ante.Blind.SMALL_BLIND) ? 0 :
-                (currentBlind == Ante.Blind.LARGE_BLIND) ? 1 : 2;
+        return (currentBlind == Ante.Blind.SMALL_BLIND)
+                ? 0
+                : (currentBlind == Ante.Blind.LARGE_BLIND) ? 1 : 2;
     }
 
     /**
@@ -81,7 +81,8 @@ public class BlindScreen extends Screen {
     }
 
     /**
-     * Draws the content rows of the screen, displaying blind options and their corresponding values.
+     * Draws the content rows of the screen, displaying blind options and their corresponding
+     * values.
      *
      * @param activeSelection the index of the currently active blind.
      * @param sectionWidth the width of each section.
@@ -118,25 +119,36 @@ public class BlindScreen extends Screen {
         List<String[]> contentRows = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            contentRows.add(new String[]{"", "", ""});
+            contentRows.add(new String[] {"", "", ""});
         }
 
-        contentRows.add(new String[]{
-                Ante.Blind.SMALL_BLIND.getName(),
-                Ante.Blind.LARGE_BLIND.getName(),
-                Ante.Blind.BOSS_BLIND.getName()
-        });
+        contentRows.add(
+                new String[] {
+                    Ante.Blind.SMALL_BLIND.getName(),
+                    Ante.Blind.LARGE_BLIND.getName(),
+                    Ante.Blind.BOSS_BLIND.getName()
+                });
 
-        contentRows.add(new String[]{"", "", ""});
+        contentRows.add(new String[] {"", "", ""});
 
-        contentRows.add(new String[]{
-                String.valueOf((int)(JavatroCore.getAnte().getAnteScore() * Ante.Blind.SMALL_BLIND.getMultiplier())),
-                String.valueOf((int)(JavatroCore.getAnte().getAnteScore() * Ante.Blind.LARGE_BLIND.getMultiplier())),
-                String.valueOf((int)(JavatroCore.getAnte().getAnteScore() * Ante.Blind.BOSS_BLIND.getMultiplier()))
-        });
+        contentRows.add(
+                new String[] {
+                    String.valueOf(
+                            (int)
+                                    (JavatroCore.getAnte().getAnteScore()
+                                            * Ante.Blind.SMALL_BLIND.getMultiplier())),
+                    String.valueOf(
+                            (int)
+                                    (JavatroCore.getAnte().getAnteScore()
+                                            * Ante.Blind.LARGE_BLIND.getMultiplier())),
+                    String.valueOf(
+                            (int)
+                                    (JavatroCore.getAnte().getAnteScore()
+                                            * Ante.Blind.BOSS_BLIND.getMultiplier()))
+                });
 
         for (int i = 0; i < 6; i++) {
-            contentRows.add(new String[]{"", "", ""});
+            contentRows.add(new String[] {"", "", ""});
         }
 
         return contentRows;

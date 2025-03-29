@@ -386,7 +386,6 @@ public class UI {
         return DECK_SCREEN;
     }
 
-
     public static BlindScreen getBlindScreen() {
         return BLIND_SCREEN;
     }

@@ -236,24 +236,18 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         + "|");
     }
 
-
-    private void printRoundOver(){
+    private void printRoundOver() {
         String title = "♥️ ♠️ 🃏 " + UI.BOLD + "Round Ended" + " 🃏 ♦️ ♣️" + UI.END;
 
         String message;
-        if(roundOver == 1){
+        if (roundOver == 1) {
             message = "YOU WON!!!!";
-        }
-        else{
+        } else {
             message = "YOU LOST!!!!";
         }
 
         String[] lines = {
-                "",
-                "",
-                message,
-                "",
-                "",
+            "", "", message, "", "",
         };
 
         UI.printBorderedContent(title, List.of(lines));
@@ -263,7 +257,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     @Override
     public void displayScreen() {
 
-        if(roundOver != 0){
+        if (roundOver != 0) {
             printRoundOver();
         }
 
@@ -299,7 +293,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         printCardRow("Cash: $ - ", "");
 
         // display ante info
-        printCardRow("Ante: "+ JavatroCore.getAnte().getAnteCount() +" / 8", secondRowHeader);
+        printCardRow("Ante: " + JavatroCore.getAnte().getAnteCount() + " / 8", secondRowHeader);
 
         // Generate the values for the second row (if applicable)
         if (secondRowCount > 0) {
@@ -356,8 +350,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                         commandMap.clear();
                         commandMap.add(new NextRoundOption());
                         commandMap.add(new ExitGameOption());
-                    }
-                    else if (roundOver == -1) {
+                    } else if (roundOver == -1) {
                         commandMap.clear();
                         commandMap.add(new MainMenuOption());
                         commandMap.add(new ExitGameOption());

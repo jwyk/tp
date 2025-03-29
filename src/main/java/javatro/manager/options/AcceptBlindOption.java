@@ -1,13 +1,10 @@
 package javatro.manager.options;
 
-import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
-import javatro.display.UI;
-import javatro.manager.JavatroManager;
 
 /**
- * Represents an option to accept the current blind in the game.
- * This class implements the {@code Option} interface.
+ * Represents an option to accept the current blind in the game. This class implements the {@code
+ * Option} interface.
  */
 public class AcceptBlindOption implements Option {
 
@@ -22,8 +19,8 @@ public class AcceptBlindOption implements Option {
     }
 
     /**
-     * Executes the action associated with accepting the blind.
-     * Currently, this method does not perform any operations.
+     * Executes the action associated with accepting the blind. Currently, this method does not
+     * perform any operations.
      *
      * @throws JavatroException if an error occurs during execution.
      */
