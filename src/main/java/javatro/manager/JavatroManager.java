@@ -58,9 +58,6 @@ public class JavatroManager implements PropertyChangeListener {
      */
     public static void beginGame(Deck.DeckType deckType) throws JavatroException {
         jc.setupNewGame(deckType);
-        JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
-        // Fire property changes here
-        JavatroCore.currentRound.updateRoundVariables();
     }
 
     /**

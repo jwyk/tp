@@ -27,7 +27,7 @@ public class RedDeckSelectOption implements Option {
     public void execute() throws JavatroException {
         DeckType deckType = DeckType.RED;
         JavatroCore.deck = new Deck(deckType);
-        JavatroManager.jc.setupNewGame(deckType);
+        JavatroManager.beginGame(deckType);
         JavatroManager.setScreen(UI.getBlindScreen());
     }
 }

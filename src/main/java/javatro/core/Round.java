@@ -157,7 +157,6 @@ public class Round {
 
         List<Card> playedCards = playerHand.play(cardIndices);
         PokerHand result = HandResult.evaluateHand(playedCards);
-
         Score handScore = new Score();
         currentScore += handScore.getScore(result, playedCards, playerJokers);
 
