@@ -49,9 +49,9 @@ public class Ante {
         }
     }
 
-    private int anteCount;
+    private static int anteCount;
     private Blind blind;
-    private int[] anteScore = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000};
+    private final int[] anteScore = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000};
 
     /**
      * Constructs an {@code Ante} object with an initial ante count of 1 and the small blind level.
