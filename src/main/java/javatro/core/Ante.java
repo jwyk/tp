@@ -10,9 +10,7 @@ public class Ante {
 
     /** Enum representing different blind levels with associated multipliers and names. */
     public enum Blind {
-        SMALL_BLIND(1.0, "SMALL BLIND"),
-        LARGE_BLIND(1.5, "LARGE BLIND"),
-        BOSS_BLIND(2.0, "BOSS BLIND");
+        SMALL_BLIND(1.0, "SMALL BLIND"), LARGE_BLIND(1.5, "LARGE BLIND"), BOSS_BLIND(2.0, "BOSS BLIND");
 
         private final double multiplier;
         private final String name;
@@ -48,6 +46,7 @@ public class Ante {
     }
 
     private static int anteCount;
+
     private Blind blind;
     private final int[] anteScore = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000};
 
@@ -77,6 +76,20 @@ public class Ante {
         return anteScore[anteCount - 1];
     }
 
+    /**
+     * Sets the ante count for the game.
+     *  
+     * @param anteCount The new ante count to set.
+     * @throws IllegalArgumentException if the ante count is not between 1 and {@link #MAX_ANTE_COUNT}
+     */
+    public void setAnteCount(int anteCount) {
+        if (anteCount < 1 || anteCount > MAX_ANTE_COUNT) {
+            // not using javatro exception since this method should only be used in tests
+            throw new IllegalArgumentException("Ante count must be between 1 and " + MAX_ANTE_COUNT);
+        }
+        Ante.anteCount = anteCount;        
+    }
+    
     /** Resets the ante to the first round with the small blind. */
     public void resetAnte() {
         anteCount = 1;

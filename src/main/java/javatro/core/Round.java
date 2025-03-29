@@ -51,8 +51,7 @@ public class Round {
      * @throws JavatroException If provided parameters are invalid.
      */
     public Round(
-            AnteBase anteBase,
-            BlindType blindType,
+            int blindScore,
             int remainingPlays,
             Deck deck,
             String roundName,
@@ -60,15 +59,13 @@ public class Round {
             throws JavatroException {
         this.currentScore = 0;
 
-        // Calculate blind score based on ante and blind type
-        this.blindScore = (int) (anteBase.getValue() * blindType.getMultiplier());
-
         this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
         this.remainingPlays = remainingPlays;
-        this.deck = deck;
+        Round.deck = deck;
         this.playerHand = new HoldingHand();
         this.roundName = roundName;
         this.roundDescription = roundDescription;
+        this.blindScore = blindScore;
 
         if (blindScore < 0) {
             throw JavatroException.invalidBlindScore();
@@ -92,7 +89,7 @@ public class Round {
         }
 
         // Initial draw
-        playerHand.draw(INITIAL_HAND_SIZE, this.deck);
+        playerHand.draw(INITIAL_HAND_SIZE, Round.deck);
 
         // Post-construction invariants
         assert this.currentScore == 0 : "Initial score must be zero";
@@ -100,20 +97,6 @@ public class Round {
                 : "Initial discards must be set to maximum";
         assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE
                 : "Player should have exactly " + INITIAL_HAND_SIZE + " cards initially";
-    }
-
-    /**
-     * Constructs a new round with default ante and blind settings (LEVEL_1 and SMALL).
-     *
-     * @param remainingPlays The number of plays available.
-     * @param deck The deck of cards used in the round.
-     * @param roundName The name for the round.
-     * @param roundDescription The description for the round.
-     * @throws JavatroException If provided parameters are invalid.
-     */
-    public Round(int remainingPlays, Deck deck, String roundName, String roundDescription)
-            throws JavatroException {
-        this(AnteBase.ANTE_1, BlindType.SMALL, remainingPlays, deck, roundName, roundDescription);
     }
 
     /**
@@ -148,10 +131,10 @@ public class Round {
     }
 
     /**
-     * Plays a set of 5 cards as a poker hand.
+     * Plays a set of cards as a poker hand.
      *
-     * @param cardIndices Indices of cards to play from the holding hand (must be exactly 5 cards)
-     * @throws JavatroException If the number of cards played is not equal to 5
+     * @param cardIndices Indices of cards to play from the holding hand
+     * 
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
         if (cardIndices.size() > POKER_HAND_SIZE || cardIndices.isEmpty()) {
@@ -269,7 +252,7 @@ public class Round {
      */
     public boolean isRoundOver() {
         // Round ends if no plays are remaining
-        return remainingPlays <= 0;
+        return remainingPlays <= 0 | isWon();
     }
 
     /**
