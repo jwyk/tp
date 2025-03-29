@@ -45,12 +45,12 @@ public class HelpHowOption implements Option {
             "Ante and Blind System:",
             "   - The game uses an ante system to start each round.",
             "   - The ante increases as rounds progress, starting from the initial small blind,"
-                + " large blind, and boss blind.",
+                    + " large blind, and boss blind.",
             "   - This also means the score to beat for each round increases progressively"
-                + " \uD83D\uDCC8\uD83C\uDFAF",
+                    + " \uD83D\uDCC8\uD83C\uDFAF",
             "   - The blinds rotate with each new round, increasing as the game progresses.",
             "   - However do take note that the Small and Large Blinds are optional while the Boss"
-                + " blind is compulsory in the game play.",
+                    + " blind is compulsory in the game play.",
             "   - Have fun playing! \uD83D\uDE0E\uD83C\uDF89",
         };
 
