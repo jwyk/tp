@@ -13,8 +13,7 @@ public class NextRoundOption implements Option  {
 
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.ante.nextRound();
-        JavatroManager.roundCount++;
+        JavatroCore.nextRound();
         JavatroManager.jc.beginGame();
         JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
         JavatroCore.currentRound.updateRoundVariables();
