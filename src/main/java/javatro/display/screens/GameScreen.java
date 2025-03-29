@@ -3,7 +3,6 @@ package javatro.display.screens;
 import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
-import javatro.display.UI;
 import javatro.manager.options.*;
 
 import java.beans.PropertyChangeEvent;
@@ -38,7 +37,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         commandMap.clear();
         commandMap.add(new PlayCardOption());
         commandMap.add(new DiscardCardOption());
-        commandMap.add(new DeckOption());
+        commandMap.add(new DeckViewOption());
         commandMap.add(new MainMenuOption());
         commandMap.add(new ExitGameOption());
     }

@@ -74,7 +74,7 @@ public class CardSelectOption implements Option {
             printBorderedContent(handName, cardArtLines);
 
             // Increment hand play count
-            playedHand.incrementPlayed();
+            JavatroCore.currentRound.playedHand.incrementPlayed();
 
         // Discard the selected cards
         } else if (UI.getCurrentScreen() instanceof DiscardCardScreen) {

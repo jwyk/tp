@@ -4,7 +4,7 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
-public class DeckOption implements Option {
+public class DeckViewOption implements Option {
 
     @Override
     public String getDescription() {
