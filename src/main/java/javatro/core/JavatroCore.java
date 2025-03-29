@@ -28,6 +28,7 @@ public class JavatroCore {
     /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
     public static HeldJokers heldJokers;
 
+    //@author swethaiscool
     /**
      * Retrieves the current ante.
      *
@@ -61,6 +62,7 @@ public class JavatroCore {
         heldJokers = new HeldJokers();
         deck = new Deck(deckType);
     }
+    //@author swethaiscool
 
     /**
      * Starts a new round and assigns it to the current round.
@@ -70,6 +72,7 @@ public class JavatroCore {
      */
     private static void startNewRound(Round round) {
         currentRound = round;
+        assert currentRound != null;
     }
     /**
      * Creates a new classic round with predefined settings.
@@ -98,7 +101,5 @@ public class JavatroCore {
      */
     public void beginGame() throws JavatroException {
         startNewRound(classicRound());
-        // Fire property changes here
-        //        JavatroCore.currentRound.updateRoundVariables();
     }
 }

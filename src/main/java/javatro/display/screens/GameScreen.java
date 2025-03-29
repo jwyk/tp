@@ -251,7 +251,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
         UI.printBorderedContent(title, List.of(lines));
     }
-
+    
     /** Displays the game screen on the display */
     @Override
     public void displayScreen() {
