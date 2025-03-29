@@ -12,22 +12,41 @@ public class JavatroCore {
     /** The current active round in the game. */
     public static Round currentRound;
 
+    /** The current ante for the game. */
     protected static Ante ante;
+
+    /** The current round count of the game. */
     protected static int roundCount;
 
+    /**
+     * Retrieves the current ante.
+     *
+     * @return the current {@link Ante} instance
+     */
     public static Ante getAnte(){
         return ante;
     }
 
+    /**
+     * Retrieves the current round count.
+     *
+     * @return the current round count
+     */
     public static int getRoundCount(){
         return roundCount;
     }
 
+    /**
+     * Advances the game to the next round, updating the ante and incrementing the round count.
+     */
     public static void nextRound(){
         ante.nextRound();
         roundCount++;
     }
 
+    /**
+     * Initializes a new game by resetting the ante and round count.
+     */
     public static void setupNewGame(){
         ante = new Ante();
         roundCount = 1;

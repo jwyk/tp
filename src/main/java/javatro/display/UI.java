@@ -387,5 +387,4 @@ public class UI {
     public static BlindScreen getBlindScreen() {
         return BLIND_SCREEN;
     }
-    // endregion
 }
