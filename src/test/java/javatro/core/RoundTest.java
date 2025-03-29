@@ -16,7 +16,7 @@ public class RoundTest {
     private static final String INVALIDPLAYSPERROUND =
             UI.RED + "Number of plays per round must be greater than 0." + UI.END;
     private static final String INVALIDBLINDSCORE =
-            UI.RED + "Blind score must be greater than or equal to 0." + UI.END;
+            UI.RED + "Blind score must be greater than or equal to 0!" + UI.END;
     private static final String INVALIDDECK = UI.RED + "Deck cannot be null." + UI.END;
     private static final String INVALIDPLAYSREMAINING = UI.RED + "No plays remaining." + UI.END;
 
@@ -138,13 +138,13 @@ public class RoundTest {
     @Test
     public void round_playCards_roundNotOver() throws JavatroException {
         // Test with regular blind score and plays
-        assertRoundNotOver(100, 3, 1);
+        assertRoundNotOver(300, 3, 1);
 
         // Test with high blind score
         assertRoundNotOver(1000, 3, 1);
 
         // Test with many remaining plays
-        assertRoundNotOver(100, 3000, 5);
+        assertRoundNotOver(300, 3000, 5);
     }
 
     @Test
