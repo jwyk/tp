@@ -232,4 +232,17 @@ public final class JavatroException extends Exception {
     public static JavatroException cannotDiscardZeroCards() {
         return new JavatroException("Cannot discard zero cards");
     }
+
+    /**
+     * Creates an exception indicating no more Jokers can be added.
+     *
+     * <p>This exception is thrown when adding 1 Joker would exceed the HOLDING_LIMIT defined in
+     * {@HeldJokers}.
+     *
+     * @return A {@code JavatroException} indicating that the Joker cannot be added.
+     */
+    public static JavatroException exceedsMaxJokers() {
+        return new JavatroException(
+                "Cannot add more Jokers, or the maximum limit will be exceeded.");
+    }
 }

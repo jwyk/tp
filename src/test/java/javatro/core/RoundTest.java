@@ -6,8 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import javatro.core.jokers.HeldJokers;
 import javatro.display.UI;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -30,6 +32,13 @@ public class RoundTest {
         UNKNOWN
     }
 
+    private static HeldJokers heldJokers;
+
+    @BeforeAll
+    public static void init() {
+        heldJokers = new HeldJokers();
+    }
+
     private void assertRoundInitialization(int anteCount, Ante.Blind blind, int remainingPlays)
             throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
@@ -37,7 +46,7 @@ public class RoundTest {
         ante.setAnteCount(anteCount);
         ante.setBlind(blind);
         int expectedBlindScore = ante.getRoundScore();
-        Round round = new Round(expectedBlindScore, remainingPlays, deck, "", "");
+        Round round = new Round(expectedBlindScore, remainingPlays, deck, heldJokers, "", "");
         assertEquals(expectedBlindScore, round.getBlindScore());
         assertEquals(remainingPlays, round.getRemainingPlays());
         assertEquals(0, round.getCurrentScore());
@@ -56,7 +65,7 @@ public class RoundTest {
             ante.setAnteCount(anteCount);
             ante.setBlind(blind);
             int blindScore = ante.getRoundScore();
-            new Round(blindScore, remainingPlays, deck, "", "");
+            new Round(blindScore, remainingPlays, deck, heldJokers,"", "");
             fail();
         } catch (JavatroException e) {
             assertEquals(getExceptionMessage(expectedMessage), e.getMessage());
@@ -67,7 +76,7 @@ public class RoundTest {
             int blindScore, int totalPlays, int playsToMake, boolean expectedIsOver)
             throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Round round = new Round(blindScore, totalPlays, deck, "", "");
+        Round round = new Round(blindScore, totalPlays, deck, heldJokers, "", "");
 
         for (int i = 0; i < playsToMake; i++) {
             round.playCards(List.of(0, 1, 2, 3, 4));
@@ -89,7 +98,7 @@ public class RoundTest {
             ante.setAnteCount(anteCount);
             ante.setBlind(blind);
             int blindScore = ante.getRoundScore();
-            Round round = new Round(blindScore, remainingPlays, deck, "", "");
+            Round round = new Round(blindScore, remainingPlays, deck, heldJokers,"", "");
 
             // Make the specified number of valid plays
             for (int i = 0; i < playsToMake; i++) {
@@ -116,7 +125,7 @@ public class RoundTest {
         ante.setAnteCount(anteCount);
         ante.setBlind(blind);
         int blindScore = ante.getRoundScore();
-        Round round = new Round(blindScore, remainingPlays, deck, "", "");
+        Round round = new Round(blindScore, remainingPlays, deck, heldJokers,"", "");
         try {
             round.playCards(cardIndices);
             fail();
@@ -137,7 +146,7 @@ public class RoundTest {
         ante.setAnteCount(anteCount);
         ante.setBlind(blind);
         int blindScore = ante.getRoundScore();
-        Round round = new Round(blindScore, remainingPlays, deck, "", "");
+        Round round = new Round(blindScore, remainingPlays, deck, heldJokers,"", "");
 
         for (int i = 0; i < playsToMake; i++) {
             round.playCards(List.of(0, 1, 2, 3, 4));
@@ -235,7 +244,7 @@ public class RoundTest {
         ante.setAnteCount(1);
         ante.setBlind(Ante.Blind.SMALL_BLIND);
         int blindScore = ante.getRoundScore();
-        Round round = new Round(blindScore, 3, deck, "", "");
+        Round round = new Round(blindScore, 3, deck, heldJokers,"", "");
 
         // Initial state
         assertEquals(4, round.getRemainingDiscards());
@@ -256,7 +265,7 @@ public class RoundTest {
         ante.setAnteCount(1);
         ante.setBlind(Ante.Blind.SMALL_BLIND);
         int blindScore = ante.getRoundScore();
-        Round round = new Round(blindScore, 3, deck, "", "");
+        Round round = new Round(blindScore, 3, deck, heldJokers,"", "");
 
         // Use all 4 discards
         round.discardCards(List.of(0));
@@ -280,7 +289,7 @@ public class RoundTest {
         ante.setAnteCount(1);
         ante.setBlind(Ante.Blind.SMALL_BLIND);
         int blindScore = ante.getRoundScore();
-        Round round = new Round(blindScore, 3, deck, "", "");
+        Round round = new Round(blindScore, 3, deck, heldJokers,"", "");
 
         // Initial state
         assertEquals(4, round.getRemainingDiscards());
@@ -305,7 +314,7 @@ public class RoundTest {
         ante.setAnteCount(1);
         ante.setBlind(Ante.Blind.SMALL_BLIND);
         int blindScore = ante.getRoundScore();
-        Round round = new Round(blindScore, 3, deck, "", "");
+        Round round = new Round(blindScore, 3, deck, heldJokers,"", "");
 
         // Set new values
         round.setRoundName("New Round");

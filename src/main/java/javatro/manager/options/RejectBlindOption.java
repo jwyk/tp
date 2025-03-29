@@ -8,6 +8,7 @@ import javatro.manager.JavatroManager;
 
 import java.util.List;
 
+// @@author swethaiscool
 /**
  * Represents an option to reject the current blind and move to the next available blind level.
  * Implements the {@code Option} interface.

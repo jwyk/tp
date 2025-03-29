@@ -25,9 +25,9 @@ public class BlueDeckSelectOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        Deck.DeckType deckType = DeckType.BLUE;
+        DeckType deckType = DeckType.BLUE;
         JavatroCore.deck = new Deck(deckType);
-        JavatroManager.jc.setupNewGame(deckType);
+        JavatroManager.beginGame(deckType);
         JavatroManager.setScreen(UI.getBlindScreen());
     }
 }

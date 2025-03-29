@@ -1,5 +1,6 @@
 package javatro.manager.options;
 
+import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
@@ -29,7 +30,9 @@ public class AcceptBlindOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.beginGame();
+        JavatroManager.jc.beginGame();
+        JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
+        JavatroCore.currentRound.updateRoundVariables();
         javatro.display.UI.getGameScreen().restoreGameCommands();
         JavatroManager.setScreen(UI.getGameScreen());
     }

@@ -1,5 +1,6 @@
 package javatro.core;
 
+// @author swethaiscool
 /**
  * The {@code Ante} class represents the ante system in a poker game, managing the current round,
  * ante values, and blind progression.
