@@ -236,6 +236,16 @@ public class Round {
     }
 
     /**
+     * Checks if the round is over based on game rules.
+     *
+     * @return true if the game is lost, false otherwise
+     */
+    public boolean isRoundOver() {
+        // Round ends if no plays are remaining
+        return state.getRemainingPlays() <= 0 | isWon();
+    }
+
+    /**
      * Gets the display name of this round.
      *
      * @return The round name
@@ -297,6 +307,9 @@ public class Round {
     RoundObservable getObservable() {
         return observable;
     }
+
+ 
+
 
     /**
      * Gets the actions object for this round.
