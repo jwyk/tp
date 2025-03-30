@@ -20,8 +20,8 @@ public class Round {
     /** The player's current held jokers. */
     public HeldJokers playerJokers;
 
-    /** The cards played in the current round. */
-    private List<Card> playedCards;
+    /** The cards previously played/discarded in the current round. */
+    private List<Card> chosenCards;
 
     /** The state of the current round. */
     private final RoundState state;
@@ -157,7 +157,7 @@ public class Round {
      * @see RoundActions#playCards(List)
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
-        playedCards = actions.playCards(cardIndices);
+        chosenCards = actions.playCards(cardIndices);
     }
 
     /**
@@ -168,7 +168,7 @@ public class Round {
      * @see RoundActions#discardCards(List)
      */
     public void discardCards(List<Integer> cardIndices) throws JavatroException {
-        actions.discardCards(cardIndices);
+        chosenCards = actions.discardCards(cardIndices);
     }
 
     /**
@@ -314,7 +314,7 @@ public class Round {
      * @return The round actions object
      */
     public List<Card> getPlayedCards() {
-        return playedCards;
+        return chosenCards;
     }
 
     /**
@@ -324,6 +324,6 @@ public class Round {
      * @throws JavatroException If the played cards are invalid or empty
      */
     public PokerHand getPlayedHand() throws JavatroException {
-        return HandResult.evaluateHand(playedCards);
+        return HandResult.evaluateHand(chosenCards);
     }
 }
