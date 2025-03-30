@@ -1,7 +1,9 @@
 package javatro.display.screens;
 
 import static javatro.display.UI.*;
+import static javatro.display.UI.centerText;
 
+import javatro.core.jokers.Joker;
 import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
@@ -34,88 +36,201 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         commandMap.add(new ExitGameOption());
     }
 
+    // 100 = 32 + 32 + 32 + 4 borders
+    private static final int COLUMN_WIDTH = 32;
+
     @Override
     public void displayScreen() {
         clearScreen();
+        StringBuilder sb = new StringBuilder();
 
-        List<String> content = new ArrayList<>();
+        // --- Top Border ---
+        sb.append(BLACK_B)
+                .append(TOP_LEFT)
+                .append(String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2))
+                .append(TOP_RIGHT)
+                .append(END)
+                .append("\n");
 
-        // Round Information
-        content.add(BOLD + PURPLE + roundName + END);
-        content.add(ITALICS + roundDescription + END);
-        content.add(GREEN + "Blind Score: " + blindScore + END);
-        content.add(BLUE + "Round Score: " + roundScore + END);
-        content.add("");
+        // --- Blind Name / Description ---
+        String blindHeader = BOLD + PURPLE + roundName + END;
+        String blindDesc = ITALICS + roundDescription + END;
+        sb.append(centerText(blindHeader, BORDER_WIDTH)).append("\n");
+        sb.append(centerText(blindDesc, BORDER_WIDTH)).append("\n");
 
-        // Jokers Display
-        content.add(BOLD + "Jokers" + END);
-        addCardRow(Collections.nCopies(5, "X"), content);
-        content.add("");
 
-        // Player's Hand
-        content.add(BOLD + "Your Hand" + END);
-        List<String> cardSymbols =
-                holdingHand.stream().map(Card::getSimplified).collect(Collectors.toList());
-        addCardRow(cardSymbols, content);
-        content.add("");
+        // --- Separator Border ---
+        sb.append(BLACK_B)
+                .append(T_RIGHT)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(T_DOWN)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(T_DOWN)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(T_LEFT)
+                .append(END)
+                .append("\n");
 
-        // Game Stats
-        content.add(
-                YELLOW
-                        + "Hands Left: "
-                        + handsLeft
-                        + END
-                        + " | "
-                        + RED
-                        + "Discards Left: "
-                        + discardsLeft
-                        + END);
-        content.add(
-                PURPLE
-                        + "Cash: $ -"
-                        + END
-                        + " | "
-                        + ORANGE
-                        + "Ante: "
-                        + JavatroCore.getAnte().getAnteCount()
-                        + "/8"
-                        + END);
-        content.add(BOLD + "Current Round: " + JavatroCore.getRoundCount() + END);
 
-        printBorderedContent("Game Screen", content);
-    }
+        // --- Blind Score / Ante / Round ---
+        String bs = String.format("Score to beat: %d", blindScore);
+        String bScore = centerText(bs, COLUMN_WIDTH + 2);
+        String anteCount = String.format("          Ante: %d / 8", JavatroCore.getAnte().getAnteCount());
+        String roundCount = String.format("            Round: %d", JavatroCore.getRoundCount());
+        // Print the row with vertical borders.
+        sb.append(bScore)
+                .append(BLACK_B)
+                .append(padToWidth(anteCount, COLUMN_WIDTH))
+                .append(VERTICAL)
+                .append(padToWidth(roundCount, COLUMN_WIDTH))
+                .append(VERTICAL)
+                .append(END)
+                .append("\n");
 
-    private void addCardRow(List<String> cardTexts, List<String> content) {
-        List<String> top = new ArrayList<>();
-        List<String> mid = new ArrayList<>();
-        List<String> bottom = new ArrayList<>();
 
-        for (String text : cardTexts) {
-            String topLine =
-                    BLACK_B + TOP_LEFT + String.valueOf(HORIZONTAL).repeat(5) + TOP_RIGHT + END;
-            String midLine = BLACK_B + VERTICAL + centerCardText(text, 5) + VERTICAL + END;
-            String bottomLine =
-                    BLACK_B
-                            + BOTTOM_LEFT
-                            + String.valueOf(HORIZONTAL).repeat(5)
-                            + BOTTOM_RIGHT
-                            + END;
+        // --- Separator Border ---
+        sb.append(BLACK_B)
+                .append(T_RIGHT)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(CROSS)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(CROSS)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(T_LEFT)
+                .append(END)
+                .append("\n");
 
-            top.add(topLine);
-            mid.add(midLine);
-            bottom.add(bottomLine);
+
+        // --- Round Score / Hands / Discards ---
+        String rs = String.format("Round Score: %d", roundScore);
+        String rScore = centerText(rs, COLUMN_WIDTH + 2);
+        String handCount = String.format("            Hands: %d", handsLeft);
+        String discardCount = String.format("          Discards: %d", discardsLeft);
+        // Print the row with vertical borders.
+        sb.append(rScore)
+                .append(BLACK_B)
+                .append(padToWidth(handCount, COLUMN_WIDTH))
+                .append(VERTICAL)
+                .append(padToWidth(discardCount, COLUMN_WIDTH))
+                .append(VERTICAL)
+                .append(END)
+                .append("\n");
+
+
+        // --- Separator Border ---
+        sb.append(BLACK_B)
+                .append(T_RIGHT)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(CROSS)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(T_UP)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(T_LEFT)
+                .append(END)
+                .append("\n");
+
+
+        sb.append(BLACK_B)
+                .append(VERTICAL)
+                .append(" ".repeat(COLUMN_WIDTH))
+                .append(VERTICAL)
+                .append(" ".repeat(COLUMN_WIDTH * 2 + 1))
+                .append(VERTICAL)
+                .append(END)
+                .append("\n");
+
+
+        // --- Deck Name / Jokers / Holding Hand ---
+        List<String> extraContent = new ArrayList<>();
+        extraContent.add("Current Deck:");
+        extraContent.add("Deck Name");
+        extraContent.add("");
+        extraContent.add("");
+        extraContent.add("Jokers' Effects:");
+
+        // Iterate through heldJokers and print their toString() or "Empty" if null
+        List<Joker> jokers = JavatroCore.heldJokers.getJokers();
+        for (int i = 0; i < 5; i++) {
+            if (i < jokers.size() && jokers.get(i) != null) {
+                extraContent.add(jokers.get(i).toString());
+            } else {
+                extraContent.add("No Joker Available");
+            }
         }
 
-        content.add(String.join("  ", top));
-        content.add(String.join("  ", mid));
-        content.add(String.join("  ", bottom));
-    }
+        // Split into two groups of 4
+        List<Card> firstHalf = holdingHand.subList(0, 4);
+        List<Card> secondHalf = holdingHand.subList(4, 8);
 
-    private String centerCardText(String text, int width) {
-        int displayLength = getDisplayLength(text);
-        int padding = (width - displayLength) / 2;
-        int extra = (width - displayLength) % 2;
-        return " ".repeat(padding) + text + " ".repeat(padding + extra);
+        // Get card art for both halves
+        List<String> firstCardArt = getCardArtLines(firstHalf);
+        List<String> secondCardArt = getCardArtLines(secondHalf);
+
+        // Print side-by-side
+        for (int i = 0; i < firstCardArt.size(); i++) {
+            String extraLine = extraContent.get(i);  // Get the corresponding line of extra content
+            String cardLine = firstCardArt.get(i);   // Get the corresponding line of card art
+
+            sb.append(centerText(extraLine, COLUMN_WIDTH + 2))
+                    .append(BLACK_B)
+                    .append(" ".repeat(11))
+                    .append(cardLine)
+                    .append(BLACK_B)
+                    .append(" ".repeat(12))
+                    .append(VERTICAL)
+                    .append(END)
+                    .append("\n");
+        }
+
+
+        sb.append(BLACK_B)
+                .append(VERTICAL)
+                .append(" ".repeat(COLUMN_WIDTH))
+                .append(VERTICAL)
+                .append(" ".repeat(COLUMN_WIDTH * 2 + 1))
+                .append(VERTICAL)
+                .append(END)
+                .append("\n");
+
+
+        // Print side-by-side
+        for (int i = 0; i < secondCardArt.size(); i++) {
+            String extraLine = extraContent.get(i + firstCardArt.size());  // Get the corresponding line of extra content
+            String cardLine = secondCardArt.get(i);   // Get the corresponding line of card art
+
+            sb.append(centerText(extraLine, COLUMN_WIDTH + 2))
+                    .append(BLACK_B)
+                    .append(" ".repeat(12))
+                    .append(cardLine)
+                    .append(BLACK_B)
+                    .append(" ".repeat(11))
+                    .append(VERTICAL)
+                    .append(END)
+                    .append("\n");
+        }
+
+
+        sb.append(BLACK_B)
+                .append(VERTICAL)
+                .append(" ".repeat(COLUMN_WIDTH))
+                .append(VERTICAL)
+                .append(" ".repeat(COLUMN_WIDTH * 2 + 1))
+                .append(VERTICAL)
+                .append(END)
+                .append("\n");
+
+
+        // --- Bottom Border ---
+        sb.append(BLACK_B)
+                .append(BOTTOM_LEFT)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH))
+                .append(T_UP)
+                .append(String.valueOf(HORIZONTAL).repeat(COLUMN_WIDTH * 2 + 1))
+                .append(BOTTOM_RIGHT)
+                .append(END);
+
+        // Finally, print the complete table.
+        System.out.println(sb);
     }
 
     @Override
@@ -125,11 +240,11 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
         Map<String, Consumer<Object>> handlers = new HashMap<>();
         handlers.put("roundName", v -> roundName = v.toString());
+        handlers.put("roundDescription", v -> roundDescription = v.toString());
         handlers.put("remainingPlays", v -> handsLeft = (Integer) v);
         handlers.put("remainingDiscards", v -> discardsLeft = (Integer) v);
-        handlers.put("currentScore", v -> roundScore = (Long) v);
-        handlers.put("roundDescription", v -> roundDescription = v.toString());
         handlers.put("blindScore", v -> blindScore = (Integer) v);
+        handlers.put("currentScore", v -> roundScore = (Long) v);
 
         handlers.put(
                 "holdingHand",
