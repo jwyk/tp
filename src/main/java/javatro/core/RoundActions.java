@@ -78,7 +78,8 @@ public class RoundActions {
         assert !cardIndices.isEmpty() : "Card indices cannot be empty";
         assert cardIndices.size() <= round.getConfig().getMaxHandSize()
                 : "Cannot play more than " + round.getConfig().getMaxHandSize() + " cards";
-        assert round.getState().getRemainingPlays() > 0 : "No plays remaining to execute this action";
+        assert round.getState().getRemainingPlays() > 0
+                : "No plays remaining to execute this action";
     }
 
     /**

@@ -454,13 +454,12 @@ public class Round {
     }
 
     /**
-     * @warn This method will be deprecated in future versions. Reordering of player hands should be done in UI and not in Round class.
-     * Updates the player hand.
-     *
+     * @warn This method will be deprecated in future versions. Reordering of player hands should be
+     *     done in UI and not in Round class. Updates the player hand.
      * @param playerHand The new holding hand to set
      * @throws IllegalArgumentException if the player hand is null
      */
-    public void setPlayerHandCards(List<Card> playerHandCards){
+    public void setPlayerHandCards(List<Card> playerHandCards) {
         this.playerHandCards = playerHandCards;
     }
 }
