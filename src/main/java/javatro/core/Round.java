@@ -1,49 +1,40 @@
 package javatro.core;
 
-import static javatro.core.Deck.DeckType;
-import static javatro.core.Deck.DeckType.RED;
-import static javatro.core.JavatroCore.heldJokers;
-
 import javatro.core.Deck.DeckType;
 import javatro.core.jokers.HeldJokers;
 
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+/**
+ * 
+ * Represents a round in the Javatro game.
+ * 
+ */
 public class Round {
     /** The initial number of cards dealt to the player. */
     public static final int INITIAL_HAND_SIZE = 8;
     /** The maximum number of discards allowed per round. */
     public static final int MAX_DISCARDS_PER_ROUND = 4;
-    /** The number of cards required to form a valid poker hand. */
-    private static final int POKER_HAND_SIZE = 5;
+    /** The maximum number of cards in a hand. */
+    public static final int MAX_HAND_SIZE = 5;
 
     /** The player's current hand of cards. */
     public HoldingHand playerHand;
     /** The player's current held jokers. */
     public HeldJokers playerJokers;
-    /** The player's current score in the round. */
-    private long currentScore;
-    /** The minimum score required to win the round. */
-    private final int blindScore;
-    /** The number of remaining discards allowed. */
-    private int remainingDiscards;
-    /** The number of remaining plays in the round. */
-    private int remainingPlays;
+
+    /** The state of the current round. */
+    private final RoundState state;
+    /** The configuration of the current round. */
+    private final RoundConfig config;
+    /** The actions available in the current round. */
+    private final RoundActions actions;
+    /** The observer pattern implementation. */
+    private final RoundObservable observable;
 
     /** The deck of cards used in the round. */
     public static Deck deck;
-
-    /** The name of the current round. */
-    private String roundName = "";
-    /** The description of the current round. */
-    private String roundDescription = "";
-
-    /** Manages property change listeners for game state updates. */
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this); // Observable
 
     /**
      * Constructs a new round with detailed configuration.
@@ -64,19 +55,44 @@ public class Round {
             String roundName,
             String roundDescription)
             throws JavatroException {
-        this.currentScore = 0;
-        this.remainingDiscards = MAX_DISCARDS_PER_ROUND;
-        this.remainingPlays = remainingPlays;
+
+        validateParameters(ante, remainingPlays, deck);
+
         Round.deck = deck;
         this.playerHand = new HoldingHand();
         this.playerJokers = heldJokers;
 
-        // Default descriptions and names
-        this.roundName = roundName;
-        this.roundDescription = roundDescription;
-        this.blindScore = ante.getRoundScore();
+        // Create config with round name and description
+        this.config = new RoundConfig(roundName, roundDescription, ante.getRoundScore());
 
-        if (blindScore < 0) {
+        // Create state with initial values
+        this.state = new RoundState(0, MAX_DISCARDS_PER_ROUND, remainingPlays);
+
+        // Apply special deck modifications
+        applyDeckVariants(deck);
+
+        // Create observable for notifications
+        this.observable = new RoundObservable(this);
+
+        // Create actions for game mechanics
+        this.actions = new RoundActions(this);
+
+        // Initial draw
+        playerHand.draw(INITIAL_HAND_SIZE, deck);
+
+        validatePostConstruction();
+    }
+
+    /**
+     * Validates the input parameters for round creation.
+     *
+     * @param ante The ante configuration to validate
+     * @param remainingPlays The number of plays to validate
+     * @param deck The deck to validate
+     * @throws JavatroException If validation fails for any parameter
+     */
+    private void validateParameters(Ante ante, int remainingPlays, Deck deck) throws JavatroException {
+        if (ante.getRoundScore() < 0) {
             throw JavatroException.invalidBlindScore();
         }
         if (remainingPlays <= 0) {
@@ -85,35 +101,38 @@ public class Round {
         if (deck == null) {
             throw JavatroException.invalidDeck();
         }
-
-        // Handle special Deck variants here.
-        DeckType deckName = deck.getDeckName();
-        if (deckName == RED) {
-            this.remainingDiscards += 1;
-        } else if (deckName == DeckType.BLUE) {
-            this.remainingPlays += 1;
-        }
-
-        // Initial draw
-        playerHand.draw(INITIAL_HAND_SIZE, deck);
-
-        // Post-construction invariants
-        assert this.currentScore == 0 : "Initial score must be zero";
-        assert this.remainingDiscards == MAX_DISCARDS_PER_ROUND
-                : "Initial discards must be set to maximum";
-        assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE
-                : "Player should have exactly " + INITIAL_HAND_SIZE + " cards initially";
     }
 
     /**
-     * Constructs a new round with the specified ante and blind settings without specifying round
-     * name and description.
+     * Applies special rules based on the deck variant.
      *
-     * @param anteBase The selected ante base level.
-     * @param blindType The type of blind which multiplies the ante base.
-     * @param remainingPlays The number of plays available.
-     * @param deck The deck of cards used in the round.
-     * @throws JavatroException If provided parameters are invalid.
+     * @param deck The deck to check for special variants
+     * 
+     */
+    private void applyDeckVariants(Deck deck) {
+        DeckType deckName = deck.getDeckName();
+        if (deckName == DeckType.RED) {
+            this.state.increaseRemainingDiscards(1);
+        } else if (deckName == DeckType.BLUE) {
+            this.state.increaseRemainingPlays(1);
+        }
+    }
+
+    /**
+     * Validates the post-construction state of the round.
+     */
+    private void validatePostConstruction() {
+        assert this.state.getCurrentScore() == 0 : "Initial score must be zero";
+        assert this.state
+                .getRemainingDiscards() >= MAX_DISCARDS_PER_ROUND : "Initial discards must be at least the maximum";
+        assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE : "Player should have exactly " + INITIAL_HAND_SIZE
+                + " cards initially";
+    }
+
+    /**
+     * Constructs a new round with the specified ante and blind settings without
+     * specifying round
+     * name and description.
      */
     public Round(Ante ante, int remainingPlays, Deck deck, HeldJokers heldJokers)
             throws JavatroException {
@@ -121,174 +140,176 @@ public class Round {
     }
 
     /**
-     * Registers an observer to listen for property changes.
+     * Registers a listener for round state changes.
      *
-     * @param pcl The property change listener to register.
+     * @param pcl
+     *            The property change listener to register
      */
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
-        support.addPropertyChangeListener(pcl);
+        observable.addPropertyChangeListener(pcl);
     }
 
     /**
-     * Fires property change events to notify observers of updated round variables. This method
-     * updates display components and other observers about the current game state.
+     * Notifies all registered observers of changes in the round state.
+     * 
      */
     public void updateRoundVariables() {
-        support.firePropertyChange("blindScore", null, blindScore);
-        support.firePropertyChange("remainingPlays", null, remainingPlays);
-        support.firePropertyChange("remainingDiscards", null, remainingDiscards);
-        support.firePropertyChange("roundName", null, roundName);
-        support.firePropertyChange("roundDescription", null, roundDescription);
-        support.firePropertyChange("holdingHand", null, getPlayerHand());
-        support.firePropertyChange("currentScore", null, currentScore);
-
-        if (isWon()) {
-            support.firePropertyChange("roundComplete", null, 1);
-        } else if (isRoundOver()) {
-            support.firePropertyChange("roundComplete", null, -1);
-        } else {
-            support.firePropertyChange("roundComplete", null, 0);
-        }
+        observable.updateRoundVariables();
     }
 
     /**
-     * Plays a set of cards as a poker hand.
+     * Plays a selection of cards from the player's hand.
      *
-     * @param cardIndices Indices of cards to play from the holding hand
+     * @param cardIndices
+     *            Indices of cards to play from the holding hand
+     * @throws JavatroException
+     *             If the play is invalid or no plays remain
+     * @see RoundActions#playCards(List)
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
-        if (cardIndices.size() > POKER_HAND_SIZE || cardIndices.isEmpty()) {
-            throw JavatroException.invalidPlayedHand();
-        }
-
-        if (remainingPlays <= 0) {
-            throw JavatroException.noPlaysRemaining();
-        }
-
-        assert cardIndices != null : "Card indices cannot be null";
-        assert !cardIndices.isEmpty() : "Card indices cannot be empty";
-        assert cardIndices.size() <= POKER_HAND_SIZE
-                : "Cannot play more than " + POKER_HAND_SIZE + " cards";
-        assert remainingPlays > 0 : "No plays remaining to execute this action";
-
-        long oldScore = currentScore;
-        int oldRemainingPlays = remainingPlays;
-
-        List<Card> playedCards = playerHand.play(cardIndices);
-        PokerHand result = HandResult.evaluateHand(playedCards);
-        Score handScore = new Score();
-        currentScore += handScore.getScore(result, playedCards, playerJokers);
-
-        // Draw new cards to replace played ones
-        playerHand.draw(cardIndices.size(), deck);
-
-        remainingPlays--;
-
-        // Post-condition assertions
-        assert remainingPlays == oldRemainingPlays - 1
-                : "Remaining plays should decrease by exactly 1";
-        assert currentScore >= oldScore : "Score should not decrease after playing cards";
-        assert playerHand.getHand().size() == INITIAL_HAND_SIZE
-                : "Hand size should be maintained after play";
-
-        updateRoundVariables();
+        actions.playCards(cardIndices);
     }
 
     /**
-     * Discards cards from the player's hand.
+     * Discards a selection of cards from the player's hand.
      *
-     * @param cardIndices Indices of cards to discard from the holding hand
-     * @throws IllegalStateException If no remaining discards are available
+     * @param cardIndices
+     *            Indices of cards to discard from the holding hand
+     * @throws JavatroException
+     *             If the discard is invalid or no discards remain
+     * @see RoundActions#discardCards(List)
      */
     public void discardCards(List<Integer> cardIndices) throws JavatroException {
-        if (remainingDiscards <= 0) {
-            throw JavatroException.noRemainingDiscards();
-        }
-
-        if (cardIndices.size() > POKER_HAND_SIZE) {
-            throw JavatroException.tooManyDiscards();
-        }
-
-        if (cardIndices.size() < 1) {
-            throw JavatroException.cannotDiscardZeroCards();
-        }
-
-        assert cardIndices != null : "Card indices cannot be null";
-        assert !cardIndices.isEmpty() : "Cannot discard zero cards";
-        assert remainingDiscards > 0 : "No discards remaining to execute this action";
-
-        // Handle duplicates by using a Set
-        Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);
-        int handSizeBefore = playerHand.getHand().size();
-        int oldRemainingDiscards = remainingDiscards;
-
-        playerHand.discard(cardIndices);
-        remainingDiscards--;
-
-        playerHand.draw(indicesToDiscard.size(), deck);
-
-        // Post-condition assertions
-        assert remainingDiscards == oldRemainingDiscards - 1
-                : "Remaining discards should decrease by exactly 1";
-        assert playerHand.getHand().size() == handSizeBefore
-                : "Hand size should be maintained after discard";
-
-        updateRoundVariables();
+        actions.discardCards(cardIndices);
     }
 
-    // Getters
+    /**
+     * Gets the current score accumulated in this round.
+     *
+     * @return The current score
+     */
     public long getCurrentScore() {
-        return currentScore;
+        return state.getCurrentScore();
     }
 
+    /**
+     * Gets the target score needed to win this round.
+     *
+     * @return The blind score target
+     */
     public int getBlindScore() {
-        return blindScore;
+        return config.getBlindScore();
     }
 
+    /**
+     * Gets the number of remaining discards available to the player.
+     *
+     * @return The number of remaining discards
+     */
     public int getRemainingDiscards() {
-        return remainingDiscards;
+        return state.getRemainingDiscards();
     }
 
+    /**
+     * Gets the number of remaining plays available to the player.
+     *
+     * @return The number of remaining plays
+     */
     public int getRemainingPlays() {
-        return remainingPlays;
+        return state.getRemainingPlays();
     }
 
+    /**
+     * Gets the cards currently in the player's hand.
+     *
+     * @return A list of the player's current cards
+     */
     public List<Card> getPlayerHand() {
         assert playerHand != null : "Player hand cannot be null";
         return playerHand.getHand();
     }
 
     /**
-     * Checks if the round is over based on game rules.
+     * Checks if the round has ended.
      *
      * @return true if the round is over, false otherwise
      */
     public boolean isRoundOver() {
-        return remainingPlays <= 0 | isWon();
+        return state.getRemainingPlays() <= 0 || isWon();
     }
 
     /**
-     * Determines if the round was won.
+     * Checks if the round was won by the player.
      *
-     * @return true if player won the round, false otherwise
+     * @return true if the player won the round, false otherwise
      */
     public boolean isWon() {
-        return currentScore >= blindScore;
+        return state.getCurrentScore() >= config.getBlindScore();
     }
 
+    /**
+     * Gets the display name of this round.
+     *
+     * @return The round name
+     */
     public String getRoundName() {
-        return roundName;
+        return config.getRoundName();
     }
 
+    /**
+     * Sets the display name of this round.
+     *
+     * @param roundName
+     *            The new round name
+     * 
+     */
     public void setRoundName(String roundName) {
-        this.roundName = roundName;
+        config.setRoundName(roundName);
     }
 
+    /**
+     * Gets the description of this round.
+     *
+     * @return The round description
+     */
     public String getRoundDescription() {
-        return roundDescription;
+        return config.getRoundDescription();
     }
 
+    /**
+     * Sets the description of this round.
+     *
+     * @param roundDescription
+     *            The new round description
+     */
     public void setRoundDescription(String roundDescription) {
-        this.roundDescription = roundDescription;
+        config.setRoundDescription(roundDescription);
+    }
+
+    /**
+     * Gets the state object for this round.
+     *
+     * @return The round state object
+     */
+    RoundState getState() {
+        return state;
+    }
+
+    /**
+     * Gets the configuration object for this round.
+     *
+     * @return The round configuration object
+     */
+    RoundConfig getConfig() {
+        return config;
+    }
+
+    /**
+     * Gets the observable object for this round.
+     *
+     * @return The round observable object
+     */
+    RoundObservable getObservable() {
+        return observable;
     }
 }
