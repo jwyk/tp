@@ -1,29 +1,25 @@
 package javatro.display.screens;
 
+import static javatro.display.UI.*;
+
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.MainMenuOption;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static javatro.display.UI.*;
 
 public class WinGameScreen extends Screen {
 
-    private static final List<String> QUOTES = List.of(
-            "You Aced it!",
-            "You dealt with that pretty well!",
-            "Looks like you weren't bluffing!",
-            "Too bad these chips are all virtual...",
-            "Looks like I've taught you well!",
-            "You made some heads up plays!",
-            "Good thing I didn't bet against you!"
-    );
+    private static final List<String> QUOTES =
+            List.of(
+                    "You Aced it!",
+                    "You dealt with that pretty well!",
+                    "Looks like you weren't bluffing!",
+                    "Too bad these chips are all virtual...",
+                    "Looks like I've taught you well!",
+                    "You made some heads up plays!",
+                    "Good thing I didn't bet against you!");
 
     /**
      * Constructs a screen with the specified options title.
@@ -50,7 +46,10 @@ public class WinGameScreen extends Screen {
         printBlackB(TOP_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + TOP_RIGHT);
         System.out.println();
 
-        System.out.println(centerText(BLUE + BOLD + "Thanks for playing our game!" + END + BLACK_B, BORDER_WIDTH));
+        System.out.println(
+                centerText(
+                        BLUE + BOLD + "Thanks for playing our game!" + END + BLACK_B,
+                        BORDER_WIDTH));
         System.out.println(centerText(ITALICS + randomQuote, BORDER_WIDTH));
 
         // Bottom border

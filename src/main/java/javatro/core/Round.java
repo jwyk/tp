@@ -2,7 +2,6 @@ package javatro.core;
 
 import static javatro.core.Deck.DeckType;
 import static javatro.core.Deck.DeckType.RED;
-import static javatro.core.JavatroCore.getAnte;
 import static javatro.core.JavatroCore.heldJokers;
 
 import javatro.core.jokers.HeldJokers;
@@ -194,7 +193,6 @@ public class Round {
         assert cardIndices != null : "Card indices cannot be null";
         assert !cardIndices.isEmpty() : "Cannot discard zero cards";
         assert remainingDiscards > 0 : "No discards remaining to execute this action";
-
 
         // Handle duplicates by using a Set
         Set<Integer> indicesToDiscard = new HashSet<>(cardIndices);

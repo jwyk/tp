@@ -3,8 +3,9 @@ package javatro.display.screens;
 import javatro.core.JavatroException;
 
 /**
- * The {@code PlayCardScreen} class represents a screen where the user selects cards to play. It extends
- * {@code CardSelectScreen} and allows selecting up to a predefined limit of cards (default is 5).
+ * The {@code PlayCardScreen} class represents a screen where the user selects cards to play. It
+ * extends {@code CardSelectScreen} and allows selecting up to a predefined limit of cards (default
+ * is 5).
  *
  * @see CardSelectScreen
  */

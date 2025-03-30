@@ -1,13 +1,12 @@
 package javatro.display.screens;
 
+import static javatro.display.UI.*;
+
 import javatro.core.JavatroException;
-import javatro.display.UI;
 import javatro.manager.options.Option;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static javatro.display.UI.*;
 
 /**
  * The {@code Screen} class serves as an abstract base class for all screens in the application. It
@@ -50,16 +49,7 @@ public abstract class Screen {
 
         for (int i = 0; i < commandMap.size(); i++) {
             String desc = BLACK_B + commandMap.get(i).getDescription() + END;
-            String option =
-                    BLACK_B
-                            + BOLD
-                            + "["
-                            + (i + 1)
-                            + "] "
-                            + END
-                            + ITALICS
-                            + desc
-                            + END;
+            String option = BLACK_B + BOLD + "[" + (i + 1) + "] " + END + ITALICS + desc + END;
 
             optionLines.add(option);
         }

@@ -58,6 +58,7 @@ public class UI {
 
     /** Custom border characters */
     public static final char TOP_LEFT = '╔';
+
     public static final char TOP_RIGHT = '╗';
     public static final char BOTTOM_LEFT = '╚';
     public static final char BOTTOM_RIGHT = '╝';
@@ -296,12 +297,14 @@ public class UI {
     }
 
     public static void printANSI(String fileName) {
-        try (InputStream inputStream = WinRoundScreen.class.getResourceAsStream("/javatro/display/ansi/" + fileName)) {
+        try (InputStream inputStream =
+                WinRoundScreen.class.getResourceAsStream("/javatro/display/ansi/" + fileName)) {
             if (inputStream == null) {
                 throw JavatroException.errorLoadingLogo(fileName);
             }
             try (Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8)) {
-                System.out.println(scanner.useDelimiter("\\A").next()); // Print file content directly
+                System.out.println(
+                        scanner.useDelimiter("\\A").next()); // Print file content directly
             }
         } catch (IOException | JavatroException e) {
             System.err.println(JavatroException.errorLoadingLogo(fileName).getMessage());
@@ -310,19 +313,20 @@ public class UI {
     }
 
     //    static {
-//        try (InputStream inputStream =
-//                     StartScreen.class.getResourceAsStream("/javatro/display/ansi/jimbo.txt")) {
-//            if (inputStream == null) {
-//                throw JavatroException.errorLoadingLogo("jimbo.txt");
-//            }
-//            try (Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8)) {
-//                JIMBO = scanner.useDelimiter("\\A").next(); // Read the entire file
-//            }
-//        } catch (IOException | JavatroException e) {
-//            JIMBO = "JIMBO"; // Fallback in case of error
-//            System.err.println(JavatroException.errorLoadingLogo("jimbo.txt").getMessage());
-//        }
-//    }
+    //        try (InputStream inputStream =
+    //                     StartScreen.class.getResourceAsStream("/javatro/display/ansi/jimbo.txt"))
+    // {
+    //            if (inputStream == null) {
+    //                throw JavatroException.errorLoadingLogo("jimbo.txt");
+    //            }
+    //            try (Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8)) {
+    //                JIMBO = scanner.useDelimiter("\\A").next(); // Read the entire file
+    //            }
+    //        } catch (IOException | JavatroException e) {
+    //            JIMBO = "JIMBO"; // Fallback in case of error
+    //            System.err.println(JavatroException.errorLoadingLogo("jimbo.txt").getMessage());
+    //        }
+    //    }
 
     // endregion
 

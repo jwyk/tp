@@ -18,10 +18,18 @@ public class DeckSelectScreen extends Screen {
      */
     public DeckSelectScreen() throws JavatroException {
         super("Select Your Deck");
-        super.commandMap.add(new DeckSelectOption("Red Deck: +1 Discards per Round", Deck.DeckType.RED));
-        super.commandMap.add(new DeckSelectOption("Blue Deck: +1 Hands per Round", Deck.DeckType.BLUE));
-        super.commandMap.add(new DeckSelectOption("Checkered Deck: Start with 26 Hearts, 26 Spades", Deck.DeckType.CHECKERED));
-        super.commandMap.add(new DeckSelectOption("Abandoned Deck: Start with no Face Cards (K, Q, J)", Deck.DeckType.ABANDONED));
+        super.commandMap.add(
+                new DeckSelectOption("Red Deck: +1 Discards per Round", Deck.DeckType.RED));
+        super.commandMap.add(
+                new DeckSelectOption("Blue Deck: +1 Hands per Round", Deck.DeckType.BLUE));
+        super.commandMap.add(
+                new DeckSelectOption(
+                        "Checkered Deck: Start with 26 Hearts, 26 Spades",
+                        Deck.DeckType.CHECKERED));
+        super.commandMap.add(
+                new DeckSelectOption(
+                        "Abandoned Deck: Start with no Face Cards (K, Q, J)",
+                        Deck.DeckType.ABANDONED));
     }
 
     /** Displays the Deck Select screen. */

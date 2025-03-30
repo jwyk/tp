@@ -44,4 +44,3 @@ public class DeckSelectOption implements Option {
         JavatroManager.setScreen(UI.getBlindScreen());
     }
 }
-

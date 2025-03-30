@@ -4,13 +4,8 @@ import static javatro.display.UI.*;
 
 import javatro.core.JavatroException;
 import javatro.display.UI;
-import javatro.display.screens.StartScreen;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * The {@code ExitGameOption} class represents a command that terminates the game. When executed, it
@@ -27,7 +22,6 @@ public class ExitGameOption implements Option {
     public String getDescription() {
         return "Exit Game";
     }
-
 
     /**
      * Executes the exit game command, displaying a farewell message and terminating the

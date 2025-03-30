@@ -1,16 +1,11 @@
 package javatro.display.screens;
 
+import static javatro.display.UI.printANSI;
+
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.HelpMenuOption;
 import javatro.manager.options.StartGameOption;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
-import static javatro.display.UI.printANSI;
 
 /**
  * The {@code StartScreen} class represents the initial menu screen of the application. It provides

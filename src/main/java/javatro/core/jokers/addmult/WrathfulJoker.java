@@ -1,14 +1,14 @@
 package javatro.core.jokers.addmult;
 
+import static javatro.display.UI.BLACK_B;
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+import static javatro.display.UI.PURPLE;
+import static javatro.display.UI.RED;
+
 import javatro.core.Card;
 import javatro.core.Score;
 import javatro.core.jokers.Joker;
-
-import static javatro.display.UI.BLACK_B;
-import static javatro.display.UI.RED;
-import static javatro.display.UI.PURPLE;
-import static javatro.display.UI.BOLD;
-import static javatro.display.UI.END;
 
 /** Represents a WrathfulJoker Joker. */
 public class WrathfulJoker extends Joker {
@@ -16,8 +16,10 @@ public class WrathfulJoker extends Joker {
     public WrathfulJoker() {
         super();
         name = "Wrathful";
-        description = String.format("Played cards with %s%sSpade%s%s suit give %s%s+3 Mult%s%s when scored",
-                PURPLE, BOLD, END, BLACK_B, RED, BOLD, END, BLACK_B);
+        description =
+                String.format(
+                        "Played cards with %s%sSpade%s%s suit give %s%s+3 Mult%s%s when scored",
+                        PURPLE, BOLD, END, BLACK_B, RED, BOLD, END, BLACK_B);
         path = "joker_wrathful.txt";
         this.scoreType = ScoreType.ONCARDPLAY;
     }

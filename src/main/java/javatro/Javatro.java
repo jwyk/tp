@@ -3,10 +3,7 @@ package javatro;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
-import javatro.display.screens.LoseScreen;
 import javatro.display.screens.StartScreen;
-import javatro.display.screens.WinGameScreen;
-import javatro.display.screens.WinRoundScreen;
 import javatro.manager.JavatroManager;
 
 /**

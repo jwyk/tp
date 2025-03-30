@@ -7,7 +7,6 @@ package javatro.manager.options;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
-import javatro.display.screens.GameScreen;
 import javatro.manager.JavatroManager;
 
 /** A command that starts the game and loads the game screen. */

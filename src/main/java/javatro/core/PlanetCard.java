@@ -27,7 +27,8 @@ public class PlanetCard {
                 new PlanetCard("Uranus", 20, 1, PokerHand.HandType.TWO_PAIR, "planet_uranus.txt"));
         CARDS.put(
                 PokerHand.HandType.THREE_OF_A_KIND,
-                new PlanetCard("Venus", 20, 2, PokerHand.HandType.THREE_OF_A_KIND, "planet_venus.txt"));
+                new PlanetCard(
+                        "Venus", 20, 2, PokerHand.HandType.THREE_OF_A_KIND, "planet_venus.txt"));
         CARDS.put(
                 PokerHand.HandType.STRAIGHT,
                 new PlanetCard("Saturn", 30, 3, PokerHand.HandType.STRAIGHT, "planet_saturn.txt"));
@@ -39,13 +40,20 @@ public class PlanetCard {
                 new PlanetCard("Earth", 25, 2, PokerHand.HandType.FULL_HOUSE, "planet_earth.txt"));
         CARDS.put(
                 PokerHand.HandType.FOUR_OF_A_KIND,
-                new PlanetCard("Mars", 30, 3, PokerHand.HandType.FOUR_OF_A_KIND, "planet_mars.txt"));
+                new PlanetCard(
+                        "Mars", 30, 3, PokerHand.HandType.FOUR_OF_A_KIND, "planet_mars.txt"));
         CARDS.put(
                 PokerHand.HandType.STRAIGHT_FLUSH,
-                new PlanetCard("Neptune", 40, 4, PokerHand.HandType.STRAIGHT_FLUSH, "planet_neptune.txt"));
+                new PlanetCard(
+                        "Neptune", 40, 4, PokerHand.HandType.STRAIGHT_FLUSH, "planet_neptune.txt"));
         CARDS.put(
                 PokerHand.HandType.FIVE_OF_A_KIND,
-                new PlanetCard("Planet X", 35, 3, PokerHand.HandType.FIVE_OF_A_KIND, "planet_planet_x.txt"));
+                new PlanetCard(
+                        "Planet X",
+                        35,
+                        3,
+                        PokerHand.HandType.FIVE_OF_A_KIND,
+                        "planet_planet_x.txt"));
         CARDS.put(
                 PokerHand.HandType.FLUSH_HOUSE,
                 new PlanetCard("Ceres", 40, 4, PokerHand.HandType.FLUSH_HOUSE, "planet_ceres.txt"));
@@ -61,7 +69,11 @@ public class PlanetCard {
     private final String path;
 
     private PlanetCard(
-            String name, int chipIncrement, int multiIncrement, PokerHand.HandType handType, String path) {
+            String name,
+            int chipIncrement,
+            int multiIncrement,
+            PokerHand.HandType handType,
+            String path) {
         this.name = name;
         this.chipIncrement = chipIncrement;
         this.multiIncrement = multiIncrement;

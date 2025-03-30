@@ -2,18 +2,10 @@ package javatro.manager.options;
 
 import static javatro.manager.JavatroManager.jc;
 
-import javatro.core.Ante;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
-import javatro.core.PlanetCard;
-import javatro.core.PokerHand;
-import javatro.core.jokers.Joker;
-import javatro.core.jokers.JokerFactory;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
-
-import java.util.List;
-import java.util.Random;
 
 public class NextRoundOption implements Option {
 

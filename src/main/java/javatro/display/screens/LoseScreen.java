@@ -1,32 +1,28 @@
 package javatro.display.screens;
 
+import static javatro.display.UI.*;
+
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.MainMenuOption;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static javatro.display.UI.*;
 
 public class LoseScreen extends Screen {
 
-    private static final List<String> QUOTES = List.of(
-            "Maybe Go Fish is more our speed...",
-            "We folded like a cheap suit!",
-            "Time for us to shuffle off and try again!",
-            "You know what they say, the house always wins!",
-            "Looks like we found out who the real Joker is!",
-            "Oh no, were you bluffing too?",
-            "Looks like the joke's on us!",
-            "If I had hands I would have covered my eyes!",
-            "I'm literally a fool, what's your excuse?",
-            "What a flop!"
-    );
+    private static final List<String> QUOTES =
+            List.of(
+                    "Maybe Go Fish is more our speed...",
+                    "We folded like a cheap suit!",
+                    "Time for us to shuffle off and try again!",
+                    "You know what they say, the house always wins!",
+                    "Looks like we found out who the real Joker is!",
+                    "Oh no, were you bluffing too?",
+                    "Looks like the joke's on us!",
+                    "If I had hands I would have covered my eyes!",
+                    "I'm literally a fool, what's your excuse?",
+                    "What a flop!");
 
     /**
      * Constructs a screen with the specified options title.

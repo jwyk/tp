@@ -37,5 +37,7 @@ public abstract class Joker {
         return description;
     }
 
-    public String getPath() { return path; }
+    public String getPath() {
+        return path;
+    }
 }

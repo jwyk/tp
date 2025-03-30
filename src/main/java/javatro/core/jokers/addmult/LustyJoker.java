@@ -1,13 +1,13 @@
 package javatro.core.jokers.addmult;
 
+import static javatro.display.UI.BLACK_B;
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+import static javatro.display.UI.RED;
+
 import javatro.core.Card;
 import javatro.core.Score;
 import javatro.core.jokers.Joker;
-
-import static javatro.display.UI.BLACK_B;
-import static javatro.display.UI.RED;
-import static javatro.display.UI.BOLD;
-import static javatro.display.UI.END;
 
 /** Represents a LustyJoker Joker. */
 public class LustyJoker extends Joker {
@@ -15,8 +15,10 @@ public class LustyJoker extends Joker {
     public LustyJoker() {
         super();
         name = "Lusty";
-        description = String.format("Played cards with %s%sHeart%s%s suit give %s%s+3 Mult%s%s when scored",
-                RED, BOLD, END, BLACK_B, RED, BOLD, END, BLACK_B);
+        description =
+                String.format(
+                        "Played cards with %s%sHeart%s%s suit give %s%s+3 Mult%s%s when scored",
+                        RED, BOLD, END, BLACK_B, RED, BOLD, END, BLACK_B);
         path = "joker_lusty.txt";
         this.scoreType = ScoreType.ONCARDPLAY;
     }

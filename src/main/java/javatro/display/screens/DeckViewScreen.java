@@ -35,11 +35,11 @@ import javatro.manager.options.ReturnOption;
 import java.util.ArrayList;
 
 /**
- * DeckViewScreen prints the current deck as a two-dimensional table with totals. - The rows represent
- * card suits (Spades, Hearts, Clubs, Diamonds) with an extra column at the end showing the total
- * number of cards in that suit. - The columns represent card ranks in descending order: A, K, Q, J,
- * 10, 9, …, 2, with an extra row at the bottom showing the total count for each rank. The bottom
- * right cell displays the grand total.
+ * DeckViewScreen prints the current deck as a two-dimensional table with totals. - The rows
+ * represent card suits (Spades, Hearts, Clubs, Diamonds) with an extra column at the end showing
+ * the total number of cards in that suit. - The columns represent card ranks in descending order:
+ * A, K, Q, J, 10, 9, …, 2, with an extra row at the bottom showing the total count for each rank.
+ * The bottom right cell displays the grand total.
  */
 public class DeckViewScreen extends Screen {
 

@@ -1,10 +1,10 @@
 package javatro.display.screens;
 
+import static javatro.display.UI.*;
+
 import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
-import javatro.display.UI;
-import javatro.manager.JavatroManager;
 import javatro.manager.options.*;
 
 import java.beans.PropertyChangeEvent;
@@ -12,8 +12,6 @@ import java.beans.PropertyChangeListener;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
-import static javatro.display.UI.*;
 
 public class GameScreen extends Screen implements PropertyChangeListener {
 
@@ -56,17 +54,32 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
         // Player's Hand
         content.add(BOLD + "Your Hand" + END);
-        List<String> cardSymbols = holdingHand.stream()
-                .map(Card::getSimplified)
-                .collect(Collectors.toList());
+        List<String> cardSymbols =
+                holdingHand.stream().map(Card::getSimplified).collect(Collectors.toList());
         addCardRow(cardSymbols, content);
         content.add("");
 
         // Game Stats
-        content.add(YELLOW + "Hands Left: " + handsLeft + END + " | " +
-                RED + "Discards Left: " + discardsLeft + END);
-        content.add(PURPLE + "Cash: $ -" + END + " | " +
-                ORANGE + "Ante: " + JavatroCore.getAnte().getAnteCount() + "/8" + END);
+        content.add(
+                YELLOW
+                        + "Hands Left: "
+                        + handsLeft
+                        + END
+                        + " | "
+                        + RED
+                        + "Discards Left: "
+                        + discardsLeft
+                        + END);
+        content.add(
+                PURPLE
+                        + "Cash: $ -"
+                        + END
+                        + " | "
+                        + ORANGE
+                        + "Ante: "
+                        + JavatroCore.getAnte().getAnteCount()
+                        + "/8"
+                        + END);
         content.add(BOLD + "Current Round: " + JavatroCore.getRoundCount() + END);
 
         printBorderedContent("Game Screen", content);
@@ -78,9 +91,15 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         List<String> bottom = new ArrayList<>();
 
         for (String text : cardTexts) {
-            String topLine = BLACK_B + TOP_LEFT + String.valueOf(HORIZONTAL).repeat(5) + TOP_RIGHT + END;
+            String topLine =
+                    BLACK_B + TOP_LEFT + String.valueOf(HORIZONTAL).repeat(5) + TOP_RIGHT + END;
             String midLine = BLACK_B + VERTICAL + centerCardText(text, 5) + VERTICAL + END;
-            String bottomLine = BLACK_B + BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(5) + BOTTOM_RIGHT + END;
+            String bottomLine =
+                    BLACK_B
+                            + BOTTOM_LEFT
+                            + String.valueOf(HORIZONTAL).repeat(5)
+                            + BOTTOM_RIGHT
+                            + END;
 
             top.add(topLine);
             mid.add(midLine);
@@ -112,13 +131,16 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         handlers.put("roundDescription", v -> roundDescription = v.toString());
         handlers.put("blindScore", v -> blindScore = (Integer) v);
 
-        handlers.put("holdingHand", v -> {
-            List<?> rawList = (List<?>) v;
-            holdingHand = rawList.stream()
-                    .filter(Card.class::isInstance)
-                    .map(Card.class::cast)
-                    .collect(Collectors.toList());
-        });
+        handlers.put(
+                "holdingHand",
+                v -> {
+                    List<?> rawList = (List<?>) v;
+                    holdingHand =
+                            rawList.stream()
+                                    .filter(Card.class::isInstance)
+                                    .map(Card.class::cast)
+                                    .collect(Collectors.toList());
+                });
 
         handlers.getOrDefault(propertyName, val -> {}).accept(newValue);
     }

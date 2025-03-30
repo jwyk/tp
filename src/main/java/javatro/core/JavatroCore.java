@@ -32,7 +32,8 @@ public class JavatroCore {
     public static HeldJokers heldJokers;
 
     /** Stores the play counts for each poker hand type */
-    private static final Map<PokerHand.HandType, Integer> pokerHandPlayCounts = new EnumMap<>(PokerHand.HandType.class);
+    private static final Map<PokerHand.HandType, Integer> pokerHandPlayCounts =
+            new EnumMap<>(PokerHand.HandType.class);
 
     // @author swethaiscool
     /**
@@ -114,25 +115,19 @@ public class JavatroCore {
         startNewRound(classicRound());
     }
 
-    /**
-     * Initializes poker hand play counts at game start
-     */
+    /** Initializes poker hand play counts at game start */
     public static void initializePokerHandStats() {
         for (PokerHand.HandType handType : PokerHand.HandType.values()) {
             pokerHandPlayCounts.put(handType, 0);
         }
     }
 
-    /**
-     * Gets the play count for a specific hand type
-     */
+    /** Gets the play count for a specific hand type */
     public static int getPlayCount(PokerHand.HandType handType) {
         return pokerHandPlayCounts.getOrDefault(handType, 0);
     }
 
-    /**
-     * Increments the play count for a specific hand type
-     */
+    /** Increments the play count for a specific hand type */
     public static void incrementPlayCount(PokerHand.HandType handType) {
         pokerHandPlayCounts.put(handType, getPlayCount(handType) + 1);
     }

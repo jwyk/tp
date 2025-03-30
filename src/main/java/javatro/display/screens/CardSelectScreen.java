@@ -13,9 +13,9 @@ import static javatro.display.UI.T_LEFT;
 import static javatro.display.UI.T_RIGHT;
 import static javatro.display.UI.YELLOW;
 import static javatro.display.UI.centerText;
+import static javatro.display.UI.getCardArtLines;
 import static javatro.display.UI.printBlackB;
 import static javatro.display.UI.printBorderedContent;
-import static javatro.display.UI.getCardArtLines;
 
 import javatro.core.Card;
 import javatro.core.HoldingHand;
@@ -29,7 +29,8 @@ import java.util.List;
 /**
  * The {@code CardSelectScreen} class represents an abstract screen where users select cards from
  * their hand. It provides methods for updating and displaying the player's current hand. This class
- * is intended to be extended by specific screens like {@code DiscardCardScreen} and {@code PlayCardScreen}.
+ * is intended to be extended by specific screens like {@code DiscardCardScreen} and {@code
+ * PlayCardScreen}.
  *
  * <p>The class includes functionality to:
  *
