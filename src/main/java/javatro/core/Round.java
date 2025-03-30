@@ -32,8 +32,6 @@ public class Round {
 
     /** The player's current hand. */
     private HoldingHand playerHand;
-    /** The player's current hand of cards. */
-    private List<Card> playerHandCards;
     /** The player's current held jokers. */
     private HeldJokers playerJokers;
 
@@ -103,7 +101,6 @@ public class Round {
 
         // Initial draw
         playerHand.draw(INITIAL_HAND_SIZE, deck);
-        this.playerHandCards = playerHand.getHand();
 
         validatePostConstruction();
     }
@@ -277,15 +274,6 @@ public class Round {
     }
 
     /**
-     * Gets the cards currently in the player's hand.
-     *
-     * @return A list of the player's current cards
-     */
-    public List<Card> getPlayerHandCards() {
-        return this.playerHandCards;
-    }
-
-    /**
      * Gets the player's current hand of cards.
      *
      * @return The player's hand
@@ -456,10 +444,14 @@ public class Round {
     /**
      * @warn This method will be deprecated in future versions. Reordering of player hands should be
      *     done in UI and not in Round class. Updates the player hand.
-     * @param playerHand The new holding hand to set
+     * @param playerHandCards The new holding hand to set
      * @throws IllegalArgumentException if the player hand is null
      */
     public void setPlayerHandCards(List<Card> playerHandCards) {
-        this.playerHandCards = playerHandCards;
+        if (playerHandCards == null) {
+            throw new IllegalArgumentException("playerHandCards cannot be null");
+        }
+        // Make sure to update the actual HoldingHand object to match
+        this.playerHand.setHand(playerHandCards);
     }
 }
