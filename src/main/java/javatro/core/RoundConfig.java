@@ -19,7 +19,6 @@ public class RoundConfig {
      * @param roundName The display name of the round
      * @param roundDescription The description of the round
      * @param blindScore The target score required to win
-     * @param maxHandSize The maximum number of cards that can be played in this round
      */
     public RoundConfig(String roundName, String roundDescription, int blindScore) {
         this.roundName = roundName;

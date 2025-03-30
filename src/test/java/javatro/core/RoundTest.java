@@ -248,14 +248,14 @@ public class RoundTest {
 
         // Initial state
         assertEquals(4, round.getRemainingDiscards());
-        int initialHandSize = round.getPlayerHand().size();
+        int initialHandSize = round.getPlayerHandCards().size();
 
         // Discard 2 cards
         round.discardCards(List.of(0, 1));
 
         // Check state after discard
         assertEquals(3, round.getRemainingDiscards());
-        assertEquals(initialHandSize, round.getPlayerHand().size());
+        assertEquals(initialHandSize, round.getPlayerHandCards().size());
     }
 
     @Test
@@ -291,7 +291,7 @@ public class RoundTest {
 
         // Initial state
         assertEquals(4, round.getRemainingDiscards());
-        int initialHandSize = round.getPlayerHand().size();
+        int initialHandSize = round.getPlayerHandCards().size();
 
         // Discard 0 cards
         try {
@@ -302,7 +302,7 @@ public class RoundTest {
         }
 
         assertEquals(4, round.getRemainingDiscards());
-        assertEquals(initialHandSize, round.getPlayerHand().size());
+        assertEquals(initialHandSize, round.getPlayerHandCards().size());
     }
 
     @Test

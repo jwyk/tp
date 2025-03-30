@@ -30,27 +30,29 @@ public class Round {
     /** The minimum number of cards in a hand. */
     public static final int DEFAULT_MIN_HAND_SIZE = 1;
 
+    /** The player's current hand. */
+    private HoldingHand playerHand;
     /** The player's current hand of cards. */
-    public HoldingHand playerHand;
+    private List<Card> playerHandCards;
     /** The player's current held jokers. */
-    public HeldJokers playerJokers;
+    private HeldJokers playerJokers;
 
     /** The cards played in the current round. */
     private List<Card> playedCards;
 
     /** The state of the current round. */
-    protected final RoundState state;
+    private final RoundState state;
     /** The configuration of the current round. */
-    protected final RoundConfig config;
+    private final RoundConfig config;
     /** The actions available in the current round. */
-    protected final RoundActions actions;
+    private final RoundActions actions;
     /** The observer pattern implementation. */
-    protected final RoundObservable observable;
+    private final RoundObservable observable;
 
     /** The deck of cards used in the round. */
-    protected Deck deck;
+    private Deck deck;
 
-    protected BossType bossType = BossType.NONE;
+    private BossType bossType = BossType.NONE;
 
     /**
      * Constructs a new round with detailed configuration.
@@ -101,6 +103,7 @@ public class Round {
 
         // Initial draw
         playerHand.draw(INITIAL_HAND_SIZE, deck);
+        this.playerHandCards = playerHand.getHand();
 
         validatePostConstruction();
     }
@@ -278,10 +281,28 @@ public class Round {
      *
      * @return A list of the player's current cards
      */
-    public List<Card> getPlayerHand() {
-        assert playerHand != null : "Player hand cannot be null";
-        return playerHand.getHand();
+    public List<Card> getPlayerHandCards() {
+        return this.playerHandCards;
     }
+
+    /**
+     * Gets the player's current hand of cards.
+     *
+     * @return The player's hand
+     */
+    public HoldingHand getPlayerHand() {
+        return playerHand;
+    }
+
+    /**
+     * Gets the player's current held jokers.
+     *
+     * @return The player's jokers
+     */
+    public HeldJokers getPlayerJokers() {
+        return playerJokers;
+    }
+
     /**
      * Checks if the game is lost based on game rules.
      *
@@ -352,7 +373,7 @@ public class Round {
      *
      * @return The round state object
      */
-    RoundState getState() {
+    public RoundState getState() {
         return state;
     }
 
@@ -361,7 +382,7 @@ public class Round {
      *
      * @return The round configuration object
      */
-    RoundConfig getConfig() {
+    public RoundConfig getConfig() {
         return config;
     }
 
@@ -370,7 +391,7 @@ public class Round {
      *
      * @return The round observable object
      */
-    RoundObservable getObservable() {
+    public RoundObservable getObservable() {
         return observable;
     }
 
@@ -409,6 +430,15 @@ public class Round {
      *
      * @return The round actions object
      */
+    public RoundActions getActions() {
+        return actions;
+    }
+
+    /**
+     * Gets the played cards in this round.
+     *
+     * @return The list of played cards
+     */
     public List<Card> getPlayedCards() {
         return playedCards;
     }
@@ -421,5 +451,16 @@ public class Round {
      */
     public PokerHand getPlayedHand() throws JavatroException {
         return HandResult.evaluateHand(playedCards);
+    }
+
+    /**
+     * @warn This method will be deprecated in future versions. Reordering of player hands should be done in UI and not in Round class.
+     * Updates the player hand.
+     *
+     * @param playerHand The new holding hand to set
+     * @throws IllegalArgumentException if the player hand is null
+     */
+    public void setPlayerHandCards(List<Card> playerHandCards){
+        this.playerHandCards = playerHandCards;
     }
 }

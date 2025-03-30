@@ -76,7 +76,7 @@ public abstract class CardSelectScreen extends Screen {
      */
     public void updateHoldingHand(SortOrder sortOrder) {
         // Get current Holding Hand
-        this.holdingHand = new ArrayList<>(JavatroCore.currentRound.getPlayerHand());
+        this.holdingHand = new ArrayList<>(JavatroCore.currentRound.getPlayerHandCards());
         this.currentSortOrder = sortOrder != null ? sortOrder : SortOrder.ORIGINAL;
 
         // Apply sorting if requested
@@ -98,7 +98,7 @@ public abstract class CardSelectScreen extends Screen {
             this.holdingHand = tempHand.getHand();
         }
         // Update holding hand for proper selection index
-        JavatroCore.currentRound.playerHand.setHand(holdingHand);
+        JavatroCore.currentRound.setPlayerHandCards(this.holdingHand);
     }
 
     /**
