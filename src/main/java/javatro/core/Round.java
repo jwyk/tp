@@ -16,8 +16,8 @@ public class Round {
         THE_NEEDLE("The Needle", "Play only 1 hand"),
         THE_WATER("The Water", "Start with 0 discards"),
         THE_CLUB("The Club", "All Club cards cannot score"),
-        THE_WINDOW("The Window", "All Club cards cannot score"),
-        THE_HEAD("The Head", "All Diamond cards cannot score"),
+        THE_WINDOW("The Window", "All Diamond cards cannot score"),
+        THE_HEAD("The Head", "All Heart cards cannot score"),
         THE_GOAD("The Goad", "All Spade cards cannot score"),
         THE_PLANT("The Plant", "All face cards cannot score"),
         THE_PSYCHIC("The Psychic", "Must play 5 cards (not all cards need to score)");
