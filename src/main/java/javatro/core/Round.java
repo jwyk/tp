@@ -225,7 +225,7 @@ public class Round {
         // Game ends if no plays are remaining
         return state.getRemainingPlays() <= 0 && !isWon();
     }
-    
+
     /**
      * Checks if the round was won by the player.
      *
@@ -306,7 +306,7 @@ public class Round {
     public List<Card> getPlayedCards() {
         return playedCards;
     }
-    
+
     /**
      * Gets the played hand of cards in this round.
      *
