@@ -283,6 +283,15 @@ public class Round {
     }
 
     /**
+     * Gets the player's current hand of cards as a list.
+     *
+     * @return The player's hand as a list of cards
+     */
+    public List<Card> getPlayerHandCards() {
+        return playerHand.getHand();
+    }
+
+    /**
      * Gets the player's current held jokers.
      *
      * @return The player's jokers

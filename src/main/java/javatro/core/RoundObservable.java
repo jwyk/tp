@@ -37,7 +37,7 @@ public class RoundObservable {
         support.firePropertyChange("remainingDiscards", null, state.getRemainingDiscards());
         support.firePropertyChange("roundName", null, config.getRoundName());
         support.firePropertyChange("roundDescription", null, config.getRoundDescription());
-        support.firePropertyChange("holdingHand", null, round.getPlayerHand());
+        support.firePropertyChange("holdingHand", null, round.getPlayerHandCards());
         support.firePropertyChange("currentScore", null, state.getCurrentScore());
     }
 }
