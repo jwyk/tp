@@ -175,7 +175,7 @@ public class Round {
 
         switch (this.bossType) {
             case THE_NEEDLE:
-                this.config.setMaxHandSize(1);
+                this.state.setRemainingPlays(1);
                 break;
             case THE_WATER:
                 this.state.setRemainingDiscards(0);
@@ -461,7 +461,7 @@ public class Round {
      * @param playerHandCards The new holding hand to set
      * @throws IllegalArgumentException if the player hand is null
      */
-    public void setPlayerHandCards(List<Card> playerHandCards) {
+    public void setPlayerHandCards(List<Card> playerHandCards) throws IllegalArgumentException {
         if (playerHandCards == null) {
             throw new IllegalArgumentException("playerHandCards cannot be null");
         }

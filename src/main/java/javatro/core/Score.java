@@ -1,5 +1,6 @@
 package javatro.core;
 
+import javatro.core.Round.BossType;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.jokers.Joker;
 
@@ -49,7 +50,7 @@ public class Score {
 
         // First add pokerHand's chip and mult base to the scores.
         totalChips = pokerHand.getChips();
-        totalMultiplier = pokerHand.getMultiplier();
+        totalMultiplier = this.bossType == BossType.THE_NEEDLE ? 1 : pokerHand.getMultiplier();
 
         // Score the cards and apply any Jokers that have effects on play here.
         for (Card currentCard : playedCardList) {
@@ -80,7 +81,7 @@ public class Score {
     private boolean isValidCard(Card card) {
         // Apply boss blind logic to return this as true or false based on the card's
         // characteristics
-        switch (bossType) {
+        switch(bossType){
             case THE_CLUB:
                 // The Club: All Club Cards cannot score
                 if (card.suit() == Card.Suit.CLUBS) {
