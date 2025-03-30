@@ -5,7 +5,9 @@ import java.beans.PropertyChangeSupport;
 
 /** Handles observer notifications for round state changes. */
 public class RoundObservable {
+    /** The round being observed. */
     private final Round round;
+    /** The property change support for the observer pattern. */
     private final PropertyChangeSupport support;
 
     /**

@@ -31,9 +31,9 @@ public class Round {
     public static final int DEFAULT_MIN_HAND_SIZE = 1;
 
     /** The player's current hand. */
-    private HoldingHand playerHand;
+    private final HoldingHand playerHand;
     /** The player's current held jokers. */
-    private HeldJokers playerJokers;
+    private final HeldJokers playerJokers;
 
     /** The cards played in the current round. */
     private List<Card> playedCards;
@@ -48,8 +48,9 @@ public class Round {
     private final RoundObservable observable;
 
     /** The deck of cards used in the round. */
-    private Deck deck;
+    private final Deck deck;
 
+    /** The type of boss for this round. */
     private BossType bossType = BossType.NONE;
 
     /**

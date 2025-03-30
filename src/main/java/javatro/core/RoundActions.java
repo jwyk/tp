@@ -6,7 +6,7 @@ import java.util.Set;
 
 /** Implements the game actions available in a round. */
 public class RoundActions {
-    /** The round these actions apply to. */
+    /** The round instance associated with these actions. */
     private final Round round;
 
     /**
