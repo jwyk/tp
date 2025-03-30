@@ -30,6 +30,7 @@ import javatro.core.Card;
 import javatro.core.Deck;
 import javatro.core.JavatroException;
 import javatro.core.Round;
+import javatro.core.Deck.DeckType;
 import javatro.manager.options.ReturnOption;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class DeckScreen extends Screen {
         // Step 1: Build the data matrix.
         // There are 4 suits and 13 ranks.
 
-        deck = Round.deck;
+        deck = new Deck(DeckType.DEFAULT);
         remainingCardList = deck.getWholeDeck();
         String deckType = String.valueOf(deck.getDeckName());
         int[][] counts = new int[4][13];

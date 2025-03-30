@@ -45,9 +45,9 @@ public class Round {
     protected final RoundObservable observable;
 
     /** The deck of cards used in the round. */
-    public static Deck deck;
+    protected Deck deck;
 
-    public static BossType bossType = BossType.NONE;
+    protected BossType bossType = BossType.NONE;
 
     /**
      * Constructs a new round with detailed configuration.
@@ -71,7 +71,7 @@ public class Round {
 
         validateParameters(ante, remainingPlays, deck);
 
-        Round.deck = deck;
+        this.deck = deck;
         this.playerHand = new HoldingHand();
         this.playerJokers = heldJokers;
 
@@ -144,7 +144,7 @@ public class Round {
      */
     private void applyAnteInvariants(Ante ante) {
         if (ante.getBlind() == Ante.Blind.BOSS_BLIND) {
-            Round.bossType = getRandomBoss();
+            this.bossType = getRandomBoss();
         }
     }
 
@@ -154,6 +154,7 @@ public class Round {
      * @return A randomly selected boss type
      */
     private BossType getRandomBoss() {
+        
         // skip the first value (NONE) to ensure a valid boss type is selected
         int randomIndex = (int) (Math.random() * BossType.values().length - 1);
         assert randomIndex >= 0 && randomIndex < BossType.values().length - 1
@@ -163,7 +164,7 @@ public class Round {
 
     /** Applies special rules based on the selected boss type. */
     private void applyBossVariants() {
-        switch (Round.bossType) {
+        switch (this.bossType) {
             case THE_NEEDLE:
                 this.config.setMaxHandSize(1);
                 break;
@@ -358,5 +359,36 @@ public class Round {
      */
     RoundObservable getObservable() {
         return observable;
+    }
+
+    /**
+     * Gets the boss type for this round.
+     * 
+     * @return The boss type
+     * 
+     */
+    public BossType getBossType() {
+        return bossType;
+    }
+
+    /**
+     * Sets the boss type for this round.
+     * 
+     * @warning This method is not intended for use in normal gameplay. It is only for testing purposes.
+     * @param bossType The new boss type
+     * 
+     */
+    public void setBossType(BossType bossType) {
+        this.bossType = bossType;
+        applyBossVariants();
+    }
+
+    /**
+     * Gets the deck used in this round.
+     *
+     * @return The deck object
+     */
+    public Deck getDeck() {
+        return deck;
     }
 }

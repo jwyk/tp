@@ -57,7 +57,7 @@ public class RoundActions {
         state.addScore(pointsEarned);
 
         // Draw new cards to replace played ones
-        round.playerHand.draw(cardIndices.size(), Round.deck);
+        round.playerHand.draw(cardIndices.size(), round.deck);
         state.decrementPlays();
 
         assert state.getRemainingPlays() == oldRemainingPlays - 1
@@ -107,7 +107,7 @@ public class RoundActions {
         // Execute discard
         round.playerHand.discard(cardIndices);
         state.decrementDiscards();
-        round.playerHand.draw(indicesToDiscard.size(), Round.deck);
+        round.playerHand.draw(indicesToDiscard.size(), round.deck);
 
         assert state.getRemainingDiscards() == oldRemainingDiscards - 1
                 : "Remaining discards should decrease by exactly 1";
