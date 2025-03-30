@@ -61,7 +61,7 @@ public class DeckViewScreen extends Screen {
     @Override
     public void displayScreen() {
 
-        Deck deck = new Deck(DeckType.STANDARD);
+        Deck deck = new Deck(DeckType.DEFAULT);
         String deckType = String.valueOf(deck.getDeckName());
         ArrayList<Card> remainingCardList = deck.getWholeDeck();
 
