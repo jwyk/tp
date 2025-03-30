@@ -36,7 +36,7 @@ public class RoundActions {
         // Execute play
         List<Card> playedCards = round.getPlayerHand().play(cardIndices);
         PokerHand result = HandResult.evaluateHand(playedCards);
-        Score handScore = new Score();
+        Score handScore = new Score(round.getBossType());
         long pointsEarned = handScore.getScore(result, playedCards, round.getPlayerJokers());
         state.addScore(pointsEarned);
 
