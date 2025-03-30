@@ -79,6 +79,8 @@ public class Ante {
         return anteScore[anteCount - 1];
     }
 
+
+    // @author K-J-Q
     /**
      * Sets the ante count for the game.
      *
