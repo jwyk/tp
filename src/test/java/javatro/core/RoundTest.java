@@ -347,7 +347,7 @@ public class RoundTest {
         round.setBossType(Round.BossType.THE_NEEDLE);
 
         // Check that max hand size is set to 1
-        assertEquals(1, round.getConfig().getMaxHandSize());
+        assertEquals(1, round.getRemainingPlays());
         assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
     }
 
@@ -433,7 +433,7 @@ public class RoundTest {
         switch (round.getBossType()) {
             case THE_NEEDLE:
                 assertEquals(Round.BossType.THE_NEEDLE, round.getBossType());
-                assertEquals(1, round.getConfig().getMaxHandSize());
+                assertEquals(1, round.getRemainingPlays());
                 assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
                 break;
             case THE_WATER:

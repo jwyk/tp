@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static javatro.core.Round.DEFAULT_MAX_HAND_SIZE;
+
 /** Implements the game actions available in a round. */
 public class RoundActions {
     /** The round instance associated with these actions. */
@@ -120,14 +122,13 @@ public class RoundActions {
      */
     private void validateDiscardCards(List<Integer> cardIndices) throws JavatroException {
         RoundState state = round.getState();
-        Integer numberOfDiscards = cardIndices.size();
+        int numberOfDiscards = cardIndices.size();
 
         if (state.getRemainingDiscards() <= 0) {
             throw JavatroException.noRemainingDiscards();
         }
 
-        if (numberOfDiscards > round.getPlayerHand().getHand().size()
-                || numberOfDiscards > state.getRemainingDiscards()) {
+        if (numberOfDiscards > DEFAULT_MAX_HAND_SIZE) {
             throw JavatroException.tooManyDiscards();
         }
 
