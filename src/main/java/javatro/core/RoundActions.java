@@ -1,6 +1,5 @@
 package javatro.core;
 
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,8 +26,9 @@ public class RoundActions {
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
         assert cardIndices != null : "Card indices cannot be null";
-        Boolean isAcceptableHandSize = cardIndices.size() <= round.config.getMaxHandSize()
-                && cardIndices.size() >= round.config.getMinHandSize();
+        Boolean isAcceptableHandSize =
+                cardIndices.size() <= round.config.getMaxHandSize()
+                        && cardIndices.size() >= round.config.getMinHandSize();
 
         // Validation
         if (!isAcceptableHandSize) {

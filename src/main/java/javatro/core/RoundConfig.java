@@ -10,6 +10,7 @@ public class RoundConfig {
     private String roundDescription;
     /** The maximum number of cards that can be played in this round. */
     private int maxHandSize = Round.DEFAULT_MAX_HAND_SIZE;
+
     private int minHandSize = Round.DEFAULT_MIN_HAND_SIZE;
 
     /**

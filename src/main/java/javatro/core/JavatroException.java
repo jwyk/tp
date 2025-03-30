@@ -46,9 +46,6 @@ public final class JavatroException extends Exception {
                 "A poker hand must contain between " + minCards + " and " + maxCards + " cards.");
     }
 
-
-
-
     /**
      * Creates an exception indicating an invalid number of plays per round.
      *
