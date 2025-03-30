@@ -152,49 +152,49 @@ public class Round {
     }
 
     /**
-     * Plays a set of 5 cards as a poker hand.
+     * Plays a set of cards as a poker hand.
      *
-     * @param cardIndices Indices of cards to play from the holding hand (must be exactly 5 cards)
-     * @throws JavatroException If the number of cards played is not equal to 5
+     * @param cardIndices
+     *            Indices of cards to play from the holding hand
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
         if (cardIndices.size() > POKER_HAND_SIZE || cardIndices.isEmpty()) {
             throw JavatroException.invalidPlayedHand();
         }
-
+    
         if (remainingPlays <= 0) {
             throw JavatroException.noPlaysRemaining();
         }
-
+    
         assert cardIndices != null : "Card indices cannot be null";
         assert !cardIndices.isEmpty() : "Card indices cannot be empty";
         assert cardIndices.size() <= POKER_HAND_SIZE
                 : "Cannot play more than " + POKER_HAND_SIZE + " cards";
         assert remainingPlays > 0 : "No plays remaining to execute this action";
-
+    
         long oldScore = currentScore;
         int oldRemainingPlays = remainingPlays;
-
+    
         List<Card> playedCards = playerHand.play(cardIndices);
         PokerHand result = HandResult.evaluateHand(playedCards);
         Score handScore = new Score();
         currentScore += handScore.getScore(result, playedCards, playerJokers);
-
+    
         // Draw new cards to replace played ones
         playerHand.draw(cardIndices.size(), deck);
-
+    
         remainingPlays--;
-
+    
         // Post-condition assertions
         assert remainingPlays == oldRemainingPlays - 1
                 : "Remaining plays should decrease by exactly 1";
         assert currentScore >= oldScore : "Score should not decrease after playing cards";
         assert playerHand.getHand().size() == INITIAL_HAND_SIZE
                 : "Hand size should be maintained after play";
-
+    
         updateRoundVariables();
     }
-
+    
     /**
      * Discards cards from the player's hand.
      *
