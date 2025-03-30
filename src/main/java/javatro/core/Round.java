@@ -8,12 +8,19 @@ import java.util.List;
 
 /** Represents a round in the Javatro game. */
 public class Round {
+    /** The type of boss in the round. */
+    public enum BossType {
+        NONE, THE_NEEDLE, THE_WATER, THE_CLUB, THE_WINDOW, THE_HEAD, THE_GOAD, THE_PLANT, THE_PSYCHIC
+    }
+
     /** The initial number of cards dealt to the player. */
     public static final int INITIAL_HAND_SIZE = 8;
     /** The maximum number of discards allowed per round. */
     public static final int MAX_DISCARDS_PER_ROUND = 4;
     /** The maximum number of cards in a hand. */
-    public static final int MAX_HAND_SIZE = 5;
+    public static final int DEFAULT_MAX_HAND_SIZE = 5;
+    /** The minimum number of cards in a hand. */
+    public static final int DEFAULT_MIN_HAND_SIZE = 1;
 
     /** The player's current hand of cards. */
     public HoldingHand playerHand;
@@ -21,27 +28,36 @@ public class Round {
     public HeldJokers playerJokers;
 
     /** The state of the current round. */
-    private final RoundState state;
+    protected final RoundState state;
     /** The configuration of the current round. */
-    private final RoundConfig config;
+    protected final RoundConfig config;
     /** The actions available in the current round. */
-    private final RoundActions actions;
+    protected final RoundActions actions;
     /** The observer pattern implementation. */
-    private final RoundObservable observable;
+    protected final RoundObservable observable;
 
     /** The deck of cards used in the round. */
     public static Deck deck;
 
+    public static BossType bossType = BossType.NONE;
+
     /**
      * Constructs a new round with detailed configuration.
      *
-     * @param ante The ante configuration containing the target score for this round
-     * @param remainingPlays The initial number of plays allowed in this round
-     * @param deck The deck of cards to be used for this round
-     * @param heldJokers The player's collection of jokers available for this round
-     * @param roundName The display name for this round
-     * @param roundDescription A detailed description of the round's rules or theme
-     * @throws JavatroException If any of the provided parameters are invalid
+     * @param ante
+     *            The ante configuration containing the target score for this round
+     * @param remainingPlays
+     *            The initial number of plays allowed in this round
+     * @param deck
+     *            The deck of cards to be used for this round
+     * @param heldJokers
+     *            The player's collection of jokers available for this round
+     * @param roundName
+     *            The display name for this round
+     * @param roundDescription
+     *            A detailed description of the round's rules or theme
+     * @throws JavatroException
+     *             If any of the provided parameters are invalid
      */
     public Round(
             Ante ante,
@@ -67,6 +83,12 @@ public class Round {
         // Apply special deck modifications
         applyDeckVariants(deck);
 
+        // Apply special rules based on ante configuration
+        applyAnteInvariants(ante);
+
+        // Apply boss type
+        applyBossVariants();
+
         // Create observable for notifications
         this.observable = new RoundObservable(this);
 
@@ -82,10 +104,14 @@ public class Round {
     /**
      * Validates the input parameters for round creation.
      *
-     * @param ante The ante configuration to validate
-     * @param remainingPlays The number of plays to validate
-     * @param deck The deck to validate
-     * @throws JavatroException If validation fails for any parameter
+     * @param ante
+     *            The ante configuration to validate
+     * @param remainingPlays
+     *            The number of plays to validate
+     * @param deck
+     *            The deck to validate
+     * @throws JavatroException
+     *             If validation fails for any parameter
      */
     private void validateParameters(Ante ante, int remainingPlays, Deck deck)
             throws JavatroException {
@@ -103,28 +129,75 @@ public class Round {
     /**
      * Applies special rules based on the deck variant.
      *
-     * @param deck The deck to check for special variants
+     * @param deck
+     *            The deck to check for special variants
      */
     private void applyDeckVariants(Deck deck) {
         DeckType deckName = deck.getDeckName();
         if (deckName == DeckType.RED) {
             this.state.increaseRemainingDiscards(1);
         } else if (deckName == DeckType.BLUE) {
-            this.state.increaseRemainingPlays(1);
+            this.state.setRemainingPlays(this.state.getRemainingPlays() + 1);
+        }
+    }
+
+    /**
+     * 
+     * Applies special rules based on the ante configuration.
+     * 
+     * @param ante
+     *            The ante configuration to check for special rules
+     */
+    private void applyAnteInvariants(Ante ante) {
+        if (ante.getBlind() == Ante.Blind.BOSS_BLIND) {
+            Round.bossType = getRandomBoss();
+        }
+    }
+
+    /**
+     * Gets a random boss type.
+     *
+     * @return A randomly selected boss type
+     */
+    private BossType getRandomBoss() {
+        // skip the first value (NONE) to ensure a valid boss type is selected
+        int randomIndex = (int) (Math.random() * BossType.values().length - 1);
+        assert randomIndex >= 0 && randomIndex < BossType.values().length - 1 : "Random index out of bounds";
+        return BossType.values()[randomIndex + 1];
+    }
+
+    /**
+     * Applies special rules based on the selected boss type.
+     */
+    private void applyBossVariants() {
+        switch(Round.bossType){
+        case THE_NEEDLE:
+        this.config.setMaxHandSize(1);
+            break;
+        case THE_WATER:
+        this.state.setRemainingDiscards(0);
+            break;
+        case THE_PSYCHIC:
+        this.config.setMaxHandSize(5);
+        this.config.setMinHandSize(5);
+            break;
+        case NONE:
+            break;
+        default:
+            break;
         }
     }
 
     /** Validates the post-construction state of the round. */
     private void validatePostConstruction() {
         assert this.state.getCurrentScore() == 0 : "Initial score must be zero";
-        assert this.state.getRemainingDiscards() >= MAX_DISCARDS_PER_ROUND
-                : "Initial discards must be at least the maximum";
-        assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE
-                : "Player should have exactly " + INITIAL_HAND_SIZE + " cards initially";
+        assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE : "Player should have exactly " + INITIAL_HAND_SIZE
+                + " cards initially";
     }
 
     /**
-     * Constructs a new round with the specified ante and blind settings without specifying round
+     * Constructs a new round with the specified ante and blind settings without
+     * specifying round
      * name and description.
      */
     public Round(Ante ante, int remainingPlays, Deck deck, HeldJokers heldJokers)
@@ -135,7 +208,8 @@ public class Round {
     /**
      * Registers a listener for round state changes.
      *
-     * @param pcl The property change listener to register
+     * @param pcl
+     *            The property change listener to register
      */
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         observable.addPropertyChangeListener(pcl);
@@ -149,8 +223,10 @@ public class Round {
     /**
      * Plays a selection of cards from the player's hand.
      *
-     * @param cardIndices Indices of cards to play from the holding hand
-     * @throws JavatroException If the play is invalid or no plays remain
+     * @param cardIndices
+     *            Indices of cards to play from the holding hand
+     * @throws JavatroException
+     *             If the play is invalid or no plays remain
      * @see RoundActions#playCards(List)
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
@@ -160,8 +236,10 @@ public class Round {
     /**
      * Discards a selection of cards from the player's hand.
      *
-     * @param cardIndices Indices of cards to discard from the holding hand
-     * @throws JavatroException If the discard is invalid or no discards remain
+     * @param cardIndices
+     *            Indices of cards to discard from the holding hand
+     * @throws JavatroException
+     *             If the discard is invalid or no discards remain
      * @see RoundActions#discardCards(List)
      */
     public void discardCards(List<Integer> cardIndices) throws JavatroException {
@@ -244,7 +322,8 @@ public class Round {
     /**
      * Sets the display name of this round.
      *
-     * @param roundName The new round name
+     * @param roundName
+     *            The new round name
      */
     public void setRoundName(String roundName) {
         config.setRoundName(roundName);
@@ -262,7 +341,8 @@ public class Round {
     /**
      * Sets the description of this round.
      *
-     * @param roundDescription The new round description
+     * @param roundDescription
+     *            The new round description
      */
     public void setRoundDescription(String roundDescription) {
         config.setRoundDescription(roundDescription);

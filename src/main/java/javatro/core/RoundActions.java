@@ -27,10 +27,13 @@ public class RoundActions {
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
         assert cardIndices != null : "Card indices cannot be null";
+        Boolean isAcceptableHandSize = cardIndices.size() <= round.config.getMaxHandSize()
+                && cardIndices.size() >= round.config.getMinHandSize();
 
         // Validation
-        if (cardIndices.size() > Round.MAX_HAND_SIZE || cardIndices.isEmpty()) {
-            throw JavatroException.invalidPlayedHand();
+        if (!isAcceptableHandSize) {
+            throw JavatroException.invalidPlayedHand(
+                    round.config.getMinHandSize(), round.config.getMaxHandSize());
         }
 
         RoundState state = round.getState();
@@ -39,8 +42,8 @@ public class RoundActions {
         }
 
         assert !cardIndices.isEmpty() : "Card indices cannot be empty";
-        assert cardIndices.size() <= Round.MAX_HAND_SIZE
-                : "Cannot play more than " + Round.MAX_HAND_SIZE + " cards";
+        assert cardIndices.size() <= round.config.getMaxHandSize()
+                : "Cannot play more than " + round.config.getMaxHandSize() + " cards";
         assert state.getRemainingPlays() > 0 : "No plays remaining to execute this action";
 
         long oldScore = state.getCurrentScore();
