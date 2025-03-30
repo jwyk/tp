@@ -75,7 +75,7 @@ public class Parser {
 
         while (true) {
             try {
-//                UI.clearScreen();
+                //                UI.clearScreen();
                 getCurrentScreen().displayOptions();
                 System.out.printf(MENU_PROMPT, maxRange);
 
@@ -113,7 +113,7 @@ public class Parser {
         while (true) {
             try {
                 // Clear screen and show header
-//                UI.clearScreen();
+                //                UI.clearScreen();
                 System.out.printf(CARD_PROMPT, maxCardsAvailable, maxCardsToSelect);
 
                 String input = scanner.nextLine().trim();

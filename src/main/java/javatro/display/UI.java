@@ -298,7 +298,7 @@ public class UI {
 
     public static void printANSI(String fileName) {
         try (InputStream inputStream =
-                     UI.class.getResourceAsStream("/javatro/display/ansi/" + fileName)) {
+                UI.class.getResourceAsStream("/javatro/display/ansi/" + fileName)) {
             if (inputStream == null) {
                 throw JavatroException.errorLoadingLogo(fileName);
             }

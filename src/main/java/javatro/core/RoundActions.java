@@ -1,10 +1,10 @@
 package javatro.core;
 
+import static javatro.core.Round.DEFAULT_MAX_HAND_SIZE;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static javatro.core.Round.DEFAULT_MAX_HAND_SIZE;
 
 /** Implements the game actions available in a round. */
 public class RoundActions {

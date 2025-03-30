@@ -41,7 +41,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
     @Override
     public void displayScreen() {
-//        clearScreen();
+        //        clearScreen();
         StringBuilder sb = new StringBuilder();
 
         // --- Top Border ---
@@ -82,8 +82,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append(END)
                 .append("\n");
 
-        sb.append(centerText(ITALICS + roundDescription + END, BORDER_WIDTH))
-                .append("\n");
+        sb.append(centerText(ITALICS + roundDescription + END, BORDER_WIDTH)).append("\n");
 
         // --- Separator Border ---
         sb.append(BLACK_B)
@@ -98,7 +97,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append("\n");
 
         // --- Blind Score / Ante / Round ---
-        String bs = String.format("%s%sScore to beat: %d%s%s", YELLOW, BOLD, blindScore, END, BLACK_B);
+        String bs =
+                String.format("%s%sScore to beat: %d%s%s", YELLOW, BOLD, blindScore, END, BLACK_B);
         String bScore = centerText(bs, COLUMN_WIDTH + 2);
         String anteCount =
                 String.format("          Ante: %d / 8", JavatroCore.getAnte().getAnteCount());
@@ -134,7 +134,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append("\n");
 
         // --- Round Score / Hands / Discards ---
-        String rs = String.format("%s%sRound Score: %d%s%s", YELLOW, BOLD, roundScore, END, BLACK_B);
+        String rs =
+                String.format("%s%sRound Score: %d%s%s", YELLOW, BOLD, roundScore, END, BLACK_B);
         String rScore = centerText(rs, COLUMN_WIDTH + 2);
         String handCount = String.format("            Hands: %d", handsLeft);
         String discardCount = String.format("          Discards: %d", discardsLeft);
