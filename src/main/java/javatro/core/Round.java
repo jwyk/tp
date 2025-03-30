@@ -308,9 +308,6 @@ public class Round {
         return observable;
     }
 
- 
-
-
     /**
      * Gets the actions object for this round.
      *
