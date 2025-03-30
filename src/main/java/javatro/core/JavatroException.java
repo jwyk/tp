@@ -41,8 +41,9 @@ public final class JavatroException extends Exception {
      *
      * @return A {@code JavatroException} indicating the correct number of cards to play.
      */
-    public static JavatroException invalidPlayedHand() {
-        return new JavatroException("A poker hand must contain between 1 and 5 cards.");
+    public static JavatroException invalidPlayedHand(int minCards, int maxCards) {
+        return new JavatroException(
+                "A poker hand must contain between " + minCards + " and " + maxCards + " cards.");
     }
 
     /**
