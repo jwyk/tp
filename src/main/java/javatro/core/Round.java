@@ -203,15 +203,15 @@ public class Round {
      */
     public void discardCards(List<Integer> cardIndices) throws JavatroException {
         if (remainingDiscards <= 0) {
-            throw new JavatroException("No remaining discards available");
+            throw JavatroException.noRemainingDiscards();
         }
 
         if (cardIndices.size() > POKER_HAND_SIZE) {
-            throw new JavatroException("Too many discards");
+            throw JavatroException.tooManyDiscards();
         }
 
         if (cardIndices.size() < 1) {
-            throw new JavatroException("Cannot discard zero cards");
+            throw JavatroException.cannotDiscardZeroCards();
         }
 
         assert cardIndices != null : "Card indices cannot be null";
@@ -265,8 +265,7 @@ public class Round {
      * @return true if the round is over, false otherwise
      */
     public boolean isRoundOver() {
-        // Round ends if no plays are remaining
-        return remainingPlays <= 0;
+        return remainingPlays <= 0 | isWon();
     }
 
     /**
@@ -275,7 +274,6 @@ public class Round {
      * @return true if player won the round, false otherwise
      */
     public boolean isWon() {
-        assert isRoundOver() || remainingPlays > 0 : "Round state is inconsistent";
         return currentScore >= blindScore;
     }
 
