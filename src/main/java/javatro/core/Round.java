@@ -154,7 +154,7 @@ public class Round {
      * @return A randomly selected boss type
      */
     private BossType getRandomBoss() {
-        
+
         // skip the first value (NONE) to ensure a valid boss type is selected
         int randomIndex = (int) (Math.random() * BossType.values().length - 1);
         assert randomIndex >= 0 && randomIndex < BossType.values().length - 1
@@ -363,9 +363,8 @@ public class Round {
 
     /**
      * Gets the boss type for this round.
-     * 
+     *
      * @return The boss type
-     * 
      */
     public BossType getBossType() {
         return bossType;
@@ -373,10 +372,10 @@ public class Round {
 
     /**
      * Sets the boss type for this round.
-     * 
-     * @warning This method is not intended for use in normal gameplay. It is only for testing purposes.
+     *
+     * @warning This method is not intended for use in normal gameplay. It is only for testing
+     *     purposes.
      * @param bossType The new boss type
-     * 
      */
     public void setBossType(BossType bossType) {
         this.bossType = bossType;

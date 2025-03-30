@@ -19,13 +19,17 @@ public class RoundTest {
         return UI.RED + message + UI.END;
     }
 
-    private static final String INVALIDPLAYEDHANDERROR = "A poker hand must contain between 1 and 5 cards.";
-    private static final String INVALIDPLAYSPERROUND = "Number of plays per round must be greater than 0.";
+    private static final String INVALIDPLAYEDHANDERROR =
+            "A poker hand must contain between 1 and 5 cards.";
+    private static final String INVALIDPLAYSPERROUND =
+            "Number of plays per round must be greater than 0.";
     private static final String INVALIDDECK = "Deck cannot be null.";
     private static final String INVALIDPLAYSREMAINING = "No plays remaining.";
 
     enum isWon {
-        WON, LOST, UNKNOWN
+        WON,
+        LOST,
+        UNKNOWN
     }
 
     private static HeldJokers heldJokers;
@@ -386,11 +390,11 @@ public class RoundTest {
 
         // Test other bosses that don't have specific rule changes
         Round.BossType[] otherBosses = {
-                Round.BossType.THE_CLUB,
-                Round.BossType.THE_WINDOW,
-                Round.BossType.THE_HEAD,
-                Round.BossType.THE_GOAD,
-                Round.BossType.THE_PLANT
+            Round.BossType.THE_CLUB,
+            Round.BossType.THE_WINDOW,
+            Round.BossType.THE_HEAD,
+            Round.BossType.THE_GOAD,
+            Round.BossType.THE_PLANT
         };
 
         for (Round.BossType bossType : otherBosses) {
@@ -426,26 +430,26 @@ public class RoundTest {
         ante.setBlind(Ante.Blind.BOSS_BLIND);
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
-        switch(round.getBossType()){
-        case THE_NEEDLE:
-        assertEquals(Round.BossType.THE_NEEDLE, round.getBossType());
-        assertEquals(1, round.getConfig().getMaxHandSize());
-        assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
-            break;
-        case THE_WATER:
-        assertEquals(Round.BossType.THE_WATER, round.getBossType());
-        assertEquals(0, round.getRemainingDiscards());
-        assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
-            break;
-        case THE_PSYCHIC:
-        assertEquals(Round.BossType.THE_PSYCHIC, round.getBossType());
-        assertEquals(5, round.getConfig().getMaxHandSize());
-        assertEquals(5, round.getConfig().getMinHandSize());
-            break;
-        default:
-        assertEquals(Round.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
-        assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
-            break;
+        switch (round.getBossType()) {
+            case THE_NEEDLE:
+                assertEquals(Round.BossType.THE_NEEDLE, round.getBossType());
+                assertEquals(1, round.getConfig().getMaxHandSize());
+                assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+                break;
+            case THE_WATER:
+                assertEquals(Round.BossType.THE_WATER, round.getBossType());
+                assertEquals(0, round.getRemainingDiscards());
+                assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+                break;
+            case THE_PSYCHIC:
+                assertEquals(Round.BossType.THE_PSYCHIC, round.getBossType());
+                assertEquals(5, round.getConfig().getMaxHandSize());
+                assertEquals(5, round.getConfig().getMinHandSize());
+                break;
+            default:
+                assertEquals(Round.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
+                assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+                break;
         }
     }
 }
