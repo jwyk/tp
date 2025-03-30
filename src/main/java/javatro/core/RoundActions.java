@@ -73,7 +73,7 @@ public class RoundActions {
      * @param cardIndices Indices of cards to discard from the holding hand
      * @throws JavatroException If the discard is invalid
      */
-    public void discardCards(List<Integer> cardIndices) throws JavatroException {
+    public List<Card> discardCards(List<Integer> cardIndices) throws JavatroException {
         RoundState state = round.getState();
         Integer numberOfDiscards = cardIndices.size();
 
@@ -102,7 +102,7 @@ public class RoundActions {
         int oldRemainingDiscards = state.getRemainingDiscards();
 
         // Execute discard
-        round.playerHand.discard(cardIndices);
+        List<Card> discardedCards = round.playerHand.discard(cardIndices);
         state.decrementDiscards();
         round.playerHand.draw(indicesToDiscard.size(), Round.deck);
 
@@ -112,5 +112,6 @@ public class RoundActions {
                 : "Hand size should be maintained after discard";
 
         round.updateRoundVariables();
+        return discardedCards;
     }
 }
