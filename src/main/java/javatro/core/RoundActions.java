@@ -88,7 +88,7 @@ public class RoundActions {
      * @param cardIndices Indices of cards to discard from the holding hand
      * @throws JavatroException If the discard is invalid
      */
-    public void discardCards(List<Integer> cardIndices) throws JavatroException {
+    public List<Card> discardCards(List<Integer> cardIndices) throws JavatroException {
         assert cardIndices != null : "Card indices cannot be null";
 
         validateDiscardCards(cardIndices);
@@ -99,7 +99,7 @@ public class RoundActions {
         int oldRemainingDiscards = round.getState().getRemainingDiscards();
 
         // Execute discard
-        round.getPlayerHand().discard(cardIndices);
+        List<Card> discardedCards = round.getPlayerHand().discard(cardIndices);
         round.getState().decrementDiscards();
         round.getPlayerHand().draw(indicesToDiscard.size(), round.getDeck());
 
@@ -109,6 +109,7 @@ public class RoundActions {
                 : "Hand size should be maintained after discard";
 
         round.updateRoundVariables();
+        return discardedCards;
     }
 
     /**
