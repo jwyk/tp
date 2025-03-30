@@ -1,5 +1,7 @@
 package javatro.core;
 
+import static javatro.core.Round.MAX_HAND_SIZE;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +30,7 @@ public class RoundActions {
         assert cardIndices != null : "Card indices cannot be null";
 
         // Validation
-        if (cardIndices.size() > Round.MAX_HAND_SIZE || cardIndices.isEmpty()) {
+        if (cardIndices.size() > MAX_HAND_SIZE || cardIndices.isEmpty()) {
             throw JavatroException.invalidPlayedHand();
         }
 
@@ -38,8 +40,8 @@ public class RoundActions {
         }
 
         assert !cardIndices.isEmpty() : "Card indices cannot be empty";
-        assert cardIndices.size() <= Round.MAX_HAND_SIZE
-                : "Cannot play more than " + Round.MAX_HAND_SIZE + " cards";
+        assert cardIndices.size() <= MAX_HAND_SIZE
+                : "Cannot play more than " + MAX_HAND_SIZE + " cards";
         assert state.getRemainingPlays() > 0 : "No plays remaining to execute this action";
 
         long oldScore = state.getCurrentScore();
@@ -84,8 +86,7 @@ public class RoundActions {
             throw JavatroException.noRemainingDiscards();
         }
 
-        if (numberOfDiscards > round.playerHand.getHand().size()
-                || numberOfDiscards > state.getRemainingDiscards()) {
+        if (cardIndices.size() > MAX_HAND_SIZE) {
             throw JavatroException.tooManyDiscards();
         }
 
