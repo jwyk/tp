@@ -14,16 +14,14 @@ public class Score {
     public ArrayList<Joker> jokerList;
     private Round.BossType bossType = Round.BossType.NONE;
 
-    /**
-     * Default constructor
-     */
+    /** Default constructor */
     public Score() {
         this(Round.BossType.NONE);
     }
-    
+
     /**
      * Constructor with boss type parameter
-     * 
+     *
      * @param bossType The type of boss for this round
      */
     public Score(Round.BossType bossType) {
@@ -80,7 +78,8 @@ public class Score {
      * @param card The card to be checked for validity
      */
     private boolean isValidCard(Card card) {
-        // Apply boss blind logic to return this as true or false based on the card's characteristics
+        // Apply boss blind logic to return this as true or false based on the card's
+        // characteristics
         switch (bossType) {
             case THE_CLUB:
                 // The Club: All Club Cards cannot score
