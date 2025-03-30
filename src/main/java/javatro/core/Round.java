@@ -167,6 +167,8 @@ public class Round {
 
     /** Applies special rules based on the selected boss type. */
     private void applyBossVariants() {
+        this.config.setMaxHandSize(DEFAULT_MAX_HAND_SIZE);
+        this.config.setMinHandSize(1);
         switch (this.bossType) {
             case THE_NEEDLE:
                 this.config.setMaxHandSize(1);
@@ -179,7 +181,6 @@ public class Round {
                 this.config.setMinHandSize(5);
                 break;
             case NONE:
-                break;
             default:
                 break;
         }
