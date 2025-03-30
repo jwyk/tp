@@ -168,8 +168,11 @@ public class Round {
 
     /** Applies special rules based on the selected boss type. */
     private void applyBossVariants() {
+        // Not needed to reset in production, but useful for testing
         this.config.setMaxHandSize(DEFAULT_MAX_HAND_SIZE);
         this.config.setMinHandSize(1);
+        this.state.setRemainingDiscards(MAX_DISCARDS_PER_ROUND);
+
         switch (this.bossType) {
             case THE_NEEDLE:
                 this.config.setMaxHandSize(1);
