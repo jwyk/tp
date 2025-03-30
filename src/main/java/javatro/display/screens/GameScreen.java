@@ -41,7 +41,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
     @Override
     public void displayScreen() {
-        clearScreen();
+        //        clearScreen();
         StringBuilder sb = new StringBuilder();
 
         // --- Top Border ---
@@ -53,10 +53,36 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append("\n");
 
         // --- Blind Name / Description ---
-        String blindHeader = BOLD + PURPLE + roundName + END;
-        String blindDesc = ITALICS + roundDescription + END;
-        sb.append(centerText(blindHeader, BORDER_WIDTH)).append("\n");
-        sb.append(centerText(blindDesc, BORDER_WIDTH)).append("\n");
+        String colourb = BLACK_B;
+        if (Objects.equals(roundName, "SMALL BLIND")) {
+            colourb = BLUE_B;
+        } else if (Objects.equals(roundName, "LARGE BLIND")) {
+            colourb = ORANGE_B;
+        } else if (Objects.equals(roundName, "BOSS BLIND")) {
+            colourb = PURPLE_B;
+        }
+
+        // Calculate display length accounting for ANSI codes and Unicode characters
+        int displayLength = getDisplayLength(roundName);
+        // Calculate padding
+        int paddingSize = (BORDER_WIDTH - displayLength - 2) / 2;
+        int extraPadding = (BORDER_WIDTH - displayLength - 2) % 2; // Handles odd width cases
+
+        sb.append(BLACK_B)
+                .append(VERTICAL)
+                .append(colourb)
+                .append(" ".repeat(paddingSize))
+                .append(WHITE)
+                .append(BOLD)
+                .append(roundName)
+                .append(" ".repeat(paddingSize + extraPadding))
+                .append(END)
+                .append(BLACK_B)
+                .append(VERTICAL)
+                .append(END)
+                .append("\n");
+
+        sb.append(centerText(ITALICS + roundDescription + END, BORDER_WIDTH)).append("\n");
 
         // --- Separator Border ---
         sb.append(BLACK_B)
@@ -71,7 +97,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append("\n");
 
         // --- Blind Score / Ante / Round ---
-        String bs = String.format("Score to beat: %d", blindScore);
+        String bs =
+                String.format("%s%sScore to beat: %d%s%s", YELLOW, BOLD, blindScore, END, BLACK_B);
         String bScore = centerText(bs, COLUMN_WIDTH + 2);
         String anteCount =
                 String.format("          Ante: %d / 8", JavatroCore.getAnte().getAnteCount());
@@ -79,9 +106,17 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         // Print the row with vertical borders.
         sb.append(bScore)
                 .append(BLACK_B)
+                .append(BOLD)
+                .append(ORANGE)
                 .append(padToWidth(anteCount, COLUMN_WIDTH))
+                .append(END)
+                .append(BLACK_B)
                 .append(VERTICAL)
+                .append(BOLD)
+                .append(ORANGE)
                 .append(padToWidth(roundCount, COLUMN_WIDTH))
+                .append(END)
+                .append(BLACK_B)
                 .append(VERTICAL)
                 .append(END)
                 .append("\n");
@@ -99,16 +134,25 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append("\n");
 
         // --- Round Score / Hands / Discards ---
-        String rs = String.format("Round Score: %d", roundScore);
+        String rs =
+                String.format("%s%sRound Score: %d%s%s", YELLOW, BOLD, roundScore, END, BLACK_B);
         String rScore = centerText(rs, COLUMN_WIDTH + 2);
         String handCount = String.format("            Hands: %d", handsLeft);
         String discardCount = String.format("          Discards: %d", discardsLeft);
         // Print the row with vertical borders.
         sb.append(rScore)
                 .append(BLACK_B)
+                .append(BOLD)
+                .append(BLUE)
                 .append(padToWidth(handCount, COLUMN_WIDTH))
+                .append(END)
+                .append(BLACK_B)
                 .append(VERTICAL)
+                .append(BOLD)
+                .append(RED)
                 .append(padToWidth(discardCount, COLUMN_WIDTH))
+                .append(END)
+                .append(BLACK_B)
                 .append(VERTICAL)
                 .append(END)
                 .append("\n");
@@ -136,19 +180,19 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
         // --- Deck Name / Jokers / Holding Hand ---
         List<String> extraContent = new ArrayList<>();
-        extraContent.add("Current Deck:");
-        extraContent.add(JavatroCore.deck.getDeckName().getName());
+        extraContent.add(BOLD + "Current Deck:");
+        extraContent.add(ITALICS + JavatroCore.deck.getDeckName().getName());
         extraContent.add("");
         extraContent.add("");
-        extraContent.add("Jokers' Effects:");
+        extraContent.add(BOLD + "Jokers' Effects:");
 
         // Iterate through heldJokers and print their toString() or "Empty" if null
         List<Joker> jokers = JavatroCore.heldJokers.getJokers();
         for (int i = 0; i < 5; i++) {
             if (i < jokers.size() && jokers.get(i) != null) {
-                extraContent.add(jokers.get(i).toString());
+                extraContent.add(ITALICS + jokers.get(i).toString());
             } else {
-                extraContent.add("No Joker Available");
+                extraContent.add(ITALICS + "Empty Joker Slot");
             }
         }
 
