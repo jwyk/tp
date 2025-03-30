@@ -24,7 +24,7 @@ public class RoundActions {
      * @param cardIndices Indices of cards to play from the holding hand
      * @throws JavatroException If the play is invalid
      */
-    public void playCards(List<Integer> cardIndices) throws JavatroException {
+    public List<Card> playCards(List<Integer> cardIndices) throws JavatroException {
         assert cardIndices != null : "Card indices cannot be null";
         Boolean isAcceptableHandSize =
                 cardIndices.size() <= round.config.getMaxHandSize()
@@ -68,6 +68,7 @@ public class RoundActions {
                 : "Hand size should be maintained after play";
 
         round.updateRoundVariables();
+        return playedCards;
     }
 
     /**

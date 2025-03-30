@@ -39,13 +39,5 @@ public class RoundObservable {
         support.firePropertyChange("roundDescription", null, config.getRoundDescription());
         support.firePropertyChange("holdingHand", null, round.getPlayerHand());
         support.firePropertyChange("currentScore", null, state.getCurrentScore());
-
-        if (round.isWon()) {
-            support.firePropertyChange("roundComplete", null, 1);
-        } else if (round.isRoundOver()) {
-            support.firePropertyChange("roundComplete", null, -1);
-        } else {
-            support.firePropertyChange("roundComplete", null, 0);
-        }
     }
 }

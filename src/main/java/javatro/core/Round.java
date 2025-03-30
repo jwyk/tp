@@ -35,6 +35,9 @@ public class Round {
     /** The player's current held jokers. */
     public HeldJokers playerJokers;
 
+    /** The cards played in the current round. */
+    private List<Card> playedCards;
+
     /** The state of the current round. */
     protected final RoundState state;
     /** The configuration of the current round. */
@@ -220,7 +223,7 @@ public class Round {
      * @see RoundActions#playCards(List)
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
-        actions.playCards(cardIndices);
+        playedCards = actions.playCards(cardIndices);
     }
 
     /**
@@ -279,14 +282,14 @@ public class Round {
         assert playerHand != null : "Player hand cannot be null";
         return playerHand.getHand();
     }
-
     /**
-     * Checks if the round has ended.
+     * Checks if the game is lost based on game rules.
      *
-     * @return true if the round is over, false otherwise
+     * @return true if the game is lost, false otherwise
      */
-    public boolean isRoundOver() {
-        return state.getRemainingPlays() <= 0 || isWon();
+    public boolean isLost() {
+        // Game ends if no plays are remaining
+        return state.getRemainingPlays() <= 0 && !isWon();
     }
 
     /**
@@ -296,6 +299,16 @@ public class Round {
      */
     public boolean isWon() {
         return state.getCurrentScore() >= config.getBlindScore();
+    }
+
+    /**
+     * Checks if the round is over based on game rules.
+     *
+     * @return true if the game is lost, false otherwise
+     */
+    public boolean isRoundOver() {
+        // Round ends if no plays are remaining
+        return state.getRemainingPlays() <= 0 | isWon();
     }
 
     /**
@@ -389,5 +402,24 @@ public class Round {
      */
     public Deck getDeck() {
         return deck;
+    }
+
+    /**
+     * Gets the actions object for this round.
+     *
+     * @return The round actions object
+     */
+    public List<Card> getPlayedCards() {
+        return playedCards;
+    }
+
+    /**
+     * Gets the played hand of cards in this round.
+     *
+     * @return The poker hand evaluated from the played cards
+     * @throws JavatroException If the played cards are invalid or empty
+     */
+    public PokerHand getPlayedHand() throws JavatroException {
+        return HandResult.evaluateHand(playedCards);
     }
 }
