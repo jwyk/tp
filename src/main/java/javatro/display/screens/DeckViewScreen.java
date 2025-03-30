@@ -28,7 +28,7 @@ import static javatro.display.UI.padToWidth;
 
 import javatro.core.Card;
 import javatro.core.Deck;
-import javatro.core.Deck.DeckType;
+import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.manager.options.ReturnOption;
 
@@ -60,8 +60,7 @@ public class DeckViewScreen extends Screen {
 
     @Override
     public void displayScreen() {
-
-        Deck deck = new Deck(DeckType.DEFAULT);
+        Deck deck = JavatroCore.currentRound.getDeck();
         String deckType = String.valueOf(deck.getDeckName());
         ArrayList<Card> remainingCardList = deck.getWholeDeck();
 
