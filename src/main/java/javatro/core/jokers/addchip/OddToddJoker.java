@@ -19,7 +19,7 @@ public class OddToddJoker extends Joker {
         description =
                 String.format(
                         "Played cards with %s%sOdd%s%s rank gives %s%s+31 Chips%s%s when scored (A,"
-                            + " 9, 7, 5, 3)",
+                                + " 9, 7, 5, 3)",
                         YELLOW, BOLD, END, BLACK_B, BLUE, BOLD, END, BLACK_B);
         path = "joker_odd_todd.txt";
         this.scoreType = ScoreType.ONCARDPLAY;

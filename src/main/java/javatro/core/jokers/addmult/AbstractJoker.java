@@ -21,7 +21,7 @@ public class AbstractJoker extends Joker {
         description =
                 String.format(
                         "%s%s+3 Mult%s%s for each %s%sJoker%s%s card held (Currently %s%s+%d%s%s"
-                            + " Mult)",
+                                + " Mult)",
                         RED,
                         BOLD,
                         END,
@@ -45,7 +45,7 @@ public class AbstractJoker extends Joker {
         description =
                 String.format(
                         "%s%s+3 Mult%s%s for each %s%sJoker%s%s card held (Currently %s%s+%d"
-                            + " Mult%s%s)",
+                                + " Mult%s%s)",
                         RED,
                         BOLD,
                         END,

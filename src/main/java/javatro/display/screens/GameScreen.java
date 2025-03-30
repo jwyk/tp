@@ -3,10 +3,10 @@ package javatro.display.screens;
 import static javatro.display.UI.*;
 import static javatro.display.UI.centerText;
 
-import javatro.core.jokers.Joker;
 import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
+import javatro.core.jokers.Joker;
 import javatro.manager.options.*;
 
 import java.beans.PropertyChangeEvent;
@@ -58,7 +58,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         sb.append(centerText(blindHeader, BORDER_WIDTH)).append("\n");
         sb.append(centerText(blindDesc, BORDER_WIDTH)).append("\n");
 
-
         // --- Separator Border ---
         sb.append(BLACK_B)
                 .append(T_RIGHT)
@@ -71,11 +70,11 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append(END)
                 .append("\n");
 
-
         // --- Blind Score / Ante / Round ---
         String bs = String.format("Score to beat: %d", blindScore);
         String bScore = centerText(bs, COLUMN_WIDTH + 2);
-        String anteCount = String.format("          Ante: %d / 8", JavatroCore.getAnte().getAnteCount());
+        String anteCount =
+                String.format("          Ante: %d / 8", JavatroCore.getAnte().getAnteCount());
         String roundCount = String.format("            Round: %d", JavatroCore.getRoundCount());
         // Print the row with vertical borders.
         sb.append(bScore)
@@ -87,7 +86,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append(END)
                 .append("\n");
 
-
         // --- Separator Border ---
         sb.append(BLACK_B)
                 .append(T_RIGHT)
@@ -99,7 +97,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append(T_LEFT)
                 .append(END)
                 .append("\n");
-
 
         // --- Round Score / Hands / Discards ---
         String rs = String.format("Round Score: %d", roundScore);
@@ -116,7 +113,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append(END)
                 .append("\n");
 
-
         // --- Separator Border ---
         sb.append(BLACK_B)
                 .append(T_RIGHT)
@@ -129,7 +125,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append(END)
                 .append("\n");
 
-
         sb.append(BLACK_B)
                 .append(VERTICAL)
                 .append(" ".repeat(COLUMN_WIDTH))
@@ -138,7 +133,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append(VERTICAL)
                 .append(END)
                 .append("\n");
-
 
         // --- Deck Name / Jokers / Holding Hand ---
         List<String> extraContent = new ArrayList<>();
@@ -168,8 +162,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
 
         // Print side-by-side
         for (int i = 0; i < firstCardArt.size(); i++) {
-            String extraLine = extraContent.get(i);  // Get the corresponding line of extra content
-            String cardLine = firstCardArt.get(i);   // Get the corresponding line of card art
+            String extraLine = extraContent.get(i); // Get the corresponding line of extra content
+            String cardLine = firstCardArt.get(i); // Get the corresponding line of card art
 
             sb.append(centerText(extraLine, COLUMN_WIDTH + 2))
                     .append(BLACK_B)
@@ -182,7 +176,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                     .append("\n");
         }
 
-
         sb.append(BLACK_B)
                 .append(VERTICAL)
                 .append(" ".repeat(COLUMN_WIDTH))
@@ -191,12 +184,13 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append(VERTICAL)
                 .append(END)
                 .append("\n");
-
 
         // Print side-by-side
         for (int i = 0; i < secondCardArt.size(); i++) {
-            String extraLine = extraContent.get(i + firstCardArt.size());  // Get the corresponding line of extra content
-            String cardLine = secondCardArt.get(i);   // Get the corresponding line of card art
+            String extraLine =
+                    extraContent.get(
+                            i + firstCardArt.size()); // Get the corresponding line of extra content
+            String cardLine = secondCardArt.get(i); // Get the corresponding line of card art
 
             sb.append(centerText(extraLine, COLUMN_WIDTH + 2))
                     .append(BLACK_B)
@@ -209,7 +203,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                     .append("\n");
         }
 
-
         sb.append(BLACK_B)
                 .append(VERTICAL)
                 .append(" ".repeat(COLUMN_WIDTH))
@@ -218,7 +211,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append(VERTICAL)
                 .append(END)
                 .append("\n");
-
 
         // --- Bottom Border ---
         sb.append(BLACK_B)
