@@ -9,18 +9,18 @@ import java.util.List;
 /** Represents a round in the Javatro game. */
 public class Round {
 
-    //@@author K-J-Q
+    // @@author K-J-Q
     /** The type of boss in the round. */
     public enum BossType {
-        NONE("",""),
+        NONE("", ""),
         THE_NEEDLE("The Needle", "Play only 1 hand"),
         THE_WATER("The Water", "Start with 0 discards"),
         THE_CLUB("The Club", "All Club cards cannot score"),
-        THE_WINDOW("The Window","All Club cards cannot score"),
-        THE_HEAD("The Head","All Diamond cards cannot score"),
-        THE_GOAD("The Goad","All Spade cards cannot score"),
-        THE_PLANT("The Plant","All face cards cannot score"),
-        THE_PSYCHIC("The Psychic","Must play 5 cards (not all cards need to score)");
+        THE_WINDOW("The Window", "All Club cards cannot score"),
+        THE_HEAD("The Head", "All Diamond cards cannot score"),
+        THE_GOAD("The Goad", "All Spade cards cannot score"),
+        THE_PLANT("The Plant", "All face cards cannot score"),
+        THE_PSYCHIC("The Psychic", "Must play 5 cards (not all cards need to score)");
 
         private final String name;
 
@@ -46,7 +46,6 @@ public class Round {
             return name;
         }
 
-
         /**
          * Returns the description of the BossType.
          *
@@ -55,9 +54,8 @@ public class Round {
         public String getDescription() {
             return description;
         }
-
     }
-    //@@author K-J-Q
+    // @@author K-J-Q
 
     /** The initial number of cards dealt to the player. */
     public static final int INITIAL_HAND_SIZE = 8;
