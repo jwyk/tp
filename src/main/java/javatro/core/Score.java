@@ -81,7 +81,7 @@ public class Score {
     private boolean isValidCard(Card card) {
         // Apply boss blind logic to return this as true or false based on the card's
         // characteristics
-        switch(bossType){
+        switch (bossType) {
             case THE_CLUB:
                 // The Club: All Club Cards cannot score
                 if (card.suit() == Card.Suit.CLUBS) {
