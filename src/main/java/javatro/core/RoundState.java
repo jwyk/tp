@@ -2,7 +2,7 @@ package javatro.core;
 
 /**
  * Encapsulates the state of a round in the game, including score and play limits.
- * 
+ *
  * @see Round The main game round class that uses this state
  */
 public class RoundState {
@@ -12,10 +12,10 @@ public class RoundState {
     private int remainingDiscards;
     /** The number of remaining plays in the round. */
     private int remainingPlays;
-    
+
     /**
      * Creates a new round state with initial values.
-     * 
+     *
      * @param currentScore The starting score for the round
      * @param remainingDiscards The initial number of discards available
      * @param remainingPlays The initial number of plays available
@@ -25,7 +25,7 @@ public class RoundState {
         this.remainingDiscards = remainingDiscards;
         this.remainingPlays = remainingPlays;
     }
-    
+
     /**
      * Gets the current score accumulated in this round.
      *
@@ -34,7 +34,7 @@ public class RoundState {
     public long getCurrentScore() {
         return currentScore;
     }
-    
+
     /**
      * Adds points to the current score.
      *
@@ -43,7 +43,7 @@ public class RoundState {
     public void addScore(long points) {
         currentScore += points;
     }
-    
+
     /**
      * Gets the number of remaining discards available to the player.
      *
@@ -52,14 +52,12 @@ public class RoundState {
     public int getRemainingDiscards() {
         return remainingDiscards;
     }
-    
-    /**
-     * Reduces the number of remaining discards by one.
-     */
+
+    /** Reduces the number of remaining discards by one. */
     public void decrementDiscards() {
         remainingDiscards--;
     }
-    
+
     /**
      * Increases the number of remaining discards by a specified amount.
      *
@@ -68,7 +66,7 @@ public class RoundState {
     public void increaseRemainingDiscards(int amount) {
         remainingDiscards += amount;
     }
-    
+
     /**
      * Gets the number of remaining plays available to the player.
      *
@@ -77,14 +75,12 @@ public class RoundState {
     public int getRemainingPlays() {
         return remainingPlays;
     }
-    
-    /**
-     * Reduces the number of remaining plays by one.
-     */
+
+    /** Reduces the number of remaining plays by one. */
     public void decrementPlays() {
         remainingPlays--;
     }
-    
+
     /**
      * Increases the number of remaining plays by a specified amount.
      *

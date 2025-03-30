@@ -1,8 +1,6 @@
 package javatro.core;
 
-/**
- * Stores configuration details for a game round.
-  */
+/** Stores configuration details for a game round. */
 public class RoundConfig {
     /** The minimum score required to win the round. */
     private final int blindScore;
@@ -10,10 +8,10 @@ public class RoundConfig {
     private String roundName;
     /** The description of the current round. */
     private String roundDescription;
-    
+
     /**
      * Creates a new round configuration.
-          * 
+     *
      * @param roundName The display name of the round
      * @param roundDescription The description of the round
      * @param blindScore The target score required to win
@@ -23,7 +21,7 @@ public class RoundConfig {
         this.roundDescription = roundDescription;
         this.blindScore = blindScore;
     }
-    
+
     /**
      * Gets the target score needed to win this round.
      *
@@ -32,7 +30,7 @@ public class RoundConfig {
     public int getBlindScore() {
         return blindScore;
     }
-    
+
     /**
      * Gets the display name of this round.
      *
@@ -41,7 +39,7 @@ public class RoundConfig {
     public String getRoundName() {
         return roundName;
     }
-    
+
     /**
      * Sets the display name of this round.
      *
@@ -50,7 +48,7 @@ public class RoundConfig {
     public void setRoundName(String roundName) {
         this.roundName = roundName;
     }
-    
+
     /**
      * Gets the description of this round.
      *
@@ -59,10 +57,10 @@ public class RoundConfig {
     public String getRoundDescription() {
         return roundDescription;
     }
-    
+
     /**
      * Sets the description of this round.
-     * 
+     *
      * @param roundDescription The new round description
      */
     public void setRoundDescription(String roundDescription) {

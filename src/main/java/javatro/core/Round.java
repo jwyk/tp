@@ -6,11 +6,7 @@ import javatro.core.jokers.HeldJokers;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-/**
- * 
- * Represents a round in the Javatro game.
- * 
- */
+/** Represents a round in the Javatro game. */
 public class Round {
     /** The initial number of cards dealt to the player. */
     public static final int INITIAL_HAND_SIZE = 8;
@@ -91,7 +87,8 @@ public class Round {
      * @param deck The deck to validate
      * @throws JavatroException If validation fails for any parameter
      */
-    private void validateParameters(Ante ante, int remainingPlays, Deck deck) throws JavatroException {
+    private void validateParameters(Ante ante, int remainingPlays, Deck deck)
+            throws JavatroException {
         if (ante.getRoundScore() < 0) {
             throw JavatroException.invalidBlindScore();
         }
@@ -107,7 +104,6 @@ public class Round {
      * Applies special rules based on the deck variant.
      *
      * @param deck The deck to check for special variants
-     * 
      */
     private void applyDeckVariants(Deck deck) {
         DeckType deckName = deck.getDeckName();
@@ -118,20 +114,17 @@ public class Round {
         }
     }
 
-    /**
-     * Validates the post-construction state of the round.
-     */
+    /** Validates the post-construction state of the round. */
     private void validatePostConstruction() {
         assert this.state.getCurrentScore() == 0 : "Initial score must be zero";
-        assert this.state
-                .getRemainingDiscards() >= MAX_DISCARDS_PER_ROUND : "Initial discards must be at least the maximum";
-        assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE : "Player should have exactly " + INITIAL_HAND_SIZE
-                + " cards initially";
+        assert this.state.getRemainingDiscards() >= MAX_DISCARDS_PER_ROUND
+                : "Initial discards must be at least the maximum";
+        assert this.playerHand.getHand().size() == INITIAL_HAND_SIZE
+                : "Player should have exactly " + INITIAL_HAND_SIZE + " cards initially";
     }
 
     /**
-     * Constructs a new round with the specified ante and blind settings without
-     * specifying round
+     * Constructs a new round with the specified ante and blind settings without specifying round
      * name and description.
      */
     public Round(Ante ante, int remainingPlays, Deck deck, HeldJokers heldJokers)
@@ -142,17 +135,13 @@ public class Round {
     /**
      * Registers a listener for round state changes.
      *
-     * @param pcl
-     *            The property change listener to register
+     * @param pcl The property change listener to register
      */
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         observable.addPropertyChangeListener(pcl);
     }
 
-    /**
-     * Notifies all registered observers of changes in the round state.
-     * 
-     */
+    /** Notifies all registered observers of changes in the round state. */
     public void updateRoundVariables() {
         observable.updateRoundVariables();
     }
@@ -160,10 +149,8 @@ public class Round {
     /**
      * Plays a selection of cards from the player's hand.
      *
-     * @param cardIndices
-     *            Indices of cards to play from the holding hand
-     * @throws JavatroException
-     *             If the play is invalid or no plays remain
+     * @param cardIndices Indices of cards to play from the holding hand
+     * @throws JavatroException If the play is invalid or no plays remain
      * @see RoundActions#playCards(List)
      */
     public void playCards(List<Integer> cardIndices) throws JavatroException {
@@ -173,10 +160,8 @@ public class Round {
     /**
      * Discards a selection of cards from the player's hand.
      *
-     * @param cardIndices
-     *            Indices of cards to discard from the holding hand
-     * @throws JavatroException
-     *             If the discard is invalid or no discards remain
+     * @param cardIndices Indices of cards to discard from the holding hand
+     * @throws JavatroException If the discard is invalid or no discards remain
      * @see RoundActions#discardCards(List)
      */
     public void discardCards(List<Integer> cardIndices) throws JavatroException {
@@ -259,9 +244,7 @@ public class Round {
     /**
      * Sets the display name of this round.
      *
-     * @param roundName
-     *            The new round name
-     * 
+     * @param roundName The new round name
      */
     public void setRoundName(String roundName) {
         config.setRoundName(roundName);
@@ -279,8 +262,7 @@ public class Round {
     /**
      * Sets the description of this round.
      *
-     * @param roundDescription
-     *            The new round description
+     * @param roundDescription The new round description
      */
     public void setRoundDescription(String roundDescription) {
         config.setRoundDescription(roundDescription);
