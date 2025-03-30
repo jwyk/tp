@@ -8,18 +8,56 @@ import java.util.List;
 
 /** Represents a round in the Javatro game. */
 public class Round {
+
+    //@@author K-J-Q
     /** The type of boss in the round. */
     public enum BossType {
-        NONE,
-        THE_NEEDLE,
-        THE_WATER,
-        THE_CLUB,
-        THE_WINDOW,
-        THE_HEAD,
-        THE_GOAD,
-        THE_PLANT,
-        THE_PSYCHIC
+        NONE("",""),
+        THE_NEEDLE("The Needle", "Play only 1 hand"),
+        THE_WATER("The Water", "Start with 0 discards"),
+        THE_CLUB("The Club", "All Club cards cannot score"),
+        THE_WINDOW("The Window","All Club cards cannot score"),
+        THE_HEAD("The Head","All Diamond cards cannot score"),
+        THE_GOAD("The Goad","All Spade cards cannot score"),
+        THE_PLANT("The Plant","All face cards cannot score"),
+        THE_PSYCHIC("The Psychic","Must play 5 cards (not all cards need to score)");
+
+        private final String name;
+
+        private final String description;
+
+        /**
+         * Constructs a BossType with the given description.
+         *
+         * @param name The name of the BossType.
+         * @param description The description of the BossType.
+         */
+        BossType(String name, String description) {
+            this.name = name;
+            this.description = description;
+        }
+
+        /**
+         * Returns the name of the BossType.
+         *
+         * @return The name of the BossType.
+         */
+        public String getName() {
+            return name;
+        }
+
+
+        /**
+         * Returns the description of the BossType.
+         *
+         * @return The description of the BossType.
+         */
+        public String getDescription() {
+            return description;
+        }
+
     }
+    //@@author K-J-Q
 
     /** The initial number of cards dealt to the player. */
     public static final int INITIAL_HAND_SIZE = 8;
@@ -149,6 +187,8 @@ public class Round {
     private void applyAnteInvariants(Ante ante) {
         if (ante.getBlind() == Ante.Blind.BOSS_BLIND) {
             this.bossType = getRandomBoss();
+            this.config.setRoundName(this.bossType.name);
+            this.config.setRoundDescription(this.bossType.getDescription());
         }
     }
 
