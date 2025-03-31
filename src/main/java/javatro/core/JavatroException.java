@@ -81,6 +81,18 @@ public final class JavatroException extends Exception {
     }
 
     /**
+     * Creates an exception indicating the deck is empty.
+     *
+     * <p>This exception is thrown when all the cards in the deck have been drawn.
+     *
+     * @return A {@code JavatroException} indicating the deck is empty.
+     */
+    public static JavatroException noCardsRemaining() {
+        return new JavatroException("Deck is empty.");
+    }
+
+
+    /**
      * Creates an exception indicating no plays remaining.
      *
      * <p>This exception is thrown when the user tries to play cards when no plays are remaining.
