@@ -21,6 +21,7 @@ import javatro.core.jokers.Joker;
 import javatro.core.jokers.JokerFactory;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.NextRoundOption;
+
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -28,6 +29,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Screen displayed after winning a game round, showing earned rewards.
  *
  * <p>Handles:
+ *
  * <ul>
  *   <li>Joker card rewards for boss blind victories
  *   <li>Planet card rewards for regular blind victories
@@ -49,6 +51,7 @@ public class WinRoundScreen extends Screen {
 
     /**
      * Displays round victory content based on blind type:
+     *
      * <ul>
      *   <li>Boss Blind: Awards random joker with special ability
      *   <li>Normal Blind: Awards planet card with stat boosts
@@ -69,7 +72,8 @@ public class WinRoundScreen extends Screen {
         assert randomJoker != null : "Joker factory returned null";
 
         printANSI(randomJoker.getPath());
-        String title = "You got a " + CYAN + BOLD + randomJoker.getName() + END + BLACK_B + " Joker card!";
+        String title =
+                "You got a " + CYAN + BOLD + randomJoker.getName() + END + BLACK_B + " Joker card!";
 
         try {
             JavatroCore.heldJokers.add(randomJoker);
@@ -90,17 +94,32 @@ public class WinRoundScreen extends Screen {
         PlanetCard.getForHand(randomPlanetCard).apply();
         printANSI(PlanetCard.getForHand(randomPlanetCard).getPath());
 
-        String title = "You got a " + BLUE + BOLD
-                + PlanetCard.getForHand(randomPlanetCard).getName()
-                + END + BLACK_B + " Planet card!";
+        String title =
+                "You got a "
+                        + BLUE
+                        + BOLD
+                        + PlanetCard.getForHand(randomPlanetCard).getName()
+                        + END
+                        + BLACK_B
+                        + " Planet card!";
 
         String[] lines = {
-                String.format("Poker Hand %s%s<%s>%s%s Leveled Up!",
-                        BOLD, YELLOW, randomPlanetCard.getHandName(), END, BLACK_B),
-                String.format("Level %s: %s%s+%d Chips%s%s and %s%s+%d Mult%s%s",
-                        PlanetCard.getLevel(randomPlanetCard),
-                        BOLD, BLUE, PlanetCard.getChipIncrement(randomPlanetCard), END, BLACK_B,
-                        BOLD, RED, PlanetCard.getMultiIncrement(randomPlanetCard), END, BLACK_B)
+            String.format(
+                    "Poker Hand %s%s<%s>%s%s Leveled Up!",
+                    BOLD, YELLOW, randomPlanetCard.getHandName(), END, BLACK_B),
+            String.format(
+                    "Level %s: %s%s+%d Chips%s%s and %s%s+%d Mult%s%s",
+                    PlanetCard.getLevel(randomPlanetCard),
+                    BOLD,
+                    BLUE,
+                    PlanetCard.getChipIncrement(randomPlanetCard),
+                    END,
+                    BLACK_B,
+                    BOLD,
+                    RED,
+                    PlanetCard.getMultiIncrement(randomPlanetCard),
+                    END,
+                    BLACK_B)
         };
         printBorderedContent(title, List.of(lines));
     }

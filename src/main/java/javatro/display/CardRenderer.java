@@ -1,12 +1,12 @@
 // @@ Markneoneo
 package javatro.display;
 
+import static javatro.display.UI.BLUE;
 import static javatro.display.UI.BOLD;
 import static javatro.display.UI.END;
 import static javatro.display.UI.ORANGE;
 import static javatro.display.UI.PURPLE;
 import static javatro.display.UI.RED;
-import static javatro.display.UI.BLUE;
 import static javatro.display.UI.WHITE_B;
 
 import javatro.core.Card;
@@ -17,11 +17,12 @@ import java.util.Arrays;
  * Renders playing cards as ASCII art with colored symbols.
  *
  * <p>Each card is rendered as a multi-line string array with:
+ *
  * <ul>
- *   <li>Colored suit symbols</li>
- *   <li>Proper rank display</li>
- *   <li>White card background</li>
- *   <li>Consistent 5-line height formatting</li>
+ *   <li>Colored suit symbols
+ *   <li>Proper rank display
+ *   <li>White card background
+ *   <li>Consistent 5-line height formatting
  * </ul>
  */
 public final class CardRenderer {
@@ -33,10 +34,11 @@ public final class CardRenderer {
      * Renders a card as an array of strings representing ASCII art lines.
      *
      * <p>The rendered card has:
+     *
      * <ul>
-     *   <li>Rank in top-left and bottom-right corners</li>
-     *   <li>Suit symbol centered</li>
-     *   <li>White background with colored symbols</li>
+     *   <li>Rank in top-left and bottom-right corners
+     *   <li>Suit symbol centered
+     *   <li>White background with colored symbols
      * </ul>
      *
      * @param card the card to render (cannot be null)
@@ -59,9 +61,10 @@ public final class CardRenderer {
         cardArt[3] = WHITE_B + "         " + END;
         cardArt[4] = WHITE_B + String.format("      %s%s%2s ", colour, BOLD, rank) + END;
 
-        assert cardArt.length == CARD_HEIGHT : "Card art must have exactly " + CARD_HEIGHT + " lines";
-        assert Arrays.stream(cardArt).noneMatch(s -> s == null || s.isEmpty()) :
-                "All card art lines must be non-empty";
+        assert cardArt.length == CARD_HEIGHT
+                : "Card art must have exactly " + CARD_HEIGHT + " lines";
+        assert Arrays.stream(cardArt).noneMatch(s -> s == null || s.isEmpty())
+                : "All card art lines must be non-empty";
 
         return cardArt;
     }

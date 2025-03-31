@@ -2,29 +2,29 @@
 package javatro.display.screens;
 
 import static javatro.display.UI.BLACK_B;
-import static javatro.display.UI.BORDER_WIDTH;
-import static javatro.display.UI.TOP_LEFT;
-import static javatro.display.UI.HORIZONTAL;
-import static javatro.display.UI.TOP_RIGHT;
-import static javatro.display.UI.END;
-import static javatro.display.UI.VERTICAL;
-import static javatro.display.UI.BLUE_B;
-import static javatro.display.UI.ORANGE_B;
-import static javatro.display.UI.PURPLE_B;
-import static javatro.display.UI.ITALICS;
-import static javatro.display.UI.WHITE;
-import static javatro.display.UI.BOLD;
-import static javatro.display.UI.YELLOW;
-import static javatro.display.UI.ORANGE;
 import static javatro.display.UI.BLUE;
-import static javatro.display.UI.RED;
-import static javatro.display.UI.T_RIGHT;
-import static javatro.display.UI.T_DOWN;
-import static javatro.display.UI.CROSS;
-import static javatro.display.UI.T_LEFT;
-import static javatro.display.UI.T_UP;
+import static javatro.display.UI.BLUE_B;
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.BORDER_WIDTH;
 import static javatro.display.UI.BOTTOM_LEFT;
 import static javatro.display.UI.BOTTOM_RIGHT;
+import static javatro.display.UI.CROSS;
+import static javatro.display.UI.END;
+import static javatro.display.UI.HORIZONTAL;
+import static javatro.display.UI.ITALICS;
+import static javatro.display.UI.ORANGE;
+import static javatro.display.UI.ORANGE_B;
+import static javatro.display.UI.PURPLE_B;
+import static javatro.display.UI.RED;
+import static javatro.display.UI.TOP_LEFT;
+import static javatro.display.UI.TOP_RIGHT;
+import static javatro.display.UI.T_DOWN;
+import static javatro.display.UI.T_LEFT;
+import static javatro.display.UI.T_RIGHT;
+import static javatro.display.UI.T_UP;
+import static javatro.display.UI.VERTICAL;
+import static javatro.display.UI.WHITE;
+import static javatro.display.UI.YELLOW;
 import static javatro.display.UI.centerText;
 import static javatro.display.UI.getCardArtLines;
 import static javatro.display.UI.getDisplayLength;
@@ -38,8 +38,8 @@ import javatro.manager.options.DeckViewOption;
 import javatro.manager.options.DiscardCardOption;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.MainMenuOption;
-import javatro.manager.options.PokerHandOption;
 import javatro.manager.options.PlayCardOption;
+import javatro.manager.options.PokerHandOption;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -52,59 +52,44 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
- * GameScreen class represents the game menu screen in the Javatro application.
- * It displays game information such as round details, scores, deck view, and options,
- * and listens to property changes to update the display accordingly.
- * <p>
- * This class extends {@link Screen} and implements {@link java.beans.PropertyChangeListener}
- * to react to changes in game state.
- * </p>
+ * GameScreen class represents the game menu screen in the Javatro application. It displays game
+ * information such as round details, scores, deck view, and options, and listens to property
+ * changes to update the display accordingly.
+ *
+ * <p>This class extends {@link Screen} and implements {@link java.beans.PropertyChangeListener} to
+ * react to changes in game state.
  */
 public class GameScreen extends Screen implements PropertyChangeListener {
 
     // --- Static Fields ---
 
-    /**
-     * The blind score that needs to be beaten.
-     */
+    /** The blind score that needs to be beaten. */
     private static int blindScore = 0;
 
-    /**
-     * The current round score.
-     */
+    /** The current round score. */
     private static long roundScore = 0;
 
-    /**
-     * The number of hands left to play.
-     */
+    /** The number of hands left to play. */
     private static int handsLeft = 0;
 
-    /**
-     * The number of discards left.
-     */
+    /** The number of discards left. */
     private static int discardsLeft = 0;
 
-    /**
-     * The list of cards currently held in the player's hand.
-     */
+    /** The list of cards currently held in the player's hand. */
     private static List<Card> holdingHand;
 
     /**
-     * Width of each column in the game screen display.
-     * (For example, 100 = 32 + 32 + 32 + 4 borders)
+     * Width of each column in the game screen display. (For example, 100 = 32 + 32 + 32 + 4
+     * borders)
      */
     private static final int COLUMN_WIDTH = 32;
 
     // --- Instance Fields ---
 
-    /**
-     * The name of the current round.
-     */
+    /** The name of the current round. */
     private String roundName = "";
 
-    /**
-     * Description of the current round.
-     */
+    /** Description of the current round. */
     private String roundDescription = "";
 
     /**
@@ -124,8 +109,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     }
 
     /**
-     * Displays the game screen with current game information such as scores, round details,
-     * deck view, and card art.
+     * Displays the game screen with current game information such as scores, round details, deck
+     * view, and card art.
      */
     @Override
     public void displayScreen() {
@@ -173,8 +158,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append("\n");
 
         // --- Round Description Centered ---
-        sb.append(centerText(ITALICS + roundDescription + END, BORDER_WIDTH))
-                .append("\n");
+        sb.append(centerText(ITALICS + roundDescription + END, BORDER_WIDTH)).append("\n");
 
         // --- Separator Border (First) ---
         sb.append(BLACK_B)
@@ -189,9 +173,11 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append("\n");
 
         // --- Blind Score / Ante / Round Information ---
-        String bs = String.format("%s%sScore to beat: %d%s%s", YELLOW, BOLD, blindScore, END, BLACK_B);
+        String bs =
+                String.format("%s%sScore to beat: %d%s%s", YELLOW, BOLD, blindScore, END, BLACK_B);
         String bScore = centerText(bs, COLUMN_WIDTH + 2);
-        String anteCount = String.format("          Ante: %d / 8", JavatroCore.getAnte().getAnteCount());
+        String anteCount =
+                String.format("          Ante: %d / 8", JavatroCore.getAnte().getAnteCount());
         String roundCount = String.format("            Round: %d", JavatroCore.getRoundCount());
         // Construct the row with vertical borders.
         sb.append(bScore)
@@ -224,7 +210,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .append("\n");
 
         // --- Round Score / Hands / Discards Information ---
-        String rs = String.format("%s%sRound Score: %d%s%s", YELLOW, BOLD, roundScore, END, BLACK_B);
+        String rs =
+                String.format("%s%sRound Score: %d%s%s", YELLOW, BOLD, roundScore, END, BLACK_B);
         String rScore = centerText(rs, COLUMN_WIDTH + 2);
         String handCount = String.format("            Hands: %d", handsLeft);
         String discardCount = String.format("          Discards: %d", discardsLeft);
@@ -277,7 +264,8 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         extraContent.add("");
         extraContent.add(BOLD + "Jokers' Effects:");
 
-        // Iterate through held jokers and add their effect description or "Empty Joker Slot" if null.
+        // Iterate through held jokers and add their effect description or "Empty Joker Slot" if
+        // null.
         List<Joker> jokers = JavatroCore.heldJokers.getJokers();
         for (int i = 0; i < 5; i++) {
             if (i < jokers.size() && jokers.get(i) != null) {
@@ -389,16 +377,19 @@ public class GameScreen extends Screen implements PropertyChangeListener {
         handlers.put("currentScore", v -> roundScore = (Long) v);
 
         // Handle the 'holdingHand' property change by filtering and casting the list.
-        handlers.put("holdingHand", v -> {
-            @SuppressWarnings("unchecked")
-            List<?> rawList = (List<?>) v;
-            // Assert that the raw list is not null.
-            assert rawList != null : "Raw list for holdingHand should not be null";
-            holdingHand = rawList.stream()
-                    .filter(Card.class::isInstance)
-                    .map(Card.class::cast)
-                    .collect(Collectors.toList());
-        });
+        handlers.put(
+                "holdingHand",
+                v -> {
+                    @SuppressWarnings("unchecked")
+                    List<?> rawList = (List<?>) v;
+                    // Assert that the raw list is not null.
+                    assert rawList != null : "Raw list for holdingHand should not be null";
+                    holdingHand =
+                            rawList.stream()
+                                    .filter(Card.class::isInstance)
+                                    .map(Card.class::cast)
+                                    .collect(Collectors.toList());
+                });
 
         // Execute the corresponding handler if one exists.
         handlers.getOrDefault(propertyName, val -> {}).accept(newValue);

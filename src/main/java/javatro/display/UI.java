@@ -65,6 +65,7 @@ public class UI {
 
     /** Custom border characters for UI elements */
     public static final char TOP_LEFT = '╔';
+
     public static final char TOP_RIGHT = '╗';
     public static final char BOTTOM_LEFT = '╚';
     public static final char BOTTOM_RIGHT = '╝';
@@ -83,6 +84,7 @@ public class UI {
     // region SCREEN INSTANCES
     /** Predefined game-related screens. */
     private static final GameScreen GAME_SCREEN;
+
     private static final DiscardCardScreen DISCARD_SCREEN;
     private static final PlayCardScreen PLAY_SCREEN;
     private static final HelpScreen HELP_SCREEN;
@@ -163,9 +165,12 @@ public class UI {
         assert contentWidth > 0 : "Content width must be positive";
 
         // Build all border components first for efficiency
-        String topBorder = TOP_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + TOP_RIGHT;
-        String middleBorder = T_RIGHT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + T_LEFT;
-        String bottomBorder = BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT;
+        String topBorder =
+                TOP_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + TOP_RIGHT;
+        String middleBorder =
+                T_RIGHT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + T_LEFT;
+        String bottomBorder =
+                BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT;
 
         // Use StringBuilder to minimize IO operations
         StringBuilder output = new StringBuilder();
@@ -211,12 +216,16 @@ public class UI {
         int paddingSize = (width - displayLength - 2) / 2;
         int extraPadding = (width - displayLength - 2) % 2;
 
-        return String.format("%s%s%s%s%s%s%s%s",
-                BLACK_B, VERTICAL,
+        return String.format(
+                "%s%s%s%s%s%s%s%s",
+                BLACK_B,
+                VERTICAL,
                 " ".repeat(paddingSize),
-                text, BLACK_B,
+                text,
+                BLACK_B,
                 " ".repeat(paddingSize + extraPadding),
-                VERTICAL, END);
+                VERTICAL,
+                END);
     }
 
     /**
@@ -253,14 +262,14 @@ public class UI {
             char c = strippedText.charAt(i);
 
             // Handle special Unicode characters
-            if (c == '\u200A') {  // Hair space
+            if (c == '\u200A') { // Hair space
                 length += 0.3;
-            } else if (c == '\u2009') {  // Thin space
+            } else if (c == '\u2009') { // Thin space
                 length += 0.5;
-            } else if (c >= '\uD800' && c <= '\uDFFF') {  // Surrogate pair (emoji)
+            } else if (c >= '\uD800' && c <= '\uDFFF') { // Surrogate pair (emoji)
                 length += 2;
-                i++;  // Skip next character in pair
-            } else {  // Regular character
+                i++; // Skip next character in pair
+            } else { // Regular character
                 length += 1;
             }
         }
@@ -278,7 +287,7 @@ public class UI {
         assert !holdingHand.isEmpty() : "Card list cannot be empty";
 
         List<String> cardArtLines = new ArrayList<>();
-        final int CARD_LINE_COUNT = 5;  // Number of lines per card
+        final int CARD_LINE_COUNT = 5; // Number of lines per card
 
         // Render all cards first
         String[][] renderedCards = new String[holdingHand.size()][CARD_LINE_COUNT];
@@ -308,7 +317,8 @@ public class UI {
     public static void printANSI(String fileName) {
         assert fileName != null && !fileName.isEmpty() : "Filename cannot be null or empty";
 
-        try (InputStream inputStream = UI.class.getResourceAsStream("/javatro/display/ansi/" + fileName)) {
+        try (InputStream inputStream =
+                UI.class.getResourceAsStream("/javatro/display/ansi/" + fileName)) {
             if (inputStream == null) {
                 throw JavatroException.errorLoadingLogo(fileName);
             }
@@ -317,7 +327,7 @@ public class UI {
             }
         } catch (IOException | JavatroException e) {
             System.err.println("Error loading ANSI art: " + e.getMessage());
-            System.out.println("ANSI TEXT");  // Fallback output
+            System.out.println("ANSI TEXT"); // Fallback output
         }
     }
     // endregion
@@ -341,7 +351,8 @@ public class UI {
             previousScreen = currentScreen;
         }
 
-        System.out.printf("%s%sTransitioning to: %s%s%n",
+        System.out.printf(
+                "%s%sTransitioning to: %s%s%n",
                 ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
         currentScreen = screen;
         currentScreen.displayScreen();
@@ -379,17 +390,49 @@ public class UI {
     }
 
     // Screen-specific accessors with corrected documentation
-    public static DiscardCardScreen getDiscardScreen() { return DISCARD_SCREEN; }
-    public static PlayCardScreen getPlayScreen() { return PLAY_SCREEN; }
-    public static GameScreen getGameScreen() { return GAME_SCREEN; }
-    public static StartScreen getStartScreen() { return START_SCREEN; }
-    public static HelpScreen getHelpScreen() { return HELP_SCREEN; }
-    public static PokerHandScreen getPokerHandScreen() { return POKER_SCREEN; }
-    public static DeckViewScreen getDeckViewScreen() { return DECK_VIEW_SCREEN; }
-    public static DeckSelectScreen getDeckSelectScreen() { return DECK_SELECT_SCREEN; }
-    public static WinRoundScreen getWinRoundScreen() { return WIN_ROUND_SCREEN; }
-    public static WinGameScreen getWinGameScreen() { return WIN_GAME_SCREEN; }
-    public static LoseScreen getLoseScreen() { return LOSE_SCREEN; }
+    public static DiscardCardScreen getDiscardScreen() {
+        return DISCARD_SCREEN;
+    }
+
+    public static PlayCardScreen getPlayScreen() {
+        return PLAY_SCREEN;
+    }
+
+    public static GameScreen getGameScreen() {
+        return GAME_SCREEN;
+    }
+
+    public static StartScreen getStartScreen() {
+        return START_SCREEN;
+    }
+
+    public static HelpScreen getHelpScreen() {
+        return HELP_SCREEN;
+    }
+
+    public static PokerHandScreen getPokerHandScreen() {
+        return POKER_SCREEN;
+    }
+
+    public static DeckViewScreen getDeckViewScreen() {
+        return DECK_VIEW_SCREEN;
+    }
+
+    public static DeckSelectScreen getDeckSelectScreen() {
+        return DECK_SELECT_SCREEN;
+    }
+
+    public static WinRoundScreen getWinRoundScreen() {
+        return WIN_ROUND_SCREEN;
+    }
+
+    public static WinGameScreen getWinGameScreen() {
+        return WIN_GAME_SCREEN;
+    }
+
+    public static LoseScreen getLoseScreen() {
+        return LOSE_SCREEN;
+    }
 
     // @@author swethacool
     /**

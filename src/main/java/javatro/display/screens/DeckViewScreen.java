@@ -32,12 +32,15 @@ import javatro.core.Deck;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.manager.options.ReturnOption;
+
 import java.util.ArrayList;
 
 /**
- * Displays the current deck composition in a formatted table view showing card distribution by suit and rank.
+ * Displays the current deck composition in a formatted table view showing card distribution by suit
+ * and rank.
  *
  * <p>The table layout includes:
+ *
  * <ul>
  *   <li>Rows for each suit (Spades, Hearts, Clubs, Diamonds)
  *   <li>Columns for each rank (A, K, Q, J, 10 through 2)
@@ -64,23 +67,22 @@ public class DeckViewScreen extends Screen {
     private static final int RANK_COUNT = 13;
 
     /** Order of ranks for display (Ace high) */
-    private static final String[] RANK_ORDER =
-            {"A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"};
+    private static final String[] RANK_ORDER = {
+        "A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"
+    };
 
     /** Order of suits for display */
-    private static final String[] SUIT_ORDER =
-            {"Spades", "Hearts", "Clubs", "Diamonds"};
+    private static final String[] SUIT_ORDER = {"Spades", "Hearts", "Clubs", "Diamonds"};
 
     /** Colors for each suit display */
-    private static final String[] SUIT_COLORS =
-            {PURPLE, RED, BLUE, ORANGE};
+    private static final String[] SUIT_COLORS = {PURPLE, RED, BLUE, ORANGE};
 
     /** Background colors for each suit display */
-    private static final String[] SUIT_BACKGROUNDS =
-            {PURPLE_B, RED_B, BLUE_B, ORANGE_B};
+    private static final String[] SUIT_BACKGROUNDS = {PURPLE_B, RED_B, BLUE_B, ORANGE_B};
 
     /**
      * Constructs a deck view screen with return option.
+     *
      * @throws JavatroException if screen initialization fails
      */
     public DeckViewScreen() throws JavatroException {
@@ -90,6 +92,7 @@ public class DeckViewScreen extends Screen {
 
     /**
      * Displays the deck composition in a formatted table showing:
+     *
      * <ul>
      *   <li>Card counts by suit and rank
      *   <li>Suit totals
@@ -114,6 +117,7 @@ public class DeckViewScreen extends Screen {
 
     /**
      * Builds the count matrix and calculates totals from the deck cards.
+     *
      * @param cards List of cards in the deck
      * @return DeckCountData containing counts and totals
      */
@@ -146,6 +150,7 @@ public class DeckViewScreen extends Screen {
 
     /**
      * Builds the formatted deck display table.
+     *
      * @param deckName Name of the current deck
      * @param countData Deck count statistics
      * @return Formatted table as StringBuilder
@@ -217,8 +222,7 @@ public class DeckViewScreen extends Screen {
     /** Builds the suit rows with counts */
     private void buildSuitRows(StringBuilder sb, DeckCountData countData) {
         for (int i = 0; i < SUIT_ORDER.length; i++) {
-            String suitLabel = String.format("%s%s%s",
-                    SUIT_COLORS[i], SUIT_ORDER[i], END);
+            String suitLabel = String.format("%s%s%s", SUIT_COLORS[i], SUIT_ORDER[i], END);
             String leftContent = centerText(suitLabel, LEFT_WIDTH + 2);
 
             String rightContent = buildSuitCounts(i, countData.counts[i], countData.suitTotals[i]);
@@ -285,6 +289,7 @@ public class DeckViewScreen extends Screen {
 
     /**
      * Maps card suit to display row index.
+     *
      * @param suit Card suit to map
      * @return Row index (0-3) or -1 if invalid
      */
@@ -300,6 +305,7 @@ public class DeckViewScreen extends Screen {
 
     /**
      * Maps card rank to display column index based on RANK_ORDER.
+     *
      * @param rank Card rank to map
      * @return Column index (0-12) or -1 if invalid
      */
@@ -323,9 +329,7 @@ public class DeckViewScreen extends Screen {
         };
     }
 
-    /**
-     * Helper class to organize deck count data.
-     */
+    /** Helper class to organize deck count data. */
     private static class DeckCountData {
         final int[][] counts;
         final int[] suitTotals;

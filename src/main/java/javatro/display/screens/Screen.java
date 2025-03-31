@@ -9,6 +9,7 @@ import static javatro.display.UI.printBorderedContent;
 
 import javatro.core.JavatroException;
 import javatro.manager.options.Option;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * Abstract base class representing a display screen in the Javatro application.
  *
  * <p>Provides common functionality for:
+ *
  * <ul>
  *   <li>Managing screen options/commands
  *   <li>Displaying formatted menus
@@ -52,6 +54,7 @@ public abstract class Screen {
      * Displays the main content of the screen.
      *
      * <p>Must be implemented by concrete subclasses to define:
+     *
      * <ul>
      *   <li>Screen-specific header/content
      *   <li>Any additional visual elements
@@ -64,6 +67,7 @@ public abstract class Screen {
      * Displays formatted options menu with title and border decoration.
      *
      * <p>Output includes:
+     *
      * <ul>
      *   <li>Styled title header
      *   <li>Numbered list of options

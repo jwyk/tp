@@ -28,6 +28,7 @@ import javatro.manager.options.PokerHandOption;
 import javatro.manager.options.ResumeGameOption;
 import javatro.manager.options.SortByRankOption;
 import javatro.manager.options.SortBySuitOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import java.util.List;
  * Abstract base class for card selection screens with sorting and display capabilities.
  *
  * <p>Provides common functionality for:
+ *
  * <ul>
  *   <li>Displaying formatted card hands
  *   <li>Handling card sorting operations
@@ -102,8 +104,8 @@ public abstract class CardSelectScreen extends Screen {
             }
 
             this.holdingHand = tempHand.getHand();
-            assert this.holdingHand.size() == tempHand.getHand().size() :
-                    "Sorting should not change card count";
+            assert this.holdingHand.size() == tempHand.getHand().size()
+                    : "Sorting should not change card count";
         }
 
         JavatroCore.currentRound.setPlayerHandCards(this.holdingHand);
@@ -129,15 +131,13 @@ public abstract class CardSelectScreen extends Screen {
         return title.toString();
     }
 
-    /**
-     * Displays formatted card hand with borders and styling.
-     */
+    /** Displays formatted card hand with borders and styling. */
     public void displayHoldingHand() {
         updateHoldingHand(currentSortOrder);
 
         if (holdingHand.isEmpty()) {
-            printBorderedContent("CURRENT HOLDING HAND",
-                    List.of(RED + "YOU HAVE NO MORE CARDS!" + END));
+            printBorderedContent(
+                    "CURRENT HOLDING HAND", List.of(RED + "YOU HAVE NO MORE CARDS!" + END));
             return;
         }
 
@@ -158,8 +158,8 @@ public abstract class CardSelectScreen extends Screen {
 
         // Display card art
         List<String> cardArtLines = getCardArtLines(holdingHand);
-        assert cardArtLines.size() == CARD_ART_LINES :
-                "Card art should have " + CARD_ART_LINES + " lines";
+        assert cardArtLines.size() == CARD_ART_LINES
+                : "Card art should have " + CARD_ART_LINES + " lines";
 
         for (int i = 0; i < cardArtLines.size(); i++) {
             String line = cardArtLines.get(i);
@@ -169,7 +169,8 @@ public abstract class CardSelectScreen extends Screen {
         }
 
         // Render bottom border
-        printBlackB(BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
+        printBlackB(
+                BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
         System.out.println();
     }
 

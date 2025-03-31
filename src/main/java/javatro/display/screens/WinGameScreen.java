@@ -4,22 +4,23 @@ package javatro.display.screens;
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BLUE;
 import static javatro.display.UI.BOLD;
+import static javatro.display.UI.BORDER_WIDTH;
+import static javatro.display.UI.BOTTOM_LEFT;
+import static javatro.display.UI.BOTTOM_RIGHT;
 import static javatro.display.UI.END;
 import static javatro.display.UI.GREEN;
 import static javatro.display.UI.HORIZONTAL;
 import static javatro.display.UI.ITALICS;
 import static javatro.display.UI.TOP_LEFT;
 import static javatro.display.UI.TOP_RIGHT;
-import static javatro.display.UI.BOTTOM_LEFT;
-import static javatro.display.UI.BOTTOM_RIGHT;
-import static javatro.display.UI.BORDER_WIDTH;
+import static javatro.display.UI.centerText;
 import static javatro.display.UI.printANSI;
 import static javatro.display.UI.printBlackB;
-import static javatro.display.UI.centerText;
 
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.MainMenuOption;
+
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -27,6 +28,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Victory screen displayed upon completing the game successfully.
  *
  * <p>Features:
+ *
  * <ul>
  *   <li>Random celebratory quote
  *   <li>Animated victory graphic
@@ -36,15 +38,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class WinGameScreen extends Screen {
 
     /** Collection of victory messages for random selection */
-    private static final List<String> QUOTES = List.of(
-            "You Aced it!",
-            "You dealt with that pretty well!",
-            "Looks like you weren't bluffing!",
-            "Too bad these chips are all virtual...",
-            "Looks like I've taught you well!",
-            "You made some heads up plays!",
-            "Good thing I didn't bet against you!"
-    );
+    private static final List<String> QUOTES =
+            List.of(
+                    "You Aced it!",
+                    "You dealt with that pretty well!",
+                    "Looks like you weren't bluffing!",
+                    "Too bad these chips are all virtual...",
+                    "Looks like I've taught you well!",
+                    "You made some heads up plays!",
+                    "Good thing I didn't bet against you!");
 
     /**
      * Constructs victory screen with post-game options.
@@ -59,6 +61,7 @@ public class WinGameScreen extends Screen {
 
     /**
      * Displays victory screen components:
+     *
      * <ul>
      *   <li>Celebratory ASCII art
      *   <li>Decorative border elements
@@ -81,11 +84,15 @@ public class WinGameScreen extends Screen {
         System.out.println();
 
         // Display centered content
-        System.out.println(centerText(BLUE + BOLD + "Thanks for playing our game!" + END + BLACK_B, BORDER_WIDTH));
+        System.out.println(
+                centerText(
+                        BLUE + BOLD + "Thanks for playing our game!" + END + BLACK_B,
+                        BORDER_WIDTH));
         System.out.println(centerText(ITALICS + randomQuote, BORDER_WIDTH));
 
         // Render bottom border
-        printBlackB(BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
+        printBlackB(
+                BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
         System.out.println();
     }
 }

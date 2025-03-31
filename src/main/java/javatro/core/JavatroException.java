@@ -5,13 +5,14 @@ import static javatro.display.UI.END;
 import static javatro.display.UI.RED;
 
 /**
- * Custom exception class for handling application-specific errors in the Javatro game.
- * Provides factory methods for creating consistent exceptions with colored error messages.
+ * Custom exception class for handling application-specific errors in the Javatro game. Provides
+ * factory methods for creating consistent exceptions with colored error messages.
  */
 public final class JavatroException extends Exception {
 
     /**
      * Constructs a JavatroException with a colored error message.
+     *
      * @param message The error message to display (will be colored red)
      */
     public JavatroException(String message) {
@@ -20,6 +21,7 @@ public final class JavatroException extends Exception {
 
     /**
      * Constructs a JavatroException with colored message and cause.
+     *
      * @param message The error message to display (colored red)
      * @param cause The underlying cause of the exception
      */
@@ -32,6 +34,7 @@ public final class JavatroException extends Exception {
     // @@author JQ
     /**
      * Creates exception for invalid number of cards in a poker hand.
+     *
      * @param minCards Minimum allowed cards
      * @param maxCards Maximum allowed cards
      * @return Configured exception instance
@@ -41,34 +44,45 @@ public final class JavatroException extends Exception {
                 "A poker hand must contain between " + minCards + " and " + maxCards + " cards.");
     }
 
-    /** @return Exception for invalid plays per round configuration */
+    /**
+     * @return Exception for invalid plays per round configuration
+     */
     public static JavatroException invalidPlaysPerRound() {
         return new JavatroException("Number of plays per round must be greater than 0.");
     }
 
-    /** @return Exception for invalid blind score input */
+    /**
+     * @return Exception for invalid blind score input
+     */
     public static JavatroException invalidBlindScore() {
         return new JavatroException("Blind score must be greater than or equal to 0!");
     }
 
-    /** @return Exception for null deck configuration */
+    /**
+     * @return Exception for null deck configuration
+     */
     public static JavatroException invalidDeck() {
         return new JavatroException("Deck cannot be null.");
     }
 
-    /** @return Exception when no plays remain */
+    /**
+     * @return Exception when no plays remain
+     */
     public static JavatroException noPlaysRemaining() {
         return new JavatroException("No plays remaining.");
     }
 
     // @@author Markneoneo
-    /** @return Exception for invalid card selection input */
+    /**
+     * @return Exception for invalid card selection input
+     */
     public static JavatroException invalidCardInput() {
         return new JavatroException("Invalid input! Please enter valid numbers.");
     }
 
     /**
      * Creates exception for exceeding maximum card selection.
+     *
      * @param maxCardsToSelect Maximum allowed cards
      * @return Configured exception instance
      */
@@ -78,6 +92,7 @@ public final class JavatroException extends Exception {
 
     /**
      * Creates exception for invalid menu input range.
+     *
      * @param maxRange Maximum valid input value
      * @return Configured exception instance
      */
@@ -86,28 +101,37 @@ public final class JavatroException extends Exception {
                 "Invalid input! Please enter a number between 1 and " + maxRange + ".");
     }
 
-    /** @return Exception for non-numeric input where number expected */
+    /**
+     * @return Exception for non-numeric input where number expected
+     */
     public static JavatroException invalidInputType() {
         return new JavatroException("Invalid input! Please enter a number.");
     }
 
-    /** @return Exception for missing or empty options title */
+    /**
+     * @return Exception for missing or empty options title
+     */
     public static JavatroException invalidOptionsTitle() {
         return new JavatroException("Options title cannot be null or empty.");
     }
 
-    /** @return Exception for invalid options list size */
+    /**
+     * @return Exception for invalid options list size
+     */
     public static JavatroException invalidOptionsSize() {
         return new JavatroException("Number of options cannot be null or empty.");
     }
 
-    /** @return Exception for null screen reference */
+    /**
+     * @return Exception for null screen reference
+     */
     public static JavatroException invalidScreen() {
         return new JavatroException("Screen cannot be null.");
     }
 
     /**
      * Creates exception for index out of bounds.
+     *
      * @param index Invalid index that was accessed
      * @return Configured exception instance
      */
@@ -117,6 +141,7 @@ public final class JavatroException extends Exception {
 
     /**
      * Creates exception for missing resource file.
+     *
      * @param fileName Name of missing file
      * @return Configured exception instance
      */
@@ -124,28 +149,38 @@ public final class JavatroException extends Exception {
         return new JavatroException("Error loading logo from: " + fileName);
     }
 
-    /** @return Exception for invalid selection limit */
+    /**
+     * @return Exception for invalid selection limit
+     */
     public static JavatroException invalidSelectionLimit() {
         return new JavatroException("Selection limit must be a positive value.");
     }
 
     // @@author JQ
-    /** @return Exception when no discards remain */
+    /**
+     * @return Exception when no discards remain
+     */
     public static JavatroException noRemainingDiscards() {
         return new JavatroException("No remaining discards available");
     }
 
-    /** @return Exception for exceeding discard limit */
+    /**
+     * @return Exception for exceeding discard limit
+     */
     public static JavatroException tooManyDiscards() {
         return new JavatroException("Too many cards selected for discarding");
     }
 
-    /** @return Exception for attempting zero discards */
+    /**
+     * @return Exception for attempting zero discards
+     */
     public static JavatroException cannotDiscardZeroCards() {
         return new JavatroException("Cannot discard zero cards");
     }
 
-    /** @return Exception for exceeding maximum joker limit */
+    /**
+     * @return Exception for exceeding maximum joker limit
+     */
     public static JavatroException exceedsMaxJokers() {
         return new JavatroException(
                 "Cannot add more Jokers, or the maximum limit will be exceeded.");

@@ -16,17 +16,18 @@ import static javatro.display.UI.centerText;
 import static javatro.display.UI.printANSI;
 import static javatro.display.UI.printBlackB;
 
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.MainMenuOption;
+
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Screen displayed upon game loss, featuring humorous defeat messages.
  *
  * <p>Contains:
+ *
  * <ul>
  *   <li>Randomized loss quotes
  *   <li>Decorative border elements
@@ -36,24 +37,25 @@ import javatro.manager.options.MainMenuOption;
 public class LoseScreen extends Screen {
 
     /** Collection of self-deprecating loss messages */
-    private static final List<String> QUOTES = List.of(
-            "Maybe Go Fish is more our speed...",
-            "We folded like a cheap suit!",
-            "Time for us to shuffle off and try again!",
-            "You know what they say, the house always wins!",
-            "Looks like we found out who the real Joker is!",
-            "Oh no, were you bluffing too?",
-            "Looks like the joke's on us!",
-            "If I had hands I would have covered my eyes!",
-            "I'm literally a fool, what's your excuse?",
-            "What a flop!"
-    );
+    private static final List<String> QUOTES =
+            List.of(
+                    "Maybe Go Fish is more our speed...",
+                    "We folded like a cheap suit!",
+                    "Time for us to shuffle off and try again!",
+                    "You know what they say, the house always wins!",
+                    "Looks like we found out who the real Joker is!",
+                    "Oh no, were you bluffing too?",
+                    "Looks like the joke's on us!",
+                    "If I had hands I would have covered my eyes!",
+                    "I'm literally a fool, what's your excuse?",
+                    "What a flop!");
 
     /** Number of 'HA' repetitions in defeat banner */
     private static final int HA_REPETITIONS = 47;
 
     /**
      * Constructs game over screen with post-loss options.
+     *
      * @throws JavatroException if screen initialization fails
      */
     public LoseScreen() throws JavatroException {
@@ -64,6 +66,7 @@ public class LoseScreen extends Screen {
 
     /**
      * Displays loss screen components:
+     *
      * <ul>
      *   <li>Defeat ASCII art
      *   <li>Decorative borders
@@ -84,14 +87,13 @@ public class LoseScreen extends Screen {
         System.out.println();
 
         // Display defeat message
-        System.out.println(centerText(
-                RED + BOLD + "HA".repeat(HA_REPETITIONS) + END + BLACK_B,
-                BORDER_WIDTH
-        ));
+        System.out.println(
+                centerText(RED + BOLD + "HA".repeat(HA_REPETITIONS) + END + BLACK_B, BORDER_WIDTH));
         System.out.println(centerText(ITALICS + randomQuote, BORDER_WIDTH));
 
         // Render bottom border
-        printBlackB(BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
+        printBlackB(
+                BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
         System.out.println();
     }
 }

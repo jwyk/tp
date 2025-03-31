@@ -12,6 +12,7 @@ import javatro.manager.options.StartGameOption;
  * Initial application screen displaying main menu options and game logo.
  *
  * <p>Provides functionality for:
+ *
  * <ul>
  *   <li>Displaying the Javatro logo
  *   <li>Presenting core game startup options
@@ -36,6 +37,7 @@ public class StartScreen extends Screen {
 
     /**
      * Displays the startup screen content including:
+     *
      * <ul>
      *   <li>Javatro logo loaded from external file
      *   <li>Formatted menu options (handled by superclass)
