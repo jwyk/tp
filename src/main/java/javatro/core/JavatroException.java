@@ -91,7 +91,6 @@ public final class JavatroException extends Exception {
         return new JavatroException("Deck is empty.");
     }
 
-
     /**
      * Creates an exception indicating no plays remaining.
      *
