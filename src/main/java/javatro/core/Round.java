@@ -60,7 +60,7 @@ public class Round {
     /** The initial number of cards dealt to the player. */
     public static final int INITIAL_HAND_SIZE = 8;
     /** The maximum number of discards allowed per round. */
-    public static final int MAX_DISCARDS_PER_ROUND = 4;
+    public static final int MAX_DISCARDS_PER_ROUND = 3;
     /** The maximum number of cards in a hand. */
     public static final int DEFAULT_MAX_HAND_SIZE = 5;
     /** The minimum number of cards in a hand. */

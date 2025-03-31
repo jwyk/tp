@@ -51,7 +51,7 @@ public class RoundTest {
         assertEquals(remainingPlays, round.getRemainingPlays());
         assertEquals(0, round.getCurrentScore());
         if (ante.getBlind() != Ante.Blind.BOSS_BLIND) {
-            assertEquals(4, round.getRemainingDiscards());
+            assertEquals(3, round.getRemainingDiscards());
         }
         assertFalse(round.isRoundOver());
     }
@@ -247,14 +247,14 @@ public class RoundTest {
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
         // Initial state
-        assertEquals(4, round.getRemainingDiscards());
+        assertEquals(3, round.getRemainingDiscards());
         int initialHandSize = round.getPlayerHandCards().size();
 
         // Discard 2 cards
         round.discardCards(List.of(0, 1));
 
         // Check state after discard
-        assertEquals(3, round.getRemainingDiscards());
+        assertEquals(2, round.getRemainingDiscards());
         assertEquals(initialHandSize, round.getPlayerHandCards().size());
     }
 
@@ -266,13 +266,12 @@ public class RoundTest {
         ante.setBlind(Ante.Blind.SMALL_BLIND);
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
-        // Use all 4 discards
-        round.discardCards(List.of(0));
+        // Use all 3 discards
         round.discardCards(List.of(0));
         round.discardCards(List.of(0));
         round.discardCards(List.of(0));
 
-        // Fifth discard should fail
+        // Fourth discard should fail
         try {
             round.discardCards(List.of(0));
             fail("Should have thrown an exception for too many discards");
@@ -290,7 +289,7 @@ public class RoundTest {
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
         // Initial state
-        assertEquals(4, round.getRemainingDiscards());
+        assertEquals(3, round.getRemainingDiscards());
         int initialHandSize = round.getPlayerHandCards().size();
 
         // Discard 0 cards
@@ -301,7 +300,7 @@ public class RoundTest {
             assertEquals(getExceptionMessage("Cannot discard zero cards"), e.getMessage());
         }
 
-        assertEquals(4, round.getRemainingDiscards());
+        assertEquals(3, round.getRemainingDiscards());
         assertEquals(initialHandSize, round.getPlayerHandCards().size());
     }
 
@@ -331,7 +330,7 @@ public class RoundTest {
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
         // Check that default values are maintained
-        assertEquals(4, round.getRemainingDiscards());
+        assertEquals(3, round.getRemainingDiscards());
         assertEquals(Round.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
         assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
     }
