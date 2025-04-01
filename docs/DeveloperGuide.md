@@ -432,7 +432,7 @@ _private final int[] anteScore;_ – An array storing predefined ante values for
 
 The **Blind** enum represents different blind levels, each with a unique multiplier affecting the ante base score. Additionally, the **SMALL** and **LARGE** blinds are optional, giving the players a choice to accept or reject, meanwhile the **BOSS** blind is compulsory for the players to proceed to the next round.
 
-**Code Example** :
+**Code Snippet** :
 
 public enum Blind {
 SMALL_BLIND(1.0, "SMALL BLIND"),
@@ -486,62 +486,130 @@ Progresses to the next blind level or increases ante level when Boss Blind is re
    To balance simplicity and dynamic progression, the enum-based structured Blind System. It cycles through Small Blind → Large Blind → Boss Blind, ensuring controlled progression while increasing the ante at the end of each cycle. This approach keeps gameplay engaging without overcomplicating the logic. Moreover the array-based ante progression simplifies lookup and ensures consistent bet increases. This structure prevents unfair jumps in bet sizes, ensuring a fairer experience for the players.
 
 ## **Class Diagram:** 
-class Ante {
-- static final int MAX_ANTE_COUNT = 8
-- static int anteCount
-- Blind blind
-- final int[] anteScore = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000}
 
-    + Ante()
-    + int getRoundScore()
-    + int getAnteScore()
-    + void setAnteCount(int anteCount)
-    + void resetAnte()
-    + void nextRound()
-    + void setBlind(Blind blind)
-    + Blind getBlind()
-    + int getAnteCount()
+```mermaid 
+classDiagram
+classDiagram
+    class Ante {
+        -anteCount: int
+        -blind: Blind
+        -anteScore: int[]
+        +Ante()
+        +getRoundScore() int
+        +getAnteScore() int
+        +setAnteCount(anteCount: int)
+        +resetAnte()
+        +nextRound()
+        +setBlind(blind: Blind)
+        +getBlind() Blind
+        +getAnteCount() int
+    }
+
+    class Blind {
+        <<enumeration>>
+        SMALL_BLIND
+        LARGE_BLIND
+        BOSS_BLIND
+        +getMultiplier() double
+        +getName() String
+    }
+
+    Ante --> Blind : uses
+```  
+The Ante class manages the ante count, blind levels, and scores in the game, utilizing the Blind enumeration for different blind levels.
+
+```mermaid 
+classDiagram
+class Option {
+<<interface>>
++getDescription(): String
++execute(): void
 }
 
-enum Blind {
-SMALL_BLIND
-LARGE_BLIND
-BOSS_BLIND
-}
+    class AcceptBlindOption {
+        +getDescription(): String
+        +execute(): void
+    }
 
-Ante --> Blind : uses
+    class RejectBlindOption {
+        +getDescription(): String
+        +execute(): void
+    }
 
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
+    class JavatroCore {
+        +getAnte(): Ante
+        +currentRound: Round
+    }
+
+    class JavatroManager {
+        +setScreen(screen: Screen): void
+    }
+
+    class UI {
+        +getGameScreen(): Screen
+        +getBlindScreen(): Screen
+        +printBorderedContent(title: String, lines: List): void
+        +BOLD: String
+        +END: String
+    }
+
+    Option <|.. AcceptBlindOption : implements
+    Option <|.. RejectBlindOption : implements
+    AcceptBlindOption --> JavatroCore : interacts with
+    RejectBlindOption --> JavatroCore : interacts with
+    AcceptBlindOption --> JavatroManager : interacts with
+    RejectBlindOption --> JavatroManager : interacts with
+    AcceptBlindOption --> UI : interacts with
+    RejectBlindOption --> UI : interacts with
+```  
+The Option interface is implemented by AcceptBlindOption and RejectBlindOption, which interact with JavatroCore, JavatroManager, and UI to manage blind options in the game.
 
 ## **Sequence Diagram:**
-actor Player
-participant "Ante" as Ante
 
-Player -> Ante: new Ante()
-Ante -> Ante: Initialize anteCount = 1
-Ante -> Ante: Set blind = SMALL_BLIND
+```mermaid 
+sequenceDiagram
+    participant Ante
+    participant Blind
 
-Player -> Ante: getRoundScore()
-Ante -> Ante: Calculate round score
-Ante --> Player: Return score
+    Ante->>Blind: setBlind(Blind)
+    Blind->>Ante: getBlind()
+    Ante->>Blind: getMultiplier()
+    Ante->>Blind: getName()
+    Ante->>Ante: getAnteCount()
+    Ante->>Ante: setAnteCount(anteCount)
+    Ante->>Ante: getAnteScore()
+    Ante->>Ante: nextRound()
+    Ante->>Ante: resetAnte()
+```
+This sequence diagram illustrates the interactions between the Ante and Blind classes, where Ante sets and retrieves blind information, as well as manages ante-related operations such as updating scores and counts.
 
-Player -> Ante: nextRound()
-Ante -> Ante: Check current blind
-Ante -> Ante: Update blind or increase anteCount
+```mermaid 
+sequenceDiagram
+    participant Option
+    participant AcceptBlindOption
+    participant RejectBlindOption
+    participant JavatroCore
+    participant JavatroManager
+    participant UI
 
-Player -> Ante: getBlind()
-Ante --> Player: Return current blind level
+    Note over AcceptBlindOption, RejectBlindOption: Implements Option interface
 
-Player -> Ante: setAnteCount(5)
-Ante -> Ante: Validate ante count
-Ante --> Player: Success
+    AcceptBlindOption->>JavatroCore: interact with
+    RejectBlindOption->>JavatroCore: interact with
 
-Player -> Ante: resetAnte()
-Ante -> Ante: Reset anteCount to 1
-Ante -> Ante: Set blind to SMALL_BLIND
+    AcceptBlindOption->>JavatroManager: interact with
+    RejectBlindOption->>JavatroManager: interact with
 
+    AcceptBlindOption->>UI: interact with
+    RejectBlindOption->>UI: interact with
+
+    AcceptBlindOption->>UI: getGameScreen()
+    RejectBlindOption->>UI: getBlindScreen()
+
+    AcceptBlindOption->>JavatroCore: beginGame()
+    RejectBlindOption->>JavatroCore: updateAnte()
+```
+This sequence diagram shows the interactions between the Option implementations (AcceptBlindOption and RejectBlindOption), and their interactions with JavatroCore, JavatroManager, and UI, including actions such as beginning the game, updating ante, and retrieving screens.
 
 ---
 
