@@ -9,6 +9,7 @@
    - [UI Component](#ui-component)
    - [Logic Component](#logic-component)
    - [Storage Component](#storage-component)
+   - [Ante Component](#ante-component)
 4. [Implementation](#implementation)
 5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 6. [Documentation](#documentation)
