@@ -594,9 +594,9 @@ classDiagram
 ```
 ### Scoring System
 #### Score Calculation Overview
-The Score class calculates the final score by:
+Below is how the Score Class returns the calculated score:
 
-1. Applying base values from the PokerHand.
+1. `Round` initializes `Score`, and `Score` invokes the `getChips()` method from `PokerHand`.
 ```mermaid
 sequenceDiagram
    activate Round
@@ -606,7 +606,9 @@ sequenceDiagram
    deactivate Round
 
 ```
-2. Adding contributions from valid cards.
+2. With each `Card` passed from `Score`, `Score` checks whether the card played satisfies BossType conditions, 
+and applies effects if the condition is satisfied. 
+Else, the `Card` is scored, and each `Joker` in `heldJokers` is checked if the `Card` can interact with the `Joker`
 
 ```mermaid
 sequenceDiagram
@@ -618,7 +620,7 @@ sequenceDiagram
     activate Score
     loop Card card: playedCardList
         activate Score
-        Score->>Score: Check BossType conditions
+        Score->>Score: Apply BossType conditions
         deactivate Score
         alt Card is valid
             activate Score
@@ -635,7 +637,7 @@ sequenceDiagram
     end
 ```
 
-3. Applying effects from active jokers.
+3. After each `Card` is scored, any `Joker` with the `AFTERHANDPLAY` enum is interacted with.
 ```mermaid
 sequenceDiagram
     activate Score
@@ -649,7 +651,7 @@ sequenceDiagram
 ```
 
 
-4. Rounding the final score.
+4. `Score` rounds the final score using `calculateFinalScore()` and returns the final `long` value to `Round`.
 ```mermaid
 sequenceDiagram
     activate Round
@@ -673,6 +675,8 @@ box transparent Overall Scoring Algorithm
     participant PokerHand
     participant Joker
 end
+
+
     Round->>+Score: getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
     Score->>+PokerHand: getChips(), getMultiplier()
     PokerHand-->>-Score: return chips, return multiplier
