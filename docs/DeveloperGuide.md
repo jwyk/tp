@@ -9,6 +9,7 @@
    - [UI Component](#ui-component)
    - [Logic Component](#logic-component)
    - [Storage Component](#storage-component)
+   - [Round Component](#round-component)
 4. [Implementation](#implementation)
 5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 6. [Documentation](#documentation)
@@ -462,6 +463,102 @@ The Storage component is responsible for saving and loading game states. Althoug
 - Serialization and deserialization of game objects.
 - Handling user preferences and game settings.
 ---
+### Round Component
+
+The **Round Component** is responsible for managing the state and flow of a single round in the game. It encapsulates the logic for handling round-specific actions, configurations, and any special effects.
+
+#### Responsibilities
+- Manage the state of the current round, including the cards dealt, scores, and player actions.
+- Handle round-specific configurations and validation.
+- Notify other components (e.g., UI, Logic) of state changes during the round.
+
+#### Key Classes
+- **Round**: The main class that orchestrates the round's lifecycle.
+- **RoundState**: Tracks the current state of the round (e.g., active, completed).
+- **RoundActions**: Encapsulates actions that can be performed during the round (e.g., draw, discard).
+- **RoundConfig**: Stores configuration settings for the round (e.g., max cards, scoring rules).
+- **RoundObservable**: Implements the observer pattern to notify listeners (e.g., UI) of state changes.
+
+#### Class Diagram
+```mermaid
+classDiagram
+    class Round {
+        -state: RoundState
+        -config: RoundConfig
+        -actions: RoundActions
+        +startRound()
+        +endRound()
+        +performAction(action: String)
+    }
+
+    class RoundState {
+        -status: String
+        +getStatus()
+        +setStatus(status: String)
+    }
+
+    class RoundActions {
+        +drawCard()
+        +discardCard()
+        +evaluateHand()
+    }
+
+    class RoundConfig {
+        -maxCards: int
+        -scoringRules: Map
+        +getConfig(key: String)
+        +setConfig(key: String, value: Object)
+    }
+
+    class RoundObservable {
+        +addObserver(observer: Observer)
+        +removeObserver(observer: Observer)
+        +notifyObservers(event: String)
+    }
+
+    Round --> RoundState
+    Round --> RoundActions
+    Round --> RoundConfig
+    Round --> RoundObservable
+```
+
+#### Sequence Diagram: Round Initialisation
+
+The following sequence diagram illustrates the initialization process of a round, including configuration setup and state management:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Round
+    participant RoundConfig
+    participant RoundState
+    participant RoundObservable
+
+    User ->>+ Round: new Round(...)
+    Note right of Round: Constructor activated
+    Round ->>+ RoundConfig: new RoundConfig(...)
+    Note right of RoundConfig: Constructor activated
+    RoundConfig -->>- Round: this.config : RoundConfig
+    Round ->>+ RoundState: new RoundState(...)
+    Note right of RoundState: Constructor activated
+    RoundState -->>- Round: this.state : RoundState
+    Round ->>+ Round: applyDeckInvariants()
+    alt RED
+        Round ->>+ RoundState: increaseRemainingDiscards(: int)
+        RoundState -->>- Round: 
+    else BLUE
+        Round ->>+ RoundState: setRemainingPlays(: int)
+        RoundState -->>- Round: 
+    end
+    Round -->>- Round: 
+    Round ->> Round: Other configuration...
+    Round ->>+ RoundObservable: new RoundObservable
+    Note right of RoundObservable: Constructor activated
+    RoundObservable -->>- Round: this.observable : RoundObservable
+    Round -->>- User: Round instance
+```
+
+Note: Due to limitations of mermaid rendering, the activation bars for constructors may not appear exactly aligned with their corresponding object lifelines. The note in the diagram clarifies when the constructor is activated.
 
 ## Implementation
 
