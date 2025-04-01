@@ -1,6 +1,5 @@
 package javatro.core;
 
-import javatro.core.Round.BossType;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.jokers.Joker;
 
@@ -13,19 +12,19 @@ public class Score {
     public double totalMultiplier = 0;
     public static List<Card> playedCardsList;
     public ArrayList<Joker> jokerList;
-    private Round.BossType bossType = Round.BossType.NONE;
+    private final BossType bossType;
 
     /** Default constructor */
     public Score() {
-        this(Round.BossType.NONE);
+        this(BossType.NONE);
     }
 
     /**
-     * Constructor with boss type parameter
+     * Creates a new score calculator with the given boss type.
      *
-     * @param bossType The type of boss for this round
+     * @param bossType The boss type for this round
      */
-    public Score(Round.BossType bossType) {
+    public Score(BossType bossType) {
         this.bossType = bossType;
     }
 

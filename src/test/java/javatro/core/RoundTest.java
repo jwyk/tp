@@ -343,7 +343,7 @@ public class RoundTest {
         ante.setBlind(Ante.Blind.BOSS_BLIND);
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
-        round.setBossType(Round.BossType.THE_NEEDLE);
+        round.setBossType(BossType.THE_NEEDLE);
 
         // Check that max hand size is set to 1
         assertEquals(1, round.getRemainingPlays());
@@ -358,7 +358,7 @@ public class RoundTest {
         ante.setBlind(Ante.Blind.BOSS_BLIND);
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
-        round.setBossType(Round.BossType.THE_WATER);
+        round.setBossType(BossType.THE_WATER);
 
         // Check that no discards are allowed
         assertEquals(0, round.getRemainingDiscards());
@@ -372,7 +372,7 @@ public class RoundTest {
         ante.setBlind(Ante.Blind.BOSS_BLIND);
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
-        round.setBossType(Round.BossType.THE_PSYCHIC);
+        round.setBossType(BossType.THE_PSYCHIC);
 
         // Check that min and max hand size are both 5
         assertEquals(5, round.getConfig().getMaxHandSize());
@@ -388,15 +388,15 @@ public class RoundTest {
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
         // Test other bosses that don't have specific rule changes
-        Round.BossType[] otherBosses = {
-            Round.BossType.THE_CLUB,
-            Round.BossType.THE_WINDOW,
-            Round.BossType.THE_HEAD,
-            Round.BossType.THE_GOAD,
-            Round.BossType.THE_PLANT
+        BossType[] otherBosses = {
+            BossType.THE_CLUB,
+            BossType.THE_WINDOW,
+            BossType.THE_HEAD,
+            BossType.THE_GOAD,
+            BossType.THE_PLANT
         };
 
-        for (Round.BossType bossType : otherBosses) {
+        for (BossType bossType : otherBosses) {
             round.setBossType(bossType);
 
             // Check that default values are maintained for other bosses
@@ -414,11 +414,11 @@ public class RoundTest {
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
         // Test getting and setting boss type
-        round.setBossType(Round.BossType.THE_NEEDLE);
-        assertEquals(Round.BossType.THE_NEEDLE, round.getBossType());
+        round.setBossType(BossType.THE_NEEDLE);
+        assertEquals(BossType.THE_NEEDLE, round.getBossType());
 
-        round.setBossType(Round.BossType.THE_WATER);
-        assertEquals(Round.BossType.THE_WATER, round.getBossType());
+        round.setBossType(BossType.THE_WATER);
+        assertEquals(BossType.THE_WATER, round.getBossType());
     }
 
     @Test
@@ -431,17 +431,17 @@ public class RoundTest {
 
         switch (round.getBossType()) {
             case THE_NEEDLE:
-                assertEquals(Round.BossType.THE_NEEDLE, round.getBossType());
+                assertEquals(BossType.THE_NEEDLE, round.getBossType());
                 assertEquals(1, round.getRemainingPlays());
                 assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
                 break;
             case THE_WATER:
-                assertEquals(Round.BossType.THE_WATER, round.getBossType());
+                assertEquals(BossType.THE_WATER, round.getBossType());
                 assertEquals(0, round.getRemainingDiscards());
                 assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
                 break;
             case THE_PSYCHIC:
-                assertEquals(Round.BossType.THE_PSYCHIC, round.getBossType());
+                assertEquals(BossType.THE_PSYCHIC, round.getBossType());
                 assertEquals(5, round.getConfig().getMaxHandSize());
                 assertEquals(5, round.getConfig().getMinHandSize());
                 break;

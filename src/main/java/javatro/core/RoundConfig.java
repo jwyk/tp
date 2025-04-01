@@ -10,8 +10,10 @@ public class RoundConfig {
     private String roundDescription;
     /** The maximum number of cards that can be played in this round. */
     private int maxHandSize = Round.DEFAULT_MAX_HAND_SIZE;
-
+    /** The minimum number of cards that can be played in this round. */
     private int minHandSize = Round.DEFAULT_MIN_HAND_SIZE;
+    /** The type of boss for this round. */
+    private BossType bossType = BossType.NONE;
 
     /**
      * Creates a new round configuration.
@@ -105,5 +107,29 @@ public class RoundConfig {
      */
     public void setMinHandSize(int minHandSize) {
         this.minHandSize = minHandSize;
+    }
+
+    /**
+     * Gets the boss type for this round.
+     *
+     * @return The boss type
+     */
+    public BossType getBossType() {
+        return bossType;
+    }
+
+    /**
+     * Sets the boss type for this round.
+     *
+     * @param bossType The new boss type
+     */
+    public void setBossType(BossType bossType) {
+        this.bossType = bossType;
+        
+        // Update round name and description to match boss type if it's not NONE
+        if (bossType != BossType.NONE) {
+            this.roundName = bossType.getName();
+            this.roundDescription = bossType.getDescription();
+        }
     }
 }
