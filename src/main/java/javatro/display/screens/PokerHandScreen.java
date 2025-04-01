@@ -25,7 +25,7 @@ public class PokerHandScreen extends Screen {
     // %-X = X characters width
     private static final String TITLE =
             String.format(
-                    "%s%s%-5s     %s%-15s       %s%-5s%s × %s%-5s%s     %s%-6s%s",
+                    "%s%s%-5s     %s%-15s       %s%-5s%s x %s%-5s%s     %s%-6s%s",
                     BOLD,
                     GREEN,
                     "LEVEL",
@@ -61,7 +61,7 @@ public class PokerHandScreen extends Screen {
                                 hand -> {
                                     PokerHand.HandType type = hand.handType();
                                     return String.format(
-                                            "%s%4d       %s%-15s       %s%5d%s × %s%-5d%s      "
+                                            "%s%4d       %s%-15s       %s%5d%s x %s%-5d%s      "
                                                     + " %s%-5d%s",
                                             GREEN,
                                             PlanetCard.getLevel(type),
