@@ -640,39 +640,109 @@ classDiagram
 The Score class calculates the final score by:
 
 1. Applying base values from the PokerHand.
+```mermaid
+sequenceDiagram
+   activate Round
+   Round->>+Score: getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
+   Score->>+PokerHand: getChips(), getMultiplier()
+   PokerHand-->>-Score: return chips, return multiplier
+   deactivate Round
+
+```
 2. Adding contributions from valid cards.
-3. Applying effects from active jokers.
-4. Rounding the final score.
 
 ```mermaid
 sequenceDiagram
+    box Add contribution from valid cards  
+        participant Score
+        participant PokerHand
+        participant Joker
+    end
+    activate Score
+    loop Card card: playedCardList
+        activate Score
+        Score->>Score: Check BossType conditions
+        deactivate Score
+        alt Card is valid
+            activate Score
+            Score->>Score: scoreCard(Card card)
+            deactivate Score
+            loop [Joker joker: heldJokers]
+                alt Joker == ONCARDPLAY
+                    Score->>+Joker: interact(Score score, Card card)
+                    Joker-->>-Score: interact
+                end
+            end
+        end
+        deactivate Score
+    end
+```
+
+3. Applying effects from active jokers.
+```mermaid
+sequenceDiagram
+    activate Score
+    loop [Joker joker: heldJokers]
+        alt joker.ScoreType == AFTERHANDPLAY
+            Score->>+Joker: interact(Score score, Card card)
+            Joker-->>-Score: interact
+        end
+    end
+    deactivate Score
+```
+
+
+4. Rounding the final score.
+```mermaid
+sequenceDiagram
+    activate Round
+    activate Score
+    activate Score
+    Score->>Score: calculateFinalScore()
+    deactivate Score
+    Score-->>Round: return final score
+    deactivate Score
+    deactivate Round
+
+```
+
+#### Overall Sequence Diagram for Score Calculation
+
+```mermaid
+sequenceDiagram
+box transparent Overall Scoring Algorithm
     participant Round
     participant Score
     participant PokerHand
-    participant HeldJokers
-
+    participant Joker
+end
     Round->>+Score: getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
     Score->>+PokerHand: getChips(), getMultiplier()
-    PokerHand-->>Score: return chips, return multiplier
+    PokerHand-->>-Score: return chips, return multiplier
     loop Card card: playedCardList
+        activate Score
         Score->>Score: Check BossType conditions
-        Score->>Score: isValidCard(card)
+        deactivate Score
         alt Card is valid
+            activate Score
             Score->>Score: scoreCard(Card card)
-        end
-        loop until all cards are checked
-            alt Joker is valid
-                Score->>HeldJokers: interact(Card card)
-                HeldJokers-->>Score: interact
+            deactivate Score
+            loop [Joker joker: heldJokers]
+                alt joker.ScoreType == ONCARDPLAY
+                    Score->>+Joker: interact(Score score, Card card)
+                    Joker-->>-Score: interact
+                end
             end
         end
     end
-%%    loop until all jokers are checked
-%%        Score->>HeldJokers: Apply Joker effects
-%%    end
+    loop [Joker joker: heldJokers]
+        alt joker.ScoreType == AFTERHANDPLAY
+            Score->>+Joker: interact(Score score, Card card)
+            Joker-->>-Score: interact
+        end
+    end
     Score->>Score: calculateFinalScore()
     Score-->>-Round: return final score
-    
 
 ```
 
