@@ -12,7 +12,7 @@ class RoundConfig {
     public static final int DEFAULT_MAX_HAND_SIZE = 5;
     /** The minimum number of cards in a hand. */
     public static final int DEFAULT_MIN_HAND_SIZE = 1;
-    
+
     /** The minimum score required to win the round. */
     private final int blindScore;
     /** The name of the current round. */

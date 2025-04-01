@@ -17,7 +17,6 @@ import java.util.List;
 
 /** Represents a round in the Javatro game. */
 public class Round {
-    
 
     /** The state of the current round. */
     private final RoundState state;
@@ -52,7 +51,9 @@ public class Round {
         this.config = new RoundConfig(roundName, roundDescription, ante.getRoundScore());
 
         // Create state with initial values
-        this.state = new RoundState(0, RoundConfig.MAX_DISCARDS_PER_ROUND, remainingPlays, heldJokers, deck);
+        this.state =
+                new RoundState(
+                        0, RoundConfig.MAX_DISCARDS_PER_ROUND, remainingPlays, heldJokers, deck);
 
         // Apply special deck modifications
         applyDeckVariants(deck);
@@ -145,7 +146,9 @@ public class Round {
     private void validatePostConstruction() {
         assert this.state.getCurrentScore() == 0 : "Initial score must be zero";
         assert this.state.getPlayerHand().getHand().size() == RoundConfig.INITIAL_HAND_SIZE
-                : "Player should have exactly " + RoundConfig.INITIAL_HAND_SIZE + " cards initially";
+                : "Player should have exactly "
+                        + RoundConfig.INITIAL_HAND_SIZE
+                        + " cards initially";
     }
 
     /**

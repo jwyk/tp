@@ -1,6 +1,5 @@
 package javatro.core.round;
 
-
 import javatro.core.Card;
 import javatro.core.Deck;
 import javatro.core.HoldingHand;
