@@ -251,3 +251,86 @@ This approach balances visual clarity with technical robustness, ensuring the UI
 
 ## 7. Conclusion  
 The UI module’s design prioritizes modularity, extensibility, and terminal compatibility. By combining design patterns like Singleton and Observer with ANSI formatting, it delivers a responsive and visually consistent experience. Future developers can extend it by adding new `Screen` subclasses or integrating modern GUI frameworks.
+
+
+## **The Ante and Blind class system:**
+
+### **1. Introduction**
+
+The **Ante and Blind System** in the game determines the minimum required score to beat for each round and regulates the increasing stakes as the game progresses. The **Ante** sets a base score to beat, while the **Blind** system introduces different blind levels (SMALL, LARGE, BOSS) each with a unique multiplier score effect to ensure competitive play. This section provides an in-depth look into its implementation, design choices, and a UML sequence diagram illustrating interactions.
+
+### **2. Implementation**
+
+#### **2.1 Class Overview**
+
+The Ante class manages the ante value and blind progression. There are a total of 8 antes where each ante consists of 3 blinds (SMALL, LARGE, BOSS). The ante class maintains the current ante level the gameplay is at , determines the betting stakes, and updates the blind stage as the game progresses. 
+
+#### **2.2 Attributes**
+
+_private static final int MAX_ANTE_COUNT_ = 8; – Defines the maximum ante level progression.
+_private static int anteCount;_ – Stores the current ante level.
+_private Blind blind;_ – Represents the current blind stage.
+_private final int[] anteScore;_ – An array storing predefined ante values for each level.
+
+#### **2.3 Enum: Blind Levels**
+
+The **Blind** enum represents different blind levels, each with a unique multiplier affecting the ante base score. Additionally, the **SMALL** and **LARGE** blinds are optional, giving the players a choice to accept or reject, meanwhile the **BOSS** blind is compulsory for the players to proceed to the next round.
+
+**Code Example** :
+
+public enum Blind {
+SMALL_BLIND(1.0, "SMALL BLIND"),
+LARGE_BLIND(1.5, "LARGE BLIND"),
+BOSS_BLIND(2.0, "BOSS BLIND");
+
+private final double multiplier;
+private final String name;
+
+Blind(double multiplier, String name) {
+this.multiplier = multiplier;
+this.name = name;
+}
+public double getMultiplier() {
+return multiplier;
+}
+public String getName() {
+return name;
+}
+}
+
+#### **2.4 Methods**
+**_public Ante()_:** 
+Initializes ante at level 1 with Small Blind.
+
+**public int getRoundScore()** :
+Returns the ante score multiplied by the unique blind multiplier.
+
+**_public void setAnteCount(int anteCount)_:**
+Updates the ante count within valid bounds.
+
+**_public void resetAnte()_:**
+Resets ante to level 1 and Small Blind.
+
+**_public void nextRound()_:**
+Progresses to the next blind level or increases ante level when Boss Blind is reached.
+
+**### 3. Design Considerations**
+
+## ** 3.1 Alternatives Considered**
+
+**1. Fixed Ante and Blind System**:
+   Pros: Simple to implement and requires minimal logic.
+   Cons: Lacks adaptability, making the game less engaging over time.
+
+**2. Dynamic Blind Adjustment**:
+   Pros: Adjusts difficulty dynamically, providing a more balanced progression.
+   Cons: Requires additional tracking and logic to manage changes effectively.
+
+   ## **3.2 Chosen Approach**
+   To balance simplicity and dynamic progression, the enum-based structured Blind System. It cycles through Small Blind → Large Blind → Boss Blind, ensuring controlled progression while increasing the ante at the end of each cycle. This approach keeps gameplay engaging without overcomplicating the logic. Moreover the array-based ante progression simplifies lookup and ensures consistent bet increases. This structure prevents unfair jumps in bet sizes, ensuring a fairer experience for the players.
+
+## **Class Diagram:** 
+
+![img.png](img.png)
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
