@@ -479,35 +479,58 @@ The **Round Component** is responsible for managing the state and flow of a sing
 - **RoundConfig**: Stores configuration settings for the round (e.g., max cards, scoring rules).
 - **RoundObservable**: Implements the observer pattern to notify listeners (e.g., UI) of state changes.
 
-#### Class Diagram
-```mermaid
+``` mermaid
 classDiagram
     class Round {
         -state: RoundState
         -config: RoundConfig
-        -actions: RoundActions
-        +startRound()
-        +endRound()
-        +performAction(action: String)
+        -observable: RoundObservable
+        +addPropertyChangeListener(pcl: PropertyChangeListener)
+        +updateRoundVariables()
+        +playCards(cardIndices: Integer)
+        +discardCards(cardIndices: Integer)
+        +getCurrentScore(): long
+        +getRemainingDiscards(): int
+        +getRemainingPlays(): int
+        +getPlayerHand(): HoldingHand
+        +getPlayerHandCards(): Card
+        +getPlayerJokers(): HeldJokers
+        +isLost(): boolean
+        +isWon(): boolean
+        +isRoundOver(): boolean
+        -applyDeckVariants(deck: Deck)
+        -applyAnteInvariants(ante: Ante)
+        -applyBossVariants()
     }
 
     class RoundState {
-        -status: String
-        +getStatus()
-        +setStatus(status: String)
-    }
-
-    class RoundActions {
-        +drawCard()
-        +discardCard()
-        +evaluateHand()
+        -currentScore: long
+        -remainingDiscards: int
+        -remainingPlays: int
+        -playerJokers: HeldJokers
+        -deck: Deck
+        -playerHand: HoldingHand
+        -chosenCards: Card
+        +getPlayerJokers(): HeldJokers
+        +getDeck(): Deck
+        +drawInitialCards(count: int)
     }
 
     class RoundConfig {
-        -maxCards: int
-        -scoringRules: Map
-        +getConfig(key: String)
-        +setConfig(key: String, value: Object)
+        +INITIAL_HAND_SIZE: int
+        +MAX_DISCARDS_PER_ROUND: int
+        +DEFAULT_MAX_HAND_SIZE: int
+        +DEFAULT_MIN_HAND_SIZE: int
+        -blindScore: int
+        -roundName: String
+        -roundDescription: String
+    }
+
+    class RoundActions {
+        +playCards(state: RoundState, config: RoundConfig, cardIndices: Integer): ActionResult
+        +discardCards(state: RoundState, config: RoundConfig, cardIndices: Integer): ActionResult
+        -validatePlayCards(cardIndices: Integer, minHandSize: int, maxHandSize: int, remainingPlays: int)
+        -validateDiscardCards(cardIndices: Integer, remainingDiscards: int)
     }
 
     class RoundObservable {
@@ -516,10 +539,10 @@ classDiagram
         +notifyObservers(event: String)
     }
 
-    Round --> RoundState
-    Round --> RoundActions
-    Round --> RoundConfig
-    Round --> RoundObservable
+    Round --> RoundState: contains
+    Round --> RoundConfig: contains
+    Round --> RoundObservable: contains
+    Round ..> RoundActions: uses
 ```
 
 #### Sequence Diagram: Round Initialisation
