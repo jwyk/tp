@@ -372,7 +372,7 @@ public class Round {
     /**
      * Sets the boss type for this round.
      *
-     * @warning This method is not intended for use in normal gameplay. It is only for testing
+     * {@code @warning} This method is not intended for use in normal gameplay. It is only for testing
      *     purposes.
      * @param bossType The new boss type
      */
@@ -410,7 +410,7 @@ public class Round {
     }
 
     /**
-     * @warn This method will be deprecated in future versions. Reordering of player hands should be
+     * {@code @warn} This method will be deprecated in future versions. Reordering of player hands should be
      *     done in UI and not in Round class. Updates the player hand.
      * @param playerHandCards The new holding hand to set
      * @throws IllegalArgumentException if the player hand is null
