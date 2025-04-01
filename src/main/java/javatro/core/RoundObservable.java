@@ -28,7 +28,7 @@ public class RoundObservable {
 
     /**
      * Fires property change events to notify observers of updated round variables.
-     * 
+     *
      * @param state The current state of the round
      * @param config The configuration of the round
      */

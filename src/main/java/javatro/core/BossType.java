@@ -1,8 +1,8 @@
 package javatro.core;
 
 /**
- * Represents the types of bosses available in the game.
- * Each boss type modifies gameplay rules in specific ways.
+ * Represents the types of bosses available in the game. Each boss type modifies gameplay rules in
+ * specific ways.
  */
 public enum BossType {
     NONE("", ""),
@@ -46,7 +46,7 @@ public enum BossType {
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * Returns a random boss type (excluding NONE).
      *
@@ -55,8 +55,7 @@ public enum BossType {
     public static BossType getRandomBossType() {
         // skip the first value (NONE) to ensure a valid boss type is selected
         int randomIndex = (int) (Math.random() * (values().length - 1));
-        assert randomIndex >= 0 && randomIndex < values().length - 1
-                : "Random index out of bounds";
+        assert randomIndex >= 0 && randomIndex < values().length - 1 : "Random index out of bounds";
         return values()[randomIndex + 1];
     }
 }

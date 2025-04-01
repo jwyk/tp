@@ -8,7 +8,7 @@ import java.util.Set;
 
 /** Implements the game actions available in a round without direct Round dependencies. */
 public class RoundActions {
-    
+
     /**
      * Plays a set of cards as a poker hand.
      *
@@ -19,20 +19,20 @@ public class RoundActions {
      * @throws JavatroException If the play is invalid
      */
     public static ActionResult playCards(
-            RoundState state,
-            RoundConfig config,
-            List<Integer> cardIndices) throws JavatroException {
-        
+            RoundState state, RoundConfig config, List<Integer> cardIndices)
+            throws JavatroException {
+
         // Explicitly validate required components are available
         if (state == null || config == null || cardIndices == null) {
             throw new IllegalArgumentException("Required parameters cannot be null");
         }
-        
+
         // Validate parameters
-        validatePlayCards(cardIndices, 
-                         config.getMinHandSize(), 
-                         config.getMaxHandSize(), 
-                         state.getRemainingPlays());
+        validatePlayCards(
+                cardIndices,
+                config.getMinHandSize(),
+                config.getMaxHandSize(),
+                state.getRemainingPlays());
 
         // Execute play (without modifying state)
         List<Card> playedCards = state.getPlayerHand().play(cardIndices);
@@ -57,11 +57,9 @@ public class RoundActions {
      * @throws JavatroException If the play is invalid
      */
     private static void validatePlayCards(
-            List<Integer> cardIndices, 
-            int minHandSize,
-            int maxHandSize,
-            int remainingPlays) throws JavatroException {
-            
+            List<Integer> cardIndices, int minHandSize, int maxHandSize, int remainingPlays)
+            throws JavatroException {
+
         boolean isAcceptableHandSize =
                 cardIndices.size() <= maxHandSize && cardIndices.size() >= minHandSize;
 
@@ -74,7 +72,8 @@ public class RoundActions {
         }
 
         assert !cardIndices.isEmpty() : "Card indices cannot be empty";
-        assert cardIndices.size() <= maxHandSize : "Cannot play more than " + maxHandSize + " cards";
+        assert cardIndices.size() <= maxHandSize
+                : "Cannot play more than " + maxHandSize + " cards";
         assert remainingPlays > 0 : "No plays remaining to execute this action";
     }
 
@@ -88,10 +87,9 @@ public class RoundActions {
      * @throws JavatroException If the discard is invalid
      */
     public static ActionResult discardCards(
-            RoundState state,
-            RoundConfig config,
-            List<Integer> cardIndices) throws JavatroException {
-            
+            RoundState state, RoundConfig config, List<Integer> cardIndices)
+            throws JavatroException {
+
         assert cardIndices != null : "Card indices cannot be null";
 
         validateDiscardCards(cardIndices, state.getRemainingDiscards());
@@ -114,10 +112,9 @@ public class RoundActions {
      * @param remainingDiscards The number of discards remaining
      * @throws JavatroException If the discard is invalid
      */
-    private static void validateDiscardCards(
-            List<Integer> cardIndices, 
-            int remainingDiscards) throws JavatroException {
-            
+    private static void validateDiscardCards(List<Integer> cardIndices, int remainingDiscards)
+            throws JavatroException {
+
         int numberOfDiscards = cardIndices.size();
 
         if (remainingDiscards <= 0) {
@@ -135,23 +132,21 @@ public class RoundActions {
         assert !cardIndices.isEmpty() : "Cannot discard zero cards";
         assert remainingDiscards > 0 : "No discards remaining to execute this action";
     }
-    
-    /**
-     * Holds the result of a card action (play or discard).
-     */
+
+    /** Holds the result of a card action (play or discard). */
     public static class ActionResult {
         private final List<Card> cards;
         private final long pointsEarned;
-        
+
         public ActionResult(List<Card> cards, long pointsEarned) {
             this.cards = cards;
             this.pointsEarned = pointsEarned;
         }
-        
+
         public List<Card> getCards() {
             return cards;
         }
-        
+
         public long getPointsEarned() {
             return pointsEarned;
         }
@@ -166,7 +161,7 @@ public class RoundActions {
         public static ActionResult forPlay(List<Card> cards, long pointsEarned) {
             return new ActionResult(cards, pointsEarned);
         }
-        
+
         /**
          * Creates a result for a discard action.
          *

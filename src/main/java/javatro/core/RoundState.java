@@ -1,13 +1,14 @@
 package javatro.core;
 
-import javatro.core.jokers.HeldJokers;
-
 import static javatro.core.Round.INITIAL_HAND_SIZE;
+
+import javatro.core.jokers.HeldJokers;
 
 import java.util.List;
 
 /**
- * Encapsulates the state of a round in the game, including score, play limits, and player resources.
+ * Encapsulates the state of a round in the game, including score, play limits, and player
+ * resources.
  *
  * @see Round The main game round class that uses this state
  */
@@ -36,8 +37,13 @@ public class RoundState {
      * @param playerJokers The player's jokers for this round
      * @param deck The deck of cards to be used for this round
      */
-    public RoundState(long currentScore, int remainingDiscards, int remainingPlays, 
-                      HeldJokers playerJokers, Deck deck) throws JavatroException {
+    public RoundState(
+            long currentScore,
+            int remainingDiscards,
+            int remainingPlays,
+            HeldJokers playerJokers,
+            Deck deck)
+            throws JavatroException {
         this.currentScore = currentScore;
         this.remainingDiscards = remainingDiscards;
         this.remainingPlays = remainingPlays;
@@ -137,7 +143,7 @@ public class RoundState {
     public HeldJokers getPlayerJokers() {
         return playerJokers;
     }
-    
+
     /**
      * Gets the deck used in this round.
      *
@@ -146,7 +152,7 @@ public class RoundState {
     public Deck getDeck() {
         return deck;
     }
-    
+
     /**
      * Gets the player's current hand of cards.
      *
@@ -155,7 +161,7 @@ public class RoundState {
     public HoldingHand getPlayerHand() {
         return playerHand;
     }
-    
+
     /**
      * Gets the player's current hand of cards as a list.
      *
@@ -164,7 +170,7 @@ public class RoundState {
     public List<Card> getPlayerHandCards() {
         return playerHand.getHand();
     }
-    
+
     /**
      * Sets the player hand cards.
      *
@@ -177,7 +183,7 @@ public class RoundState {
         }
         this.playerHand.setHand(playerHandCards);
     }
-    
+
     /**
      * Gets the cards that were last played or discarded.
      *
@@ -186,7 +192,7 @@ public class RoundState {
     public List<Card> getChosenCards() {
         return chosenCards;
     }
-    
+
     /**
      * Sets the chosen cards.
      *
@@ -195,7 +201,7 @@ public class RoundState {
     public void setChosenCards(List<Card> chosenCards) {
         this.chosenCards = chosenCards;
     }
-    
+
     /**
      * Draws the initial cards for the player's hand.
      *

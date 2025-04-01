@@ -125,7 +125,7 @@ public class RoundConfig {
      */
     public void setBossType(BossType bossType) {
         this.bossType = bossType;
-        
+
         // Update round name and description to match boss type if it's not NONE
         if (bossType != BossType.NONE) {
             this.roundName = bossType.getName();
