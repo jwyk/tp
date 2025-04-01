@@ -486,10 +486,62 @@ Progresses to the next blind level or increases ante level when Boss Blind is re
    To balance simplicity and dynamic progression, the enum-based structured Blind System. It cycles through Small Blind → Large Blind → Boss Blind, ensuring controlled progression while increasing the ante at the end of each cycle. This approach keeps gameplay engaging without overcomplicating the logic. Moreover the array-based ante progression simplifies lookup and ensures consistent bet increases. This structure prevents unfair jumps in bet sizes, ensuring a fairer experience for the players.
 
 ## **Class Diagram:** 
+class Ante {
+- static final int MAX_ANTE_COUNT = 8
+- static int anteCount
+- Blind blind
+- final int[] anteScore = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000}
+
+    + Ante()
+    + int getRoundScore()
+    + int getAnteScore()
+    + void setAnteCount(int anteCount)
+    + void resetAnte()
+    + void nextRound()
+    + void setBlind(Blind blind)
+    + Blind getBlind()
+    + int getAnteCount()
+}
+
+enum Blind {
+SMALL_BLIND
+LARGE_BLIND
+BOSS_BLIND
+}
+
+Ante --> Blind : uses
 
 ![img.png](img.png)
 ![img_1.png](img_1.png)
 ![img_2.png](img_2.png)
+
+## **Sequence Diagram:**
+actor Player
+participant "Ante" as Ante
+
+Player -> Ante: new Ante()
+Ante -> Ante: Initialize anteCount = 1
+Ante -> Ante: Set blind = SMALL_BLIND
+
+Player -> Ante: getRoundScore()
+Ante -> Ante: Calculate round score
+Ante --> Player: Return score
+
+Player -> Ante: nextRound()
+Ante -> Ante: Check current blind
+Ante -> Ante: Update blind or increase anteCount
+
+Player -> Ante: getBlind()
+Ante --> Player: Return current blind level
+
+Player -> Ante: setAnteCount(5)
+Ante -> Ante: Validate ante count
+Ante --> Player: Success
+
+Player -> Ante: resetAnte()
+Ante -> Ante: Reset anteCount to 1
+Ante -> Ante: Set blind to SMALL_BLIND
+
 
 ---
 
