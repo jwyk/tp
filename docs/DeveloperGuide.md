@@ -40,42 +40,102 @@ This Developer Guide describes the design, architecture, and implementation of t
 
 The application follows a **Model-View-Controller (MVC)** architecture pattern. The core logic, display components, and manager are modularized to promote separation of concerns.
 
-### Architecture
-
 ```mermaid
 graph TD;
     Javatro --> JavatroCore;
     Javatro --> UI;
     Javatro --> JavatroManager;
-    JavatroCore --> Deck;
-    JavatroCore --> Ante;
+    
+    JavatroCore --> CommandMap;
+    CommandMap --> Options;
+    Options --> SortBySuitOption;
+    Options --> SortByRankOption;
+    Options --> PokerHandOption;
+    Options --> CardSelectOption;
+    Options --> ResumeGameOption;
+
+    JavatroCore --> GameState;  
+    JavatroCore --> GameRules;  
+
+    UI --> Screen;
+    Screen --> GameScreen;
+    Screen --> HelpScreen;
+    Screen --> StartScreen;
+    Screen --> DiscardScreen;  
+
+    JavatroManager --> JavatroCore; 
+    JavatroManager --> UI;
+
+    JavatroCore --> Model;  
+    Model --> Deck;
+    Model --> Ante;
+    Model --> PokerHand;
+    Model --> PlanetCard;
+
     Deck --> Card;
-    Deck --> PokerHand;
-    Deck --> PlanetCard;
     Ante --> HandResult;
     HandResult --> HoldingHand;
+
 ```
 
 
 #### Application Initialization
 
 ```mermaid
-sequenceDiagram
-    participant User
-    participant Javatro
-    participant UI
-    participant JavatroCore
-    participant Deck
-    participant PokerHand
-    participant Ante
+graph TD;
+    Javatro --> JavatroCore;
+    Javatro --> UI;
+    Javatro --> JavatroManager;
+    
+    JavatroCore --> CommandMap;
+    CommandMap --> Options;
+    Options --> SortBySuitOption;
+    Options --> SortByRankOption;
+    Options --> PokerHandOption;
+    Options --> CardSelectOption;
+    Options --> ResumeGameOption;
 
-    User ->> Javatro: Launch Application
-    Javatro ->> UI: Initialize UI
-    Javatro ->> JavatroCore: Initialize Core Logic
-    JavatroCore ->> Deck: Initialize Deck
-    JavatroCore ->> PokerHand: Initialize Poker Hand
-    JavatroCore ->> Ante: Initialize Ante
-    Javatro ->> UI: Display Start Screen
+    JavatroCore --> Round;
+    Round --> RoundActions;
+    Round --> RoundConfig;
+    Round --> RoundObservable;
+    Round --> RoundState;
+
+    RoundObservable --> UI; 
+    Round --> Score;
+    
+    JavatroCore --> Model;  
+    Model --> Deck;
+    Model --> Ante;
+    Model --> PokerHand;
+    Model --> PlanetCard;
+
+    Deck --> Card;
+    Ante --> HandResult;
+    HandResult --> HoldingHand;
+    
+    JavatroCore --> Jokers;
+    Jokers --> HeldJokers;
+    Jokers --> JokerFactory;
+    Jokers --> Joker;
+    
+    JokerFactory --> AbstractJoker;
+    AbstractJoker --> OddToddJoker;
+    AbstractJoker --> ScaryFaceJoker;
+    AbstractJoker --> GluttonousJoker;
+    AbstractJoker --> GreedyJoker;
+    AbstractJoker --> HalfJoker;
+    AbstractJoker --> LustyJoker;
+    AbstractJoker --> WrathfulJoker;
+
+    UI --> Screen;
+    Screen --> GameScreen;
+    Screen --> HelpScreen;
+    Screen --> StartScreen;
+    Screen --> DiscardScreen;
+
+    JavatroManager --> JavatroCore;
+    JavatroManager --> UI;
 ```
 
 #### Gameplay Interaction
@@ -97,7 +157,7 @@ sequenceDiagram
     JavatroManager ->> UI: Update Display
 ```
 
-### UI Component
+## UI Component
 
 ```mermaid  
 sequenceDiagram  
@@ -144,34 +204,34 @@ classDiagram
 ```  
 *Simplified to highlight core relationships. The `UI` manages `Screen` instances, and `GameScreen` extends `Screen` while observing game state changes.*  
 
-## 1. Overview  
+### 1. Overview  
 The **UI module** manages screen transitions, user input, and formatted content rendering (e.g., bordered menus, card art). Designed using the **Singleton pattern**, it ensures a single point of control for display operations. This guide details the architecture, key components, and enhancements like dynamic screen rendering and transition logic.  
 
 ---
 
-## 2. Architectural Design  
+### 2. Architectural Design  
 
-### 2.1. High-Level Architecture  
+#### 2.1. High-Level Architecture  
 The UI follows a **Model-View-Controller (MVC)**-inspired design:  
 - **Model**: `JavatroCore` (game state).  
 - **View**: `Screen` subclasses (e.g., `GameScreen`, `StartScreen`).  
 - **Controller**: `UI` class (manages transitions, input parsing).  
 
-#### Key Design Patterns:  
+##### Key Design Patterns:  
 1. **Singleton Pattern**: Ensures a single `UI` instance for centralized screen management.  
 2. **Observer Pattern**: `GameScreen` listens to `JavatroCore` for state changes (e.g., score updates).  
 3. **State Pattern**: Screens encapsulate state-specific behavior (e.g., `HelpScreen` vs. `GameScreen`).  
 
-### 2.2. Rationale for Key Decisions  
+#### 2.2. Rationale for Key Decisions  
 - **ANSI/Unicode Formatting**: Enables rich terminal UIs without external libraries.  
 - **Abstract `Screen` Class**: Promotes code reuse (e.g., `displayOptions()` for command menus).  
 - **Centralized `UI` Class**: Simplifies debugging and ensures consistent transitions.  
 
 ---
 
-## 3. Component-Level Design  
+### 3. Component-Level Design  
 
-### 3.1. The `UI` Class  
+#### 3.1. The `UI` Class  
 **Responsibilities**:  
 - **Screen Management**: Stores static references to all screens and handles transitions via `setCurrentScreen()`.  
 - **Formatted Output**: Methods like `printBorderedContent()` and `centerText()` standardize layouts.  
@@ -187,7 +247,7 @@ public void setCurrentScreen(Screen screen) {
 }  
 ```  
 
-### 3.2. The `Screen` Class Hierarchy  
+#### 3.2. The `Screen` Class Hierarchy  
 - **Abstract `Screen` Class**:  
   - Defines `displayScreen()` (abstract) and `displayOptions()` (common command menu).  
   - Manages `commandMap` (list of user-selectable options).  
@@ -211,9 +271,9 @@ public void propertyChange(PropertyChangeEvent evt) {
 
 ---
 
-## 5. Key Enhancements  
+### 5. Key Enhancements  
 
-### 5.1. Enhancement: Screen Transition Mechanism  
+#### 5.1. Enhancement: Screen Transition Mechanism  
 **Implementation**:  
 - **Transition Messages**: ANSI-formatted logs (e.g., `Transitioning to: GameScreen`).  
 - **Back Navigation**: `previousScreen` allows reverting to prior states (e.g., exiting `HelpScreen`).  
@@ -237,7 +297,7 @@ sequenceDiagram
 - **Stack-Based History**: Rejected due to limited navigation depth requirements.  
 - **Immediate Input Handling**: Chose deferred parsing via `Parser` to decouple input from rendering.  
 
-### 5.2. Enhancement: Dynamic Card Rendering  
+#### 5.2. Enhancement: Dynamic Card Rendering  
 - **Card Art Generation**: `CardRenderer` converts `Card` objects to ASCII art with ANSI colour formatting.  
 - **Grid Layout**: Renders 8 cards in two rows, spaced with ANSI backgrounds.  
 
@@ -251,9 +311,9 @@ public static List<String> getCardArtLines(List<Card> hand) {
 }  
 ```
 
-### **5.3. Challenge: Emoji and Unicode Compatibility**  
+#### **5.3. Challenge: Emoji and Unicode Compatibility**  
 
-#### **Initial Attempt**  
+##### **Initial Attempt**  
 Emojis and Unicode symbols (e.g., 🃏, ♥️, ♥) were initially incorporated into the UI to enhance visual appeal. For example:  
 ```java  
 // Early prototype (discarded)  
@@ -267,7 +327,7 @@ private static String getSuitSymbol(Card.Suit suit) {
 }  
 ```  
 
-#### **Challenges**  
+##### **Challenges**  
 1. **Inconsistent Spacing**:  
    - Emojis/Unicode symbols vary in display width (e.g., `♥️` vs. `♠️`), causing misalignment in card art.  
    - Example: A heart symbol might be very slightly larger than a regular spacing, breaking grid layouts.  
@@ -279,7 +339,7 @@ private static String getSuitSymbol(Card.Suit suit) {
 3. **ANSI Overlap**:  
    - Combining ANSI color codes with Unicode symbols introduced unpredictable formatting (e.g., background colors bleeding into adjacent text).  
 
-#### **Final Approach**  
+##### **Final Approach**  
 To ensure cross-terminal compatibility and consistent spacing, **letters** (`H`, `D`, `C`, `S`) replaced symbols:  
 ```java  
 // Current implementation (CardRenderer.java)  
@@ -299,9 +359,9 @@ private static String getSuitSymbol(Card.Suit suit) {
 
 ---
 
-### **UML Diagrams**  
+#### **UML Diagrams**  
 
-#### **CardRenderer Class Diagram**  
+##### **CardRenderer Class Diagram**  
 ```mermaid  
 classDiagram  
     class CardRenderer {  
@@ -312,7 +372,7 @@ classDiagram
 ```  
 *The `CardRenderer` class maps suits to letters (`H`, `D`, `C`, `S`) and colors using ANSI codes.*  
 
-#### **Card Rendering Sequence Diagram**  
+##### **Card Rendering Sequence Diagram**  
 ```mermaid  
 sequenceDiagram  
     participant GameScreen  
@@ -327,7 +387,7 @@ sequenceDiagram
     GameScreen->>UI: Display formatted card art  
 ```
 
-### **Key Takeaways**  
+#### **Key Takeaways**  
 - **Prioritize Functionality Over Aesthetics**: Letters ensured reliability, while emojis introduced terminal-specific bugs.  
 - **Test Across Environments**: The decision to avoid Unicode was driven by rigorous testing in CMD, PowerShell, and Unix terminals.  
 - **Code Hygiene**: Unused symbols (e.g., `♠` in `UI`) should be removed in future refactoring.  
@@ -336,7 +396,7 @@ This approach balances visual clarity with technical robustness, ensuring the UI
 
 ---
 
-## 6. Future Considerations  
+### 6. Future Considerations  
 
 1. **GUI Framework Integration**: Migrate to JavaFX for animations and mouse support.  
 2. **Theming System**: Allow users to customize colors via config files.  
@@ -344,11 +404,10 @@ This approach balances visual clarity with technical robustness, ensuring the UI
 
 ---
 
-## 7. Conclusion  
+### 7. Conclusion  
 The UI module’s design prioritizes modularity, extensibility, and terminal compatibility. By combining design patterns like Singleton and Observer with ANSI formatting, it delivers a responsive and visually consistent experience. Future developers can extend it by adding new `Screen` subclasses or integrating modern GUI frameworks.
 
-
-
+---
 
 ### Logic Component
 
@@ -379,6 +438,7 @@ All classes within the core package make up the Logic Component. This does not i
 
 This component interacts with the UI and Manager components to process user inputs and update the view accordingly.
 
+---
 
 ### Storage Component
 
@@ -401,7 +461,7 @@ The Storage component is responsible for saving and loading game states. Althoug
 - Persistent storage management using file handling or databases.
 - Serialization and deserialization of game objects.
 - Handling user preferences and game settings.
-
+---
 
 ## Implementation
 
@@ -456,6 +516,8 @@ The Javatro application consists of several packages:
 
    - `evaluateHand()`: Evaluates a set of cards according to poker rules.
 
+---
+
 ## Documentation, logging, testing, configuration, dev-ops
 
 ### Documentation
@@ -474,7 +536,7 @@ Output will be available under `build/docs/javadoc/`.
 
 - Rest To Be Add
 
-
+---
 
 ## Appendix: Requirements
 
@@ -646,7 +708,7 @@ Javatro provides a streamlined, text-based roguelike deck-building experience in
 - **Poker Hand**: A set of cards evaluated according to poker rules.
 - **Deck**: A collection of cards used in the game.
 
-
+---
 
 ### Dependencies
 
