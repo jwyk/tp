@@ -1,4 +1,4 @@
-package javatro.core;
+package javatro.core.round;
 
 import static javatro.core.Deck.DeckType.DEFAULT;
 
@@ -6,6 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import javatro.core.Ante;
+import javatro.core.BossType;
+import javatro.core.Deck;
+import javatro.core.JavatroException;
 import javatro.core.jokers.HeldJokers;
 import javatro.display.UI;
 
@@ -331,8 +335,8 @@ public class RoundTest {
 
         // Check that default values are maintained
         assertEquals(3, round.getRemainingDiscards());
-        assertEquals(Round.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
-        assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+        assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
+        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
     }
 
     @Test
@@ -347,7 +351,7 @@ public class RoundTest {
 
         // Check that max hand size is set to 1
         assertEquals(1, round.getRemainingPlays());
-        assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
     }
 
     @Test
@@ -400,8 +404,8 @@ public class RoundTest {
             round.setBossType(bossType);
 
             // Check that default values are maintained for other bosses
-            assertEquals(Round.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
-            assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+            assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
+            assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
         }
     }
 
@@ -433,12 +437,12 @@ public class RoundTest {
             case THE_NEEDLE:
                 assertEquals(BossType.THE_NEEDLE, round.getBossType());
                 assertEquals(1, round.getRemainingPlays());
-                assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+                assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
                 break;
             case THE_WATER:
                 assertEquals(BossType.THE_WATER, round.getBossType());
                 assertEquals(0, round.getRemainingDiscards());
-                assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+                assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
                 break;
             case THE_PSYCHIC:
                 assertEquals(BossType.THE_PSYCHIC, round.getBossType());
@@ -446,8 +450,8 @@ public class RoundTest {
                 assertEquals(5, round.getConfig().getMinHandSize());
                 break;
             default:
-                assertEquals(Round.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
-                assertEquals(Round.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+                assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
+                assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
                 break;
         }
     }

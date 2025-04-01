@@ -1,13 +1,17 @@
-package javatro.core;
-
-import static javatro.core.Round.DEFAULT_MAX_HAND_SIZE;
+package javatro.core.round;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javatro.core.Card;
+import javatro.core.HandResult;
+import javatro.core.JavatroException;
+import javatro.core.PokerHand;
+import javatro.core.Score;
+
 /** Implements the game actions available in a round without direct Round dependencies. */
-public class RoundActions {
+class RoundActions {
 
     /**
      * Plays a set of cards as a poker hand.
@@ -121,7 +125,7 @@ public class RoundActions {
             throw JavatroException.noRemainingDiscards();
         }
 
-        if (numberOfDiscards > DEFAULT_MAX_HAND_SIZE) {
+        if (numberOfDiscards > RoundConfig.DEFAULT_MAX_HAND_SIZE) {
             throw JavatroException.tooManyDiscards();
         }
 

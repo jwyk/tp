@@ -1,7 +1,18 @@
-package javatro.core;
+package javatro.core.round;
+
+import javatro.core.BossType;
 
 /** Stores configuration details for a game round. */
-public class RoundConfig {
+class RoundConfig {
+    /** The initial number of cards dealt to the player. */
+    public static final int INITIAL_HAND_SIZE = 8;
+    /** The maximum number of discards allowed per round. */
+    public static final int MAX_DISCARDS_PER_ROUND = 3;
+    /** The maximum number of cards in a hand. */
+    public static final int DEFAULT_MAX_HAND_SIZE = 5;
+    /** The minimum number of cards in a hand. */
+    public static final int DEFAULT_MIN_HAND_SIZE = 1;
+    
     /** The minimum score required to win the round. */
     private final int blindScore;
     /** The name of the current round. */
@@ -9,9 +20,9 @@ public class RoundConfig {
     /** The description of the current round. */
     private String roundDescription;
     /** The maximum number of cards that can be played in this round. */
-    private int maxHandSize = Round.DEFAULT_MAX_HAND_SIZE;
+    private int maxHandSize = DEFAULT_MAX_HAND_SIZE;
     /** The minimum number of cards that can be played in this round. */
-    private int minHandSize = Round.DEFAULT_MIN_HAND_SIZE;
+    private int minHandSize = DEFAULT_MIN_HAND_SIZE;
     /** The type of boss for this round. */
     private BossType bossType = BossType.NONE;
 

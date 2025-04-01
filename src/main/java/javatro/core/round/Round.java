@@ -1,22 +1,23 @@
-package javatro.core;
+package javatro.core.round;
 
+import javatro.core.Ante;
+import javatro.core.BossType;
+import javatro.core.Card;
+import javatro.core.Deck;
 import javatro.core.Deck.DeckType;
-import javatro.core.RoundActions.ActionResult;
+import javatro.core.HandResult;
+import javatro.core.HoldingHand;
+import javatro.core.JavatroException;
+import javatro.core.PokerHand;
 import javatro.core.jokers.HeldJokers;
+import javatro.core.round.RoundActions.ActionResult;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /** Represents a round in the Javatro game. */
 public class Round {
-    /** The initial number of cards dealt to the player. */
-    public static final int INITIAL_HAND_SIZE = 8;
-    /** The maximum number of discards allowed per round. */
-    public static final int MAX_DISCARDS_PER_ROUND = 3;
-    /** The maximum number of cards in a hand. */
-    public static final int DEFAULT_MAX_HAND_SIZE = 5;
-    /** The minimum number of cards in a hand. */
-    public static final int DEFAULT_MIN_HAND_SIZE = 1;
+    
 
     /** The state of the current round. */
     private final RoundState state;
@@ -51,7 +52,7 @@ public class Round {
         this.config = new RoundConfig(roundName, roundDescription, ante.getRoundScore());
 
         // Create state with initial values
-        this.state = new RoundState(0, MAX_DISCARDS_PER_ROUND, remainingPlays, heldJokers, deck);
+        this.state = new RoundState(0, RoundConfig.MAX_DISCARDS_PER_ROUND, remainingPlays, heldJokers, deck);
 
         // Apply special deck modifications
         applyDeckVariants(deck);
@@ -118,9 +119,9 @@ public class Round {
     /** Applies special rules based on the selected boss type. */
     private void applyBossVariants() {
         // Not needed to reset in production, but useful for testing
-        this.config.setMaxHandSize(DEFAULT_MAX_HAND_SIZE);
-        this.config.setMinHandSize(DEFAULT_MIN_HAND_SIZE);
-        this.state.setRemainingDiscards(MAX_DISCARDS_PER_ROUND);
+        this.config.setMaxHandSize(RoundConfig.DEFAULT_MAX_HAND_SIZE);
+        this.config.setMinHandSize(RoundConfig.DEFAULT_MIN_HAND_SIZE);
+        this.state.setRemainingDiscards(RoundConfig.MAX_DISCARDS_PER_ROUND);
 
         BossType bossType = this.config.getBossType();
         switch (bossType) {
@@ -143,8 +144,8 @@ public class Round {
     /** Validates the post-construction state of the round. */
     private void validatePostConstruction() {
         assert this.state.getCurrentScore() == 0 : "Initial score must be zero";
-        assert this.state.getPlayerHand().getHand().size() == INITIAL_HAND_SIZE
-                : "Player should have exactly " + INITIAL_HAND_SIZE + " cards initially";
+        assert this.state.getPlayerHand().getHand().size() == RoundConfig.INITIAL_HAND_SIZE
+                : "Player should have exactly " + RoundConfig.INITIAL_HAND_SIZE + " cards initially";
     }
 
     /**

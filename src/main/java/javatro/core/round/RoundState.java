@@ -1,7 +1,10 @@
-package javatro.core;
+package javatro.core.round;
 
-import static javatro.core.Round.INITIAL_HAND_SIZE;
 
+import javatro.core.Card;
+import javatro.core.Deck;
+import javatro.core.HoldingHand;
+import javatro.core.JavatroException;
 import javatro.core.jokers.HeldJokers;
 
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.List;
  *
  * @see Round The main game round class that uses this state
  */
-public class RoundState {
+class RoundState {
     /** The player's current score in the round. */
     private long currentScore;
     /** The number of remaining discards allowed. */
@@ -51,7 +54,7 @@ public class RoundState {
         this.deck = deck;
         this.playerHand = new HoldingHand();
 
-        drawInitialCards(INITIAL_HAND_SIZE);
+        drawInitialCards(RoundConfig.INITIAL_HAND_SIZE);
     }
 
     /**

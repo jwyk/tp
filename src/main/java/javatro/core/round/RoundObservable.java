@@ -1,10 +1,10 @@
-package javatro.core;
+package javatro.core.round;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /** Handles observer notifications for round state changes without direct Round dependencies. */
-public class RoundObservable {
+class RoundObservable {
     /** The property change support for the observer pattern. */
     private final PropertyChangeSupport support;
 
