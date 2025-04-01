@@ -296,50 +296,7 @@ sequenceDiagram
     UI->>StartScreen: Save as previousScreen  
     UI->>GameScreen: displayScreen()  
     GameScreen-->>UI: Rendered content  
-```  
-#### Score Calculation Overview
-The Score class calculates the final score by:
-
-1. Applying base values from the PokerHand.
-2. Adding contributions from valid cards.
-3. Applying effects from active jokers.
-4. Rounding the final score.
-
-```mermaid
-sequenceDiagram
-    participant Round
-    participant Score
-    participant PokerHand
-    participant HeldJokers
-    participant Card
-
-    Round->>+Score: getScore(PokerHand, List<Card>, HeldJokers)
-    Score->>+PokerHand: getChips(), getMultiplier()
-    PokerHand-->>Score: return chips, return multiplier
-    loop until all cards are checked
-        Score->>Score: Check BossType conditions
-        Score->>Card: isValidCard()
-        Card-->>Score: isValidCard()
-        PokerHand-->>-Score: valid card
-        alt Card is valid
-            Score->>Score: scoreCard(Card card)
-        end
-        alt Joker is valid
-            Score->>HeldJokers: interact(Card card)
-            HeldJokers-->>Score: interact
-        end
-    end
-%%    loop until all jokers are checked
-%%        Score->>HeldJokers: Apply Joker effects
-%%    end
-    Score->>Score: calculateFinalScore()
-    Score-->>-Round: return final score
-    
-
 ```
-
-
-
 
 
 **Alternatives Considered**:  
