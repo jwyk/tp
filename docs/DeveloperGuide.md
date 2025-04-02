@@ -426,10 +426,10 @@ The Ante class manages the ante value and blind progression. There are a total o
 
 #### **2.2 Attributes**
 
-_private static final int MAX_ANTE_COUNT_ = 8; – Defines the maximum ante level progression.
-_private static int anteCount;_ – Stores the current ante level.
-_private Blind blind;_ – Represents the current blind stage.
-_private final int[] anteScore;_ – An array storing predefined ante values for each level.
+_int MAX_ANTE_COUNT_ = 8; – Defines the maximum ante level progression.
+_int anteCount;_ – Stores the current ante level.
+_Blind blind;_ – Represents the current blind stage.
+_int[] anteScore;_ – An array storing predefined ante values for each level.
 
 #### **2.3 Enum: Blind Levels**
 
