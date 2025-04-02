@@ -11,6 +11,7 @@
    - [Model Component](#model-component)
    - [Storage Component](#storage-component)
    - [Round Component](#round-component)
+   - [Score Component](#score-component)
 4. [Implementation](#implementation)
 5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 6. [Documentation](#documentation)
@@ -176,6 +177,8 @@ sequenceDiagram
 ```  
 *Illustrates how `GameScreen` updates its display when the game state changes.*  
 
+
+
 ---
 
 ```mermaid  
@@ -205,6 +208,8 @@ classDiagram
     GameScreen ..|> PropertyChangeListener : implements  
 ```  
 *Simplified to highlight core relationships. The `UI` manages `Screen` instances, and `GameScreen` extends `Screen` while observing game state changes.*  
+
+
 
 ### 1. Overview  
 The **UI module** manages screen transitions, user input, and formatted content rendering (e.g., bordered menus, card art). Designed using the **Singleton pattern**, it ensures a single point of control for display operations. This guide details the architecture, key components, and enhancements like dynamic screen rendering and transition logic.  
@@ -790,6 +795,244 @@ sequenceDiagram
 ```
 
 Note: Due to limitations of mermaid rendering, the activation bars for constructors may not appear exactly aligned with their corresponding object lifelines. The note in the diagram clarifies when the constructor is activated.
+
+### Score Component
+The **Score Component** is part of Javatro's scoring system, responsible for calculating the final score based on the played hand, cards, and active jokers. It encapsulates the logic for handling score calculations.
+
+
+#### Responsibilities
+- Handle calculation of scoring played hands, factoring in round-specific configurations and validation.
+
+#### Class Diagram: Score and involved classes
+``` mermaid
+classDiagram
+    class Score {
+        +double totalChips
+        +double totalMultiplier
+        +static List<Card> playedCardsList
+        +ArrayList<Joker> jokerList
+        -Round.BossType bossType
+        +Score()
+        +Score(Round.BossType bossType)
+        +long getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
+        -static long calculateFinalScore(double totalChips, double totalMultiplier)
+        -boolean isValidCard(Card card)
+        -void scoreCard(Card card)
+    }
+    
+    class PokerHand {
+        +int getChips()
+        +int getMult()
+    }
+    
+    class Card {
+        +getChips()
+    }
+    
+    class Rank {
+    <<enumeration>>
+        TWO
+        THREE
+        FOUR
+        FIVE
+        SIX
+        SEVEN
+        EIGHT
+        NINE
+        TEN
+        JACK
+        QUEEN
+        KING
+        ACE
+    }
+
+    class Suit {
+    <<enumeration>>
+        HEARTS
+        CLUBS
+        SPADES
+        DIAMONDS
+        +getName()
+    }
+
+    class HeldJokers {
+        -int HOLDING_LIMIT
+        +List~Joker~ getJokers()
+    }
+    
+    class Joker {
+        <<abstract>>
+        #String name;
+        #String description;
+        #String path;
+        +String getName()
+        +interact()*
+    }
+
+    class ScoreType {
+        <<enumeration>>
+        AFTERHANDPLAY
+        ONCARDPLAY
+    }
+    
+    class HandType {
+        <<enumeration>>
+        FLUSH_FIVE
+        FLUSH_HOUSE
+        FIVE_OF_A_KIND
+        ROYAL_FLUSH
+        STRAIGHT_FLUSH
+        FOUR_OF_A_KIND
+        FULL_HOUSE
+        FLUSH
+        STRAIGHT
+        THREE_OF_A_KIND
+        TWO_PAIR
+        PAIR
+        HIGH_CARD
+    }
+    
+    class BossType {
+        <<enumeration>>
+        NONE
+        THE_NEEDLE
+        THE_WATER
+        THE_CLUB
+        THE_WINDOW
+        THE_HEAD
+        THE_GOAD
+        THE_PLANT
+        THE_PSYCHIC
+    }
+
+    Score --> PokerHand
+    Score --> Card
+    Score -->"1" HeldJokers
+    Score -->"1" Round
+    Round -->"1" BossType
+    PokerHand -->"1" HandType
+    Card -->"1" Rank
+    Card -->"1" Suit
+    HeldJokers -->"0..5" Joker
+    Joker -->"1" ScoreType
+```
+
+#### Score Calculation Overview
+Below is how the Score Class returns the calculated score:
+
+1. `Round` initializes `Score`, and `Score` invokes the `getChips()` method from `PokerHand`.
+```mermaid
+sequenceDiagram
+   activate Round
+   Round->>+Score: getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
+   Score->>+PokerHand: getChips(), getMultiplier()
+   PokerHand-->>-Score: return chips, return multiplier
+   deactivate Round
+
+```
+2. With each `Card` passed from `Score`, `Score` checks whether the card played satisfies BossType conditions, 
+and applies effects if the condition is satisfied. 
+Else, the `Card` is scored, and each `Joker` in `heldJokers` is checked if the `Card` can interact with the `Joker`
+
+```mermaid
+sequenceDiagram
+    box Add contribution from valid cards  
+        participant Score
+        participant PokerHand
+        participant Joker
+    end
+    activate Score
+    loop Card card: playedCardList
+        activate Score
+        Score->>Score: Apply BossType conditions
+        deactivate Score
+        alt Card is valid
+            activate Score
+            Score->>Score: scoreCard(Card card)
+            deactivate Score
+            loop [Joker joker: heldJokers]
+                alt Joker == ONCARDPLAY
+                    Score->>+Joker: interact(Score score, Card card)
+                    Joker-->>-Score: interact
+                end
+            end
+        end
+        deactivate Score
+    end
+```
+
+3. After each `Card` is scored, any `Joker` with the `AFTERHANDPLAY` enum is interacted with.
+```mermaid
+sequenceDiagram
+    activate Score
+    loop [Joker joker: heldJokers]
+        alt joker.ScoreType == AFTERHANDPLAY
+            Score->>+Joker: interact(Score score, Card card)
+            Joker-->>-Score: interact
+        end
+    end
+    deactivate Score
+```
+
+
+4. `Score` rounds the final score using `calculateFinalScore()` and returns the final `long` value to `Round`.
+```mermaid
+sequenceDiagram
+    activate Round
+    activate Score
+    activate Score
+    Score->>Score: calculateFinalScore()
+    deactivate Score
+    Score-->>Round: return final score
+    deactivate Score
+    deactivate Round
+
+```
+
+#### Overall Sequence Diagram for Score Calculation
+
+```mermaid
+sequenceDiagram
+box transparent Overall Scoring Algorithm
+    participant Round
+    participant Score
+    participant PokerHand
+    participant Joker
+end
+
+
+    Round->>+Score: getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
+    Score->>+PokerHand: getChips(), getMultiplier()
+    PokerHand-->>-Score: return chips, return multiplier
+    loop Card card: playedCardList
+        activate Score
+        Score->>Score: Check BossType conditions
+        deactivate Score
+        alt Card is valid
+            activate Score
+            Score->>Score: scoreCard(Card card)
+            deactivate Score
+            loop [Joker joker: heldJokers]
+                alt joker.ScoreType == ONCARDPLAY
+                    Score->>+Joker: interact(Score score, Card card)
+                    Joker-->>-Score: interact
+                end
+            end
+        end
+    end
+    loop [Joker joker: heldJokers]
+        alt joker.ScoreType == AFTERHANDPLAY
+            Score->>+Joker: interact(Score score, Card card)
+            Joker-->>-Score: interact
+        end
+    end
+    Score->>Score: calculateFinalScore()
+    Score-->>-Round: return final score
+
+```
+
+
+
 
 ## Implementation
 
