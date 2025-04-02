@@ -9,6 +9,7 @@
    - [UI Component](#ui-component)
    - [Logic Component](#logic-component)
    - [Storage Component](#storage-component)
+   - [Round Component](#round-component)
    - [Score Component](#score-component)
 4. [Implementation](#implementation)
 5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
@@ -158,7 +159,7 @@ sequenceDiagram
     JavatroManager ->> UI: Update Display
 ```
 
-### UI Component
+## UI Component
 
 ```mermaid  
 sequenceDiagram  
@@ -296,8 +297,7 @@ sequenceDiagram
     UI->>StartScreen: Save as previousScreen  
     UI->>GameScreen: displayScreen()  
     GameScreen-->>UI: Rendered content  
-```
-
+```  
 
 **Alternatives Considered**:  
 - **Stack-Based History**: Rejected due to limited navigation depth requirements.  
@@ -468,18 +468,134 @@ The Storage component is responsible for saving and loading game states. Althoug
 - Serialization and deserialization of game objects.
 - Handling user preferences and game settings.
 ---
+### Round Component
+
+The **Round Component** is responsible for managing the state and flow of a single round in the game. It encapsulates the logic for handling round-specific actions, configurations, and any special effects.
+
+#### Responsibilities
+- Manage the state of the current round, including the cards dealt, scores, and player actions.
+- Handle round-specific configurations and validation.
+- Notify other components (e.g., UI, Logic) of state changes during the round.
+
+#### Key Classes
+- **Round**: The main class that orchestrates the round's lifecycle.
+- **RoundState**: Tracks the current state of the round (e.g., active, completed).
+- **RoundActions**: Encapsulates actions that can be performed during the round (e.g., draw, discard).
+- **RoundConfig**: Stores configuration settings for the round (e.g., max cards, scoring rules).
+- **RoundObservable**: Implements the observer pattern to notify listeners (e.g., UI) of state changes.
+
+``` mermaid
+classDiagram
+    class Round {
+        -state: RoundState
+        -config: RoundConfig
+        -observable: RoundObservable
+        +addPropertyChangeListener(pcl: PropertyChangeListener)
+        +updateRoundVariables()
+        +playCards(cardIndices: Integer)
+        +discardCards(cardIndices: Integer)
+        +getCurrentScore(): long
+        +getRemainingDiscards(): int
+        +getRemainingPlays(): int
+        +getPlayerHand(): HoldingHand
+        +getPlayerHandCards(): Card
+        +getPlayerJokers(): HeldJokers
+        +isLost(): boolean
+        +isWon(): boolean
+        +isRoundOver(): boolean
+        -applyDeckVariants(deck: Deck)
+        -applyAnteInvariants(ante: Ante)
+        -applyBossVariants()
+    }
+
+    class RoundState {
+        -currentScore: long
+        -remainingDiscards: int
+        -remainingPlays: int
+        -playerJokers: HeldJokers
+        -deck: Deck
+        -playerHand: HoldingHand
+        -chosenCards: Card
+        +getPlayerJokers(): HeldJokers
+        +getDeck(): Deck
+        +drawInitialCards(count: int)
+    }
+
+    class RoundConfig {
+        +INITIAL_HAND_SIZE: int
+        +MAX_DISCARDS_PER_ROUND: int
+        +DEFAULT_MAX_HAND_SIZE: int
+        +DEFAULT_MIN_HAND_SIZE: int
+        -blindScore: int
+        -roundName: String
+        -roundDescription: String
+    }
+
+    class RoundActions {
+        +playCards(state: RoundState, config: RoundConfig, cardIndices: Integer): ActionResult
+        +discardCards(state: RoundState, config: RoundConfig, cardIndices: Integer): ActionResult
+        -validatePlayCards(cardIndices: Integer, minHandSize: int, maxHandSize: int, remainingPlays: int)
+        -validateDiscardCards(cardIndices: Integer, remainingDiscards: int)
+    }
+
+    class RoundObservable {
+        +addObserver(observer: Observer)
+        +removeObserver(observer: Observer)
+        +notifyObservers(event: String)
+    }
+
+    Round --> RoundState: contains
+    Round --> RoundConfig: contains
+    Round --> RoundObservable: contains
+    Round ..> RoundActions: uses
+```
+
+#### Sequence Diagram: Round Initialisation
+
+The following sequence diagram illustrates the initialization process of a round, including configuration setup and state management:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Round
+    participant RoundConfig
+    participant RoundState
+    participant RoundObservable
+
+    User ->>+ Round: new Round(...)
+    Note right of Round: Constructor activated
+    Round ->>+ RoundConfig: new RoundConfig(...)
+    Note right of RoundConfig: Constructor activated
+    RoundConfig -->>- Round: this.config : RoundConfig
+    Round ->>+ RoundState: new RoundState(...)
+    Note right of RoundState: Constructor activated
+    RoundState -->>- Round: this.state : RoundState
+    Round ->>+ Round: applyDeckInvariants()
+    alt RED
+        Round ->>+ RoundState: increaseRemainingDiscards(: int)
+        RoundState -->>- Round: 
+    else BLUE
+        Round ->>+ RoundState: setRemainingPlays(: int)
+        RoundState -->>- Round: 
+    end
+    Round -->>- Round: 
+    Round ->> Round: Other configuration...
+    Round ->>+ RoundObservable: new RoundObservable
+    Note right of RoundObservable: Constructor activated
+    RoundObservable -->>- Round: this.observable : RoundObservable
+    Round -->>- User: Round instance
+```
+
+Note: Due to limitations of mermaid rendering, the activation bars for constructors may not appear exactly aligned with their corresponding object lifelines. The note in the diagram clarifies when the constructor is activated.
 
 ### Score Component
-The `Score` component is part of Javatro's scoring system, responsible for calculating the final score based on the played hand, cards, and active jokers. It interacts with several components:
+The **Score Component** is part of Javatro's scoring system, responsible for calculating the final score based on the played hand, cards, and active jokers. It encapsulates the logic for handling score calculations.
 
-- `PokerHand`: Represents the type of hand played (e.g., pair, flush).
 
-- `Card`: Represents individual cards in the game.
+#### Responsibilities
+- Handle calculation of scoring played hands, factoring in round-specific configurations and validation.
 
-- `HeldJokers`: Represents the Jokers held, which have special modifiers that can affect the score.
-
-- `BossType`: Represents special game conditions that may restrict scoring.
-
+#### Class Diagram: Score and involved classes
 ``` mermaid
 classDiagram
     class Score {
@@ -592,7 +708,7 @@ classDiagram
     HeldJokers -->"0..5" Joker
     Joker -->"1" ScoreType
 ```
-### Scoring System
+
 #### Score Calculation Overview
 Below is how the Score Class returns the calculated score:
 
