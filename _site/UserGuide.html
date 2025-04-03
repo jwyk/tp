@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Javatro User Guide | tp</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Javatro User Guide" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/UserGuide.html" />
+<meta property="og:url" content="http://localhost:4000/UserGuide.html" />
+<meta property="og:site_name" content="tp" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Javatro User Guide" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Javatro User Guide","url":"http://localhost:4000/UserGuide.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=f075c7c60f6e42f927cb5147a8b58f3dd1c3c32e">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://localhost:4000/">tp</a></h1>
+      
+
+      <h1 id="javatro-user-guide">Javatro User Guide</h1>
+
+<p><strong>Javatro</strong> is a command line card game based on <strong>Balatro</strong>, designed to be played via a Command Line Interface (CLI). It offers various deck options, scoring mechanisms, and strategic gameplay. This guide will walk you through the features, usage, and functionalities of the application.</p>
+
+<ul>
+  <li><a href="#what-is-javatro">What is Javatro?</a></li>
+  <li><a href="#quick-start">Quick start</a></li>
+  <li><a href="#features">Features/Screens</a>
+    <ul>
+      <li><a href="#start-screen">Start Screen</a></li>
+      <li><a href="#deck-selection-screen">Deck Selection Screen</a></li>
+      <li><a href="#blind-selection-screen">Blind Selection Screen</a></li>
+      <li><a href="#game-screen">Game Screen</a></li>
+      <li><a href="#discarding-cards">Discarding Cards</a></li>
+      <li><a href="#playing-cards">Playing Cards</a></li>
+      <li><a href="#deck-view-screen">Deck View Screen</a></li>
+      <li><a href="#poker-hand-screen">Poker Hand Screen</a></li>
+      <li><a href="#win-joker-screen-after-winning-boss-blind">Win Joker Screen (After Winning Boss Blind)</a></li>
+      <li><a href="#win-planet-card-screen-after-winning-a-round">Win Planet Card Screen (After Winning a Round)</a></li>
+    </ul>
+  </li>
+  <li><a href="#glossary">Glossary</a></li>
+  <li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul>
+
+<h3 id="what-is-javatro">What is Javatro?</h3>
+
+<h4 id="introduction">Introduction</h4>
+<p><strong>Javatro</strong> is a strategic, card-based game inspired by Poker but with a twist. The objective of the game is to score the highest points by creating valid poker hands from the cards dealt. It adds a layer of complexity with various deck types and special mechanics, making it a unique experience.</p>
+
+<hr />
+
+<h4 id="objective">Objective</h4>
+<p>The objective of <strong>Javatro</strong> is to accumulate points by forming valid Poker hands. Players must strategically choose which cards to play, discard, or hold onto to achieve the highest-scoring hand.</p>
+
+<hr />
+
+<h3 id="core-mechanics">Core Mechanics</h3>
+
+<h4 id="1-deck-types">1. Deck Types</h4>
+<p>In <strong>Balatro</strong>, players can choose from various decks, each with unique rules or bonuses. The standard decks include:</p>
+
+<ul>
+  <li><strong>Red Deck</strong>: Grants the player one additional discard per round.</li>
+  <li><strong>Blue Deck</strong>: Grants the player one additional hand per round.</li>
+  <li><strong>Checkered Deck</strong>: Starts with 26 Hearts and 26 Spades, offering more opportunities to form suited hands.</li>
+  <li><strong>Abandoned Deck</strong>: Removes all face cards (King, Queen, Jack) from the deck, making it harder to form high-ranking hands.</li>
+</ul>
+
+<hr />
+
+<h4 id="2-blinds">2. Blinds</h4>
+<p>Before the start of a game round, players select a <strong>Blind</strong> which determines the minimum score they need to beat to proceed. The available blinds are:</p>
+
+<ul>
+  <li><strong>Small Blind</strong>: A low score requirement (e.g., 300 points).</li>
+  <li><strong>Large Blind</strong>: A moderate score requirement (e.g., 450 points).</li>
+  <li><strong>Boss Blind</strong>: A high score requirement (e.g., 600 points).</li>
+</ul>
+
+<p>Blinds influence the difficulty of the round and the rewards earned upon completion.</p>
+
+<hr />
+
+<h4 id="3-rounds-and-hands">3. Rounds and Hands</h4>
+<p>The game progresses through several <strong>Rounds</strong>, with each round having a limited number of <strong>Hands</strong>. The player must achieve the required score within the allowed hands to progress.</p>
+
+<ul>
+  <li><strong>Ante</strong>: This represents the round number, starting from 1 and increasing with each successful completion.</li>
+  <li><strong>Hands</strong>: The number of attempts available to reach the required score. This is usually limited and can be affected by deck type (e.g., Blue Deck offers an extra hand).</li>
+</ul>
+
+<hr />
+
+<h4 id="4-jokers-effects">4. Jokers’ Effects</h4>
+<p>The game may have <strong>Joker Slots</strong> that provide special abilities or bonuses when utilized. By default, these slots are empty but may be activated based on game progression or deck type.</p>
+
+<hr />
+
+<h4 id="5-cards-and-poker-hands">5. Cards and Poker Hands</h4>
+<p>Players are dealt cards at the start of each round. The objective is to arrange these cards into valid <strong>Poker Hands</strong>. Common Poker Hands include:</p>
+
+<ul>
+  <li><strong>High Card</strong>: The highest card in the hand when no other combination is made.</li>
+  <li><strong>Pair</strong>: Two cards of the same rank.</li>
+  <li><strong>Two Pair</strong>: Two separate pairs.</li>
+  <li><strong>Three of a Kind</strong>: Three cards of the same rank.</li>
+  <li><strong>Straight</strong>: Five consecutive cards of varying suits.</li>
+  <li><strong>Flush</strong>: Five cards of the same suit.</li>
+  <li><strong>Full House</strong>: A combination of a Three of a Kind and a Pair.</li>
+  <li><strong>Four of a Kind</strong>: Four cards of the same rank.</li>
+  <li><strong>Straight Flush</strong>: Five consecutive cards of the same suit.</li>
+  <li><strong>Royal Flush</strong>: Ace, King, Queen, Jack, Ten of the same suit.</li>
+</ul>
+
+<p>Each Poker Hand is worth a specific amount of points. Higher-ranking hands yield more points.</p>
+
+<hr />
+
+<h3 id="gameplay-flow">Gameplay Flow</h3>
+
+<ol>
+  <li>
+    <p><strong>Start Game</strong><br />
+Choose a deck from the available options.</p>
+  </li>
+  <li>
+    <p><strong>Select Blind</strong><br />
+Choose a blind (Small, Large, or Boss) to determine the target score for the round.</p>
+  </li>
+  <li><strong>Play a Hand</strong>  (Keep playing until you hit the required target score or until you have no more hands left)
+    <ul>
+      <li>View your dealt cards.</li>
+      <li>Choose to <strong>Play Cards</strong>, <strong>Discard Cards</strong>, or <strong>View Poker Hands</strong> to evaluate your current hand.</li>
+      <li>Cards played are assessed, and points are awarded based on the hand formed.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Achieve Score &amp; Progress</strong><br />
+Continue playing hands until the required score is met. Progress to the next round if successful <em>(if you cross the minimum number of points required for that round)</em>.</p>
+  </li>
+  <li><strong>End Game</strong><br />
+The game ends if you fail to meet the required score within the allowed hands, or if you choose to exit.</li>
+</ol>
+
+<hr />
+
+<h3 id="winning-the-game">Winning the Game</h3>
+<p>The game continues until you fail to reach the required score for a particular blind level. Aim to form the highest-scoring poker hands and choose the best deck for your strategy.</p>
+
+<hr />
+
+<h3 id="tips-for-new-players">Tips for New Players</h3>
+<ol>
+  <li><strong>Understand Deck Mechanics</strong>: Different decks have varying effects. Choose one that suits your playstyle.</li>
+  <li><strong>Plan Your Hands</strong>: Don’t rush through rounds. Consider which cards to play or discard carefully.</li>
+  <li><strong>Keep Track of Score Requirements</strong>: The blind you choose affects your gameplay strategy.</li>
+  <li><strong>Utilize Jokers When Available</strong>: Jokers may offer special abilities; use them wisely.</li>
+</ol>
+
+<hr />
+
+<h2 id="quick-start">Quick Start</h2>
+<ul>
+  <li>Ensure you have Java 17 installed.</li>
+  <li>Run the game using:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java "-Dfile.encoding=UTF-8" -jar javatro.jar.
+</code></pre></div>    </div>
+  </li>
+  <li>If you run into problems running this command, run <code class="language-plaintext highlighter-rouge">chcp 65001</code> followed by <code class="language-plaintext highlighter-rouge">java -jar javatro.jar.</code></li>
+  <li>
+    <h2 id="use-on-screen-menu-options-to-navigate-through-the-game">Use on-screen menu options to navigate through the game.</h2>
+  </li>
+</ul>
+
+<h2 id="features">Features</h2>
+
+<h3 id="start-screen">Start Screen</h3>
+<p><img src="/start_screen.png" alt="Start Screen" />
+This is the initial screen of the game where you are presented with the following options:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1. Start Game</code></li>
+  <li><code class="language-plaintext highlighter-rouge">2. Help Menu</code></li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">3. Exit Game</code></p>
+  </li>
+  <li>
+    <h3 id="deck-selection-screen">Deck Selection Screen</h3>
+    <p><img src="/deck_selection.png" alt="Deck Selection" />
+After selecting <code class="language-plaintext highlighter-rouge">1. Start Game</code>, you will be prompted to select a deck. Available options:</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">1. Red Deck</code>: +1 Discards per Round</li>
+  <li><code class="language-plaintext highlighter-rouge">2. Blue Deck</code>: +1 Hands per Round</li>
+  <li><code class="language-plaintext highlighter-rouge">3. Checkered Deck</code>: Start with 26 Hearts, 26 Spades</li>
+  <li>
+    <h2 id="4-abandoned-deck-start-with-no-face-cards-k-q-j"><code class="language-plaintext highlighter-rouge">4. Abandoned Deck</code>: Start with no Face Cards (K, Q, J)</h2>
+  </li>
+</ul>
+
+<h3 id="blind-selection-screen">Blind Selection Screen</h3>
+<p><img src="/blind_screen.png" alt="Blind Selection" />
+After selecting a deck, you will proceed to select a Blind level:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1. Accept Blind</code></li>
+  <li>
+    <h2 id="2-reject-blind"><code class="language-plaintext highlighter-rouge">2. Reject Blind</code></h2>
+  </li>
+</ul>
+
+<h3 id="game-screen">Game Screen</h3>
+<p><img src="/game_screen.png" alt="Game Screen" />
+The main game interface where you can view your cards, current score, and game status. The menu options are:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1. Play Cards</code></li>
+  <li><code class="language-plaintext highlighter-rouge">2. Discard Cards</code></li>
+  <li><code class="language-plaintext highlighter-rouge">3. View Poker Hands</code></li>
+  <li><code class="language-plaintext highlighter-rouge">4. View Deck</code></li>
+  <li><code class="language-plaintext highlighter-rouge">5. Main Menu</code></li>
+  <li>
+    <h2 id="6-exit-game"><code class="language-plaintext highlighter-rouge">6. Exit Game</code></h2>
+  </li>
+</ul>
+
+<h3 id="discarding-cards">Discarding Cards</h3>
+<p><img src="/discard_card.png" alt="Discard Card Screen" /><br />
+The <strong>Discard Card Screen</strong> allows the player to manage their cards and prepare for building valid poker hands by discarding unwanted cards. This screen is primarily used for sorting, viewing, and selecting cards.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1. Select Cards</code> - Choose cards you wish to discard from your current hand.</li>
+  <li><code class="language-plaintext highlighter-rouge">2. Sort cards by Suit</code> - Rearranges your cards based on their suit (Hearts, Diamonds, Clubs, Spades).</li>
+  <li><code class="language-plaintext highlighter-rouge">3. Sort cards by Rank</code> - Rearranges your cards based on their rank (2, 3, …, King, Ace).</li>
+  <li><code class="language-plaintext highlighter-rouge">4. View Poker Hands</code> - Display possible poker hands you can form with your current cards.</li>
+  <li><code class="language-plaintext highlighter-rouge">5. View Deck</code> - Shows all the remaining cards in the deck.</li>
+  <li><code class="language-plaintext highlighter-rouge">6. Return To Game</code> - Go back to the main game screen without making any changes.</li>
+</ul>
+
+<h3 id="playing-cards">Playing Cards</h3>
+<p><img src="/play_card.png" alt="Play Card Screen" />
+The <strong>Play Card Screen</strong> allows the player to select cards to form valid poker hands. This screen provides sorting options to help arrange cards effectively before making a selection.</p>
+
+<h4 id="menu-options">Menu Options:</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1. Select Cards</code> - Choose cards you wish to play from your current hand.</li>
+  <li><code class="language-plaintext highlighter-rouge">2. Sort cards by Suit</code> - Rearranges your cards based on their suit (Hearts, Diamonds, Clubs, Spades).</li>
+  <li><code class="language-plaintext highlighter-rouge">3. Sort cards by Rank</code> - Rearranges your cards based on their rank (2, 3, …, King, Ace).</li>
+  <li><code class="language-plaintext highlighter-rouge">4. View Poker Hands</code> - Display possible poker hands you can form with your current cards.</li>
+  <li><code class="language-plaintext highlighter-rouge">5. View Deck</code> - Shows all the remaining cards in the deck.</li>
+  <li><code class="language-plaintext highlighter-rouge">6. Return To Game</code> - Go back to the main game screen without making any changes.</li>
+</ul>
+
+<h3 id="deck-view-screen">Deck View Screen</h3>
+<p><img src="/deck_view.png" alt="Deck View Screen" /><br />
+The <strong>Deck View Screen</strong> displays the composition of your current deck. It shows the distribution of cards across suits and ranks, helping you track which cards remain available.</p>
+
+<h4 id="information-provided">Information Provided:</h4>
+<ul>
+  <li><strong>Deck Type</strong>: Displayed at the top (e.g., RED).</li>
+  <li><strong>Suits</strong>: Spades, Hearts, Clubs, Diamonds listed row-wise.</li>
+  <li><strong>Ranks</strong>: A, K, Q, J, 10, …, 2 listed column-wise.</li>
+  <li><strong>Total Count</strong>: Shows how many cards of each rank and suit remain.</li>
+</ul>
+
+<h4 id="menu-options-1">Menu Options:</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1. Return To Previous Screen</code> - Takes you back to the previous screen.</li>
+</ul>
+
+<h3 id="poker-hand-screen">Poker Hand Screen</h3>
+<p><img src="/poker_hand_screen.png" alt="Poker Hand Screen" /><br />
+The <strong>Poker Hand Screen</strong> shows all possible poker hands and their corresponding rewards in terms of chips and multipliers. This screen helps you understand which hands are worth more.</p>
+
+<h4 id="information-provided-1">Information Provided:</h4>
+<ul>
+  <li><strong>Poker Hands</strong>: Listed in descending order of value (e.g., Flush Five, Flush House, Royal Flush, etc.).</li>
+  <li><strong>Chips</strong>: The base chip value awarded for completing a hand.</li>
+  <li><strong>Multiplier (MULTI)</strong>: The multiplier applied to chips for enhanced rewards.</li>
+  <li><strong>Plays</strong>: The number of times a hand has been successfully played.</li>
+</ul>
+
+<h4 id="menu-options-2">Menu Options:</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1. Return To Previous Screen</code> - Takes you back to the previous screen.</li>
+</ul>
+
+<h3 id="win-joker-screen-after-winning-boss-blind">Win Joker Screen (After Winning Boss Blind)</h3>
+<p><img src="/win_joker.png" alt="Win Joker Screen" /><br />
+After successfully beating the <strong>Boss Blind</strong>, you receive a special <strong>Joker Card</strong>. Jokers provide unique bonuses and enhance your gameplay.</p>
+
+<h4 id="information-provided-2">Information Provided:</h4>
+<ul>
+  <li><strong>Joker Card Type</strong>: Displayed prominently (e.g., Lusty Joker).</li>
+  <li><strong>Effect</strong>: Bonuses applied to your gameplay, such as additional multipliers for certain suits.</li>
+</ul>
+
+<h4 id="menu-options-3">Menu Options:</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1. Start Next Round</code> - Proceeds to the next round.</li>
+  <li><code class="language-plaintext highlighter-rouge">2. Exit Game</code> - Ends the current game session.</li>
+</ul>
+
+<h3 id="win-planet-card-screen-after-winning-a-round">Win Planet Card Screen (After Winning a Round)</h3>
+<p><img src="/win_planet_card.png" alt="Win Planet Card Screen" /><br />
+After completing a round successfully, you receive a <strong>Planet Card</strong>. These cards level up your poker hands, providing additional rewards.</p>
+
+<h4 id="information-provided-3">Information Provided:</h4>
+<ul>
+  <li><strong>Planet Card Type</strong>: Displayed prominently (e.g., Pluto Planet Card).</li>
+  <li><strong>Hand Leveled Up</strong>: Indicates which poker hand has been upgraded.</li>
+  <li><strong>Level Increase</strong>: Rewards provided for leveling up, such as extra chips or multipliers.</li>
+</ul>
+
+<h4 id="menu-options-4">Menu Options:</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1. Start Next Round</code> - Proceeds to the next round.</li>
+  <li><code class="language-plaintext highlighter-rouge">2. Exit Game</code> - Ends the current game session.</li>
+</ul>
+
+<hr />
+
+<h2 id="faqs">FAQs</h2>
+
+<h3 id="how-do-i-navigate-through-the-application">How do I navigate through the application?</h3>
+<p>Navigation throughout the application is done via <strong>numbered options</strong>. For example, the main menu may present:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. New Game
+2. Load Game
+3. Exit
+</code></pre></div></div>
+<p>To start a new game, enter <code class="language-plaintext highlighter-rouge">1</code> and press Enter.</p>
+
+<p>Similarly, in-game options are presented as:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Select Cards
+2. Sort by Suit
+3. Sort by Rank
+4. Check Poker Hand
+5. Save Game
+6. Resume Game
+7. Exit
+</code></pre></div></div>
+
+<h2 id="selecting-an-option-is-done-by-entering-the-corresponding-number">Selecting an option is done by entering the corresponding number.</h2>
+
+<h4 id="command-usage-examples">Command Usage Examples</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; 1
+Selected card: [3 of Hearts]
+
+&gt; 2
+Cards sorted by suit.
+
+&gt; 4
+Poker Hand: Full House
+
+&gt; 5
+Game saved successfully.
+
+&gt; 6
+Game loaded successfully.
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="glossary">Glossary</h2>
+<ul>
+  <li><strong>Card</strong>: A single playing card.</li>
+  <li><strong>Deck</strong>: A collection of cards.</li>
+  <li><strong>Poker Hand</strong>: A specific combination of cards as defined in poker rules.</li>
+</ul>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+  <li>Original game concept from <strong>Balatro</strong>.</li>
+</ul>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

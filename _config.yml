@@ -1,0 +1,12 @@
+title: Your Site Title
+description: A description of your site
+baseurl: "/tp" # if deploying to GitHub Pages
+url: "https://your-username.github.io" # your GitHub URL
+markdown: kramdown
+
+theme: jekyll-theme-hacker
+plugins:
+  - jekyll-feed
+
+mermaid: true
+
