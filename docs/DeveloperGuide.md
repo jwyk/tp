@@ -26,7 +26,7 @@
 
 
 ## Acknowledgements
-Thanks
+Thanks Balatro, CS2113 Team and our TA Ethan Soh @paulifyer.
    
 
 ## Setting up, getting started
@@ -43,170 +43,28 @@ This Developer Guide describes the design, architecture, and implementation of t
 
 The application follows a **Model-View-Controller (MVC)** architecture pattern. The core logic, display components, and manager are modularized to promote separation of concerns.
 
-```mermaid
-graph TD;
-    Javatro --> JavatroCore;
-    Javatro --> UI;
-    Javatro --> JavatroManager;
-    
-    JavatroCore --> CommandMap;
-    CommandMap --> Options;
-    Options --> SortBySuitOption;
-    Options --> SortByRankOption;
-    Options --> PokerHandOption;
-    Options --> CardSelectOption;
-    Options --> ResumeGameOption;
-
-    JavatroCore --> GameState;  
-    JavatroCore --> GameRules;  
-
-    UI --> Screen;
-    Screen --> GameScreen;
-    Screen --> HelpScreen;
-    Screen --> StartScreen;
-    Screen --> DiscardScreen;  
-
-    JavatroManager --> JavatroCore; 
-    JavatroManager --> UI;
-
-    JavatroCore --> Model;  
-    Model --> Deck;
-    Model --> Ante;
-    Model --> PokerHand;
-    Model --> PlanetCard;
-
-    Deck --> Card;
-    Ante --> HandResult;
-    HandResult --> HoldingHand;
-
-```
+![](dg_images/architecture.png)
 
 
 #### Application Initialization
 
-```mermaid
-graph TD;
-    Javatro --> JavatroCore;
-    Javatro --> UI;
-    Javatro --> JavatroManager;
-    
-    JavatroCore --> CommandMap;
-    CommandMap --> Options;
-    Options --> SortBySuitOption;
-    Options --> SortByRankOption;
-    Options --> PokerHandOption;
-    Options --> CardSelectOption;
-    Options --> ResumeGameOption;
-
-    JavatroCore --> Round;
-    Round --> RoundActions;
-    Round --> RoundConfig;
-    Round --> RoundObservable;
-    Round --> RoundState;
-
-    RoundObservable --> UI; 
-    Round --> Score;
-    
-    JavatroCore --> Model;  
-    Model --> Deck;
-    Model --> Ante;
-    Model --> PokerHand;
-    Model --> PlanetCard;
-
-    Deck --> Card;
-    Ante --> HandResult;
-    HandResult --> HoldingHand;
-    
-    JavatroCore --> Jokers;
-    Jokers --> HeldJokers;
-    Jokers --> JokerFactory;
-    Jokers --> Joker;
-    
-    JokerFactory --> AbstractJoker;
-    AbstractJoker --> OddToddJoker;
-    AbstractJoker --> ScaryFaceJoker;
-    AbstractJoker --> GluttonousJoker;
-    AbstractJoker --> GreedyJoker;
-    AbstractJoker --> HalfJoker;
-    AbstractJoker --> LustyJoker;
-    AbstractJoker --> WrathfulJoker;
-
-    UI --> Screen;
-    Screen --> GameScreen;
-    Screen --> HelpScreen;
-    Screen --> StartScreen;
-    Screen --> DiscardScreen;
-
-    JavatroManager --> JavatroCore;
-    JavatroManager --> UI;
-```
+![](dg_images/application_init.png)
 
 #### Gameplay Interaction
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant UI
-    participant JavatroManager
-    participant JavatroCore
-    participant PokerHand
-
-    User ->> UI: Make a Move (e.g., Play a Hand)
-    UI ->> JavatroManager: Process Input
-    JavatroManager ->> JavatroCore: Update Game State
-    JavatroCore ->> PokerHand: Evaluate Hand
-    PokerHand ->> JavatroCore: Return Evaluation Result
-    JavatroCore ->> JavatroManager: Update Score
-    JavatroManager ->> UI: Update Display
-```
-
-## UI Component
-
-```mermaid  
-sequenceDiagram  
-    participant JavatroCore  
-    participant UI  
-    participant GameScreen  
-
-    JavatroCore->>GameScreen: firePropertyChange("currentScore", 200)  
-    GameScreen->>GameScreen: Update roundScore  
-    GameScreen->>GameScreen: Re-render UI  
-    GameScreen->>UI: Call displayScreen()  
-    UI->>UI: Clear terminal  
-    UI->>GameScreen: Render card art/stats  
-```  
-*Illustrates how `GameScreen` updates its display when the game state changes.*  
-
-
+![](dg_images/gameplay_interaction_sequence_diagram.png)
 
 ---
 
-```mermaid  
-classDiagram  
-    class UI {  
-        -currentScreen: Screen  
-        -previousScreen: Screen  
-        +setCurrentScreen(Screen)  
-        +printBorderedContent(...)  
-        +centerText(...)  
-    }  
+## UI Component
 
-    class Screen {  
-        -commandMap: List~Option~  
-        +displayScreen()*  
-        +displayOptions()  
-    }  
+![](dg_images/gameplay_sequence.png)
 
-    class GameScreen {  
-        -blindScore: int  
-        -roundScore: long  
-        +propertyChange(...)  
-    }  
+*Illustrates how `GameScreen` updates its display when the game state changes.*  
 
-    UI --> Screen : manages  
-    Screen <|-- GameScreen : extends  
-    GameScreen ..|> PropertyChangeListener : implements  
-```  
+---
+
+![](dg_images/ui_screens_diagram.png)
 *Simplified to highlight core relationships. The `UI` manages `Screen` instances, and `GameScreen` extends `Screen` while observing game state changes.*  
 
 
@@ -286,19 +144,7 @@ public void propertyChange(PropertyChangeEvent evt) {
 - **Back Navigation**: `previousScreen` allows reverting to prior states (e.g., exiting `HelpScreen`).  
 
 **Sequence Diagram**:  
-```mermaid  
-sequenceDiagram  
-    actor User  
-    participant UI  
-    participant StartScreen  
-    participant GameScreen  
-
-    User->>UI: Enters "play" command  
-    UI->>UI: setCurrentScreen(GameScreen)  
-    UI->>StartScreen: Save as previousScreen  
-    UI->>GameScreen: displayScreen()  
-    GameScreen-->>UI: Rendered content  
-```  
+![](dg_images/gameplay_enhance_diagram.png)
 
 **Alternatives Considered**:  
 - **Stack-Based History**: Rejected due to limited navigation depth requirements.  
@@ -369,30 +215,12 @@ private static String getSuitSymbol(Card.Suit suit) {
 #### **UML Diagrams**  
 
 ##### **CardRenderer Class Diagram**  
-```mermaid  
-classDiagram  
-    class CardRenderer {  
-        +renderCard(Card): String[]  
-        -getSuitSymbol(Suit): String  
-        -getColour(Suit): String  
-    }  
-```  
+![](dg_images/cardrenderer_class.png)
 *The `CardRenderer` class maps suits to letters (`H`, `D`, `C`, `S`) and colors using ANSI codes.*  
 
 ##### **Card Rendering Sequence Diagram**  
-```mermaid  
-sequenceDiagram  
-    participant GameScreen  
-    participant CardRenderer  
-    participant Card  
+![](dg_images/cardrenderer_sequence_diagram.png)
 
-    GameScreen->>CardRenderer: renderCard(card)  
-    CardRenderer->>Card: getSuit()  
-    CardRenderer->>CardRenderer: getSuitSymbol() → "H"  
-    CardRenderer->>CardRenderer: getColour() → ANSI code  
-    CardRenderer-->>GameScreen: [" H ", ...]  
-    GameScreen->>UI: Display formatted card art  
-```
 
 #### **Key Takeaways**  
 - **Prioritize Functionality Over Aesthetics**: Letters ensured reliability, while emojis introduced terminal-specific bugs.  
@@ -497,152 +325,30 @@ Progresses to the next blind level or increases ante level when Boss Blind is re
 
 ## **Class Diagram:** 
 
-```mermaid 
-classDiagram
-classDiagram
-    class Ante {
-        -anteCount: int
-        -blind: Blind
-        -anteScore: int[]
-        +Ante()
-        +getRoundScore() int
-        +getAnteScore() int
-        +setAnteCount(anteCount: int)
-        +resetAnte()
-        +nextRound()
-        +setBlind(blind: Blind)
-        +getBlind() Blind
-        +getAnteCount() int
-    }
+![](dg_images/ante_class_diagram.png)
 
-    class Blind {
-        <<enumeration>>
-        SMALL_BLIND
-        LARGE_BLIND
-        BOSS_BLIND
-        +getMultiplier() double
-        +getName() String
-    }
-
-    Ante --> Blind : uses
-```  
 The Ante class manages the ante count, blind levels, and scores in the game, utilizing the Blind enumeration for different blind levels.
 
-```mermaid 
-classDiagram
-class Option {
-<<interface>>
-+getDescription(): String
-+execute(): void
-}
+![](dg_images/ante_2.png)
 
-    class AcceptBlindOption {
-        +getDescription(): String
-        +execute(): void
-    }
-
-    class RejectBlindOption {
-        +getDescription(): String
-        +execute(): void
-    }
-
-    class JavatroCore {
-        +getAnte(): Ante
-        +currentRound: Round
-    }
-
-    class JavatroManager {
-        +setScreen(screen: Screen): void
-    }
-
-    class UI {
-        +getGameScreen(): Screen
-        +getBlindScreen(): Screen
-        +printBorderedContent(title: String, lines: List): void
-        +BOLD: String
-        +END: String
-    }
-
-    Option <|.. AcceptBlindOption : implements
-    Option <|.. RejectBlindOption : implements
-    AcceptBlindOption --> JavatroCore : interacts with
-    RejectBlindOption --> JavatroCore : interacts with
-    AcceptBlindOption --> JavatroManager : interacts with
-    RejectBlindOption --> JavatroManager : interacts with
-    AcceptBlindOption --> UI : interacts with
-    RejectBlindOption --> UI : interacts with
-```  
 The Option interface is implemented by AcceptBlindOption and RejectBlindOption, which interact with JavatroCore, JavatroManager, and UI to manage blind options in the game.
 
 ## **Sequence Diagram:**
 
-```mermaid 
-sequenceDiagram
-    participant Ante
-    participant Blind
+![](dg_images/option_sequence.png)
 
-    Ante->>Blind: setBlind(Blind)
-    Blind->>Ante: getBlind()
-    Ante->>Blind: getMultiplier()
-    Ante->>Blind: getName()
-    Ante->>Ante: getAnteCount()
-    Ante->>Ante: setAnteCount(anteCount)
-    Ante->>Ante: getAnteScore()
-    Ante->>Ante: nextRound()
-    Ante->>Ante: resetAnte()
-```
 This sequence diagram illustrates the interactions between the Ante and Blind classes, where Ante sets and retrieves blind information, as well as manages ante-related operations such as updating scores and counts.
 
-```mermaid 
-sequenceDiagram
-    participant Option
-    participant AcceptBlindOption
-    participant RejectBlindOption
-    participant JavatroCore
-    participant JavatroManager
-    participant UI
+![](dg_images/option_sequence_2.png)
 
-    Note over AcceptBlindOption, RejectBlindOption: Implements Option interface
-
-    AcceptBlindOption->>JavatroCore: interact with
-    RejectBlindOption->>JavatroCore: interact with
-
-    AcceptBlindOption->>JavatroManager: interact with
-    RejectBlindOption->>JavatroManager: interact with
-
-    AcceptBlindOption->>UI: interact with
-    RejectBlindOption->>UI: interact with
-
-    AcceptBlindOption->>UI: getGameScreen()
-    RejectBlindOption->>UI: getBlindScreen()
-
-    AcceptBlindOption->>JavatroCore: beginGame()
-    RejectBlindOption->>JavatroCore: updateAnte()
-```
 This sequence diagram shows the interactions between the Option implementations (AcceptBlindOption and RejectBlindOption), and their interactions with JavatroCore, JavatroManager, and UI, including actions such as beginning the game, updating ante, and retrieving screens.
 
 ---
 
 ### Logic Component
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant JavatroCore
-    participant CommandMap
-    participant Options
-    participant UI
-    participant Manager
+![](dg_images/logic_sequence.png)
 
-    User ->> UI: Issue Command
-    UI ->> Manager: Forward Command
-    Manager ->> JavatroCore: Process Command
-    JavatroCore ->> CommandMap: Check Command Type
-    CommandMap ->> Options: Execute Option (e.g., Sort, Discard, Select)
-    Options ->> JavatroCore: Return Result
-    JavatroCore ->> Manager: Update State
-    Manager ->> UI: Render Updated State
-```
 
 The Logic Component serves as the Controller in the Model-View-Controller (MVC) architecture. It is responsible for managing the application's core logic, processing user commands, and interacting with the Model (e.g., Deck, Ante, PokerHand) through well-defined interfaces. It updates the View through the manager classes.
 
@@ -654,28 +360,6 @@ This component interacts with the UI and Manager components to process user inpu
 
 ---
 
-### Storage Component
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant JavatroCore
-    participant Storage
-
-    User ->> JavatroCore: Save Game
-    JavatroCore ->> Storage: Serialize Game State
-    Storage ->> File: Write to Disk
-
-    User ->> JavatroCore: Load Game
-    JavatroCore ->> Storage: Read From Disk
-    Storage ->> JavatroCore: Deserialize Game State
-```
-
-The Storage component is responsible for saving and loading game states. Although not fully implemented, this component would ideally include:
-- Persistent storage management using file handling or databases.
-- Serialization and deserialization of game objects.
-- Handling user preferences and game settings.
----
 ### Round Component
 
 The **Round Component** is responsible for managing the state and flow of a single round in the game. It encapsulates the logic for handling round-specific actions, configurations, and any special effects.
@@ -692,107 +376,13 @@ The **Round Component** is responsible for managing the state and flow of a sing
 - **RoundConfig**: Stores configuration settings for the round (e.g., max cards, scoring rules).
 - **RoundObservable**: Implements the observer pattern to notify listeners (e.g., UI) of state changes.
 
-``` mermaid
-classDiagram
-    class Round {
-        -state: RoundState
-        -config: RoundConfig
-        -observable: RoundObservable
-        +addPropertyChangeListener(pcl: PropertyChangeListener)
-        +updateRoundVariables()
-        +playCards(cardIndices: Integer)
-        +discardCards(cardIndices: Integer)
-        +getCurrentScore(): long
-        +getRemainingDiscards(): int
-        +getRemainingPlays(): int
-        +getPlayerHand(): HoldingHand
-        +getPlayerHandCards(): Card
-        +getPlayerJokers(): HeldJokers
-        +isLost(): boolean
-        +isWon(): boolean
-        +isRoundOver(): boolean
-        -applyDeckVariants(deck: Deck)
-        -applyAnteInvariants(ante: Ante)
-        -applyBossVariants()
-    }
-
-    class RoundState {
-        -currentScore: long
-        -remainingDiscards: int
-        -remainingPlays: int
-        -playerJokers: HeldJokers
-        -deck: Deck
-        -playerHand: HoldingHand
-        -chosenCards: Card
-        +getPlayerJokers(): HeldJokers
-        +getDeck(): Deck
-        +drawInitialCards(count: int)
-    }
-
-    class RoundConfig {
-        +INITIAL_HAND_SIZE: int
-        +MAX_DISCARDS_PER_ROUND: int
-        +DEFAULT_MAX_HAND_SIZE: int
-        +DEFAULT_MIN_HAND_SIZE: int
-        -blindScore: int
-        -roundName: String
-        -roundDescription: String
-    }
-
-    class RoundActions {
-        +playCards(state: RoundState, config: RoundConfig, cardIndices: Integer): ActionResult
-        +discardCards(state: RoundState, config: RoundConfig, cardIndices: Integer): ActionResult
-        -validatePlayCards(cardIndices: Integer, minHandSize: int, maxHandSize: int, remainingPlays: int)
-        -validateDiscardCards(cardIndices: Integer, remainingDiscards: int)
-    }
-
-    class RoundObservable {
-        +addObserver(observer: Observer)
-        +removeObserver(observer: Observer)
-        +notifyObservers(event: String)
-    }
-
-    Round --> RoundState: contains
-    Round --> RoundConfig: contains
-    Round --> RoundObservable: contains
-    Round ..> RoundActions: uses
-```
+![](dg_images/round_1.png)
 
 #### Sequence Diagram: Round Initialisation
 
 The following sequence diagram illustrates the initialization process of a round, including configuration setup and state management:
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant Round
-    participant RoundConfig
-    participant RoundState
-    participant RoundObservable
-
-    User ->>+ Round: new Round(...)
-    Note right of Round: Constructor activated
-    Round ->>+ RoundConfig: new RoundConfig(...)
-    Note right of RoundConfig: Constructor activated
-    RoundConfig -->>- Round: this.config : RoundConfig
-    Round ->>+ RoundState: new RoundState(...)
-    Note right of RoundState: Constructor activated
-    RoundState -->>- Round: this.state : RoundState
-    Round ->>+ Round: applyDeckInvariants()
-    alt RED
-        Round ->>+ RoundState: increaseRemainingDiscards(: int)
-        RoundState -->>- Round: 
-    else BLUE
-        Round ->>+ RoundState: setRemainingPlays(: int)
-        RoundState -->>- Round: 
-    end
-    Round -->>- Round: 
-    Round ->> Round: Other configuration...
-    Round ->>+ RoundObservable: new RoundObservable
-    Note right of RoundObservable: Constructor activated
-    RoundObservable -->>- Round: this.observable : RoundObservable
-    Round -->>- User: Round instance
-```
+![](dg_images/round_2.png)
 
 Note: Due to limitations of mermaid rendering, the activation bars for constructors may not appear exactly aligned with their corresponding object lifelines. The note in the diagram clarifies when the constructor is activated.
 
@@ -804,233 +394,30 @@ The **Score Component** is part of Javatro's scoring system, responsible for cal
 - Handle calculation of scoring played hands, factoring in round-specific configurations and validation.
 
 #### Class Diagram: Score and involved classes
-``` mermaid
-classDiagram
-    class Score {
-        +double totalChips
-        +double totalMultiplier
-        +static List<Card> playedCardsList
-        +ArrayList<Joker> jokerList
-        -Round.BossType bossType
-        +Score()
-        +Score(Round.BossType bossType)
-        +long getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
-        -static long calculateFinalScore(double totalChips, double totalMultiplier)
-        -boolean isValidCard(Card card)
-        -void scoreCard(Card card)
-    }
-    
-    class PokerHand {
-        +int getChips()
-        +int getMult()
-    }
-    
-    class Card {
-        +getChips()
-    }
-    
-    class Rank {
-    <<enumeration>>
-        TWO
-        THREE
-        FOUR
-        FIVE
-        SIX
-        SEVEN
-        EIGHT
-        NINE
-        TEN
-        JACK
-        QUEEN
-        KING
-        ACE
-    }
-
-    class Suit {
-    <<enumeration>>
-        HEARTS
-        CLUBS
-        SPADES
-        DIAMONDS
-        +getName()
-    }
-
-    class HeldJokers {
-        -int HOLDING_LIMIT
-        +List~Joker~ getJokers()
-    }
-    
-    class Joker {
-        <<abstract>>
-        #String name;
-        #String description;
-        #String path;
-        +String getName()
-        +interact()*
-    }
-
-    class ScoreType {
-        <<enumeration>>
-        AFTERHANDPLAY
-        ONCARDPLAY
-    }
-    
-    class HandType {
-        <<enumeration>>
-        FLUSH_FIVE
-        FLUSH_HOUSE
-        FIVE_OF_A_KIND
-        ROYAL_FLUSH
-        STRAIGHT_FLUSH
-        FOUR_OF_A_KIND
-        FULL_HOUSE
-        FLUSH
-        STRAIGHT
-        THREE_OF_A_KIND
-        TWO_PAIR
-        PAIR
-        HIGH_CARD
-    }
-    
-    class BossType {
-        <<enumeration>>
-        NONE
-        THE_NEEDLE
-        THE_WATER
-        THE_CLUB
-        THE_WINDOW
-        THE_HEAD
-        THE_GOAD
-        THE_PLANT
-        THE_PSYCHIC
-    }
-
-    Score --> PokerHand
-    Score --> Card
-    Score -->"1" HeldJokers
-    Score -->"1" Round
-    Round -->"1" BossType
-    PokerHand -->"1" HandType
-    Card -->"1" Rank
-    Card -->"1" Suit
-    HeldJokers -->"0..5" Joker
-    Joker -->"1" ScoreType
-```
+![](dg_images/score_1.png)
 
 #### Score Calculation Overview
 Below is how the Score Class returns the calculated score:
 
 1. `Round` initializes `Score`, and `Score` invokes the `getChips()` method from `PokerHand`.
-```mermaid
-sequenceDiagram
-   activate Round
-   Round->>+Score: getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
-   Score->>+PokerHand: getChips(), getMultiplier()
-   PokerHand-->>-Score: return chips, return multiplier
-   deactivate Round
+![](dg_images/score_2.png)
 
-```
 2. With each `Card` passed from `Score`, `Score` checks whether the card played satisfies BossType conditions, 
 and applies effects if the condition is satisfied. 
 Else, the `Card` is scored, and each `Joker` in `heldJokers` is checked if the `Card` can interact with the `Joker`
 
-```mermaid
-sequenceDiagram
-    box Add contribution from valid cards  
-        participant Score
-        participant PokerHand
-        participant Joker
-    end
-    activate Score
-    loop Card card: playedCardList
-        activate Score
-        Score->>Score: Apply BossType conditions
-        deactivate Score
-        alt Card is valid
-            activate Score
-            Score->>Score: scoreCard(Card card)
-            deactivate Score
-            loop [Joker joker: heldJokers]
-                alt Joker == ONCARDPLAY
-                    Score->>+Joker: interact(Score score, Card card)
-                    Joker-->>-Score: interact
-                end
-            end
-        end
-        deactivate Score
-    end
-```
+![](dg_images/score_3.png)
+
 
 3. After each `Card` is scored, any `Joker` with the `AFTERHANDPLAY` enum is interacted with.
-```mermaid
-sequenceDiagram
-    activate Score
-    loop [Joker joker: heldJokers]
-        alt joker.ScoreType == AFTERHANDPLAY
-            Score->>+Joker: interact(Score score, Card card)
-            Joker-->>-Score: interact
-        end
-    end
-    deactivate Score
-```
+![](dg_images/score_4.png)
 
 
 4. `Score` rounds the final score using `calculateFinalScore()` and returns the final `long` value to `Round`.
-```mermaid
-sequenceDiagram
-    activate Round
-    activate Score
-    activate Score
-    Score->>Score: calculateFinalScore()
-    deactivate Score
-    Score-->>Round: return final score
-    deactivate Score
-    deactivate Round
-
-```
+![](dg_images/score_5.png)
 
 #### Overall Sequence Diagram for Score Calculation
-
-```mermaid
-sequenceDiagram
-box transparent Overall Scoring Algorithm
-    participant Round
-    participant Score
-    participant PokerHand
-    participant Joker
-end
-
-
-    Round->>+Score: getScore(PokerHand pokerHand, List<Card> playedCardList, HeldJokers heldJokers)
-    Score->>+PokerHand: getChips(), getMultiplier()
-    PokerHand-->>-Score: return chips, return multiplier
-    loop Card card: playedCardList
-        activate Score
-        Score->>Score: Check BossType conditions
-        deactivate Score
-        alt Card is valid
-            activate Score
-            Score->>Score: scoreCard(Card card)
-            deactivate Score
-            loop [Joker joker: heldJokers]
-                alt joker.ScoreType == ONCARDPLAY
-                    Score->>+Joker: interact(Score score, Card card)
-                    Joker-->>-Score: interact
-                end
-            end
-        end
-    end
-    loop [Joker joker: heldJokers]
-        alt joker.ScoreType == AFTERHANDPLAY
-            Score->>+Joker: interact(Score score, Card card)
-            Joker-->>-Score: interact
-        end
-    end
-    Score->>Score: calculateFinalScore()
-    Score-->>-Round: return final score
-
-```
-
+![](dg_images/overall_scoring.png)
 
 
 
