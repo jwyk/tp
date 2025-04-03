@@ -20,4 +20,4 @@ htmlReport/
 *.dat
 Gemfile.lock
 _include/
-
+_site/
