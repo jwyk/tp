@@ -6,6 +6,7 @@ package javatro.core;
 
 import javatro.core.Deck.DeckType;
 import javatro.core.jokers.HeldJokers;
+import javatro.core.round.Round;
 
 import java.util.EnumMap;
 import java.util.Map;

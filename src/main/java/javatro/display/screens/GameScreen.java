@@ -132,7 +132,7 @@ public class GameScreen extends Screen implements PropertyChangeListener {
             colourb = BLUE_B;
         } else if (Objects.equals(roundName, "LARGE BLIND")) {
             colourb = ORANGE_B;
-        } else if (Objects.equals(roundName, JavatroCore.currentRound.getConfig().getRoundName())) {
+        } else if (Objects.equals(roundName, JavatroCore.currentRound.getRoundName())) {
             colourb = PURPLE_B;
         }
 

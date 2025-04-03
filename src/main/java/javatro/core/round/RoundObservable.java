@@ -1,23 +1,20 @@
-package javatro.core;
+package javatro.core.round;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-/** Handles observer notifications for round state changes. */
-public class RoundObservable {
-    /** The round being observed. */
-    private final Round round;
+/** Handles observer notifications for round state changes without direct Round dependencies. */
+class RoundObservable {
     /** The property change support for the observer pattern. */
     private final PropertyChangeSupport support;
 
     /**
-     * Creates a new observable for the given round.
+     * Creates a new observable with the given source object.
      *
-     * @param round The round to observe
+     * @param source The source object for property change events
      */
-    public RoundObservable(Round round) {
-        this.round = round;
-        this.support = new PropertyChangeSupport(round);
+    public RoundObservable(Object source) {
+        this.support = new PropertyChangeSupport(source);
     }
 
     /**
@@ -29,17 +26,19 @@ public class RoundObservable {
         support.addPropertyChangeListener(pcl);
     }
 
-    /** Fires property change events to notify observers of updated round variables. */
-    public void updateRoundVariables() {
-        RoundConfig config = round.getConfig();
-        RoundState state = round.getState();
-
+    /**
+     * Fires property change events to notify observers of updated round variables.
+     *
+     * @param state The current state of the round
+     * @param config The configuration of the round
+     */
+    public void updateRoundVariables(RoundState state, RoundConfig config) {
         support.firePropertyChange("blindScore", null, config.getBlindScore());
         support.firePropertyChange("remainingPlays", null, state.getRemainingPlays());
         support.firePropertyChange("remainingDiscards", null, state.getRemainingDiscards());
         support.firePropertyChange("roundName", null, config.getRoundName());
         support.firePropertyChange("roundDescription", null, config.getRoundDescription());
-        support.firePropertyChange("holdingHand", null, round.getPlayerHandCards());
+        support.firePropertyChange("holdingHand", null, state.getPlayerHandCards());
         support.firePropertyChange("currentScore", null, state.getCurrentScore());
     }
 }
