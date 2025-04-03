@@ -138,6 +138,8 @@ java "-Dfile.encoding=UTF-8" -jar javatro.jar.
 
 ### Start Screen
 ![Start Screen](start_screen.png)
+
+
 This is the initial screen of the game where you are presented with the following options:
 - `1. Start Game`
 - `2. Help Menu`
@@ -146,6 +148,8 @@ This is the initial screen of the game where you are presented with the followin
 
 - ### Deck Selection Screen
 ![Deck Selection](deck_selection.png)
+
+
 After selecting `1. Start Game`, you will be prompted to select a deck. Available options:
 - `1. Red Deck`: +1 Discards per Round
 - `2. Blue Deck`: +1 Hands per Round
@@ -155,6 +159,8 @@ After selecting `1. Start Game`, you will be prompted to select a deck. Availabl
 
 ### Blind Selection Screen
 ![Blind Selection](blind_screen.png)
+
+
 After selecting a deck, you will proceed to select a Blind level:
 - `1. Accept Blind`
 - `2. Reject Blind`
@@ -162,6 +168,8 @@ After selecting a deck, you will proceed to select a Blind level:
 
 ### Game Screen
 ![Game Screen](game_screen.png)
+
+
 The main game interface where you can view your cards, current score, and game status. The menu options are:
 - `1. Play Cards`
 - `2. Discard Cards`
@@ -173,6 +181,8 @@ The main game interface where you can view your cards, current score, and game s
 
 ### Discarding Cards
 ![Discard Card Screen](discard_card.png)  
+
+
 The **Discard Card Screen** allows the player to manage their cards and prepare for building valid poker hands by discarding unwanted cards. This screen is primarily used for sorting, viewing, and selecting cards.
 
 - `1. Select Cards` - Choose cards you wish to discard from your current hand.
@@ -184,6 +194,8 @@ The **Discard Card Screen** allows the player to manage their cards and prepare 
 
 ### Playing Cards
 ![Play Card Screen](play_card.png)
+
+
 The **Play Card Screen** allows the player to select cards to form valid poker hands. This screen provides sorting options to help arrange cards effectively before making a selection.
 
 #### Menu Options:
@@ -196,6 +208,8 @@ The **Play Card Screen** allows the player to select cards to form valid poker h
 
 ### Deck View Screen
 ![Deck View Screen](deck_view.png)  
+
+
 The **Deck View Screen** displays the composition of your current deck. It shows the distribution of cards across suits and ranks, helping you track which cards remain available.
 
 #### Information Provided:
@@ -209,6 +223,8 @@ The **Deck View Screen** displays the composition of your current deck. It shows
 
 ### Poker Hand Screen
 ![Poker Hand Screen](poker_hand_screen.png)  
+
+
 The **Poker Hand Screen** shows all possible poker hands and their corresponding rewards in terms of chips and multipliers. This screen helps you understand which hands are worth more.
 
 #### Information Provided:
@@ -222,6 +238,8 @@ The **Poker Hand Screen** shows all possible poker hands and their corresponding
 
 ### Win Joker Screen (After Winning Boss Blind)
 ![Win Joker Screen](win_joker.png)  
+
+
 After successfully beating the **Boss Blind**, you receive a special **Joker Card**. Jokers provide unique bonuses and enhance your gameplay.
 
 #### Information Provided:
@@ -234,6 +252,8 @@ After successfully beating the **Boss Blind**, you receive a special **Joker Car
 
 ### Win Planet Card Screen (After Winning a Round)
 ![Win Planet Card Screen](win_planet_card.png)  
+
+
 After completing a round successfully, you receive a **Planet Card**. These cards level up your poker hands, providing additional rewards.
 
 #### Information Provided:
