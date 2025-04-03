@@ -4,23 +4,19 @@
 
 - [What is Javatro?](#what-is-javatro)
 - [Quick start](#quick-start)
-- [Features](#features)
-  - [Starting a game](#starting-a-game)
-  - [Selecting a deck](#selecting-a-deck)
-  - [Choosing a blind](#choosing-a-blind)
-  - [Playing cards](#playing-cards)
-  - [Discarding cards](#discarding-cards)
-  - [Viewing Poker Hands](#viewing-poker-hands)
-  - [Viewing the deck](#viewing-the-deck)
-  - [Saving progress](#saving-progress)
-  - [Loading progress](#loading-progress)
-  - [Exiting the game](#exiting-the-game)
-  - [Undo & Redo](#undo--redo)
-  - [Scoring system](#scoring-system)
-- [FAQ](#faq)
-- [Known issues](#known-issues)
-- [Command summary](#command-summary)
-
+- [Features/Screens](#features)
+    - [Start Screen](#start-screen)
+    - [Deck Selection Screen](#deck-selection-screen)
+    - [Blind Selection Screen](#blind-selection-screen)
+    - [Game Screen](#game-screen)
+    - [Discarding Cards](#discarding-cards)
+    - [Playing Cards](#playing-cards)
+    - [Deck View Screen](#deck-view-screen)
+    - [Poker Hand Screen](#poker-hand-screen)
+    - [Win Joker Screen (After Winning Boss Blind)](#win-joker-screen-after-winning-boss-blind)
+    - [Win Planet Card Screen (After Winning a Round)](#win-planet-card-screen-after-winning-a-round)
+- [Glossary](#glossary)
+- [Acknowledgements](#acknowledgements)
 
 ### What is Javatro?
 
@@ -30,7 +26,7 @@
 ---
 
 #### Objective
-The objective of **Balatro** is to accumulate points by forming valid Poker hands. Players must strategically choose which cards to play, discard, or hold onto to achieve the highest-scoring hand.
+The objective of **Javatro** is to accumulate points by forming valid Poker hands. Players must strategically choose which cards to play, discard, or hold onto to achieve the highest-scoring hand.
 
 ---
 
@@ -93,21 +89,22 @@ Each Poker Hand is worth a specific amount of points. Higher-ranking hands yield
 1. **Start Game**  
    Choose a deck from the available options.
 
+
 2. **Select Blind**  
    Choose a blind (Small, Large, or Boss) to determine the target score for the round.
+
 
 3. **Play a Hand**  (Keep playing until you hit the required target score or until you have no more hands left)
    - View your dealt cards.
    - Choose to **Play Cards**, **Discard Cards**, or **View Poker Hands** to evaluate your current hand.  
    - Cards played are assessed, and points are awarded based on the hand formed.
 
-4. **Save or Resume**  
-   The game allows saving progress and resuming from previous saves.
 
-5. **Achieve Score & Progress**  
-   Continue playing hands until the required score is met. Progress to the next round if successful.  
+4. **Achieve Score & Progress**  
+   Continue playing hands until the required score is met. Progress to the next round if successful _(if you cross the minimum number of points required for that round)_.  
 
-6. **End Game**  
+
+5. **End Game**  
    The game ends if you fail to meet the required score within the allowed hands, or if you choose to exit.
 
 ---
@@ -128,14 +125,13 @@ The game continues until you fail to reach the required score for a particular b
 
 
 ## Quick Start
-1. Ensure you have Java 17 or above installed on your system.
-2. Clone the repository from your desired source.
-3. Navigate to the project root directory.
-4. Run the jar using:
+- Ensure you have Java 17 installed.
+- Run the game using:
 ```
-java -jar Javatro.jar
+java "-Dfile.encoding=UTF-8" -jar javatro.jar.
 ```
-
+- If you run into problems running this command, run ```chcp 65001``` followed by ```java -jar javatro.jar.```
+- Use on-screen menu options to navigate through the game.
 ---
 
 ## Features
@@ -158,7 +154,7 @@ After selecting `1. Start Game`, you will be prompted to select a deck. Availabl
 ---
 
 ### Blind Selection Screen
-![Blind Selection](blind_selection.png)
+![Blind Selection](blind_screen.png)
 After selecting a deck, you will proceed to select a Blind level:
 - `1. Accept Blind`
 - `2. Reject Blind`
@@ -174,6 +170,83 @@ The main game interface where you can view your cards, current score, and game s
 - `5. Main Menu`
 - `6. Exit Game`
 ---
+
+### Discarding Cards
+![Discard Card Screen](discard_card.png)  
+The **Discard Card Screen** allows the player to manage their cards and prepare for building valid poker hands by discarding unwanted cards. This screen is primarily used for sorting, viewing, and selecting cards.
+
+- `1. Select Cards` - Choose cards you wish to discard from your current hand.
+- `2. Sort cards by Suit` - Rearranges your cards based on their suit (Hearts, Diamonds, Clubs, Spades).
+- `3. Sort cards by Rank` - Rearranges your cards based on their rank (2, 3, ..., King, Ace).
+- `4. View Poker Hands` - Display possible poker hands you can form with your current cards.
+- `5. View Deck` - Shows all the remaining cards in the deck.
+- `6. Return To Game` - Go back to the main game screen without making any changes.
+
+### Playing Cards
+![Play Card Screen](play_card.png)
+The **Play Card Screen** allows the player to select cards to form valid poker hands. This screen provides sorting options to help arrange cards effectively before making a selection.
+
+#### Menu Options:
+- `1. Select Cards` - Choose cards you wish to play from your current hand.
+- `2. Sort cards by Suit` - Rearranges your cards based on their suit (Hearts, Diamonds, Clubs, Spades).
+- `3. Sort cards by Rank` - Rearranges your cards based on their rank (2, 3, ..., King, Ace).
+- `4. View Poker Hands` - Display possible poker hands you can form with your current cards.
+- `5. View Deck` - Shows all the remaining cards in the deck.
+- `6. Return To Game` - Go back to the main game screen without making any changes.
+
+### Deck View Screen
+![Deck View Screen](deck_view.png)  
+The **Deck View Screen** displays the composition of your current deck. It shows the distribution of cards across suits and ranks, helping you track which cards remain available.
+
+#### Information Provided:
+- **Deck Type**: Displayed at the top (e.g., RED).
+- **Suits**: Spades, Hearts, Clubs, Diamonds listed row-wise.
+- **Ranks**: A, K, Q, J, 10, ..., 2 listed column-wise.
+- **Total Count**: Shows how many cards of each rank and suit remain.
+
+#### Menu Options:
+- `1. Return To Previous Screen` - Takes you back to the previous screen.
+
+### Poker Hand Screen
+![Poker Hand Screen](poker_hand_screen.png)  
+The **Poker Hand Screen** shows all possible poker hands and their corresponding rewards in terms of chips and multipliers. This screen helps you understand which hands are worth more.
+
+#### Information Provided:
+- **Poker Hands**: Listed in descending order of value (e.g., Flush Five, Flush House, Royal Flush, etc.).
+- **Chips**: The base chip value awarded for completing a hand.
+- **Multiplier (MULTI)**: The multiplier applied to chips for enhanced rewards.
+- **Plays**: The number of times a hand has been successfully played.
+
+#### Menu Options:
+- `1. Return To Previous Screen` - Takes you back to the previous screen.
+
+### Win Joker Screen (After Winning Boss Blind)
+![Win Joker Screen](win_joker.png)  
+After successfully beating the **Boss Blind**, you receive a special **Joker Card**. Jokers provide unique bonuses and enhance your gameplay.
+
+#### Information Provided:
+- **Joker Card Type**: Displayed prominently (e.g., Lusty Joker).
+- **Effect**: Bonuses applied to your gameplay, such as additional multipliers for certain suits.
+
+#### Menu Options:
+- `1. Start Next Round` - Proceeds to the next round.
+- `2. Exit Game` - Ends the current game session.
+
+### Win Planet Card Screen (After Winning a Round)
+![Win Planet Card Screen](win_planet_card.png)  
+After completing a round successfully, you receive a **Planet Card**. These cards level up your poker hands, providing additional rewards.
+
+#### Information Provided:
+- **Planet Card Type**: Displayed prominently (e.g., Pluto Planet Card).
+- **Hand Leveled Up**: Indicates which poker hand has been upgraded.
+- **Level Increase**: Rewards provided for leveling up, such as extra chips or multipliers.
+
+#### Menu Options:
+- `1. Start Next Round` - Proceeds to the next round.
+- `2. Exit Game` - Ends the current game session.
+
+---
+
 
 
 ## FAQs
