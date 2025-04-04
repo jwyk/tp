@@ -1,8 +1,9 @@
 package javatro.manager.options;
 
-import static javatro.display.UI.*;
-
-import javatro.core.*;
+import javatro.core.Ante;
+import javatro.core.JavatroCore;
+import javatro.core.JavatroException;
+import javatro.core.PokerHand;
 import javatro.display.Parser;
 import javatro.display.UI;
 import javatro.display.screens.DiscardCardScreen;
@@ -10,6 +11,13 @@ import javatro.display.screens.PlayCardScreen;
 import javatro.manager.JavatroManager;
 
 import java.util.List;
+
+import static javatro.display.UI.BLACK_B;
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+import static javatro.display.UI.YELLOW;
+import static javatro.display.UI.getCardArtLines;
+import static javatro.display.UI.printBorderedContent;
 
 /**
  * The {@code CardSelectOption} class represents a command that allows the player to make a

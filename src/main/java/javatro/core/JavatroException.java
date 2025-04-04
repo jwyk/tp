@@ -89,16 +89,6 @@ public final class JavatroException extends Exception {
 
     // @@author Markneoneo
     /**
-     * Creates exception for null values in required arguments.
-     *
-     * @param fieldName Name of the field that cannot be null
-     * @return Configured exception instance
-     */
-    public static JavatroException invalidNullValue(String fieldName) {
-        return new JavatroException(fieldName + " cannot be null");
-    }
-
-    /**
      * @return Exception for invalid card selection input
      */
     public static JavatroException invalidCardInput() {
@@ -130,7 +120,7 @@ public final class JavatroException extends Exception {
      * @return Exception for non-numeric input where number expected
      */
     public static JavatroException invalidInputType() {
-        return new JavatroException("Invalid input! Please enter a valid number.");
+        return new JavatroException("Invalid input! Please enter a number.");
     }
 
     /**
