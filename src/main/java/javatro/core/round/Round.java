@@ -193,10 +193,8 @@ public class Round {
     /**
      * Discards a selection of cards from the player's hand.
      *
-     * @param cardIndices
-     *            Indices of cards to discard from the holding hand
-     * @throws JavatroException
-     *             If the discard is invalid or no discards remain
+     * @param cardIndices Indices of cards to discard from the holding hand
+     * @throws JavatroException If the discard is invalid or no discards remain
      */
     public void discardCards(List<Integer> cardIndices) throws JavatroException {
         ActionResult result = RoundActions.discardCards(state, config, cardIndices);
