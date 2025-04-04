@@ -10,7 +10,6 @@ import static javatro.core.Card.Rank.QUEEN;
 import static javatro.core.Card.Rank.TEN;
 import static javatro.core.Card.Rank.THREE;
 import static javatro.core.Card.Rank.TWO;
-
 import static javatro.core.PokerHand.HandType.FIVE_OF_A_KIND;
 import static javatro.core.PokerHand.HandType.FLUSH;
 import static javatro.core.PokerHand.HandType.FLUSH_FIVE;

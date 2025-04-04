@@ -1,9 +1,6 @@
 // @@author Markneoneo
 package javatro.core;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import static javatro.core.Card.Rank.ACE;
 import static javatro.core.Card.Rank.EIGHT;
 import static javatro.core.Card.Rank.FIVE;
@@ -21,33 +18,39 @@ import static javatro.core.Card.Suit.CLUBS;
 import static javatro.core.Card.Suit.DIAMONDS;
 import static javatro.core.Card.Suit.HEARTS;
 import static javatro.core.Card.Suit.SPADES;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 /**
- * Comprehensive test suite for the {@link Card} class and its associated enums.
- * Verifies core functionality, edge cases, and expected behaviors without using parameterized tests.
+ * Comprehensive test suite for the {@link Card} class and its associated enums. Verifies core
+ * functionality, edge cases, and expected behaviors without using parameterized tests.
  *
  * <p>Test coverage includes:
+ *
  * <ul>
- *   <li>All 52 card combinations (13 ranks × 4 suits)</li>
- *   <li>Chip value calculations for all ranks</li>
- *   <li>String representation formatting</li>
- *   <li>Equality and hash code contracts</li>
- *   <li>Enum completeness and values</li>
- *   <li>Record component integrity</li>
+ *   <li>All 52 card combinations (13 ranks × 4 suits)
+ *   <li>Chip value calculations for all ranks
+ *   <li>String representation formatting
+ *   <li>Equality and hash code contracts
+ *   <li>Enum completeness and values
+ *   <li>Record component integrity
  * </ul>
  */
 class CardTest {
 
     /**
-     * Tests creation of all possible card combinations.
-     * Iterates through every rank and suit combination to verify:
+     * Tests creation of all possible card combinations. Iterates through every rank and suit
+     * combination to verify:
+     *
      * <ul>
-     *   <li>Successful card instantiation</li>
-     *   <li>Correct rank component storage</li>
-     *   <li>Correct suit component storage</li>
+     *   <li>Successful card instantiation
+     *   <li>Correct rank component storage
+     *   <li>Correct suit component storage
      * </ul>
      */
     @Test
@@ -65,12 +68,13 @@ class CardTest {
     }
 
     /**
-     * Verifies chip values for all card ranks.
-     * Tests both numerical ranks and special values for face cards:
+     * Verifies chip values for all card ranks. Tests both numerical ranks and special values for
+     * face cards:
+     *
      * <ul>
-     *   <li>Numerical ranks (2-10) have matching chip values</li>
-     *   <li>Face cards (JACK, QUEEN, KING) have 10 chips</li>
-     *   <li>ACE has special value of 11 chips</li>
+     *   <li>Numerical ranks (2-10) have matching chip values
+     *   <li>Face cards (JACK, QUEEN, KING) have 10 chips
+     *   <li>ACE has special value of 11 chips
      * </ul>
      */
     @Test
@@ -97,12 +101,13 @@ class CardTest {
     }
 
     /**
-     * Validates symbol representations for all card ranks.
-     * Ensures proper symbols for both numerical and face cards:
+     * Validates symbol representations for all card ranks. Ensures proper symbols for both
+     * numerical and face cards:
+     *
      * <ul>
-     *   <li>Numerical ranks show their number</li>
-     *   <li>Face cards use single-letter abbreviations</li>
-     *   <li>ACE uses 'A' symbol</li>
+     *   <li>Numerical ranks show their number
+     *   <li>Face cards use single-letter abbreviations
+     *   <li>ACE uses 'A' symbol
      * </ul>
      */
     @Test
@@ -127,12 +132,12 @@ class CardTest {
     }
 
     /**
-     * Tests formal names for all suit enums.
-     * Verifies proper capitalization and spelling:
+     * Tests formal names for all suit enums. Verifies proper capitalization and spelling:
+     *
      * <ul>
-     *   <li>First letter capitalized</li>
-     *   <li>Subsequent letters lowercase</li>
-     *   <li>Full English names</li>
+     *   <li>First letter capitalized
+     *   <li>Subsequent letters lowercase
+     *   <li>Full English names
      * </ul>
      */
     @Test
@@ -145,35 +150,37 @@ class CardTest {
     }
 
     /**
-     * Verifies the string representation format.
-     * Tests the pattern: "[Rank Symbol] of [Suit Name]".
+     * Verifies the string representation format. Tests the pattern: "[Rank Symbol] of [Suit Name]".
      * Samples include:
+     *
      * <ul>
-     *   <li>Numerical card with simple suit</li>
-     *   <li>Face card with different suit</li>
-     *   <li>Special case (ACE)</li>
+     *   <li>Numerical card with simple suit
+     *   <li>Face card with different suit
+     *   <li>Special case (ACE)
      * </ul>
      */
     @Test
     @DisplayName("Test string representation")
     void testToString() {
-        assertEquals("2 of Hearts", new Card(TWO, HEARTS).toString(),
-                "TWO of HEARTS string mismatch");
-        assertEquals("A of Spades", new Card(ACE, SPADES).toString(),
-                "ACE of SPADES string mismatch");
-        assertEquals("J of Diamonds", new Card(JACK, DIAMONDS).toString(),
+        assertEquals(
+                "2 of Hearts", new Card(TWO, HEARTS).toString(), "TWO of HEARTS string mismatch");
+        assertEquals(
+                "A of Spades", new Card(ACE, SPADES).toString(), "ACE of SPADES string mismatch");
+        assertEquals(
+                "J of Diamonds",
+                new Card(JACK, DIAMONDS).toString(),
                 "JACK of DIAMONDS string mismatch");
-        assertEquals("Q of Clubs", new Card(QUEEN, CLUBS).toString(),
-                "QUEEN of CLUBS string mismatch");
+        assertEquals(
+                "Q of Clubs", new Card(QUEEN, CLUBS).toString(), "QUEEN of CLUBS string mismatch");
     }
 
     /**
-     * Tests the equality contract and hash code consistency.
-     * Verifies:
+     * Tests the equality contract and hash code consistency. Verifies:
+     *
      * <ul>
-     *   <li>Equal cards return true for equals()</li>
-     *   <li>Equal cards have matching hash codes</li>
-     *   <li>Different cards return false for equals()</li>
+     *   <li>Equal cards return true for equals()
+     *   <li>Equal cards have matching hash codes
+     *   <li>Different cards return false for equals()
      * </ul>
      */
     @Test
@@ -185,17 +192,16 @@ class CardTest {
 
         // Equality tests
         assertEquals(card1, card2, "Identical cards should be equal");
-        assertEquals(card1.hashCode(), card2.hashCode(),
-                "Equal cards must have equal hash codes");
+        assertEquals(card1.hashCode(), card2.hashCode(), "Equal cards must have equal hash codes");
         assertNotEquals(card1, card3, "Different cards should not be equal");
     }
 
     /**
-     * Verifies proper handling of invalid comparisons.
-     * Ensures cards:
+     * Verifies proper handling of invalid comparisons. Ensures cards:
+     *
      * <ul>
-     *   <li>Never equal to null</li>
-     *   <li>Never equal to different types</li>
+     *   <li>Never equal to null
+     *   <li>Never equal to different types
      * </ul>
      */
     @Test
@@ -207,28 +213,30 @@ class CardTest {
     }
 
     /**
-     * Validates completeness of enum declarations.
-     * Prevents accidental modification of enum values by:
+     * Validates completeness of enum declarations. Prevents accidental modification of enum values
+     * by:
+     *
      * <ul>
-     *   <li>Checking count of Rank values (13)</li>
-     *   <li>Checking count of Suit values (4)</li>
+     *   <li>Checking count of Rank values (13)
+     *   <li>Checking count of Suit values (4)
      * </ul>
      */
     @Test
     @DisplayName("Test enum completeness")
     void testEnumCompleteness() {
-        assertEquals(13, Card.Rank.values().length,
-                "Should have 13 ranks (2-10, J, Q, K, A)");
-        assertEquals(4, Card.Suit.values().length,
+        assertEquals(13, Card.Rank.values().length, "Should have 13 ranks (2-10, J, Q, K, A)");
+        assertEquals(
+                4,
+                Card.Suit.values().length,
                 "Should have 4 suits (Hearts, Clubs, Spades, Diamonds)");
     }
 
     /**
-     * Tests record component accessors.
-     * Verifies the automatically generated methods:
+     * Tests record component accessors. Verifies the automatically generated methods:
+     *
      * <ul>
-     *   <li>{@link Card#rank()}</li>
-     *   <li>{@link Card#suit()}</li>
+     *   <li>{@link Card#rank()}
+     *   <li>{@link Card#suit()}
      * </ul>
      */
     @Test

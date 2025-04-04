@@ -31,17 +31,17 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 /**
- * This class contains comprehensive unit tests for the {@link HandResult} class.
- * It verifies the correct identification and ranking of various poker hand types,
- * including standard poker hands and special hand types like Flush Five and Flush House.
+ * This class contains comprehensive unit tests for the {@link HandResult} class. It verifies the
+ * correct identification and ranking of various poker hand types, including standard poker hands
+ * and special hand types like Flush Five and Flush House.
  */
 class HandResultTest {
 
     /* ==================== STRAIGHT FLUSH TESTS ==================== */
 
     /**
-     * Tests that a straight flush is correctly identified.
-     * A straight flush is a hand that contains five cards of sequential rank, all the same suit.
+     * Tests that a straight flush is correctly identified. A straight flush is a hand that contains
+     * five cards of sequential rank, all the same suit.
      *
      * @throws JavatroException if there's an error in hand evaluation
      */
@@ -64,8 +64,8 @@ class HandResultTest {
     }
 
     /**
-     * Tests that a hand with mixed suits is not identified as a straight flush.
-     * The hand should be identified as a straight instead.
+     * Tests that a hand with mixed suits is not identified as a straight flush. The hand should be
+     * identified as a straight instead.
      *
      * @throws JavatroException if there's an error in hand evaluation
      */
@@ -458,7 +458,8 @@ class HandResultTest {
         assertEquals("Four of a Kind", result.getHandName());
     }
 
-    /** Tests that four of a kind is correctly identified with four cards.
+    /**
+     * Tests that four of a kind is correctly identified with four cards.
      *
      * @throws JavatroException if there's an error in hand evaluation
      */
@@ -515,7 +516,8 @@ class HandResultTest {
         assertEquals("Two Pair", result.getHandName());
     }
 
-    /** Tests that a pair is correctly identified with two cards.
+    /**
+     * Tests that a pair is correctly identified with two cards.
      *
      * @throws JavatroException if there's an error in hand evaluation
      */
@@ -637,13 +639,13 @@ class HandResultTest {
     @Test
     void testFlushFiveTrue() throws JavatroException {
         // Arrange: Create a Flush Five hand (5 identical Ace of Hearts)
-        List<Card> hand = List.of(
-                new Card(ACE, HEARTS),
-                new Card(ACE, HEARTS),
-                new Card(ACE, HEARTS),
-                new Card(ACE, HEARTS),
-                new Card(ACE, HEARTS)
-        );
+        List<Card> hand =
+                List.of(
+                        new Card(ACE, HEARTS),
+                        new Card(ACE, HEARTS),
+                        new Card(ACE, HEARTS),
+                        new Card(ACE, HEARTS),
+                        new Card(ACE, HEARTS));
 
         // Act: Evaluate the hand
         PokerHand result = HandResult.evaluateHand(hand);
@@ -661,13 +663,13 @@ class HandResultTest {
     @Test
     void testFlushFiveFalseDifferentSuits() throws JavatroException {
         // Arrange: Create a Five of a Kind hand (same rank, different suits)
-        List<Card> hand = List.of(
-                new Card(ACE, HEARTS),
-                new Card(ACE, DIAMONDS),
-                new Card(ACE, CLUBS),
-                new Card(ACE, SPADES),
-                new Card(ACE, HEARTS)
-        );
+        List<Card> hand =
+                List.of(
+                        new Card(ACE, HEARTS),
+                        new Card(ACE, DIAMONDS),
+                        new Card(ACE, CLUBS),
+                        new Card(ACE, SPADES),
+                        new Card(ACE, HEARTS));
 
         // Act: Evaluate the hand
         PokerHand result = HandResult.evaluateHand(hand);
@@ -775,7 +777,8 @@ class HandResultTest {
 
     /* ==================== FLUSH HOUSE TESTS ==================== */
 
-    /** Tests that Flush House is correctly identified (full house with all cards same suit).
+    /**
+     * Tests that Flush House is correctly identified (full house with all cards same suit).
      *
      * @throws JavatroException if there's an error in hand evaluation
      */
@@ -793,7 +796,8 @@ class HandResultTest {
         assertEquals("Flush House", result.getHandName());
     }
 
-    /** Tests that a regular full house with mixed suits is not a Flush House.
+    /**
+     * Tests that a regular full house with mixed suits is not a Flush House.
      *
      * @throws JavatroException if there's an error in hand evaluation
      */
@@ -811,7 +815,8 @@ class HandResultTest {
         assertEquals("Full House", result.getHandName());
     }
 
-    /** Tests that a flush without the full house composition is not a Flush House.
+    /**
+     * Tests that a flush without the full house composition is not a Flush House.
      *
      * @throws JavatroException if there's an error in hand evaluation
      */
@@ -829,7 +834,8 @@ class HandResultTest {
         assertEquals("Flush", result.getHandName());
     }
 
-    /** Tests that a Flush Five is not mistakenly identified as Flush House.
+    /**
+     * Tests that a Flush Five is not mistakenly identified as Flush House.
      *
      * @throws JavatroException if there's an error in hand evaluation
      */
@@ -853,175 +859,169 @@ class HandResultTest {
     // ordinal() returns the position (0-based index) in the enum declaration
     // compareTo() returns negative when the first is "less than" (stronger than) the second
     /**
-     * Comprehensive test that verifies the correct priority ordering of all poker hand types.
-     * This test ensures that stronger hands properly outrank weaker ones according to the
-     * defined priority values in HandType.
+     * Comprehensive test that verifies the correct priority ordering of all poker hand types. This
+     * test ensures that stronger hands properly outrank weaker ones according to the defined
+     * priority values in HandType.
      *
      * @throws JavatroException if there's an error in hand evaluation
      */
     @Test
     void testAllHandPriorities() throws JavatroException {
         // Create sample hands for each hand type in order from strongest to weakest
-        List<TestHand> testHands = List.of(
-                new TestHand(
-                        // 1. Flush Five (all cards identical)
-                        "Flush Five",
-                        FLUSH_FIVE,
-                        List.of(
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, HEARTS)
-                        )
-                ),
-                new TestHand(
-                        // 2. Flush House (full house with all cards same suit)
-                        "Flush House",
-                        FLUSH_HOUSE,
-                        List.of(
-                                new Card(KING, DIAMONDS),
-                                new Card(KING, DIAMONDS),
-                                new Card(KING, DIAMONDS),
-                                new Card(QUEEN, DIAMONDS),
-                                new Card(QUEEN, DIAMONDS))
-                ),
-                new TestHand(
-                        // 3. Five of a Kind (all cards same rank)
-                        "Five of a Kind",
-                        FIVE_OF_A_KIND,
-                        List.of(
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, DIAMONDS),
-                                new Card(ACE, CLUBS),
-                                new Card(ACE, SPADES),
-                                new Card(ACE, HEARTS))
-                ),
-                new TestHand(
-                        // 4. Royal Flush (A-K-Q-J-10 same suit)
-                        "Royal Flush",
-                        PokerHand.HandType.ROYAL_FLUSH,
-                        List.of(
-                                new Card(ACE, SPADES),
-                                new Card(KING, SPADES),
-                                new Card(QUEEN, SPADES),
-                                new Card(JACK, SPADES),
-                                new Card(TEN, SPADES))
-                ),
-                new TestHand(
-                        // 5. Straight Flush (sequential same suit, not royal)
-                        "Straight Flush",
-                        PokerHand.HandType.STRAIGHT_FLUSH,
-                        List.of(
-                                new Card(NINE, HEARTS),
-                                new Card(TEN, HEARTS),
-                                new Card(JACK, HEARTS),
-                                new Card(QUEEN, HEARTS),
-                                new Card(KING, HEARTS))
-                ),
-                new TestHand(
-                        // 6. Four of a kind
-                        "Four of a Kind",
-                        PokerHand.HandType.FOUR_OF_A_KIND,
-                        List.of(
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, DIAMONDS),
-                                new Card(ACE, CLUBS),
-                                new Card(ACE, SPADES),
-                                new Card(KING, HEARTS))
-                ),
-                new TestHand(
-                        // 7. Full House
-                        "Full House",
-                        PokerHand.HandType.FULL_HOUSE,
-                        List.of(
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, DIAMONDS),
-                                new Card(ACE, CLUBS),
-                                new Card(KING, SPADES),
-                                new Card(KING, HEARTS))
-                ),
-                new TestHand(
-                        // 8. Flush
-                        "Flush",
-                        PokerHand.HandType.FLUSH,
-                        List.of(
-                                new Card(ACE, HEARTS),
-                                new Card(TWO, HEARTS),
-                                new Card(FIVE, HEARTS),
-                                new Card(NINE, HEARTS),
-                                new Card(QUEEN, HEARTS))
-                ),
-                new TestHand(
-                        // 9. Straight
-                        "Straight",
-                        PokerHand.HandType.STRAIGHT,
-                        List.of(
-                                new Card(FIVE, SPADES),
-                                new Card(SIX, HEARTS),
-                                new Card(SEVEN, DIAMONDS),
-                                new Card(EIGHT, CLUBS),
-                                new Card(NINE, SPADES))
-                ),
-                new TestHand(
-                        // 10. Three of a Kind
-                        "Three of a Kind",
-                        PokerHand.HandType.THREE_OF_A_KIND,
-                        List.of(
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, DIAMONDS),
-                                new Card(ACE, CLUBS),
-                                new Card(KING, SPADES),
-                                new Card(QUEEN, HEARTS))
-                ),
-                new TestHand(
-                        // 11. Two Pair
-                        "Two Pair",
-                        PokerHand.HandType.TWO_PAIR,
-                        List.of(
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, DIAMONDS),
-                                new Card(KING, CLUBS),
-                                new Card(KING, SPADES),
-                                new Card(QUEEN, HEARTS))
-                ),
-                new TestHand(
-                        // 12. Pair
-                        "Pair",
-                        PokerHand.HandType.PAIR,
-                        List.of(
-                                new Card(ACE, HEARTS),
-                                new Card(ACE, DIAMONDS),
-                                new Card(KING, CLUBS),
-                                new Card(QUEEN, SPADES),
-                                new Card(JACK, HEARTS))
-                ),
-                new TestHand(
-                        // 13. High Card
-                        "High Card",
-                        PokerHand.HandType.HIGH_CARD,
-                        List.of(
-                                new Card(ACE, HEARTS),
-                                new Card(KING, DIAMONDS),
-                                new Card(QUEEN, CLUBS),
-                                new Card(JACK, SPADES),
-                                new Card(NINE, HEARTS))
-                )
-        );
+        List<TestHand> testHands =
+                List.of(
+                        new TestHand(
+                                // 1. Flush Five (all cards identical)
+                                "Flush Five",
+                                FLUSH_FIVE,
+                                List.of(
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, HEARTS))),
+                        new TestHand(
+                                // 2. Flush House (full house with all cards same suit)
+                                "Flush House",
+                                FLUSH_HOUSE,
+                                List.of(
+                                        new Card(KING, DIAMONDS),
+                                        new Card(KING, DIAMONDS),
+                                        new Card(KING, DIAMONDS),
+                                        new Card(QUEEN, DIAMONDS),
+                                        new Card(QUEEN, DIAMONDS))),
+                        new TestHand(
+                                // 3. Five of a Kind (all cards same rank)
+                                "Five of a Kind",
+                                FIVE_OF_A_KIND,
+                                List.of(
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, DIAMONDS),
+                                        new Card(ACE, CLUBS),
+                                        new Card(ACE, SPADES),
+                                        new Card(ACE, HEARTS))),
+                        new TestHand(
+                                // 4. Royal Flush (A-K-Q-J-10 same suit)
+                                "Royal Flush",
+                                PokerHand.HandType.ROYAL_FLUSH,
+                                List.of(
+                                        new Card(ACE, SPADES),
+                                        new Card(KING, SPADES),
+                                        new Card(QUEEN, SPADES),
+                                        new Card(JACK, SPADES),
+                                        new Card(TEN, SPADES))),
+                        new TestHand(
+                                // 5. Straight Flush (sequential same suit, not royal)
+                                "Straight Flush",
+                                PokerHand.HandType.STRAIGHT_FLUSH,
+                                List.of(
+                                        new Card(NINE, HEARTS),
+                                        new Card(TEN, HEARTS),
+                                        new Card(JACK, HEARTS),
+                                        new Card(QUEEN, HEARTS),
+                                        new Card(KING, HEARTS))),
+                        new TestHand(
+                                // 6. Four of a kind
+                                "Four of a Kind",
+                                PokerHand.HandType.FOUR_OF_A_KIND,
+                                List.of(
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, DIAMONDS),
+                                        new Card(ACE, CLUBS),
+                                        new Card(ACE, SPADES),
+                                        new Card(KING, HEARTS))),
+                        new TestHand(
+                                // 7. Full House
+                                "Full House",
+                                PokerHand.HandType.FULL_HOUSE,
+                                List.of(
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, DIAMONDS),
+                                        new Card(ACE, CLUBS),
+                                        new Card(KING, SPADES),
+                                        new Card(KING, HEARTS))),
+                        new TestHand(
+                                // 8. Flush
+                                "Flush",
+                                PokerHand.HandType.FLUSH,
+                                List.of(
+                                        new Card(ACE, HEARTS),
+                                        new Card(TWO, HEARTS),
+                                        new Card(FIVE, HEARTS),
+                                        new Card(NINE, HEARTS),
+                                        new Card(QUEEN, HEARTS))),
+                        new TestHand(
+                                // 9. Straight
+                                "Straight",
+                                PokerHand.HandType.STRAIGHT,
+                                List.of(
+                                        new Card(FIVE, SPADES),
+                                        new Card(SIX, HEARTS),
+                                        new Card(SEVEN, DIAMONDS),
+                                        new Card(EIGHT, CLUBS),
+                                        new Card(NINE, SPADES))),
+                        new TestHand(
+                                // 10. Three of a Kind
+                                "Three of a Kind",
+                                PokerHand.HandType.THREE_OF_A_KIND,
+                                List.of(
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, DIAMONDS),
+                                        new Card(ACE, CLUBS),
+                                        new Card(KING, SPADES),
+                                        new Card(QUEEN, HEARTS))),
+                        new TestHand(
+                                // 11. Two Pair
+                                "Two Pair",
+                                PokerHand.HandType.TWO_PAIR,
+                                List.of(
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, DIAMONDS),
+                                        new Card(KING, CLUBS),
+                                        new Card(KING, SPADES),
+                                        new Card(QUEEN, HEARTS))),
+                        new TestHand(
+                                // 12. Pair
+                                "Pair",
+                                PokerHand.HandType.PAIR,
+                                List.of(
+                                        new Card(ACE, HEARTS),
+                                        new Card(ACE, DIAMONDS),
+                                        new Card(KING, CLUBS),
+                                        new Card(QUEEN, SPADES),
+                                        new Card(JACK, HEARTS))),
+                        new TestHand(
+                                // 13. High Card
+                                "High Card",
+                                PokerHand.HandType.HIGH_CARD,
+                                List.of(
+                                        new Card(ACE, HEARTS),
+                                        new Card(KING, DIAMONDS),
+                                        new Card(QUEEN, CLUBS),
+                                        new Card(JACK, SPADES),
+                                        new Card(NINE, HEARTS))));
 
         // Evaluate all hands
-        List<PokerHand> evaluatedHands = testHands.stream()
-                .map(testHand -> {
-                    try {
-                        PokerHand result = HandResult.evaluateHand(testHand.cards());
-                        assertEquals(testHand.expectedType(), result.handType(),
-                                "Hand " + testHand.name() + " was incorrectly identified");
-                        return result;
-                    } catch (JavatroException e) {
-                        throw new RuntimeException("Hand evaluation failed for " + testHand.name(), e);
-                    }
-                })
-                .toList();
+        List<PokerHand> evaluatedHands =
+                testHands.stream()
+                        .map(
+                                testHand -> {
+                                    try {
+                                        PokerHand result =
+                                                HandResult.evaluateHand(testHand.cards());
+                                        assertEquals(
+                                                testHand.expectedType(),
+                                                result.handType(),
+                                                "Hand "
+                                                        + testHand.name()
+                                                        + " was incorrectly identified");
+                                        return result;
+                                    } catch (JavatroException e) {
+                                        throw new RuntimeException(
+                                                "Hand evaluation failed for " + testHand.name(), e);
+                                    }
+                                })
+                        .toList();
 
         // Verify each hand is stronger than all subsequent hands
         for (int i = 0; i < evaluatedHands.size(); i++) {
@@ -1033,17 +1033,15 @@ class HandResultTest {
 
                 assertTrue(
                         currentHand.handType().compareTo(weakerHand.handType()) < 0,
-                        String.format("%s should be stronger than %s but isn't",
-                                testHands.get(i).name(),
-                                testHands.get(j).name())
-                );
+                        String.format(
+                                "%s should be stronger than %s but isn't",
+                                testHands.get(i).name(), testHands.get(j).name()));
 
                 assertTrue(
                         currentHand.handType().ordinal() < weakerHand.handType().ordinal(),
-                        String.format("%s should have lower ordinal than %s",
-                                testHands.get(i).name(),
-                                testHands.get(j).name())
-                );
+                        String.format(
+                                "%s should have lower ordinal than %s",
+                                testHands.get(i).name(), testHands.get(j).name()));
             }
         }
 
@@ -1054,12 +1052,12 @@ class HandResultTest {
 
             assertTrue(
                     current.handType().ordinal() < next.handType().ordinal(),
-                    String.format("%s (priority %d) should have higher priority than %s (priority %d)",
+                    String.format(
+                            "%s (priority %d) should have higher priority than %s (priority %d)",
                             testHands.get(i).name(),
                             current.handType().ordinal(),
-                            testHands.get(i+1).name(),
-                            next.handType().ordinal())
-            );
+                            testHands.get(i + 1).name(),
+                            next.handType().ordinal()));
         }
     }
 

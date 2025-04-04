@@ -2,15 +2,13 @@
 package javatro.core;
 
 /**
- * Represents a playing card with a rank and a suit in a card game.
- * Each card has a specific rank (e.g., ACE, KING) and suit (e.g., HEARTS, SPADES).
- * The card's rank determines both its display symbol and its chip value in gameplay.
+ * Represents a playing card with a rank and a suit in a card game. Each card has a specific rank
+ * (e.g., ACE, KING) and suit (e.g., HEARTS, SPADES). The card's rank determines both its display
+ * symbol and its chip value in gameplay.
  */
 public record Card(Rank rank, Suit suit) {
 
-    /**
-     * Compact constructor to validate card components.
-     */
+    /** Compact constructor to validate card components. */
     public Card {
         assert rank != null : "Rank must not be null";
         assert suit != null : "Suit must not be null";
@@ -26,8 +24,8 @@ public record Card(Rank rank, Suit suit) {
     }
 
     /**
-     * Enumeration of card ranks with associated symbols and chip values.
-     * Chip values follow standard casino blackjack values.
+     * Enumeration of card ranks with associated symbols and chip values. Chip values follow
+     * standard casino blackjack values.
      */
     public enum Rank {
         TWO("2", 2),
@@ -59,24 +57,18 @@ public record Card(Rank rank, Suit suit) {
             this.chips = chips;
         }
 
-        /**
-         * Returns the display symbol for this rank.
-         */
+        /** Returns the display symbol for this rank. */
         public String getSymbol() {
             return symbol;
         }
 
-        /**
-         * Returns the chip value used in game calculations.
-         */
+        /** Returns the chip value used in game calculations. */
         public int getChips() {
             return chips;
         }
     }
 
-    /**
-     * Enumeration of card suits with full display names.
-     */
+    /** Enumeration of card suits with full display names. */
     public enum Suit {
         HEARTS("Hearts"),
         CLUBS("Clubs"),
@@ -95,9 +87,7 @@ public record Card(Rank rank, Suit suit) {
             this.name = name;
         }
 
-        /**
-         * Returns the formal name of the suit.
-         */
+        /** Returns the formal name of the suit. */
         public String getName() {
             return name;
         }
@@ -113,8 +103,8 @@ public record Card(Rank rank, Suit suit) {
     }
 
     /**
-     * Returns a human-readable string representation of the card.
-     * Format: "[Symbol] of [Suit]" (e.g., "A of Hearts").
+     * Returns a human-readable string representation of the card. Format: "[Symbol] of [Suit]"
+     * (e.g., "A of Hearts").
      */
     @Override
     public String toString() {

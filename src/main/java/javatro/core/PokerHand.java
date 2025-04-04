@@ -2,17 +2,17 @@
 package javatro.core;
 
 /**
- * Represents the evaluated result of a poker hand with tracking for progression levels and usage counts.
- * The hand's value is determined by its type, which includes base chips and multipliers adjusted by level.
- * Play counts are managed externally by {@link JavatroCore}.
+ * Represents the evaluated result of a poker hand with tracking for progression levels and usage
+ * counts. The hand's value is determined by its type, which includes base chips and multipliers
+ * adjusted by level. Play counts are managed externally by {@link JavatroCore}.
  *
  * @param handType The classification of the poker hand determining base values and increments
  */
 public record PokerHand(HandType handType) {
 
     /**
-     * Calculates the total chip value adjusted by the hand's current progression level.
-     * Formula: base_chips + (current_level - 1) * level_increment
+     * Calculates the total chip value adjusted by the hand's current progression level. Formula:
+     * base_chips + (current_level - 1) * level_increment
      *
      * @return Total chips adjusted for current level
      */
@@ -26,8 +26,8 @@ public record PokerHand(HandType handType) {
     }
 
     /**
-     * Calculates the multiplier value adjusted by the hand's current progression level.
-     * Formula: base_multiplier + (current_level - 1) * multiplier_increment
+     * Calculates the multiplier value adjusted by the hand's current progression level. Formula:
+     * base_multiplier + (current_level - 1) * multiplier_increment
      *
      * @return Total multiplier adjusted for current level
      */
@@ -59,8 +59,8 @@ public record PokerHand(HandType handType) {
     }
 
     /**
-     * Increments the play counter for this hand type in the external tracker.
-     * Returns the same instance since state is managed externally.
+     * Increments the play counter for this hand type in the external tracker. Returns the same
+     * instance since state is managed externally.
      *
      * @return Current instance after updating play count
      */
@@ -77,18 +77,14 @@ public record PokerHand(HandType handType) {
                 handType.getHandName(),
                 PlanetCard.getLevel(handType),
                 getChips(),
-                handType.getMultiplier(),  // Base multiplier per original implementation
-                getPlayCount()
-        );
+                handType.getMultiplier(), // Base multiplier per original implementation
+                getPlayCount());
     }
 
     /**
-     * Enumeration of poker hand types with associated base values and progression parameters.
-     * Each hand type has:
-     * - Display name
-     * - Base chip value
-     * - Base multiplier value
-     * Level increments are managed externally by {@link PlanetCard}.
+     * Enumeration of poker hand types with associated base values and progression parameters. Each
+     * hand type has: - Display name - Base chip value - Base multiplier value Level increments are
+     * managed externally by {@link PlanetCard}.
      */
     public enum HandType {
         // Standard poker hands
@@ -113,8 +109,8 @@ public record PokerHand(HandType handType) {
         /**
          * Creates a hand type specification.
          *
-         * @param handName   Display name
-         * @param chips      Base chip value
+         * @param handName Display name
+         * @param chips Base chip value
          * @param multiplier Base multiplier value
          */
         HandType(String handName, int chips, int multiplier) {

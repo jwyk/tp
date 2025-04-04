@@ -49,8 +49,8 @@
  *
  * <h3>ASCII Art Resources</h3>
  *
- * {@link javatro.display.ansi} - Contains ASCII text files with ANSI colour formatting.
- * Used for visual elements, such as game logo, cards, and decorative text.
+ * {@link javatro.display.ansi} - Contains ASCII text files with ANSI colour formatting. Used for
+ * visual elements, such as game logo, cards, and decorative text.
  *
  * <h2>Design Patterns</h2>
  *
