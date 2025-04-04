@@ -2,74 +2,96 @@
 package javatro.core;
 
 /**
- * Represents the result of evaluating a poker hand with tracking for levels and play counts.
+ * Represents the evaluated result of a poker hand with tracking for progression levels and usage counts.
+ * The hand's value is determined by its type, which includes base chips and multipliers adjusted by level.
+ * Play counts are managed externally by {@link JavatroCore}.
  *
- * @param handType The type of poker hand
+ * @param handType The classification of the poker hand determining base values and increments
  */
 public record PokerHand(HandType handType) {
 
     /**
-     * Returns the base chips for this poker hand adjusted by level.
+     * Calculates the total chip value adjusted by the hand's current progression level.
+     * Formula: base_chips + (current_level - 1) * level_increment
      *
-     * @return The base chips multiplied by level
+     * @return Total chips adjusted for current level
      */
     public int getChips() {
         int base = handType.getChips();
         int level = PlanetCard.getLevel(handType);
+        assert level >= 1 : "Level must be ≥ 1";
         int chipIncrement = PlanetCard.getChipIncrement(handType);
+
         return base + (level - 1) * chipIncrement;
     }
 
     /**
-     * Returns the multiplier for this poker hand adjusted by level.
+     * Calculates the multiplier value adjusted by the hand's current progression level.
+     * Formula: base_multiplier + (current_level - 1) * multiplier_increment
      *
-     * @return The multiplier
+     * @return Total multiplier adjusted for current level
      */
     public int getMultiplier() {
         int base = handType.getMultiplier();
         int level = PlanetCard.getLevel(handType);
+        assert level >= 1 : "Level must be ≥ 1";
         int multiIncrement = PlanetCard.getMultiIncrement(handType);
+
         return base + (level - 1) * multiIncrement;
     }
 
     /**
-     * Returns the hand name for this poker hand.
+     * Gets the display name of the poker hand type.
      *
-     * @return The hand name.
+     * @return Formal name of the hand type
      */
     public String getHandName() {
         return handType.getHandName();
     }
 
+    /**
+     * Retrieves the number of times this hand type has been played.
+     *
+     * @return Current play count from external tracking system
+     */
     public int getPlayCount() {
         return JavatroCore.getPlayCount(handType);
     }
 
     /**
-     * Creates a new PokerHand with an incremented played count.
+     * Increments the play counter for this hand type in the external tracker.
+     * Returns the same instance since state is managed externally.
      *
-     * @return A new PokerHand instance with playCount + 1
+     * @return Current instance after updating play count
      */
     public PokerHand incrementPlayed() {
         JavatroCore.incrementPlayCount(handType);
-        return this; // Return same instance since stats are managed by JavatroCore
+        return this;
     }
 
     @Override
     public String toString() {
+        // Includes level-adjusted chips but base multiplier (original design choice)
         return String.format(
                 "%s (Level: %d, Chips: %d, Multiplier: %d, Played: %d)",
                 handType.getHandName(),
                 PlanetCard.getLevel(handType),
                 getChips(),
-                handType.getMultiplier(),
-                getPlayCount());
+                handType.getMultiplier(),  // Base multiplier per original implementation
+                getPlayCount()
+        );
     }
 
     /**
-     * Enum representing all possible poker hand types, along with their base chips and multipliers.
+     * Enumeration of poker hand types with associated base values and progression parameters.
+     * Each hand type has:
+     * - Display name
+     * - Base chip value
+     * - Base multiplier value
+     * Level increments are managed externally by {@link PlanetCard}.
      */
     public enum HandType {
+        // Standard poker hands
         FLUSH_FIVE("Flush Five", 160, 16),
         FLUSH_HOUSE("Flush House", 140, 14),
         FIVE_OF_A_KIND("Five of a Kind", 120, 12),
@@ -88,20 +110,42 @@ public record PokerHand(HandType handType) {
         private final int chips;
         private final int multiplier;
 
+        /**
+         * Creates a hand type specification.
+         *
+         * @param handName   Display name
+         * @param chips      Base chip value
+         * @param multiplier Base multiplier value
+         */
         HandType(String handName, int chips, int multiplier) {
             this.handName = handName;
             this.chips = chips;
             this.multiplier = multiplier;
         }
 
+        /**
+         * Gets the display name of the hand type.
+         *
+         * @return Formal hand name
+         */
         public String getHandName() {
             return handName;
         }
 
+        /**
+         * Gets the base chip value before level adjustments.
+         *
+         * @return Base chips for this hand type
+         */
         public int getChips() {
             return chips;
         }
 
+        /**
+         * Gets the base multiplier value before level adjustments.
+         *
+         * @return Base multiplier for this hand type
+         */
         public int getMultiplier() {
             return multiplier;
         }
