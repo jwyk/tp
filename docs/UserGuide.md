@@ -126,11 +126,11 @@ The game continues until you fail to reach the required score for a particular b
 
 ## Quick Start
 - Ensure you have Java 17 installed.
-- Run the game using:
+- Run the game using any of the following:
 ```
-java "-Dfile.encoding=UTF-8" -jar javatro.jar.
+java -Dfile.encoding=UTF-8 -jar javatro.jar
+java "-Dfile.encoding=UTF-8" -jar javatro.jar
 ```
-- If you run into problems running this command, run ```chcp 65001``` followed by ```java -jar javatro.jar.```
 - Use on-screen menu options to navigate through the game.
 ---
 
