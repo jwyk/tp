@@ -47,6 +47,10 @@ public class PlanetCard {
                 new PlanetCard(
                         "Neptune", 40, 4, PokerHand.HandType.STRAIGHT_FLUSH, "planet_neptune.txt"));
         CARDS.put(
+                PokerHand.HandType.ROYAL_FLUSH,
+                new PlanetCard(
+                        "Neptune", 40, 4, PokerHand.HandType.ROYAL_FLUSH, "planet_neptune.txt"));
+        CARDS.put(
                 PokerHand.HandType.FIVE_OF_A_KIND,
                 new PlanetCard(
                         "Planet X",
