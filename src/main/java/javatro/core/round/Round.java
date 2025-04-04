@@ -187,7 +187,7 @@ public class Round {
         state.addScore(result.getPointsEarned());
         state.decrementPlays();
 
-        updateRoundVariables();
+        observable.updateRoundVariables(state, config);
     }
 
     /**
@@ -202,7 +202,7 @@ public class Round {
         state.setChosenCards(result.getCards());
         state.decrementDiscards();
 
-        updateRoundVariables();
+        observable.updateRoundVariables(state, config);
     }
 
     /**
