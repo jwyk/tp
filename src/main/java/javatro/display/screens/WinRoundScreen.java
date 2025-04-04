@@ -87,8 +87,7 @@ public class WinRoundScreen extends Screen {
     private void handleNormalBlindVictory() {
         PokerHand.HandType[] handTypes = PokerHand.HandType.values();
         int randomIndex = ThreadLocalRandom.current().nextInt(handTypes.length);
-//        PokerHand.HandType randomPlanetCard = handTypes[randomIndex];
-        PokerHand.HandType randomPlanetCard = handTypes[2];
+        PokerHand.HandType randomPlanetCard = handTypes[randomIndex];
 
         assert randomIndex >= 0 && randomIndex < handTypes.length : "Invalid hand type index";
 
