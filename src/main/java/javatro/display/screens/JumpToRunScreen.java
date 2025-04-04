@@ -30,7 +30,7 @@ public class JumpToRunScreen extends Screen {
         super("Jump To A Run");
         for(int i = 1; i<= Storage.getStorageInstance().getNumberOfRuns();i++) {
             SelectRunNumberOption newRunOption = new SelectRunNumberOption();
-            newRunOption.setRunNumber(i-1);
+            newRunOption.setRunNumber(i);
             super.commandMap.add(newRunOption);
         }
         //assert commandMap.size() == 3 : "StartScreen should have exactly 3 initial options";

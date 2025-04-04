@@ -28,7 +28,7 @@ public class SeeNextRunOption implements Option {
 
         int currentRun = UI.getRunSelectScreen().getRunNumber();
         int totalRuns = 5;
-        int nextRun = (currentRun + 1) % totalRuns;
+        int nextRun = (currentRun % totalRuns) + 1;
         UI.getRunSelectScreen().setRunNumber(nextRun);
 
         JavatroManager.setScreen(UI.getRunSelectScreen());

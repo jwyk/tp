@@ -22,7 +22,7 @@ public class SelectRunNumberOption implements Option {
      */
     @Override
     public String getDescription() {
-        return "Select Run And Begin Game";
+        return "Jump to Run " + runNumber;
     }
 
     /** Executes the command to change the screen to the start menu. */

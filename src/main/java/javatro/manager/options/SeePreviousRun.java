@@ -28,7 +28,7 @@ public class SeePreviousRun implements Option {
 
         int currentRun = UI.getRunSelectScreen().getRunNumber();
         int totalRuns = 5;
-        int previousRun = (currentRun - 1 + totalRuns) % totalRuns;
+        int previousRun = ((currentRun - 2 + totalRuns) % totalRuns) + 1;
         UI.getRunSelectScreen().setRunNumber(previousRun);
 
         JavatroManager.setScreen(UI.getRunSelectScreen());

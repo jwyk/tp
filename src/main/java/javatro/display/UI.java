@@ -142,6 +142,7 @@ public class UI {
         printBorderedContent(title, content, BORDER_WIDTH, BORDER_WIDTH);
     }
 
+
     /**
      * Prints a bordered message or menu with customizable widths for title and content.
      *
