@@ -11,7 +11,6 @@ import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.display.screens.Screen;
-import javatro.storage.Storage;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

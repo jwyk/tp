@@ -11,7 +11,6 @@ import javatro.manager.JavatroManager;
 /** A command that loads the run selection screen when executed. */
 public class LoadJumpToRunScreenOption implements Option {
 
-
     /**
      * Provides a brief description of the command.
      *
@@ -27,6 +26,4 @@ public class LoadJumpToRunScreenOption implements Option {
     public void execute() throws JavatroException {
         JavatroManager.setScreen(UI.getJumpToRunScreen());
     }
-
-
 }
