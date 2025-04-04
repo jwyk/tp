@@ -1,3 +1,4 @@
+// @@author Markneoneo
 package javatro.core;
 
 import static javatro.core.Card.Rank.ACE;

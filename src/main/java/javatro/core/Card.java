@@ -1,6 +1,5 @@
+// @@author Markneoneo
 package javatro.core;
-
-import java.util.Objects;
 
 /**
  * Represents a playing card with a rank and a suit. Each card has a rank (e.g., ACE, KING, QUEEN)
@@ -102,19 +101,5 @@ public record Card(Rank rank, Suit suit) {
     @Override
     public String toString() {
         return String.format("%s of %s", rank.getSymbol(), suit.getName());
-    }
-
-    // For displaying the card in the game
-    public String getSimplified() {
-        String suitVal =
-                Objects.equals(suit().getName(), "Hearts")
-                        ? "H"
-                        : Objects.equals(suit().getName(), "Clubs")
-                                ? "C"
-                                : Objects.equals(suit().getName(), "Spades")
-                                        ? "S"
-                                        : Objects.equals(suit().getName(), "Diamonds") ? "D" : "-";
-
-        return rank.getSymbol() + suitVal;
     }
 }

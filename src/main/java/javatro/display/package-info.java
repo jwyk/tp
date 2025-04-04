@@ -47,6 +47,11 @@
  *   <li>ANSI art loading and display functionality
  * </ul>
  *
+ * <h3>ASCII Art Resources</h3>
+ *
+ * {@link javatro.display.ansi} - Contains ASCII text files with ANSI colour formatting.
+ * Used for visual elements, such as game logo, cards, and decorative text.
+ *
  * <h2>Design Patterns</h2>
  *
  * <ul>
@@ -63,5 +68,6 @@
  *
  * @see javatro.core.JavatroException
  * @see javatro.manager.options
+ * @see javatro.display.ansi
  */
 package javatro.display;
