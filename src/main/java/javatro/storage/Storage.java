@@ -16,14 +16,27 @@ public class Storage {
 
     private static boolean saveFileValid = true;
 
+    private static Storage storageInstance;
+
     //Serialized Storage Information stored in a TreeMap
     //[Run Number] [Round Number] [Ante Number] [Best Hand] [Deck Type] [Level?]
     private static TreeMap<Integer, List<String>> serializedRunData = new TreeMap<>();
 
     private String csvRawData; //Raw data from csv
 
-    public Storage() throws JavatroException {
+    private Storage() throws JavatroException {
         initaliseTaskFile();
+    }
+
+    public static Storage getStorageInstance() {
+        if(storageInstance == null) {
+            try {
+                return storageInstance = new Storage();
+            } catch (JavatroException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return storageInstance;
     }
 
     private void createSaveFile() throws JavatroException {
@@ -117,5 +130,6 @@ public class Storage {
         Storage.serializedRunData = serializedRunData;
     }
 
+    public int getNumberOfRuns() {return 5;}
 
 }

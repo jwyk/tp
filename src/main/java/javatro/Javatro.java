@@ -5,6 +5,7 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.display.screens.StartScreen;
 import javatro.manager.JavatroManager;
+import javatro.storage.Storage;
 
 /**
  * The {@code javatro} class serves as the main entry point for the application. It initializes the
@@ -12,6 +13,7 @@ import javatro.manager.JavatroManager;
  * manager to the start screen.
  */
 public class Javatro {
+
     /** The view component of the application. */
     private static final UI javatroView = new UI();
 

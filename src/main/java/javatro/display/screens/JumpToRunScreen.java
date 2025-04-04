@@ -4,10 +4,9 @@ package javatro.display.screens;
 import static javatro.display.UI.printANSI;
 
 import javatro.core.JavatroException;
-import javatro.manager.options.ExitGameOption;
-import javatro.manager.options.HelpMenuOption;
-import javatro.manager.options.LoadRunSelectOption;
-import javatro.manager.options.StartGameOption;
+import javatro.manager.JavatroManager;
+import javatro.manager.options.*;
+import javatro.storage.Storage;
 
 /**
  * Initial application screen displaying main menu options and game logo.
@@ -20,20 +19,21 @@ import javatro.manager.options.StartGameOption;
  *   <li>Handling basic application navigation
  * </ul>
  */
-public class StartScreen extends Screen {
+public class JumpToRunScreen extends Screen {
 
     /**
-     * Constructs the start screen with default main menu options.
+     * Constructs the jump to run screen with default main menu options.
      *
      * @throws JavatroException if screen initialization fails
      */
-    public StartScreen() throws JavatroException {
-        super("MAIN MENU");
-        commandMap.add(new LoadRunSelectOption());
-        commandMap.add(new HelpMenuOption());
-        commandMap.add(new ExitGameOption());
-
-        assert commandMap.size() == 3 : "StartScreen should have exactly 3 initial options";
+    public JumpToRunScreen() throws JavatroException {
+        super("Jump To A Run");
+        for(int i = 1; i<= Storage.getStorageInstance().getNumberOfRuns();i++) {
+            SelectRunNumberOption newRunOption = new SelectRunNumberOption();
+            newRunOption.setRunNumber(i-1);
+            super.commandMap.add(newRunOption);
+        }
+        //assert commandMap.size() == 3 : "StartScreen should have exactly 3 initial options";
     }
 
     /**
@@ -46,6 +46,5 @@ public class StartScreen extends Screen {
      */
     @Override
     public void displayScreen() {
-        printANSI("javatro_logo.txt");
     }
 }
