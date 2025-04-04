@@ -34,7 +34,7 @@ public class ExitGameOption implements Option {
 
         // display the farewell message with borders and ANSI formatting
         UI.printBorderedContent(
-                BOLD + "GOODBYE", List.of(RED + "WE KNOW YOU WILL BE BACK SOON" + END));
+                BOLD + ":: GOODBYE ::", List.of(RED + "WE KNOW YOU WILL BE BACK SOON" + END));
         System.exit(0); // Terminate the application
     }
 }

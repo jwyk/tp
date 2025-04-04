@@ -10,7 +10,20 @@ import static javatro.core.Card.Rank.QUEEN;
 import static javatro.core.Card.Rank.TEN;
 import static javatro.core.Card.Rank.THREE;
 import static javatro.core.Card.Rank.TWO;
-import static javatro.core.PokerHand.HandType.*;
+
+import static javatro.core.PokerHand.HandType.FIVE_OF_A_KIND;
+import static javatro.core.PokerHand.HandType.FLUSH;
+import static javatro.core.PokerHand.HandType.FLUSH_FIVE;
+import static javatro.core.PokerHand.HandType.FLUSH_HOUSE;
+import static javatro.core.PokerHand.HandType.FOUR_OF_A_KIND;
+import static javatro.core.PokerHand.HandType.FULL_HOUSE;
+import static javatro.core.PokerHand.HandType.HIGH_CARD;
+import static javatro.core.PokerHand.HandType.PAIR;
+import static javatro.core.PokerHand.HandType.ROYAL_FLUSH;
+import static javatro.core.PokerHand.HandType.STRAIGHT;
+import static javatro.core.PokerHand.HandType.STRAIGHT_FLUSH;
+import static javatro.core.PokerHand.HandType.THREE_OF_A_KIND;
+import static javatro.core.PokerHand.HandType.TWO_PAIR;
 
 import java.util.HashMap;
 import java.util.List;

@@ -2,17 +2,33 @@
 package javatro.core;
 
 /**
- * Represents a playing card with a rank and a suit. Each card has a rank (e.g., ACE, KING, QUEEN)
- * and a suit (e.g., HEARTS, SPADES). The rank also determines the chip value of the card.
+ * Represents a playing card with a rank and a suit in a card game.
+ * Each card has a specific rank (e.g., ACE, KING) and suit (e.g., HEARTS, SPADES).
+ * The card's rank determines both its display symbol and its chip value in gameplay.
  */
 public record Card(Rank rank, Suit suit) {
 
-    /** Copy Constructor for the Card Class */
+    /**
+     * Compact constructor to validate card components.
+     */
+    public Card {
+        assert rank != null : "Rank must not be null";
+        assert suit != null : "Suit must not be null";
+    }
+
+    /**
+     * Constructs a new card by copying an existing card instance.
+     *
+     * @param other The card to copy. Must not be {@code null}.
+     */
     public Card(Card other) {
         this(other.rank(), other.suit());
     }
 
-    /** Enum representing the rank of a card, along with its symbol and chip value. */
+    /**
+     * Enumeration of card ranks with associated symbols and chip values.
+     * Chip values follow standard casino blackjack values.
+     */
     public enum Rank {
         TWO("2", 2),
         THREE("3", 3),
@@ -32,36 +48,35 @@ public record Card(Rank rank, Suit suit) {
         private final int chips;
 
         /**
-         * Constructs a rank with the given symbol and chip value.
+         * Creates a rank with its display symbol and chip value.
          *
-         * @param symbol The symbol representing the rank (e.g., "A" for ACE).
-         * @param chips The chip value associated with the rank.
+         * @param symbol The character representation of the rank
+         * @param chips The game value in chips for this rank
          */
         Rank(String symbol, int chips) {
+            assert symbol != null : "Rank symbol cannot be null";
             this.symbol = symbol;
             this.chips = chips;
         }
 
         /**
-         * Returns the symbol of the rank.
-         *
-         * @return The symbol of the rank.
+         * Returns the display symbol for this rank.
          */
         public String getSymbol() {
             return symbol;
         }
 
         /**
-         * Returns the chip value of the rank.
-         *
-         * @return The chip value of the rank.
+         * Returns the chip value used in game calculations.
          */
         public int getChips() {
             return chips;
         }
     }
 
-    /** Enum representing the suit of a card. */
+    /**
+     * Enumeration of card suits with full display names.
+     */
     public enum Suit {
         HEARTS("Hearts"),
         CLUBS("Clubs"),
@@ -71,18 +86,17 @@ public record Card(Rank rank, Suit suit) {
         private final String name;
 
         /**
-         * Constructs a suit with the given name.
+         * Creates a suit with its full display name.
          *
-         * @param name The name of the suit.
+         * @param name The formal name of the suit
          */
         Suit(String name) {
+            assert name != null : "Suit name cannot be null";
             this.name = name;
         }
 
         /**
-         * Returns the name of the suit.
-         *
-         * @return The name of the suit.
+         * Returns the formal name of the suit.
          */
         public String getName() {
             return name;
@@ -90,16 +104,21 @@ public record Card(Rank rank, Suit suit) {
     }
 
     /**
-     * Returns the chip value of the card based on its rank.
+     * Returns the chip value of this card based on its rank.
      *
-     * @return The chip value of the card.
+     * @return Chip value for game calculations
      */
     public int getChips() {
         return rank.getChips();
     }
 
+    /**
+     * Returns a human-readable string representation of the card.
+     * Format: "[Symbol] of [Suit]" (e.g., "A of Hearts").
+     */
     @Override
     public String toString() {
+        // Format: <Rank Symbol> of <Suit Name>
         return String.format("%s of %s", rank.getSymbol(), suit.getName());
     }
 }

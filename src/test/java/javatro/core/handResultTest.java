@@ -22,7 +22,9 @@ import static javatro.core.PokerHand.HandType.FIVE_OF_A_KIND;
 import static javatro.core.PokerHand.HandType.FLUSH_FIVE;
 import static javatro.core.PokerHand.HandType.FLUSH_HOUSE;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
