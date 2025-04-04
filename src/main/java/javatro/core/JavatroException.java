@@ -120,7 +120,7 @@ public final class JavatroException extends Exception {
      * @return Exception for non-numeric input where number expected
      */
     public static JavatroException invalidInputType() {
-        return new JavatroException("Invalid input! Please enter a number.");
+        return new JavatroException("Invalid input! Please enter a valid number.");
     }
 
     /**
