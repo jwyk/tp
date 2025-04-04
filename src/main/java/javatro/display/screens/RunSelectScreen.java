@@ -2,11 +2,13 @@ package javatro.display.screens;
 
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
+import javatro.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static javatro.display.UI.*;
+import static javatro.display.ansi.DeckArt.*;
 
 public class RunSelectScreen extends Screen{
 
@@ -45,18 +47,15 @@ public class RunSelectScreen extends Screen{
         List<String> optionLines = new ArrayList<>();
 
         // Replace this with the actual split ANSI card art
-        String[] cardArt = new String[]{
-                "\u001B[38;5;255;48;5;15m▄\u001B[38;5;203;48;5;255m▄\u001B[38;5;210;48;5;255m▄\u001B[38;5;216;48;5;15m▄\u001B[38;5;210;48;5;255m▄▄\u001B[38;5;217;48;5;15m▄▄▄\u001B[38;5;210;48;5;255m▄▄\u001B[38;5;216;48;5;15m▄\u001B[38;5;210;48;5;255m▄\u001B[38;5;203;48;5;255m▄\u001B[38;5;255;48;5;15m▄\u001B[m",
-                "\u001B[38;5;255;48;5;255m▄\u001B[38;5;216;48;5;210m▄\u001B[38;5;224;48;5;217m▄\u001B[38;5;217;48;5;224m▄\u001B[38;5;209;48;5;217m▄\u001B[38;5;217;48;5;217m▄\u001B[38;5;217;48;5;15m▄\u001B[38;5;15;48;5;224m▄\u001B[38;5;217;48;5;15m▄\u001B[38;5;217;48;5;217m▄\u001B[38;5;209;48;5;217m▄\u001B[38;5;217;48;5;224m▄\u001B[38;5;224;48;5;217m▄\u001B[38;5;216;48;5;210m▄\u001B[38;5;255;48;5;255m▄\u001B[m",
-                "\u001B[48;5;255m \u001B[48;5;210m \u001B[38;5;216;48;5;224m▄\u001B[38;5;224;48;5;255m▄\u001B[38;5;210;48;5;203m▄\u001B[38;5;203;48;5;255m▄\u001B[38;5;210;48;5;203m▄\u001B[38;5;255;48;5;203m▄\u001B[38;5;210;48;5;203m▄\u001B[38;5;203;48;5;255m▄\u001B[38;5;210;48;5;203m▄\u001B[38;5;224;48;5;255m▄\u001B[38;5;216;48;5;224m▄\u001B[48;5;210m \u001B[48;5;255m \u001B[m",
-                "\u001B[38;5;255;48;5;255m▄\u001B[38;5;203;48;5;216m▄\u001B[38;5;210;48;5;217m▄\u001B[38;5;210;48;5;224m▄\u001B[38;5;217;48;5;15m▄\u001B[38;5;15;48;5;210m▄\u001B[38;5;224;48;5;210m▄\u001B[38;5;217;48;5;210m▄\u001B[38;5;224;48;5;210m▄\u001B[38;5;15;48;5;210m▄\u001B[38;5;217;48;5;15m▄\u001B[38;5;210;48;5;224m▄\u001B[38;5;210;48;5;217m▄\u001B[38;5;203;48;5;216m▄\u001B[38;5;255;48;5;255m▄\u001B[m",
-                "\u001B[38;5;255;48;5;255m▄\u001B[38;5;210;48;5;210m▄\u001B[38;5;224;48;5;217m▄\u001B[38;5;255;48;5;210m▄\u001B[38;5;15;48;5;223m▄\u001B[38;5;224;48;5;210m▄\u001B[38;5;210;48;5;255m▄\u001B[38;5;15;48;5;224m▄\u001B[38;5;210;48;5;255m▄\u001B[38;5;224;48;5;210m▄\u001B[38;5;15;48;5;223m▄\u001B[38;5;255;48;5;210m▄\u001B[38;5;224;48;5;217m▄\u001B[38;5;210;48;5;210m▄\u001B[38;5;255;48;5;255m▄\u001B[m",
-                "\u001B[38;5;255;48;5;255m▄\u001B[38;5;210;48;5;210m▄\u001B[38;5;217;48;5;224m▄\u001B[38;5;210;48;5;255m▄\u001B[38;5;223;48;5;15m▄\u001B[38;5;210;48;5;224m▄\u001B[38;5;255;48;5;210m▄\u001B[38;5;224;48;5;15m▄\u001B[38;5;255;48;5;210m▄\u001B[38;5;210;48;5;224m▄\u001B[38;5;223;48;5;15m▄\u001B[38;5;210;48;5;255m▄\u001B[38;5;217;48;5;224m▄\u001B[38;5;210;48;5;210m▄\u001B[38;5;255;48;5;255m▄\u001B[m",
-                "\u001B[38;5;255;48;5;255m▄\u001B[38;5;216;48;5;203m▄\u001B[38;5;217;48;5;210m▄\u001B[38;5;224;48;5;210m▄\u001B[38;5;15;48;5;217m▄\u001B[38;5;210;48;5;15m▄\u001B[38;5;210;48;5;224m▄\u001B[38;5;210;48;5;217m▄\u001B[38;5;210;48;5;224m▄\u001B[38;5;210;48;5;15m▄\u001B[38;5;15;48;5;217m▄\u001B[38;5;224;48;5;210m▄\u001B[38;5;217;48;5;210m▄\u001B[38;5;216;48;5;203m▄\u001B[38;5;255;48;5;255m▄\u001B[m",
-                "\u001B[48;5;255m \u001B[48;5;210m \u001B[38;5;224;48;5;216m▄\u001B[38;5;255;48;5;224m▄\u001B[38;5;203;48;5;210m▄\u001B[38;5;255;48;5;203m▄\u001B[38;5;203;48;5;210m▄\u001B[38;5;203;48;5;255m▄\u001B[38;5;203;48;5;210m▄\u001B[38;5;255;48;5;203m▄\u001B[38;5;203;48;5;210m▄\u001B[38;5;255;48;5;224m▄\u001B[38;5;224;48;5;216m▄\u001B[48;5;210m \u001B[48;5;255m \u001B[m",
-                "\u001B[38;5;255;48;5;255m▄\u001B[38;5;210;48;5;216m▄\u001B[38;5;217;48;5;224m▄\u001B[38;5;224;48;5;217m▄\u001B[38;5;217;48;5;209m▄\u001B[38;5;217;48;5;217m▄\u001B[38;5;15;48;5;217m▄\u001B[38;5;224;48;5;15m▄\u001B[38;5;15;48;5;217m▄\u001B[38;5;217;48;5;217m▄\u001B[38;5;217;48;5;209m▄\u001B[38;5;224;48;5;217m▄\u001B[38;5;217;48;5;224m▄\u001B[38;5;210;48;5;216m▄\u001B[38;5;255;48;5;255m▄\u001B[m",
-                "\u001B[38;5;15;48;5;255m▄\u001B[38;5;255;48;5;203m▄\u001B[38;5;255;48;5;210m▄\u001B[38;5;15;48;5;216m▄\u001B[38;5;255;48;5;210m▄▄\u001B[38;5;15;48;5;217m▄▄▄\u001B[38;5;255;48;5;210m▄▄\u001B[38;5;15;48;5;216m▄\u001B[38;5;255;48;5;210m▄\u001B[38;5;255;48;5;203m▄\u001B[38;5;15;48;5;255m▄\u001B[m"
-        };
+        String[] cardArt;
+        String cardDesc = "";
+        if(Storage.getStorageInstance().getValue(runNumber-1,8).charAt(Storage.getStorageInstance().getValue(runNumber-1,8).length() - 1) == ']') {
+            cardArt = Storage.fromStorageKey(Storage.getStorageInstance().getValue(runNumber-1,8).substring(0,Storage.getStorageInstance().getValue(runNumber-1,8).length()-1)).getArtLines();
+            cardDesc = Storage.fromStorageKey(Storage.getStorageInstance().getValue(runNumber-1,8).substring(0,Storage.getStorageInstance().getValue(runNumber-1,8).length()-1)).getDeckName();
+        }else {
+            cardArt = Storage.fromStorageKey(Storage.getStorageInstance().getValue(runNumber-1,8)).getArtLines();
+            cardDesc = Storage.fromStorageKey(Storage.getStorageInstance().getValue(runNumber-1,8)).getDeckName();
+        }
 
         int screenSize = 11;
         String deckLabel = "\u001B[1;4mDECK\u001B[0m"; // Bold + Underlined
@@ -67,28 +66,27 @@ public class RunSelectScreen extends Screen{
         optionLines.add("");
 
         // Italicized deck name
-        String italicDeckName = "\u001B[3mStandard Red Deck\u001B[0m";
+        String italicDeckName = "\u001B[3m" + cardDesc + "\u001B[0m";
         visibleCardLine = stripAnsi(cardArt[0]);
-        int deckNamePadding = 95 + (visibleCardLine.length() - "Standard Red Deck".length()) / 2;
+        int deckNamePadding = 85 + (visibleCardLine.length() - "Standard Red Deck".length()) / 2;
         String paddedDeckName = String.format("%" + deckNamePadding + "s", italicDeckName);
-
 
         for (int i = 0; i < screenSize; i++) {
             String leftText = "";
-            if (i == 2) leftText = "Round: 0";
-            else if (i == 3) leftText = "Total Rounds: 10";
-            else if (i == 4) leftText = "Ante: 1";
-            else if (i == 5) leftText = "Chips: $150";
-            else if (i == 6) leftText = "Wins: 3 | Losses: 2";
-            else if (i == 7) leftText = "------------------------";
-            else if (i == 8) leftText = "Last Action: Drew 1 card";
-
+            if (i == 1) leftText = "Round: " + Storage.getStorageInstance().getValue(runNumber-1,1);
+            else if (i == 2) leftText = "Best Hand: " + Storage.getStorageInstance().getValue(runNumber-1,2);
+            else if (i == 3) leftText = "Ante: " + Storage.getStorageInstance().getValue(runNumber-1,3);
+            else if (i == 4) leftText = "Chips: $" + Storage.getStorageInstance().getValue(runNumber-1,4);
+            else if (i == 5) leftText = "Wins: " + Storage.getStorageInstance().getValue(runNumber-1,5) +  " | Losses: " + Storage.getStorageInstance().getValue(runNumber-1,6);
+            else if (i == 6) leftText = "------------------------";
+            else if (i == 7) leftText = "Last Action: " + Storage.getStorageInstance().getValue(runNumber-1,7);
 
             String rightAnsi = (i < cardArt.length) ? cardArt[i] : "";
             // Pad leftText to align with ANSI
             String paddedLeft = String.format("%-70s", leftText);
 
             optionLines.add(paddedLeft + rightAnsi);
+
         }
 
         optionLines.add(paddedDeckName);

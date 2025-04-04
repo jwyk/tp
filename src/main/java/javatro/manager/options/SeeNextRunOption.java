@@ -7,6 +7,7 @@ package javatro.manager.options;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
+import javatro.storage.Storage;
 
 /** A command that loads the run selection screen when executed. */
 public class SeeNextRunOption implements Option {
@@ -27,7 +28,7 @@ public class SeeNextRunOption implements Option {
     public void execute() throws JavatroException {
 
         int currentRun = UI.getRunSelectScreen().getRunNumber();
-        int totalRuns = 5;
+        int totalRuns = Storage.getStorageInstance().getNumberOfRuns();
         int nextRun = (currentRun % totalRuns) + 1;
         UI.getRunSelectScreen().setRunNumber(nextRun);
 

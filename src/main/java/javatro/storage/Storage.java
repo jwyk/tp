@@ -1,6 +1,7 @@
 package javatro.storage;
 
 import javatro.core.JavatroException;
+import javatro.display.ansi.DeckArt;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,6 +9,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
+
+import static javatro.display.ansi.DeckArt.*;
 
 public class Storage {
     /** Path to the task storage file. */
@@ -18,8 +21,10 @@ public class Storage {
 
     private static Storage storageInstance;
 
+
+
     //Serialized Storage Information stored in a TreeMap
-    //[Run Number] [Round Number] [Ante Number] [Best Hand] [Deck Type] [Level?]
+    //[Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last Action] [Deck] [Level?]
     private static TreeMap<Integer, List<String>> serializedRunData = new TreeMap<>();
 
     private String csvRawData; //Raw data from csv
@@ -56,11 +61,13 @@ public class Storage {
     }
 
     private void loadCSVData() {
-        String[] runs = csvRawData.split("\n");
+        String[] runs = csvRawData.split("\\r?\\n");
+        System.out.println(runs.length);
 
         for(int i = 0;i<runs.length;i++) {
             String[] runInfo = runs[i].split(",");
             List<String> runInfoList = Arrays.stream(runInfo).toList();
+            System.out.println(runInfoList.get(7));
             serializedRunData.put(i, runInfoList);
         }
     }
@@ -96,7 +103,7 @@ public class Storage {
         if (Files.exists(saveFilePath)) {
             try {
                 //Read the data present in the saveFile.csv
-                csvRawData = Files.readAllLines(saveFilePath).toString();
+                csvRawData = String.join("\n", Files.readAllLines(saveFilePath));
 
                 //Do validation of the data to ensure that data is valid
                 if(!isCSVDataValid()) {
@@ -131,5 +138,20 @@ public class Storage {
     }
 
     public int getNumberOfRuns() {return 5;}
+
+    public String getValue(int runNumber,int idx) {
+        return serializedRunData.get(runNumber).get(idx);
+    }
+
+    public static DeckArt fromStorageKey(String key) {
+        return switch (key.toUpperCase()) {
+            case "RED" -> RED_DECK;
+            case "BLUE" -> BLUE_DECK;
+            case "CHECKERED" -> CHECKERED_DECK;
+            case "ABANDONED" -> DeckArt.ABANDONED_DECK;
+            default -> throw new IllegalArgumentException("Unknown deck type: " + key);
+        };
+    }
+
 
 }
