@@ -28,6 +28,11 @@ public class Storage {
     private static boolean saveFileValid = true;
     private static int runChosen = 0;
 
+    private static final int EXPECTED_COLUMNS = 10;
+    private static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
+    private static final Set<String> VALID_BLINDS = Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
+
+
     private static Storage storageInstance;
 
     // Serialized Storage Information stored in a TreeMap
