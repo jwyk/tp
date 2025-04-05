@@ -1,11 +1,13 @@
 package javatro.storage;
 
 
+import static javatro.core.Ante.Blind.*;
 import static javatro.display.ansi.DeckArt.BLUE_DECK;
 import static javatro.display.ansi.DeckArt.CHECKERED_DECK;
 import static javatro.display.ansi.DeckArt.ABANDONED_DECK;
 import static javatro.display.ansi.DeckArt.RED_DECK;
 
+import javatro.core.Ante;
 import javatro.core.JavatroException;
 import javatro.display.ansi.DeckArt;
 
@@ -22,17 +24,19 @@ public class Storage {
 
     private static final Path saveFilePath = Paths.get(SAVEFILE_LOCATION);
 
-    private static final int EXPECTED_COLUMNS = 9; // Number of columns in each line
+    private static final int EXPECTED_COLUMNS = 10; // Number of columns in each line
     private static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
+    private static final Set<String> VALID_BLINDS = Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
 
 
     private static boolean saveFileValid = true;
+    private static int runChosen = 0;
 
     private static Storage storageInstance;
 
     // Serialized Storage Information stored in a TreeMap
     // [Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last Action]
-    // [Deck] [Level?]
+    // [Deck] [Blind] [Level?]
     private static TreeMap<Integer, List<String>> serializedRunData = new TreeMap<>();
 
     private String csvRawData; // Raw data from csv
@@ -82,15 +86,21 @@ public class Storage {
             }
 
             // Check if deck name is valid
-            String deckName = columns[columns.length - 1].trim(); // Deck name is the last column
+            String deckName = columns[columns.length - 2].trim(); // Deck name is the 2nd last column
             if (!VALID_DECKS.contains(deckName)) {
                 System.out.println("Invalid deck name in row: " + row);
                 return false;
             }
 
+            String blindName = columns[columns.length - 1].trim(); // Blind name is the last column
+            if (!VALID_BLINDS.contains(blindName)) {
+                System.out.println("Invalid blind name in row: " + row);
+                return false;
+            }
+
             // Validate numeric columns
             try {
-                for (int i = 0; i < EXPECTED_COLUMNS - 2; i++) { // Skip last two columns (command and deck name)
+                for (int i = 0; i < EXPECTED_COLUMNS - 3; i++) { // Skip last three columns (command and deck name and blind name)
                     Integer.parseInt(columns[i]);
                 }
             } catch (NumberFormatException e) {
@@ -118,7 +128,6 @@ public class Storage {
     private byte[] convertSerializedDataIntoString() {
         StringBuilder saveData = new StringBuilder();
         for (Integer key : serializedRunData.keySet()) {
-            saveData.append(key.toString()).append(",");
             List<String> runInfo = serializedRunData.get(key);
             for (String runAttribute : runInfo) {
                 saveData.append(runAttribute).append(",");
@@ -130,9 +139,9 @@ public class Storage {
         return saveData.toString().getBytes();
     }
 
-    private void updateSaveFile() throws JavatroException {
+    public void updateSaveFile() throws JavatroException {
         try {
-            Files.write(saveFilePath, convertSerializedDataIntoString(), StandardOpenOption.APPEND);
+            Files.write(saveFilePath, convertSerializedDataIntoString(), StandardOpenOption.WRITE);
         } catch (IOException e) {
             throw new JavatroException("SAVING ISSUE: " + e.getMessage());
         }
@@ -169,7 +178,7 @@ public class Storage {
         }
     }
 
-    public static TreeMap<Integer, List<String>> getSerializedRunData() {
+    public TreeMap<Integer, List<String>> getSerializedRunData() {
         TreeMap<Integer, List<String>> copy = new TreeMap<>();
         for (Map.Entry<Integer, List<String>> entry : serializedRunData.entrySet()) {
             // Deep copy each list
@@ -178,8 +187,39 @@ public class Storage {
         return copy;
     }
 
-    public static void setSerializedRunData(TreeMap<Integer, List<String>> serializedRunData) {
+    public void setSerializedRunData(TreeMap<Integer, List<String>> serializedRunData) {
         Storage.serializedRunData = serializedRunData;
+    }
+
+    public void addNewRun() {
+        // Initialize an empty list with nulls of size EXPECTED_COLUMNS
+        List<String> newRun = new ArrayList<>();
+        int arrSize = serializedRunData.isEmpty() ? 1 : serializedRunData.size();
+
+        //3,1,320,2,150,4,5,SORT,BLUE, BOSS BLIND
+        // [Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last Action]
+        // Add placeholders for all columns
+        newRun.add(String.valueOf(arrSize));
+        for (int i = 1; i <= 6; i++) {
+            newRun.add("0");  // You can change this to "0" or "N/A" if you prefer
+        }
+        for (int i = 7; i < EXPECTED_COLUMNS; i++) {
+            newRun.add("NA");  // You can change this to "0" or "N/A" if you prefer
+        }
+
+        // Add the run to the serializedRunData map using the next run number as the key
+        serializedRunData.put(arrSize, newRun);
+
+
+        // Set run chosen to new run
+        runChosen = serializedRunData.size()-1;
+
+//        //Update the save file
+//        try {
+//            updateSaveFile();
+//        } catch (JavatroException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public int getNumberOfRuns() {return serializedRunData.size();}
@@ -187,6 +227,20 @@ public class Storage {
     public String getValue(int runNumber, int idx) {
         return serializedRunData.get(runNumber).get(idx);
     }
+
+    public void setValue(int runNumber, int idx, String value) {
+        serializedRunData.get(runNumber).set(idx,value);
+    }
+
+
+    public int getRunChosen() {
+        return runChosen;
+    }
+
+    public void setRunChosen(int runChosen) {
+        Storage.runChosen = runChosen;
+    }
+
 
     public static DeckArt fromStorageKey(String key) {
         return switch (key.toUpperCase()) {
@@ -197,4 +251,14 @@ public class Storage {
             default -> throw new IllegalArgumentException("Unknown deck type: " + key);
         };
     }
+
+    public static Ante.Blind BlindFromKey(String key) {
+        return switch (key.toUpperCase()) {
+            case "SMALL BLIND" -> SMALL_BLIND;
+            case "LARGE BLIND" -> LARGE_BLIND;
+            case "BOSS BLIND" -> BOSS_BLIND;
+            default -> throw new IllegalArgumentException("Unknown blind type: " + key);
+        };
+    }
+
 }

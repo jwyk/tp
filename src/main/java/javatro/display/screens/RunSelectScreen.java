@@ -24,6 +24,7 @@ public class RunSelectScreen extends Screen {
     public RunSelectScreen() throws JavatroException {
         super("Select Run To Load");
         if(Storage.getStorageInstance().getNumberOfRuns() > 0) {
+            super.commandMap.add(new StartRunNumberOption());
             super.commandMap.add(new SeeNextRunOption());
             super.commandMap.add(new SeePreviousRun());
             super.commandMap.add(new LoadJumpToRunScreenOption());
@@ -151,15 +152,17 @@ public class RunSelectScreen extends Screen {
             else if (i == 3)
                 leftText = "Ante: " + Storage.getStorageInstance().getValue(runNumber - 1, 3);
             else if (i == 4)
-                leftText = "Chips: $" + Storage.getStorageInstance().getValue(runNumber - 1, 4);
+                leftText = "Blind: " + Storage.getStorageInstance().getValue(runNumber - 1, 9);
             else if (i == 5)
+                leftText = "Chips: $" + Storage.getStorageInstance().getValue(runNumber - 1, 4);
+            else if (i == 6)
                 leftText =
                         "Wins: "
                                 + Storage.getStorageInstance().getValue(runNumber - 1, 5)
                                 + " | Losses: "
                                 + Storage.getStorageInstance().getValue(runNumber - 1, 6);
-            else if (i == 6) leftText = "------------------------";
-            else if (i == 7)
+            else if (i == 7) leftText = "------------------------";
+            else if (i == 8)
                 leftText =
                         "Last Action: " + Storage.getStorageInstance().getValue(runNumber - 1, 7);
 
