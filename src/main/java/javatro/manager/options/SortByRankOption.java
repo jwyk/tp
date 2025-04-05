@@ -6,18 +6,17 @@ import javatro.display.screens.CardSelectScreen;
 import javatro.manager.JavatroManager;
 
 /**
- * Organizes card display using rank-based sorting (Ace high to Two low).
- * Updates both the data model and display when executed.
+ * Organizes card display using rank-based sorting (Ace high to Two low). Updates both the data
+ * model and display when executed.
  */
 public class SortByRankOption implements Option {
 
-    /**
-     * The card selection screen to modify.
-     */
+    /** The card selection screen to modify. */
     private final CardSelectScreen screen;
 
     /**
      * Creates a rank sorting option for specified card screen.
+     *
      * @param screen Card display interface to modify
      * @throws NullPointerException if screen is null
      */
@@ -28,6 +27,7 @@ public class SortByRankOption implements Option {
 
     /**
      * {@inheritDoc}
+     *
      * @return Constant description "Sort cards by Rank"
      */
     @Override
@@ -36,8 +36,8 @@ public class SortByRankOption implements Option {
     }
 
     /**
-     * {@inheritDoc}
-     * Applies rank-based sorting and refreshes display.
+     * {@inheritDoc} Applies rank-based sorting and refreshes display.
+     *
      * @throws JavatroException if display update fails
      */
     @Override

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -171,10 +170,11 @@ public class Parser {
         assert !input.trim().isEmpty() : "Input string cannot be empty";
         assert maxCardsAvailable > 0 : "Must have at least one card available";
 
-        List<String> parts = Arrays.stream(input.split(","))
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
-                .toList();
+        List<String> parts =
+                Arrays.stream(input.split(","))
+                        .map(String::trim)
+                        .filter(s -> !s.isEmpty())
+                        .toList();
 
         List<Integer> numbers = new ArrayList<>();
 
@@ -193,10 +193,11 @@ public class Parser {
             numbers.add(num);
         }
 
-        List<Integer> userInput = numbers.stream()
-                .map(num -> num - 1) // Convert to 0-based index
-                .distinct()
-                .collect(Collectors.toList());
+        List<Integer> userInput =
+                numbers.stream()
+                        .map(num -> num - 1) // Convert to 0-based index
+                        .distinct()
+                        .collect(Collectors.toList());
 
         if (userInput.isEmpty()) {
             throw JavatroException.invalidCardInput();

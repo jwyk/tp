@@ -1,6 +1,13 @@
 // @@author Markneoneo
 package javatro.manager.options;
 
+import static javatro.display.UI.BLACK_B;
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+import static javatro.display.UI.YELLOW;
+import static javatro.display.UI.getCardArtLines;
+import static javatro.display.UI.printBorderedContent;
+
 import javatro.core.Ante;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
@@ -13,16 +20,9 @@ import javatro.manager.JavatroManager;
 
 import java.util.List;
 
-import static javatro.display.UI.BLACK_B;
-import static javatro.display.UI.BOLD;
-import static javatro.display.UI.END;
-import static javatro.display.UI.YELLOW;
-import static javatro.display.UI.getCardArtLines;
-import static javatro.display.UI.printBorderedContent;
-
 /**
- * The {@code CardSelectOption} class handles card selection operations for the player, allowing them
- * to either play cards into their current poker hand or discard cards, depending on the active
+ * The {@code CardSelectOption} class handles card selection operations for the player, allowing
+ * them to either play cards into their current poker hand or discard cards, depending on the active
  * game screen. The number of selectable cards is limited by a configurable maximum (default: 5).
  */
 public class CardSelectOption implements Option {
@@ -77,15 +77,14 @@ public class CardSelectOption implements Option {
     @Override
     public void execute() throws JavatroException {
         // Get validated card selection from user
-        List<Integer> userInput = Parser.getCardInput(
-                JavatroCore.currentRound.getPlayerHandCards().size(),
-                selectionLimit
-        );
+        List<Integer> userInput =
+                Parser.getCardInput(
+                        JavatroCore.currentRound.getPlayerHandCards().size(), selectionLimit);
 
         // Validate input assumptions
         assert userInput != null : "Card input must not be null";
-        assert userInput.size() <= selectionLimit :
-                "Selected card count exceeds limit: " + userInput.size();
+        assert userInput.size() <= selectionLimit
+                : "Selected card count exceeds limit: " + userInput.size();
 
         // Process selection based on current screen context
         if (UI.getCurrentScreen() instanceof PlayCardScreen) {
@@ -94,10 +93,10 @@ public class CardSelectOption implements Option {
 
             // Display played hand information
             PokerHand playedHand = JavatroCore.currentRound.getPlayedHand();
-            String handName = String.format(
-                    "Achieved: %s%s<%s>%s%s Hand",
-                    BOLD, YELLOW, playedHand.getHandName(), END, BLACK_B
-            );
+            String handName =
+                    String.format(
+                            "Achieved: %s%s<%s>%s%s Hand",
+                            BOLD, YELLOW, playedHand.getHandName(), END, BLACK_B);
             List<String> cardArtLines = getCardArtLines(JavatroCore.currentRound.getPlayedCards());
             printBorderedContent(handName, cardArtLines);
 

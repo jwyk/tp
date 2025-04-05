@@ -89,7 +89,9 @@ public class HandResult {
 
     /** Checks if all cards are exactly identical (same rank and suit) */
     private static boolean isFlushFive(List<Card> cards) {
-        if (cards.size() != 5) { return false; }
+        if (cards.size() != 5) {
+            return false;
+        }
 
         Card first = cards.get(0);
         for (Card card : cards) {
@@ -112,8 +114,12 @@ public class HandResult {
             boolean hasThree = false;
             boolean hasTwo = false;
             for (int count : rankCount.values()) {
-                if (count == 3) { hasThree = true; }
-                if (count == 2) { hasTwo = true; }
+                if (count == 3) {
+                    hasThree = true;
+                }
+                if (count == 2) {
+                    hasTwo = true;
+                }
             }
             if (hasThree && hasTwo) {
                 return new PokerHand(FLUSH_HOUSE);

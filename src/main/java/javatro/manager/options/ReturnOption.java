@@ -7,18 +7,17 @@ import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
 
 /**
- * Enables navigation back to the previous screen in the view stack.
- * Maintains screen history using a last-in-first-out navigation model.
+ * Enables navigation back to the previous screen in the view stack. Maintains screen history using
+ * a last-in-first-out navigation model.
  */
 public class ReturnOption implements Option {
 
-    /**
-     * Reference to the previously displayed screen.
-     */
+    /** Reference to the previously displayed screen. */
     private Screen prev_screen;
 
     /**
      * {@inheritDoc}
+     *
      * @return Constant description "Return To Previous Screen"
      */
     @Override
@@ -27,8 +26,8 @@ public class ReturnOption implements Option {
     }
 
     /**
-     * {@inheritDoc}
-     * Restores the application display to the previous screen state.
+     * {@inheritDoc} Restores the application display to the previous screen state.
+     *
      * @throws JavatroException if screen history is unavailable
      */
     @Override

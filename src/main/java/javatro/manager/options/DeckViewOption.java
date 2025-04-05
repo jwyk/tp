@@ -7,13 +7,14 @@ import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
 
 /**
- * Represents a menu option to view the current deck composition.
- * When executed, transitions the display to the deck viewing screen.
+ * Represents a menu option to view the current deck composition. When executed, transitions the
+ * display to the deck viewing screen.
  */
 public class DeckViewOption implements Option {
 
     /**
      * {@inheritDoc}
+     *
      * @return The static description "View Deck"
      */
     @Override
@@ -22,8 +23,7 @@ public class DeckViewOption implements Option {
     }
 
     /**
-     * {@inheritDoc}
-     * Transitions the display to show deck contents.
+     * {@inheritDoc} Transitions the display to show deck contents.
      *
      * @throws JavatroException if screen transition fails
      */

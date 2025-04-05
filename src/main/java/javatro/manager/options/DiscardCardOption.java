@@ -7,13 +7,14 @@ import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
 
 /**
- * Represents a command to discard selected cards during gameplay.
- * When executed, transitions to the card selection interface for discarding cards.
+ * Represents a command to discard selected cards during gameplay. When executed, transitions to the
+ * card selection interface for discarding cards.
  */
 public class DiscardCardOption implements Option {
 
     /**
      * {@inheritDoc}
+     *
      * @return The static description "Discard Cards"
      */
     @Override
@@ -22,8 +23,7 @@ public class DiscardCardOption implements Option {
     }
 
     /**
-     * {@inheritDoc}
-     * Transitions to the card discard selection screen.
+     * {@inheritDoc} Transitions to the card discard selection screen.
      *
      * @throws JavatroException if screen transition fails
      */

@@ -7,13 +7,14 @@ import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
 
 /**
- * Represents a menu option to view current poker hand combinations.
- * When executed, transitions the display to the poker hand analysis screen.
+ * Represents a menu option to view current poker hand combinations. When executed, transitions the
+ * display to the poker hand analysis screen.
  */
 public class PokerHandOption implements Option {
 
     /**
      * {@inheritDoc}
+     *
      * @return Constant description "View Poker Hands"
      */
     @Override
@@ -22,8 +23,8 @@ public class PokerHandOption implements Option {
     }
 
     /**
-     * {@inheritDoc}
-     * Transitions display to the poker hand analysis interface.
+     * {@inheritDoc} Transitions display to the poker hand analysis interface.
+     *
      * @throws JavatroException if screen transition fails
      */
     @Override

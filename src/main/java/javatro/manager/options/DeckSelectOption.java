@@ -8,19 +8,15 @@ import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
 /**
- * Represents a menu option for selecting a specific deck type to start a new game.
- * When executed, initializes the game with the specified deck and transitions to the blind screen.
+ * Represents a menu option for selecting a specific deck type to start a new game. When executed,
+ * initializes the game with the specified deck and transitions to the blind screen.
  */
 public class DeckSelectOption implements Option {
 
-    /**
-     * The descriptive text displayed for this option in the menu.
-     */
+    /** The descriptive text displayed for this option in the menu. */
     private final String description;
 
-    /**
-     * The type of deck associated with this option.
-     */
+    /** The type of deck associated with this option. */
     private final Deck.DeckType deckType;
 
     /**
@@ -40,6 +36,7 @@ public class DeckSelectOption implements Option {
 
     /**
      * {@inheritDoc}
+     *
      * @return The description text for this deck selection option
      */
     @Override
@@ -48,8 +45,7 @@ public class DeckSelectOption implements Option {
     }
 
     /**
-     * {@inheritDoc}
-     * Initializes game with selected deck type and transitions to blind screen.
+     * {@inheritDoc} Initializes game with selected deck type and transitions to blind screen.
      *
      * @throws JavatroException if game initialization fails
      */

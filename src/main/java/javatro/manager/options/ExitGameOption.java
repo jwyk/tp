@@ -3,16 +3,18 @@ package javatro.manager.options;
 
 import javatro.core.JavatroException;
 import javatro.display.UI;
+
 import java.util.List;
 
 /**
- * Terminates the game application after displaying exit sequences.
- * Shows farewell message and performs clean shutdown.
+ * Terminates the game application after displaying exit sequences. Shows farewell message and
+ * performs clean shutdown.
  */
 public class ExitGameOption implements Option {
 
     /**
      * {@inheritDoc}
+     *
      * @return Constant description "Exit Game"
      */
     @Override
@@ -21,8 +23,8 @@ public class ExitGameOption implements Option {
     }
 
     /**
-     * {@inheritDoc}
-     * Performs orderly application shutdown sequence.
+     * {@inheritDoc} Performs orderly application shutdown sequence.
+     *
      * @throws JavatroException if any display operation fails
      */
     @Override
