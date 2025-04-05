@@ -10,6 +10,7 @@ import javatro.core.JavatroException;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -170,30 +171,39 @@ public class Parser {
         assert !input.trim().isEmpty() : "Input string cannot be empty";
         assert maxCardsAvailable > 0 : "Must have at least one card available";
 
-        List<Integer> userInput =
-                Arrays.stream(input.split(","))
-                        .map(String::trim)
-                        .filter(s -> !s.isEmpty())
-                        .map(
-                                numStr -> {
-                                    try {
-                                        return Integer.parseInt(numStr);
-                                    } catch (NumberFormatException e) {
-                                        return null; // Mark invalid entries as null
-                                    }
-                                })
-                        .filter(Objects::nonNull)
-                        .filter(num -> num >= 1 && num <= maxCardsAvailable)
-                        .map(num -> num - 1) // Convert to 0-based index
-                        .distinct()
-                        .collect(Collectors.toList());
+        List<String> parts = Arrays.stream(input.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
 
-        assert userInput.stream().allMatch(i -> i >= 0 && i < maxCardsAvailable)
-                : "All card indices should be within valid range";
+        List<Integer> numbers = new ArrayList<>();
+
+        for (String part : parts) {
+            int num;
+            try {
+                num = Integer.parseInt(part);
+            } catch (NumberFormatException e) {
+                throw JavatroException.invalidCardInput();
+            }
+
+            if (num < 1 || num > maxCardsAvailable) {
+                throw JavatroException.invalidCardInput();
+            }
+
+            numbers.add(num);
+        }
+
+        List<Integer> userInput = numbers.stream()
+                .map(num -> num - 1) // Convert to 0-based index
+                .distinct()
+                .collect(Collectors.toList());
 
         if (userInput.isEmpty()) {
             throw JavatroException.invalidCardInput();
         }
+
+        assert userInput.stream().allMatch(i -> i >= 0 && i < maxCardsAvailable)
+                : "All card indices should be within valid range";
 
         return userInput;
     }
