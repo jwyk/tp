@@ -40,18 +40,15 @@ public class Storage {
     public static final int ROUND_SCORE_INDEX = 2;
     public static final int HAND_INDEX = 3;
     public static final int DISCARD_INDEX = 4;
-    public static final int BEST_HAND_INDEX = 5;
-    public static final int ANTE_NUMBER_INDEX = 6;
-    public static final int BLIND_INDEX = 7;
-    public static final int CHIPS_INDEX = 8;
-    public static final int WINS_INDEX = 9;
-    public static final int LOSSES_INDEX = 10;
-    public static final int LAST_ACTION_INDEX = 11;
-    public static final int DECK_INDEX = 12;
+    public static final int ANTE_NUMBER_INDEX = 5;
+    public static final int BLIND_INDEX = 6;
+    public static final int WINS_INDEX = 7;
+    public static final int LOSSES_INDEX = 8;
+    public static final int DECK_INDEX = 9;
 
     // Dynamic Data Indexes (Varying Size)
-    public static final int HOLDING_HAND_START_INDEX = 13; // Maximum 8 holding hands (13 to 20)
-    public static final int JOKER_HAND_START_INDEX = 21;   // Maximum 5 Joker Hands (21 to 25)
+    public static final int HOLDING_HAND_START_INDEX = 10; // Maximum 8 holding hands (10 to 19)
+    public static final int JOKER_HAND_START_INDEX = 20;   // Maximum 5 Joker Hands (20 to 24)
     public static final int PLANET_CARD_START_INDEX = 25;  // Unlimited Planet Cards (25 onwards)
 
 
@@ -125,7 +122,7 @@ public class Storage {
             try {
                 int[] numericIndexes = {
                         RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX, HAND_INDEX, DISCARD_INDEX,
-                        BEST_HAND_INDEX, ANTE_NUMBER_INDEX, CHIPS_INDEX, WINS_INDEX, LOSSES_INDEX
+                        ANTE_NUMBER_INDEX,  WINS_INDEX, LOSSES_INDEX
                 };
 
                 for (int index : numericIndexes) {

@@ -14,6 +14,7 @@ import javatro.storage.Storage;
 public class StartRunNumberOption implements Option {
 
     private int runNumber = 0;
+    private final Storage storage = Storage.getStorageInstance();
     /**
      * Provides a brief description of the command.
      *
@@ -29,8 +30,8 @@ public class StartRunNumberOption implements Option {
     @Override
     public void execute() throws JavatroException {
         //Update Storage with chosen run number
-        Storage.getStorageInstance().setRunChosen(runNumber);
-        JavatroManager.beginGame((Storage.DeckFromKey(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getRunChosen()-1, 8))));
+        storage.setRunChosen(runNumber);
+        JavatroManager.beginGame((Storage.DeckFromKey(storage.getValue(storage.getRunChosen()-1, Storage.DECK_INDEX))));
 
         JavatroManager.jc.beginGame();
         JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());

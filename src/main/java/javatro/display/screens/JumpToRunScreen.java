@@ -17,7 +17,6 @@ import javatro.storage.Storage;
  * </ul>
  */
 public class JumpToRunScreen extends Screen {
-
     /**
      * Constructs the jump to run screen with default main menu options.
      *
@@ -25,9 +24,12 @@ public class JumpToRunScreen extends Screen {
      */
     public JumpToRunScreen() throws JavatroException {
         super("Jump To A Run");
-        int numberOfRuns = Storage.getStorageInstance().getNumberOfRuns();
+
+        Storage storage = Storage.getStorageInstance();
+        int numberOfRuns = storage.getNumberOfRuns();
         super.commandMap.add(new LoadRunSelectOption());
-        for(int i = 1; i<= Storage.getStorageInstance().getNumberOfRuns();i++) {
+
+        for(int i = 1; i<= numberOfRuns;i++) {
             SelectRunNumberOption newRunOption = new SelectRunNumberOption();
             newRunOption.setRunNumber(i);
             super.commandMap.add(newRunOption);

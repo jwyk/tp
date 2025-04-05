@@ -214,6 +214,12 @@ public class Round {
         return state.getCurrentScore();
     }
 
+    public void setCurrentScore(int score) {
+        state.addScore(-1*state.getCurrentScore());
+        state.addScore(score);
+    }
+
+
     /**
      * Gets the target score needed to win this round.
      *
@@ -341,6 +347,16 @@ public class Round {
     public RoundState getState() {
         return state;
     }
+
+
+    public void updatePlays(int plays) {
+        state.setRemainingPlays(plays);
+    }
+
+    public void updateDiscards(int discards) {
+        state.setRemainingDiscards(discards);
+    }
+
 
     /**
      * Gets the configuration object for this round.
