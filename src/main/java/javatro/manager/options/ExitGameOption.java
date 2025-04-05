@@ -1,6 +1,5 @@
+// @@author Markneoneo
 package javatro.manager.options;
-
-import static javatro.display.UI.*;
 
 import javatro.core.JavatroException;
 import javatro.display.UI;
@@ -8,15 +7,15 @@ import javatro.display.UI;
 import java.util.List;
 
 /**
- * The {@code ExitGameOption} class represents a command that terminates the game. When executed, it
- * prints a farewell message and exits the application.
+ * Terminates the game application after displaying exit sequences. Shows farewell message and
+ * performs clean shutdown.
  */
 public class ExitGameOption implements Option {
 
     /**
-     * Provides a brief description of the command.
+     * {@inheritDoc}
      *
-     * @return A string describing the command.
+     * @return Constant description "Exit Game"
      */
     @Override
     public String getDescription() {
@@ -24,17 +23,21 @@ public class ExitGameOption implements Option {
     }
 
     /**
-     * Executes the exit game command, displaying a farewell message and terminating the
-     * application.
+     * {@inheritDoc} Performs orderly application shutdown sequence.
+     *
+     * @throws JavatroException if any display operation fails
      */
     @Override
     public void execute() throws JavatroException {
-        // display the end screen from the file
-        printANSI("end_screen.txt");
+        // Display pre-stored ASCII art exit screen
+        UI.printANSI("end_screen.txt");
 
-        // display the farewell message with borders and ANSI formatting
-        UI.printBorderedContent(
-                BOLD + "GOODBYE", List.of(RED + "WE KNOW YOU WILL BE BACK SOON" + END));
-        System.exit(0); // Terminate the application
+        // Format and display farewell message
+        final String header = UI.BOLD + "::: SEE YOU LATER! :::";
+        final List<String> message = List.of(UI.RED + "WE KNOW YOU WILL BE BACK SOON ;)" + UI.END);
+        UI.printBorderedContent(header, message);
+
+        // Terminate JVM with normal status
+        System.exit(0);
     }
 }
