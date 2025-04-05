@@ -27,7 +27,7 @@ public class JumpToRunScreen extends Screen {
         super("Jump To A Run");
         int numberOfRuns = Storage.getStorageInstance().getNumberOfRuns();
         super.commandMap.add(new LoadRunSelectOption());
-        for(int i = 1; i<= Storage.getStorageInstance().getNumberOfRuns();i++) {
+        for (int i = 1; i <= Storage.getStorageInstance().getNumberOfRuns(); i++) {
             SelectRunNumberOption newRunOption = new SelectRunNumberOption();
             newRunOption.setRunNumber(i);
             super.commandMap.add(newRunOption);

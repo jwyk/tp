@@ -66,9 +66,18 @@ public class JavatroCore {
     /** Initializes a new game by resetting the ante, round count, jokers and decks. */
     public void setupNewGame(DeckType deckType) {
         ante = new Ante();
-        ante.setBlind(Storage.BlindFromKey(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getRunChosen(),9)));
-        ante.setAnteCount(Integer.parseInt(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getRunChosen(),3)));
-        roundCount = Integer.parseInt(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getRunChosen(),1));
+        ante.setBlind(
+                Storage.BlindFromKey(
+                        Storage.getStorageInstance()
+                                .getValue(Storage.getStorageInstance().getRunChosen(), 9)));
+        ante.setAnteCount(
+                Integer.parseInt(
+                        Storage.getStorageInstance()
+                                .getValue(Storage.getStorageInstance().getRunChosen(), 3)));
+        roundCount =
+                Integer.parseInt(
+                        Storage.getStorageInstance()
+                                .getValue(Storage.getStorageInstance().getRunChosen(), 1));
         totalPlays = 4;
         heldJokers = new HeldJokers();
         deck = new Deck(deckType);

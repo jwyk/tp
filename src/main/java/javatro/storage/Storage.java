@@ -1,10 +1,9 @@
 package javatro.storage;
 
-
 import static javatro.core.Ante.Blind.*;
+import static javatro.display.ansi.DeckArt.ABANDONED_DECK;
 import static javatro.display.ansi.DeckArt.BLUE_DECK;
 import static javatro.display.ansi.DeckArt.CHECKERED_DECK;
-import static javatro.display.ansi.DeckArt.ABANDONED_DECK;
 import static javatro.display.ansi.DeckArt.RED_DECK;
 
 import javatro.core.Ante;
@@ -13,7 +12,6 @@ import javatro.core.JavatroException;
 import javatro.display.ansi.DeckArt;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,8 +29,8 @@ public class Storage {
 
     private static final int EXPECTED_COLUMNS = 13;
     private static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
-    private static final Set<String> VALID_BLINDS = Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
-
+    private static final Set<String> VALID_BLINDS =
+            Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
 
     // Basic Info Indexes (Fixed Position)
     public static final int RUN_NUMBER_INDEX = 0;
@@ -51,9 +49,8 @@ public class Storage {
 
     // Dynamic Data Indexes (Varying Size)
     public static final int HOLDING_HAND_START_INDEX = 13; // Maximum 8 holding hands (13 to 20)
-    public static final int JOKER_HAND_START_INDEX = 21;   // Maximum 5 Joker Hands (21 to 25)
-    public static final int PLANET_CARD_START_INDEX = 25;  // Unlimited Planet Cards (25 onwards)
-
+    public static final int JOKER_HAND_START_INDEX = 21; // Maximum 5 Joker Hands (21 to 25)
+    public static final int PLANET_CARD_START_INDEX = 25; // Unlimited Planet Cards (25 onwards)
 
     private static Storage storageInstance;
 
@@ -91,7 +88,9 @@ public class Storage {
 
     public boolean isCSVDataValid() {
 
-        String[] rows = csvRawData.split("\\r?\\n"); // Split by newline, handling Windows and Unix line endings
+        String[] rows =
+                csvRawData.split(
+                        "\\r?\\n"); // Split by newline, handling Windows and Unix line endings
 
         for (String row : rows) {
             row = row.trim();
@@ -120,12 +119,12 @@ public class Storage {
                 return false;
             }
 
-
             // Validate predefined numeric columns
             try {
                 int[] numericIndexes = {
-                        RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX, HAND_INDEX, DISCARD_INDEX,
-                        BEST_HAND_INDEX, ANTE_NUMBER_INDEX, CHIPS_INDEX, WINS_INDEX, LOSSES_INDEX
+                    RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX, HAND_INDEX,
+                            DISCARD_INDEX,
+                    BEST_HAND_INDEX, ANTE_NUMBER_INDEX, CHIPS_INDEX, WINS_INDEX, LOSSES_INDEX
                 };
 
                 for (int index : numericIndexes) {
@@ -197,7 +196,7 @@ public class Storage {
 
             } catch (Exception e) {
                 createSaveFile(); // Create a new save file since current save file is corrupted or
-                                  // could not be read
+                // could not be read
                 System.out.println("Creating new save file..");
             }
         } else {
@@ -223,37 +222,37 @@ public class Storage {
         ArrayList<String> newRun = new ArrayList<>();
         int arrSize = serializedRunData.isEmpty() ? 1 : serializedRunData.size();
 
-        //3,1,320,2,150,4,5,SORT,BLUE, BOSS BLIND
-        // [Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last Action]
+        // 3,1,320,2,150,4,5,SORT,BLUE, BOSS BLIND
+        // [Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last
+        // Action]
         // Add placeholders for all columns
         newRun.add(String.valueOf(arrSize));
         newRun.add("1");
         for (int i = 2; i <= 6; i++) {
-            newRun.add("0");  // You can change this to "0" or "N/A" if you prefer
+            newRun.add("0"); // You can change this to "0" or "N/A" if you prefer
         }
         for (int i = 7; i < EXPECTED_COLUMNS; i++) {
-            newRun.add("NA");  // You can change this to "0" or "N/A" if you prefer
+            newRun.add("NA"); // You can change this to "0" or "N/A" if you prefer
         }
 
         // Add the run to the serializedRunData map using the next run number as the key
         serializedRunData.put(arrSize, newRun);
 
-
         // Set run chosen to new run
-        runChosen = serializedRunData.size()-1;
-
+        runChosen = serializedRunData.size() - 1;
     }
 
-    public int getNumberOfRuns() {return serializedRunData.size();}
+    public int getNumberOfRuns() {
+        return serializedRunData.size();
+    }
 
     public String getValue(int runNumber, int idx) {
         return serializedRunData.get(runNumber).get(idx);
     }
 
     public void setValue(int runNumber, int idx, String value) {
-        serializedRunData.get(runNumber).set(idx,value);
+        serializedRunData.get(runNumber).set(idx, value);
     }
-
 
     public int getRunChosen() {
         return runChosen;
@@ -262,7 +261,6 @@ public class Storage {
     public void setRunChosen(int runChosen) {
         Storage.runChosen = runChosen;
     }
-
 
     public static DeckArt fromStorageKey(String key) {
         return switch (key.toUpperCase()) {
@@ -292,5 +290,4 @@ public class Storage {
             default -> throw new IllegalArgumentException("Unknown blind type: " + key);
         };
     }
-
 }
