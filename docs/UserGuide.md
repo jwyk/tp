@@ -144,6 +144,7 @@ This is the initial screen of the game where you are presented with the followin
 - `1. Start Game`
 - `2. Help Menu`
 - `3. Exit Game`
+
 ---
 Enter `1`, `2` or `3` into to select an option.
 

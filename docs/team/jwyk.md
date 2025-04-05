@@ -1,4 +1,4 @@
-# Kwa Jian Quan - Project Portfolio Page
+# John Woo Yi Kai - Project Portfolio Page
 
 ## Overview
 
