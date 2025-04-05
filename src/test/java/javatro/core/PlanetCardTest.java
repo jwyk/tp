@@ -33,7 +33,7 @@ class PlanetCardTest {
      * {@link PokerHand.HandType} enumeration.
      */
     @Test
-    void getForHand_AllHandTypes_ReturnsNonNullCards() {
+    void getForHand_allHandTypes_returnsNonNullCards() {
         for (PokerHand.HandType handType : PokerHand.HandType.values()) {
             PlanetCard card = PlanetCard.getForHand(handType);
             assertNotNull(card, "Missing card for hand type: " + handType);
@@ -45,7 +45,7 @@ class PlanetCardTest {
      * level 1 before any modifications.
      */
     @Test
-    void getLevel_InitialState_ReturnsBaseLevelOne() {
+    void getLevel_initialState_returnsBaseLevelOne() {
         for (PokerHand.HandType handType : PokerHand.HandType.values()) {
             assertEquals(
                     1, PlanetCard.getLevel(handType), "Incorrect initial level for: " + handType);
@@ -57,7 +57,7 @@ class PlanetCardTest {
      * subsequent retrieval.
      */
     @Test
-    void apply_SingleApplication_IncrementsLevelByOne() {
+    void apply_singleApplication_incrementsLevelByOne() {
         PlanetCard targetCard = PlanetCard.getForHand(PokerHand.HandType.HIGH_CARD);
         targetCard.apply();
 
@@ -72,7 +72,7 @@ class PlanetCardTest {
      * and boundary conditions.
      */
     @Test
-    void apply_MultipleApplications_IncrementsLevelAppropriately() {
+    void apply_multipleApplications_incrementsLevelAppropriately() {
         PlanetCard targetCard = PlanetCard.getForHand(PokerHand.HandType.PAIR);
         final int applications = 3;
 
@@ -91,7 +91,7 @@ class PlanetCardTest {
      * doesn't affect others.
      */
     @Test
-    void apply_OneHandType_DoesNotAffectOtherLevels() {
+    void apply_oneHandType_doesNotAffectOtherLevels() {
         PlanetCard modifiedCard = PlanetCard.getForHand(PokerHand.HandType.TWO_PAIR);
         modifiedCard.apply();
 
@@ -110,7 +110,7 @@ class PlanetCardTest {
      * to verify correct base values.
      */
     @Test
-    void getChipIncrement_KnownValues_ReturnsConfiguredAmounts() {
+    void getChipIncrement_knownValues_returnsConfiguredAmounts() {
         assertEquals(
                 10,
                 PlanetCard.getChipIncrement(PokerHand.HandType.HIGH_CARD),
@@ -130,7 +130,7 @@ class PlanetCardTest {
      * mid-range values.
      */
     @Test
-    void getMultiIncrement_KnownValues_ReturnsConfiguredAmounts() {
+    void getMultiIncrement_knownValues_returnsConfiguredAmounts() {
         assertEquals(
                 1,
                 PlanetCard.getMultiIncrement(PokerHand.HandType.PAIR),
@@ -150,7 +150,7 @@ class PlanetCardTest {
      * predefined configuration values.
      */
     @Test
-    void instanceProperties_SampleCard_ReturnsConfiguredValues() {
+    void instanceProperties_sampleCard_returnsConfiguredValues() {
         PlanetCard earthCard = PlanetCard.getForHand(PokerHand.HandType.FULL_HOUSE);
 
         assertAll(
@@ -167,7 +167,7 @@ class PlanetCardTest {
      * between different access methods.
      */
     @Test
-    void chipIncrement_StaticVsInstance_ReturnsSameValue() {
+    void chipIncrement_staticVsInstance_returnsSameValue() {
         for (PokerHand.HandType handType : PokerHand.HandType.values()) {
             PlanetCard card = PlanetCard.getForHand(handType);
             assertEquals(
@@ -182,7 +182,7 @@ class PlanetCardTest {
      * consistency across different access patterns.
      */
     @Test
-    void multiIncrement_StaticVsInstance_ReturnsSameValue() {
+    void multiIncrement_staticVsInstance_returnsSameValue() {
         for (PokerHand.HandType handType : PokerHand.HandType.values()) {
             PlanetCard card = PlanetCard.getForHand(handType);
             assertEquals(

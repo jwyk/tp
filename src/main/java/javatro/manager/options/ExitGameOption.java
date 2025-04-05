@@ -1,11 +1,14 @@
 package javatro.manager.options;
 
-import static javatro.display.UI.*;
-
 import javatro.core.JavatroException;
 import javatro.display.UI;
 
 import java.util.List;
+
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.END;
+import static javatro.display.UI.RED;
+import static javatro.display.UI.printANSI;
 
 /**
  * The {@code ExitGameOption} class represents a command that terminates the game. When executed, it
@@ -34,7 +37,7 @@ public class ExitGameOption implements Option {
 
         // display the farewell message with borders and ANSI formatting
         UI.printBorderedContent(
-                BOLD + ":: GOODBYE ::", List.of(RED + "WE KNOW YOU WILL BE BACK SOON" + END));
+                BOLD + "::: SEE YOU LATER :::", List.of(RED + "WE KNOW YOU WILL BE BACK SOON" + END));
         System.exit(0); // Terminate the application
     }
 }

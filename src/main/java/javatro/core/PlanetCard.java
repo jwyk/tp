@@ -113,6 +113,8 @@ public class PlanetCard {
         this.path = path;
     }
 
+    // Region: Accessors --------------------------------------------------------
+
     /**
      * Retrieves the predefined planet card for a specific hand type.
      *
@@ -137,6 +139,13 @@ public class PlanetCard {
     }
 
     /**
+     * @return Base chip increment without level scaling
+     */
+    public int getChipIncrement() {
+        return chipIncrement;
+    }
+
+    /**
      * Calculates total chip increment for a hand type at its current level.
      *
      * @param handType Poker hand type to check
@@ -146,6 +155,13 @@ public class PlanetCard {
         PlanetCard card = CARDS.get(handType);
         assert card != null : "Missing chip configuration for: " + handType;
         return card != null ? card.chipIncrement : 0;
+    }
+
+    /**
+     * @return Base multiplier increment without level scaling
+     */
+    public int getMultiIncrement() {
+        return multiIncrement;
     }
 
     /**
@@ -168,27 +184,11 @@ public class PlanetCard {
         LEVELS.put(handType, LEVELS.get(handType) + 1);
     }
 
-    // Region: Accessors --------------------------------------------------------
-
     /**
      * @return Planetary display name
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * @return Base chip increment without level scaling
-     */
-    public int getChipIncrement() {
-        return chipIncrement;
-    }
-
-    /**
-     * @return Base multiplier increment without level scaling
-     */
-    public int getMultiIncrement() {
-        return multiIncrement;
     }
 
     /**
