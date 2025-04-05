@@ -13,6 +13,7 @@ import javatro.core.JavatroException;
 import javatro.display.ansi.DeckArt;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,17 +29,36 @@ public class Storage {
     private static boolean saveFileValid = true;
     private static int runChosen = 0;
 
-    private static final int EXPECTED_COLUMNS = 10;
+    private static final int EXPECTED_COLUMNS = 13;
     private static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
     private static final Set<String> VALID_BLINDS = Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
+
+
+    // Basic Info Indexes (Fixed Position)
+    public static final int RUN_NUMBER_INDEX = 0;
+    public static final int ROUND_NUMBER_INDEX = 1;
+    public static final int ROUND_SCORE_INDEX = 2;
+    public static final int HAND_INDEX = 3;
+    public static final int DISCARD_INDEX = 4;
+    public static final int BEST_HAND_INDEX = 5;
+    public static final int ANTE_NUMBER_INDEX = 6;
+    public static final int BLIND_INDEX = 7;
+    public static final int CHIPS_INDEX = 8;
+    public static final int WINS_INDEX = 9;
+    public static final int LOSSES_INDEX = 10;
+    public static final int LAST_ACTION_INDEX = 11;
+    public static final int DECK_INDEX = 12;
+
+    // Dynamic Data Indexes (Varying Size)
+    public static final int HOLDING_HAND_START_INDEX = 13; // Maximum 8 holding hands (13 to 20)
+    public static final int JOKER_HAND_START_INDEX = 21;   // Maximum 5 Joker Hands (21 to 25)
+    public static final int PLANET_CARD_START_INDEX = 25;  // Unlimited Planet Cards (25 onwards)
 
 
     private static Storage storageInstance;
 
     // Serialized Storage Information stored in a TreeMap
-    // [Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last Action]
-    // [Deck] [Blind] [Level?]
-    private static TreeMap<Integer, List<String>> serializedRunData = new TreeMap<>();
+    private static TreeMap<Integer, ArrayList<String>> serializedRunData = new TreeMap<>();
 
     private String csvRawData; // Raw data from csv
 
@@ -80,29 +100,36 @@ public class Storage {
 
             String[] columns = row.split(",");
 
-            // Check if the row has the expected number of columns
-            if (columns.length != EXPECTED_COLUMNS) {
+            // Check if the row has at least enough columns for predefined indexes
+            if (columns.length < DECK_INDEX + 1) { // +1 because array index is zero-based
                 System.out.println("Invalid number of columns in row: " + row);
                 return false;
             }
 
             // Check if deck name is valid
-            String deckName = columns[columns.length - 2].trim(); // Deck name is the 2nd last column
+            String deckName = columns[DECK_INDEX].trim();
             if (!VALID_DECKS.contains(deckName)) {
                 System.out.println("Invalid deck name in row: " + row);
                 return false;
             }
 
-            String blindName = columns[columns.length - 1].trim(); // Blind name is the last column
+            // Check if blind name is valid
+            String blindName = columns[BLIND_INDEX].trim();
             if (!VALID_BLINDS.contains(blindName)) {
                 System.out.println("Invalid blind name in row: " + row);
                 return false;
             }
 
-            // Validate numeric columns
+
+            // Validate predefined numeric columns
             try {
-                for (int i = 0; i < EXPECTED_COLUMNS - 3; i++) { // Skip last three columns (command and deck name and blind name)
-                    Integer.parseInt(columns[i]);
+                int[] numericIndexes = {
+                        RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX, HAND_INDEX, DISCARD_INDEX,
+                        BEST_HAND_INDEX, ANTE_NUMBER_INDEX, CHIPS_INDEX, WINS_INDEX, LOSSES_INDEX
+                };
+
+                for (int index : numericIndexes) {
+                    Integer.parseInt(columns[index]);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid numeric value in row: " + row);
@@ -113,14 +140,13 @@ public class Storage {
         return true; // All rows are valid
     }
 
-
     private void loadCSVData() {
         String[] runs = csvRawData.split("\\r?\\n");
         System.out.println(runs.length);
 
         for (int i = 0; i < runs.length; i++) {
             String[] runInfo = runs[i].split(",");
-            List<String> runInfoList = Arrays.stream(runInfo).toList();
+            ArrayList<String> runInfoList = new ArrayList<>(Arrays.asList(runInfo));
             System.out.println(runInfoList.get(7));
             serializedRunData.put(i, runInfoList);
         }
@@ -155,7 +181,7 @@ public class Storage {
                 // Read the data present in the saveFile.csv
                 csvRawData = String.join("\n", Files.readAllLines(saveFilePath));
 
-                if (csvRawData == null || csvRawData.trim().isEmpty()) { // Check for null or empty string
+                if (csvRawData.trim().isEmpty()) { // Check for null or empty string
                     return;
                 }
 
@@ -181,20 +207,20 @@ public class Storage {
 
     public TreeMap<Integer, List<String>> getSerializedRunData() {
         TreeMap<Integer, List<String>> copy = new TreeMap<>();
-        for (Map.Entry<Integer, List<String>> entry : serializedRunData.entrySet()) {
+        for (Map.Entry<Integer, ArrayList<String>> entry : serializedRunData.entrySet()) {
             // Deep copy each list
             copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
         }
         return copy;
     }
 
-    public void setSerializedRunData(TreeMap<Integer, List<String>> serializedRunData) {
+    public void setSerializedRunData(TreeMap<Integer, ArrayList<String>> serializedRunData) {
         Storage.serializedRunData = serializedRunData;
     }
 
     public void addNewRun() {
         // Initialize an empty list with nulls of size EXPECTED_COLUMNS
-        List<String> newRun = new ArrayList<>();
+        ArrayList<String> newRun = new ArrayList<>();
         int arrSize = serializedRunData.isEmpty() ? 1 : serializedRunData.size();
 
         //3,1,320,2,150,4,5,SORT,BLUE, BOSS BLIND

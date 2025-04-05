@@ -12,9 +12,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+
 public class RunSelectScreen extends Screen {
 
     private static int runNumber = 1;
+    private final Storage storage = Storage.getStorageInstance();
 
     /**
      * Constructs a screen with specified options menu title.
@@ -23,7 +25,7 @@ public class RunSelectScreen extends Screen {
      */
     public RunSelectScreen() throws JavatroException {
         super("Select Run To Load");
-        if(Storage.getStorageInstance().getNumberOfRuns() > 0) {
+        if(storage.getNumberOfRuns() > 0) {
             super.commandMap.add(new StartRunNumberOption());
             super.commandMap.add(new SeeNextRunOption());
             super.commandMap.add(new SeePreviousRun());
@@ -37,7 +39,7 @@ public class RunSelectScreen extends Screen {
 
     @Override
     public void displayScreen() {
-        if(Storage.getStorageInstance().getNumberOfRuns() > 0) displayCurrentChosenRun();
+        if(storage.getNumberOfRuns() > 0) displayCurrentChosenRun();
         else  {
             List<String> contents = new ArrayList<>();
 
@@ -93,9 +95,9 @@ public class RunSelectScreen extends Screen {
         String[] cardArt;
         String cardDesc = "";
         if (Storage.getStorageInstance()
-                        .getValue(runNumber - 1, 8)
+                        .getValue(runNumber - 1, Storage.DECK_INDEX)
                         .charAt(
-                                Storage.getStorageInstance().getValue(runNumber - 1, 8).length()
+                                storage.getValue(runNumber - 1, Storage.DECK_INDEX).length()
                                         - 1)
                 == ']') {
             cardArt =
@@ -105,27 +107,27 @@ public class RunSelectScreen extends Screen {
                                             .substring(
                                                     0,
                                                     Storage.getStorageInstance()
-                                                                    .getValue(runNumber - 1, 8)
+                                                                    .getValue(runNumber - 1, Storage.DECK_INDEX)
                                                                     .length()
                                                             - 1))
                             .getArtLines();
             cardDesc =
                     Storage.fromStorageKey(
                                     Storage.getStorageInstance()
-                                            .getValue(runNumber - 1, 8)
+                                            .getValue(runNumber - 1, Storage.DECK_INDEX)
                                             .substring(
                                                     0,
                                                     Storage.getStorageInstance()
-                                                                    .getValue(runNumber - 1, 8)
+                                                                    .getValue(runNumber - 1, Storage.DECK_INDEX)
                                                                     .length()
                                                             - 1))
                             .getDeckName();
         } else {
             cardArt =
-                    Storage.fromStorageKey(Storage.getStorageInstance().getValue(runNumber - 1, 8))
+                    Storage.fromStorageKey(Storage.getStorageInstance().getValue(runNumber - 1, Storage.DECK_INDEX))
                             .getArtLines();
             cardDesc =
-                    Storage.fromStorageKey(Storage.getStorageInstance().getValue(runNumber - 1, 8))
+                    Storage.fromStorageKey(Storage.getStorageInstance().getValue(runNumber - 1, Storage.DECK_INDEX))
                             .getDeckName();
         }
 
@@ -146,38 +148,41 @@ public class RunSelectScreen extends Screen {
         for (int i = 0; i < screenSize-1; i++) {
             String leftText = "";
             if (i == 0)
-                leftText = "Round: " + Storage.getStorageInstance().getValue(runNumber - 1, 1);
+                leftText = "Round: " + Storage.getStorageInstance().getValue(runNumber - 1, Storage.ROUND_NUMBER_INDEX);
             if (i == 1)
-                leftText = "Round Score: " + Storage.getStorageInstance().getValue(runNumber - 1, 1);
+                leftText = "Round Score: " + Storage.getStorageInstance().getValue(runNumber - 1, Storage.ROUND_SCORE_INDEX);
             else if (i == 2)
-                leftText = "Best Hand: " + Storage.getStorageInstance().getValue(runNumber - 1, 2);
-            else if (i == 3)
-                leftText = "Ante: " + Storage.getStorageInstance().getValue(runNumber - 1, 3);
-            else if (i == 4)
-                leftText = "Blind: " + Storage.getStorageInstance().getValue(runNumber - 1, 9);
-            else if (i == 5)
-                leftText = "Chips: $" + Storage.getStorageInstance().getValue(runNumber - 1, 4);
-            else if (i == 6)
-                leftText =
-                        "Wins: "
-                                + Storage.getStorageInstance().getValue(runNumber - 1, 5)
-                                + " | Losses: "
-                                + Storage.getStorageInstance().getValue(runNumber - 1, 6);
-            else if (i == 7)
                 leftText =
                         "Hands: "
-                                + Storage.getStorageInstance().getValue(runNumber - 1, 5)
+                                + Storage.getStorageInstance().getValue(runNumber - 1, Storage.HAND_INDEX)
                                 + " | Discards: "
-                                + Storage.getStorageInstance().getValue(runNumber - 1, 6);
-
-            else if (i == 8) leftText = "------------------------";
-            else if (i == 9)
+                                + Storage.getStorageInstance().getValue(runNumber - 1, Storage.DISCARD_INDEX);
+            else if (i == 3) leftText = "------------------------";
+            else if (i == 4)
+                leftText = "Best Hand: " + Storage.getStorageInstance().getValue(runNumber - 1, Storage.BEST_HAND_INDEX);
+            else if (i == 5)
+                leftText = "Ante: " + Storage.getStorageInstance().getValue(runNumber - 1, Storage.ANTE_NUMBER_INDEX);
+            else if (i == 6)
+                leftText = "Blind: " + Storage.getStorageInstance().getValue(runNumber - 1, Storage.BLIND_INDEX);
+            else if (i == 7)
+                leftText = "Chips: $" + Storage.getStorageInstance().getValue(runNumber - 1, Storage.CHIPS_INDEX);
+            else if (i == 8)
                 leftText =
-                        "Last Action: " + Storage.getStorageInstance().getValue(runNumber - 1, 7);
+                        "Wins: "
+                                + Storage.getStorageInstance().getValue(runNumber - 1, Storage.WINS_INDEX)
+                                + " | Losses: "
+                                + Storage.getStorageInstance().getValue(runNumber - 1, Storage.LOSSES_INDEX);
+            else if (i == 9) leftText = "------------------------";
+            else if (i == 10)
+                leftText =
+                        "Last Action: " + Storage.getStorageInstance().getValue(runNumber - 1, Storage.LAST_ACTION_INDEX);
 
             String rightAnsi = (i < cardArt.length) ? cardArt[i] : "";
             // Pad leftText to align with ANSI
             String paddedLeft = String.format("%-70s", leftText);
+            if(i == 10) {
+                paddedLeft = String.format("%-85s", leftText);
+            }
 
             optionLines.add(paddedLeft + rightAnsi);
         }
