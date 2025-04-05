@@ -7,7 +7,6 @@ import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.HelpMenuOption;
 import javatro.manager.options.LoadRunSelectOption;
-import javatro.manager.options.StartGameOption;
 
 /**
  * Initial application screen displaying main menu options and game logo.

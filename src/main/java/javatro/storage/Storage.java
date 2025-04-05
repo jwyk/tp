@@ -1,5 +1,7 @@
 package javatro.storage;
 
+import static javatro.display.ansi.DeckArt.*;
+
 import javatro.core.JavatroException;
 import javatro.display.ansi.DeckArt;
 
@@ -10,31 +12,29 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 
-import static javatro.display.ansi.DeckArt.*;
-
 public class Storage {
     /** Path to the task storage file. */
     private static final String SAVEFILE_LOCATION = "./savefile.csv";
+
     private static final Path saveFilePath = Paths.get(SAVEFILE_LOCATION);
 
     private static boolean saveFileValid = true;
 
     private static Storage storageInstance;
 
-
-
-    //Serialized Storage Information stored in a TreeMap
-    //[Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last Action] [Deck] [Level?]
+    // Serialized Storage Information stored in a TreeMap
+    // [Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last Action]
+    // [Deck] [Level?]
     private static TreeMap<Integer, List<String>> serializedRunData = new TreeMap<>();
 
-    private String csvRawData; //Raw data from csv
+    private String csvRawData; // Raw data from csv
 
     private Storage() throws JavatroException {
         initaliseTaskFile();
     }
 
     public static Storage getStorageInstance() {
-        if(storageInstance == null) {
+        if (storageInstance == null) {
             try {
                 return storageInstance = new Storage();
             } catch (JavatroException e) {
@@ -64,7 +64,7 @@ public class Storage {
         String[] runs = csvRawData.split("\\r?\\n");
         System.out.println(runs.length);
 
-        for(int i = 0;i<runs.length;i++) {
+        for (int i = 0; i < runs.length; i++) {
             String[] runInfo = runs[i].split(",");
             List<String> runInfoList = Arrays.stream(runInfo).toList();
             System.out.println(runInfoList.get(7));
@@ -74,25 +74,22 @@ public class Storage {
 
     private byte[] convertSerializedDataIntoString() {
         StringBuilder saveData = new StringBuilder();
-        for(Integer key: serializedRunData.keySet()) {
+        for (Integer key : serializedRunData.keySet()) {
             saveData.append(key.toString()).append(",");
             List<String> runInfo = serializedRunData.get(key);
-            for(String runAttribute : runInfo) {
+            for (String runAttribute : runInfo) {
                 saveData.append(runAttribute).append(",");
             }
-            saveData.deleteCharAt(saveData.length()-1); //Removing the last ,
+            saveData.deleteCharAt(saveData.length() - 1); // Removing the last ,
             saveData.append("\n");
         }
-        saveData.deleteCharAt(saveData.length()-1); //Removing the last \n
+        saveData.deleteCharAt(saveData.length() - 1); // Removing the last \n
         return saveData.toString().getBytes();
     }
 
     private void updateSaveFile() throws JavatroException {
         try {
-            Files.write(
-                    saveFilePath,
-                    convertSerializedDataIntoString(),
-                    StandardOpenOption.APPEND);
+            Files.write(saveFilePath, convertSerializedDataIntoString(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             throw new JavatroException("SAVING ISSUE: " + e.getMessage());
         }
@@ -102,21 +99,22 @@ public class Storage {
         // Check if the file exists
         if (Files.exists(saveFilePath)) {
             try {
-                //Read the data present in the saveFile.csv
+                // Read the data present in the saveFile.csv
                 csvRawData = String.join("\n", Files.readAllLines(saveFilePath));
 
-                //Do validation of the data to ensure that data is valid
-                if(!isCSVDataValid()) {
-                    //Delete invalid csv file and create new one
+                // Do validation of the data to ensure that data is valid
+                if (!isCSVDataValid()) {
+                    // Delete invalid csv file and create new one
                     Files.deleteIfExists(saveFilePath);
                     throw new Exception("Save File Corrupted");
                 }
 
-                //Load the data into the treemap
+                // Load the data into the treemap
                 loadCSVData();
 
             } catch (Exception e) {
-                createSaveFile(); //Create a new save file since current save file is corrupted or could not be read
+                createSaveFile(); // Create a new save file since current save file is corrupted or
+                                  // could not be read
                 throw new JavatroException("Error reading save file: " + e.getMessage());
             }
         } else {
@@ -139,7 +137,7 @@ public class Storage {
 
     public int getNumberOfRuns() {return serializedRunData.size();}
 
-    public String getValue(int runNumber,int idx) {
+    public String getValue(int runNumber, int idx) {
         return serializedRunData.get(runNumber).get(idx);
     }
 
@@ -152,6 +150,4 @@ public class Storage {
             default -> throw new IllegalArgumentException("Unknown deck type: " + key);
         };
     }
-
-
 }

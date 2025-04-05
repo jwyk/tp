@@ -87,7 +87,6 @@ public class UI {
     private static final RunSelectScreen RUN_SELECT_SCREEN;
     private static final JumpToRunScreen JUMP_TO_RUN_SCREEN;
 
-
     static {
         try {
             // Initialize all screen components
@@ -141,7 +140,6 @@ public class UI {
         assert content != null : "Content list cannot be null";
         printBorderedContent(title, content, BORDER_WIDTH, BORDER_WIDTH);
     }
-
 
     /**
      * Prints a bordered message or menu with customizable widths for title and content.
@@ -435,8 +433,6 @@ public class UI {
     public static JumpToRunScreen getJumpToRunScreen() {
         return JUMP_TO_RUN_SCREEN;
     }
-
-
 
     // @@author swethacool
     /**

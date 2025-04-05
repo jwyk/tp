@@ -12,7 +12,6 @@ import javatro.storage.Storage;
 /** A command that loads the run selection screen when executed. */
 public class SeePreviousRun implements Option {
 
-
     /**
      * Provides a brief description of the command.
      *
@@ -34,6 +33,4 @@ public class SeePreviousRun implements Option {
 
         JavatroManager.setScreen(UI.getRunSelectScreen());
     }
-
-
 }

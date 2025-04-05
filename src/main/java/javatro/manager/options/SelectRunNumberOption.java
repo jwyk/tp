@@ -11,8 +11,6 @@ import javatro.manager.JavatroManager;
 /** A command that loads the run selection screen when executed. */
 public class SelectRunNumberOption implements Option {
 
-
-
     private int runNumber = 0;
 
     /**
@@ -35,5 +33,4 @@ public class SelectRunNumberOption implements Option {
     public void setRunNumber(int runNumber) {
         this.runNumber = runNumber;
     }
-
 }
