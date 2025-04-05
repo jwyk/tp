@@ -41,8 +41,8 @@ public class DeckSelectOption implements Option {
     @Override
     public void execute() throws JavatroException {
         JavatroCore.deck = new Deck(deckType);
-        Storage.getStorageInstance().setValue(Storage.getStorageInstance().getRunChosen(), 8,deckType.getName());
-        JavatroManager.beginGame(deckType);
+        Storage.getStorageInstance().setValue(Storage.getStorageInstance().getRunChosen()-1, 8,deckType.getName());
+        JavatroManager.beginGame((Storage.DeckFromKey(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getRunChosen(), 8))));
         JavatroManager.setScreen(UI.getBlindScreen());
     }
 }

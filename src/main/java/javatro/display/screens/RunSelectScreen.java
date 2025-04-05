@@ -129,7 +129,7 @@ public class RunSelectScreen extends Screen {
                             .getDeckName();
         }
 
-        int screenSize = 11;
+        int screenSize = 12;
         String deckLabel = "\u001B[1;4mDECK\u001B[0m"; // Bold + Underlined
         String visibleCardLine = stripAnsi(cardArt[0]);
         int labelPadding = 78 + (visibleCardLine.length() - "DECK".length()) / 2;
@@ -140,13 +140,15 @@ public class RunSelectScreen extends Screen {
         // Italicized deck name
         String italicDeckName = "\u001B[3m" + cardDesc + "\u001B[0m";
         visibleCardLine = stripAnsi(cardArt[0]);
-        int deckNamePadding = 85 + (visibleCardLine.length() - "Standard Red Deck".length()) / 2;
+        int deckNamePadding = 81 + (visibleCardLine.length() - cardDesc.length()) / 2;
         String paddedDeckName = String.format("%" + deckNamePadding + "s", italicDeckName);
 
-        for (int i = 0; i < screenSize; i++) {
+        for (int i = 0; i < screenSize-1; i++) {
             String leftText = "";
-            if (i == 1)
+            if (i == 0)
                 leftText = "Round: " + Storage.getStorageInstance().getValue(runNumber - 1, 1);
+            if (i == 1)
+                leftText = "Round Score: " + Storage.getStorageInstance().getValue(runNumber - 1, 1);
             else if (i == 2)
                 leftText = "Best Hand: " + Storage.getStorageInstance().getValue(runNumber - 1, 2);
             else if (i == 3)
@@ -161,8 +163,15 @@ public class RunSelectScreen extends Screen {
                                 + Storage.getStorageInstance().getValue(runNumber - 1, 5)
                                 + " | Losses: "
                                 + Storage.getStorageInstance().getValue(runNumber - 1, 6);
-            else if (i == 7) leftText = "------------------------";
-            else if (i == 8)
+            else if (i == 7)
+                leftText =
+                        "Hands: "
+                                + Storage.getStorageInstance().getValue(runNumber - 1, 5)
+                                + " | Discards: "
+                                + Storage.getStorageInstance().getValue(runNumber - 1, 6);
+
+            else if (i == 8) leftText = "------------------------";
+            else if (i == 9)
                 leftText =
                         "Last Action: " + Storage.getStorageInstance().getValue(runNumber - 1, 7);
 

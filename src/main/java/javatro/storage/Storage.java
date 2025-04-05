@@ -8,6 +8,7 @@ import static javatro.display.ansi.DeckArt.ABANDONED_DECK;
 import static javatro.display.ansi.DeckArt.RED_DECK;
 
 import javatro.core.Ante;
+import javatro.core.Deck;
 import javatro.core.JavatroException;
 import javatro.display.ansi.DeckArt;
 
@@ -200,7 +201,8 @@ public class Storage {
         // [Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last Action]
         // Add placeholders for all columns
         newRun.add(String.valueOf(arrSize));
-        for (int i = 1; i <= 6; i++) {
+        newRun.add("1");
+        for (int i = 2; i <= 6; i++) {
             newRun.add("0");  // You can change this to "0" or "N/A" if you prefer
         }
         for (int i = 7; i < EXPECTED_COLUMNS; i++) {
@@ -214,12 +216,6 @@ public class Storage {
         // Set run chosen to new run
         runChosen = serializedRunData.size()-1;
 
-//        //Update the save file
-//        try {
-//            updateSaveFile();
-//        } catch (JavatroException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     public int getNumberOfRuns() {return serializedRunData.size();}
@@ -248,6 +244,16 @@ public class Storage {
             case "BLUE" -> BLUE_DECK;
             case "CHECKERED" -> CHECKERED_DECK;
             case "ABANDONED" -> ABANDONED_DECK;
+            default -> throw new IllegalArgumentException("Unknown deck art: " + key);
+        };
+    }
+
+    public static Deck.DeckType DeckFromKey(String key) {
+        return switch (key.toUpperCase()) {
+            case "RED" -> Deck.DeckType.RED;
+            case "BLUE" -> Deck.DeckType.BLUE;
+            case "CHECKERED" -> Deck.DeckType.CHECKERED;
+            case "ABANDONED" -> Deck.DeckType.ABANDONED;
             default -> throw new IllegalArgumentException("Unknown deck type: " + key);
         };
     }

@@ -4,6 +4,7 @@
  */
 package javatro.manager.options;
 
+import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
@@ -29,6 +30,12 @@ public class StartRunNumberOption implements Option {
     public void execute() throws JavatroException {
         //Update Storage with chosen run number
         Storage.getStorageInstance().setRunChosen(runNumber);
+        JavatroManager.beginGame((Storage.DeckFromKey(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getRunChosen()-1, 8))));
+
+        JavatroManager.jc.beginGame();
+        JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
+        JavatroCore.currentRound.updateRoundVariables();
+        JavatroManager.setScreen(UI.getGameScreen());
     }
 
 }
