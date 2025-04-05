@@ -1,6 +1,6 @@
 package javatro.core.jokers.addmult;
 
-//@@author jwyk
+// @@author jwyk
 
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BLUE;

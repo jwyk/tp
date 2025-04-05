@@ -1,6 +1,6 @@
 package javatro.core.jokers.addchip;
 
-//@@author jwyk
+// @@author jwyk
 
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BLUE;
@@ -12,9 +12,7 @@ import javatro.core.Card;
 import javatro.core.Score;
 import javatro.core.jokers.Joker;
 
-/**
- * Represents a OddToddJoker Joker
- */
+/** Represents a OddToddJoker Joker */
 public class OddToddJoker extends Joker {
 
     public OddToddJoker() {
