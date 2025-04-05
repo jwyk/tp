@@ -18,6 +18,8 @@
 - [Glossary](#glossary)
 - [Acknowledgements](#acknowledgements)
 
+<div style="page-break-after: always;"></div>
+
 ### What is Javatro?
 
 #### Introduction
@@ -148,7 +150,7 @@ This is the initial screen of the game where you are presented with the followin
 ---
 Enter `1`, `2` or `3` into to select an option.
 
-- ### Deck Selection Screen
+### Deck Selection Screen
 ![Deck Selection](deck_selection.png)
 
 

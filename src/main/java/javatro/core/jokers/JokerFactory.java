@@ -1,5 +1,7 @@
 package javatro.core.jokers;
 
+//@@author jwyk
+
 import javatro.core.jokers.addchip.OddToddJoker;
 import javatro.core.jokers.addchip.ScaryFaceJoker;
 import javatro.core.jokers.addmult.*;

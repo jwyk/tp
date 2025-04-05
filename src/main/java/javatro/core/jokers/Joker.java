@@ -1,5 +1,6 @@
 package javatro.core.jokers;
 
+//@@author jwyk
 import javatro.core.Card;
 import javatro.core.Score;
 
