@@ -1,3 +1,4 @@
+// @@author Markneoneo
 package javatro.manager.options;
 
 import javatro.core.Deck;
@@ -6,26 +7,40 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
+/**
+ * Represents a menu option for selecting a specific deck type to start a new game.
+ * When executed, initializes the game with the specified deck and transitions to the blind screen.
+ */
 public class DeckSelectOption implements Option {
 
+    /**
+     * The descriptive text displayed for this option in the menu.
+     */
     private final String description;
+
+    /**
+     * The type of deck associated with this option.
+     */
     private final Deck.DeckType deckType;
 
     /**
-     * Constructs a DeckSelectOption with a custom description and deck.
+     * Constructs a deck selection option with specified description and deck type.
      *
-     * @param description The description of the deck option.
-     * @param deckType The deck type associated with this option.
+     * @param description User-visible description of the option
+     * @param deckType The type of deck to initialize when selected
+     * @throws NullPointerException if description or deckType are null
      */
     public DeckSelectOption(String description, Deck.DeckType deckType) {
+        assert description != null : "Description cannot be null";
+        assert deckType != null : "DeckType cannot be null";
+
         this.description = description;
         this.deckType = deckType;
     }
 
     /**
-     * Provides a brief description of the command.
-     *
-     * @return A string describing the command.
+     * {@inheritDoc}
+     * @return The description text for this deck selection option
      */
     @Override
     public String getDescription() {
@@ -33,14 +48,21 @@ public class DeckSelectOption implements Option {
     }
 
     /**
-     * Executes the command to start the game with the selected deck.
+     * {@inheritDoc}
+     * Initializes game with selected deck type and transitions to blind screen.
      *
-     * @throws JavatroException if an error occurs during execution.
+     * @throws JavatroException if game initialization fails
      */
     @Override
     public void execute() throws JavatroException {
+        // Initialize core game deck
         JavatroCore.deck = new Deck(deckType);
+        assert JavatroCore.deck != null : "Deck initialization failed";
+
+        // Start game session with selected deck
         JavatroManager.beginGame(deckType);
+
+        // Transition to blind screen display
         JavatroManager.setScreen(UI.getBlindScreen());
     }
 }

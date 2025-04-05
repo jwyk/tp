@@ -1,24 +1,25 @@
-/**
- * The {@code ReturnOption} class represents a command that allows the player to return to the main
- * game screen after navigating away.
- */
+// @@author Markneoneo
 package javatro.manager.options;
 
-import static javatro.display.UI.getPreviousScreen;
-
 import javatro.core.JavatroException;
+import javatro.display.UI;
 import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
 
-/** A command that enables players to return to the game screen. */
+/**
+ * Enables navigation back to the previous screen in the view stack.
+ * Maintains screen history using a last-in-first-out navigation model.
+ */
 public class ReturnOption implements Option {
 
+    /**
+     * Reference to the previously displayed screen.
+     */
     private Screen prev_screen;
 
     /**
-     * Provides a brief description of the command.
-     *
-     * @return A string describing the command.
+     * {@inheritDoc}
+     * @return Constant description "Return To Previous Screen"
      */
     @Override
     public String getDescription() {
@@ -26,15 +27,17 @@ public class ReturnOption implements Option {
     }
 
     /**
-     * Executes the resume game command, updating the game screen to return the player to the main
-     * game interface.
-     *
-     * @throws JavatroException If an error occurs during execution.
+     * {@inheritDoc}
+     * Restores the application display to the previous screen state.
+     * @throws JavatroException if screen history is unavailable
      */
     @Override
     public void execute() throws JavatroException {
-        prev_screen = getPreviousScreen();
-        // Go back to previous screen
+        // Retrieve previous screen from navigation history
+        prev_screen = UI.getPreviousScreen();
+        assert prev_screen != null : "Screen history is empty";
+
+        // Restore previous display state
         JavatroManager.setScreen(prev_screen);
     }
 }

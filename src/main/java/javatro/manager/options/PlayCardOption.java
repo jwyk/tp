@@ -1,20 +1,20 @@
+// @@author Markneoneo
 package javatro.manager.options;
 
 import javatro.core.JavatroException;
 import javatro.display.UI;
+import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
 
 /**
- * The {@code PlayCardOption} class represents a command that allows the player to select cards to
- * play during the game. It updates the game screen to display the card selection interface for
- * playing cards.
+ * Represents a command to play selected cards during gameplay.
+ * When executed, transitions to the card selection interface for playing cards.
  */
 public class PlayCardOption implements Option {
 
     /**
-     * Provides a brief description of the command.
-     *
-     * @return A string describing the command.
+     * {@inheritDoc}
+     * @return The static description "Play Cards"
      */
     @Override
     public String getDescription() {
@@ -22,13 +22,18 @@ public class PlayCardOption implements Option {
     }
 
     /**
-     * Executes the play cards command, updating the game screen to the "Select Cards to Play"
-     * interface.
+     * {@inheritDoc}
+     * Transitions to the card play selection screen.
      *
-     * @throws JavatroException if an error occurs during execution.
+     * @throws JavatroException if screen transition fails
      */
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.setScreen(UI.getPlayScreen());
+        // Retrieve and validate play screen
+        Screen playScreen = UI.getPlayScreen();
+        assert playScreen != null : "Play screen must be initialized";
+
+        // Update display to card play interface
+        JavatroManager.setScreen(playScreen);
     }
 }
