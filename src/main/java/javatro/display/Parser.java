@@ -10,9 +10,10 @@ import javatro.core.JavatroException;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -82,22 +83,33 @@ public class Parser {
                 getCurrentScreen().displayOptions();
                 System.out.printf(MENU_PROMPT, maxRange);
 
-                if (!scanner.hasNextInt()) {
+                String line = scanner.nextLine().trim();
+
+                // Handle empty input
+                if (line.isEmpty()) {
                     throw JavatroException.invalidInputType();
                 }
 
-                int input = scanner.nextInt();
-                assert input != 0 : "Menu input should never be 0 (options start at 1)";
+                // Try to parse the input as integer
+                try {
+                    int input = Integer.parseInt(line);
+                    assert input != 0 : "Menu input should never be 0 (options start at 1)";
 
-                if (input >= 1 && input <= maxRange) {
-                    support.firePropertyChange("userInput", null, input);
-                    return;
+                    if (input >= 1 && input <= maxRange) {
+                        support.firePropertyChange("userInput", null, input);
+                        return;
+                    }
+
+                    throw JavatroException.invalidMenuInput(maxRange);
+                } catch (NumberFormatException e) {
+                    throw JavatroException.invalidInputType();
                 }
-
-                throw JavatroException.invalidMenuInput(maxRange);
             } catch (JavatroException e) {
                 System.out.println(e.getMessage());
-                scanner.nextLine(); // Clear scanner buffer
+            } catch (NoSuchElementException e) {
+                // This handles cases where input stream is closed (like with ^Z)
+                System.out.println(JavatroException.invalidInputType().getMessage());
+                scanner = new Scanner(System.in); // Reset scanner if needed
             }
         }
     }
@@ -136,6 +148,10 @@ public class Parser {
                 return List.copyOf(userInput);
             } catch (JavatroException e) {
                 System.out.println(e.getMessage());
+            } catch (NoSuchElementException e) {
+                // This handles cases where input stream is closed (like with ^Z)
+                System.out.println(JavatroException.invalidCardInput().getMessage());
+                scanner = new Scanner(System.in); // Reset scanner if needed
             }
         }
     }
@@ -154,30 +170,41 @@ public class Parser {
         assert !input.trim().isEmpty() : "Input string cannot be empty";
         assert maxCardsAvailable > 0 : "Must have at least one card available";
 
-        List<Integer> userInput =
+        List<String> parts =
                 Arrays.stream(input.split(","))
                         .map(String::trim)
                         .filter(s -> !s.isEmpty())
-                        .map(
-                                numStr -> {
-                                    try {
-                                        return Integer.parseInt(numStr);
-                                    } catch (NumberFormatException e) {
-                                        return null; // Mark invalid entries as null
-                                    }
-                                })
-                        .filter(Objects::nonNull)
-                        .filter(num -> num >= 1 && num <= maxCardsAvailable)
+                        .toList();
+
+        List<Integer> numbers = new ArrayList<>();
+
+        for (String part : parts) {
+            int num;
+            try {
+                num = Integer.parseInt(part);
+            } catch (NumberFormatException e) {
+                throw JavatroException.invalidCardInput();
+            }
+
+            if (num < 1 || num > maxCardsAvailable) {
+                throw JavatroException.invalidCardInput();
+            }
+
+            numbers.add(num);
+        }
+
+        List<Integer> userInput =
+                numbers.stream()
                         .map(num -> num - 1) // Convert to 0-based index
                         .distinct()
                         .collect(Collectors.toList());
 
-        assert userInput.stream().allMatch(i -> i >= 0 && i < maxCardsAvailable)
-                : "All card indices should be within valid range";
-
         if (userInput.isEmpty()) {
             throw JavatroException.invalidCardInput();
         }
+
+        assert userInput.stream().allMatch(i -> i >= 0 && i < maxCardsAvailable)
+                : "All card indices should be within valid range";
 
         return userInput;
     }

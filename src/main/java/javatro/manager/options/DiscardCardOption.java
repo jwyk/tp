@@ -1,20 +1,21 @@
+// @@author Markneoneo
 package javatro.manager.options;
 
 import javatro.core.JavatroException;
 import javatro.display.UI;
+import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
 
 /**
- * The {@code DiscardCardOption} class represents a command that allows the player to discard
- * selected cards during the game. It updates the game screen to display the card selection
- * interface for discarding cards.
+ * Represents a command to discard selected cards during gameplay. When executed, transitions to the
+ * card selection interface for discarding cards.
  */
 public class DiscardCardOption implements Option {
 
     /**
-     * Provides a brief description of the command.
+     * {@inheritDoc}
      *
-     * @return A string describing the command.
+     * @return The static description "Discard Cards"
      */
     @Override
     public String getDescription() {
@@ -22,13 +23,17 @@ public class DiscardCardOption implements Option {
     }
 
     /**
-     * Executes the discard cards command, updating the game screen to the "Select Cards to Discard"
-     * interface.
+     * {@inheritDoc} Transitions to the card discard selection screen.
      *
-     * @throws JavatroException if an error occurs during execution.
+     * @throws JavatroException if screen transition fails
      */
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.setScreen(UI.getDiscardScreen());
+        // Retrieve and validate discard screen
+        Screen discardScreen = UI.getDiscardScreen();
+        assert discardScreen != null : "Discard screen must be initialized";
+
+        // Update display to discard interface
+        JavatroManager.setScreen(discardScreen);
     }
 }
