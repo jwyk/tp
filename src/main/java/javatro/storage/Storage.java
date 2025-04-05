@@ -25,11 +25,6 @@ public class Storage {
 
     private static final Path saveFilePath = Paths.get(SAVEFILE_LOCATION);
 
-    private static final int EXPECTED_COLUMNS = 10; // Number of columns in each line
-    private static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
-    private static final Set<String> VALID_BLINDS = Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
-
-
     private static boolean saveFileValid = true;
     private static int runChosen = 0;
 
