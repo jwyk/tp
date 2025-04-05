@@ -1,4 +1,4 @@
-// @@author Markneoneo
+// @@author flyingapricot
 package javatro.display.screens;
 
 
@@ -26,13 +26,15 @@ public class JumpToRunScreen extends Screen {
      */
     public JumpToRunScreen() throws JavatroException {
         super("Jump To A Run");
+        int numberOfRuns = Storage.getStorageInstance().getNumberOfRuns();
         super.commandMap.add(new LoadRunSelectOption());
-        for(int i = 1; i<= Storage.getStorageInstance().getNumberOfRuns();i++) {
+        for(int i = 1; i <= numberOfRuns;i++) {
             SelectRunNumberOption newRunOption = new SelectRunNumberOption();
             newRunOption.setRunNumber(i);
             super.commandMap.add(newRunOption);
         }
-        // assert commandMap.size() == 3 : "StartScreen should have exactly 3 initial options";
+
+        assert commandMap.size() == 1 + numberOfRuns : "StartScreen should have exactly numberOfRuns + 1 options";
     }
 
     /**

@@ -1,6 +1,10 @@
 package javatro.storage;
 
-import static javatro.display.ansi.DeckArt.*;
+
+import static javatro.display.ansi.DeckArt.BLUE_DECK;
+import static javatro.display.ansi.DeckArt.CHECKERED_DECK;
+import static javatro.display.ansi.DeckArt.ABANDONED_DECK;
+import static javatro.display.ansi.DeckArt.RED_DECK;
 
 import javatro.core.JavatroException;
 import javatro.display.ansi.DeckArt;
@@ -17,6 +21,10 @@ public class Storage {
     private static final String SAVEFILE_LOCATION = "./savefile.csv";
 
     private static final Path saveFilePath = Paths.get(SAVEFILE_LOCATION);
+
+    private static final int EXPECTED_COLUMNS = 9; // Number of columns in each line
+    private static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
+
 
     private static boolean saveFileValid = true;
 
@@ -56,9 +64,44 @@ public class Storage {
         }
     }
 
-    private boolean isCSVDataValid() {
-        return true;
+    public boolean isCSVDataValid() {
+
+        String[] rows = csvRawData.split("\\r?\\n"); // Split by newline, handling Windows and Unix line endings
+
+        for (String row : rows) {
+            row = row.trim();
+
+            if (row.isEmpty()) continue; // Skip empty lines
+
+            String[] columns = row.split(",");
+
+            // Check if the row has the expected number of columns
+            if (columns.length != EXPECTED_COLUMNS) {
+                System.out.println("Invalid number of columns in row: " + row);
+                return false;
+            }
+
+            // Check if deck name is valid
+            String deckName = columns[columns.length - 1].trim(); // Deck name is the last column
+            if (!VALID_DECKS.contains(deckName)) {
+                System.out.println("Invalid deck name in row: " + row);
+                return false;
+            }
+
+            // Validate numeric columns
+            try {
+                for (int i = 0; i < EXPECTED_COLUMNS - 2; i++) { // Skip last two columns (command and deck name)
+                    Integer.parseInt(columns[i]);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid numeric value in row: " + row);
+                return false;
+            }
+        }
+
+        return true; // All rows are valid
     }
+
 
     private void loadCSVData() {
         String[] runs = csvRawData.split("\\r?\\n");
@@ -102,6 +145,10 @@ public class Storage {
                 // Read the data present in the saveFile.csv
                 csvRawData = String.join("\n", Files.readAllLines(saveFilePath));
 
+                if (csvRawData == null || csvRawData.trim().isEmpty()) { // Check for null or empty string
+                    return;
+                }
+
                 // Do validation of the data to ensure that data is valid
                 if (!isCSVDataValid()) {
                     // Delete invalid csv file and create new one
@@ -115,7 +162,7 @@ public class Storage {
             } catch (Exception e) {
                 createSaveFile(); // Create a new save file since current save file is corrupted or
                                   // could not be read
-                throw new JavatroException("Error reading save file: " + e.getMessage());
+                System.out.println("Creating new save file..");
             }
         } else {
             createSaveFile();
@@ -146,7 +193,7 @@ public class Storage {
             case "RED" -> RED_DECK;
             case "BLUE" -> BLUE_DECK;
             case "CHECKERED" -> CHECKERED_DECK;
-            case "ABANDONED" -> DeckArt.ABANDONED_DECK;
+            case "ABANDONED" -> ABANDONED_DECK;
             default -> throw new IllegalArgumentException("Unknown deck type: " + key);
         };
     }
