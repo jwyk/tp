@@ -1,8 +1,4 @@
-/**
- * The {@code JavatroManager} class serves as the main controller (manager) of the game,
- * coordinating interactions between the model ({@code JavatroCore}) and the view ({@code display}).
- * It listens for property changes and updates the game state accordingly.
- */
+// @@author flyingapricot
 package javatro.manager;
 
 import javatro.core.Ante;
@@ -16,8 +12,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * Manages the interaction between the game model and the user interface. It listens for user inputs
- * and updates the game state dynamically.
+ * The {@code JavatroManager} class serves as the main controller (manager) of the game,
+ * coordinating interactions between the model ({@code JavatroCore}) and the view ({@code display}).
+ * It listens for property changes and updates the game state accordingly.
  */
 public class JavatroManager implements PropertyChangeListener {
 

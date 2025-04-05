@@ -1,14 +1,14 @@
-/**
- * The {@code ResumeGameOption} class represents a command that allows the player to return to the
- * main game screen after navigating away.
- */
+// @@author flyingapricot
 package javatro.manager.options;
 
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
-/** A command that enables players to return to the game screen. */
+/**
+ * The {@code ResumeGameOption} class represents a command that allows the player to return to the
+ * main game screen after navigating away.
+ */
 public class ResumeGameOption implements Option {
 
     /**
@@ -29,7 +29,6 @@ public class ResumeGameOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-
         JavatroManager.setScreen(UI.getGameScreen());
     }
 }

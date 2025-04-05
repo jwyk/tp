@@ -1,3 +1,4 @@
+// @@author flyingapricot
 package javatro.manager.options;
 
 import javatro.core.JavatroException;

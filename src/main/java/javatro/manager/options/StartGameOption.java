@@ -1,7 +1,4 @@
-/**
- * The {@code StartGameOption} class represents a command that initializes and starts a new game
- * session by setting the game screen.
- */
+// @@author flyingapricot
 package javatro.manager.options;
 
 import javatro.core.JavatroCore;
@@ -10,7 +7,10 @@ import javatro.display.UI;
 import javatro.manager.JavatroManager;
 import javatro.storage.Storage;
 
-/** A command that starts the game and loads the game screen. */
+/**
+ * The {@code StartGameOption} class represents a command that initializes and starts a new game
+ * session by setting the game screen.
+ */
 public class StartGameOption implements Option {
 
     private String description = "Start Game"; // Default description

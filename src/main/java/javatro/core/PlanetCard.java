@@ -1,21 +1,39 @@
+// @@author Markneoneo
 package javatro.core;
 
 import java.util.EnumMap;
 import java.util.Map;
 
+/**
+ * Represents a planet card associated with a specific poker hand type. Each card provides chip and
+ * multiplier increments and can be leveled up to increase these bonuses. Maintains static level
+ * tracking for all hand types.
+ *
+ * <p>Predefined cards are initialized statically and accessed through factory methods. Level
+ * management affects all instances of a particular hand type.
+ */
 public class PlanetCard {
-    private static final Map<PokerHand.HandType, Integer> LEVELS =
+    /**
+     * Maps each poker hand type to its current enhancement level. Initialized to level 1 for all
+     * hand types.
+     */
+    public static final Map<PokerHand.HandType, Integer> LEVELS =
             new EnumMap<>(PokerHand.HandType.class);
+
+    /**
+     * Registry of all predefined planet cards mapped to their corresponding hand types. Populated
+     * during class initialization.
+     */
     private static final Map<PokerHand.HandType, PlanetCard> CARDS =
             new EnumMap<>(PokerHand.HandType.class);
 
     static {
-        // Initialize all levels to 1
+        // Initialize base levels for all known hand types
         for (PokerHand.HandType handType : PokerHand.HandType.values()) {
             LEVELS.put(handType, 1);
         }
 
-        // Predefine all planet cards with unique paths
+        // Populate predefined planet cards with their configurations
         CARDS.put(
                 PokerHand.HandType.HIGH_CARD,
                 new PlanetCard("Pluto", 10, 1, PokerHand.HandType.HIGH_CARD, "planet_pluto.txt"));
@@ -47,6 +65,10 @@ public class PlanetCard {
                 new PlanetCard(
                         "Neptune", 40, 4, PokerHand.HandType.STRAIGHT_FLUSH, "planet_neptune.txt"));
         CARDS.put(
+                PokerHand.HandType.ROYAL_FLUSH,
+                new PlanetCard(
+                        "Neptune", 40, 4, PokerHand.HandType.ROYAL_FLUSH, "planet_neptune.txt"));
+        CARDS.put(
                 PokerHand.HandType.FIVE_OF_A_KIND,
                 new PlanetCard(
                         "Planet X",
@@ -68,6 +90,16 @@ public class PlanetCard {
     private final PokerHand.HandType handType;
     private final String path;
 
+    /**
+     * Constructs a planet card with specified attributes. Private to enforce singleton instances
+     * through predefined cards.
+     *
+     * @param name Display name of the planet
+     * @param chipIncrement Base value added to chip count per level
+     * @param multiIncrement Base value added to multiplier per level
+     * @param handType Associated poker hand type
+     * @param path Resource path for planet visualization
+     */
     private PlanetCard(
             String name,
             int chipIncrement,
@@ -81,65 +113,95 @@ public class PlanetCard {
         this.path = path;
     }
 
-    public String getPath() {
-        return path;
-    }
+    // Region: Accessors --------------------------------------------------------
 
-    // Get predefined PlanetCard for a hand type
+    /**
+     * Retrieves the predefined planet card for a specific hand type.
+     *
+     * @param handType Poker hand type to look up
+     * @return Associated planet card instance
+     * @throws AssertionError if no card exists for the specified hand type
+     */
     public static PlanetCard getForHand(PokerHand.HandType handType) {
-        return CARDS.get(handType);
+        PlanetCard card = CARDS.get(handType);
+        assert card != null : "Missing planet card configuration for: " + handType;
+        return card;
     }
 
-    // Static method to get current level for a hand type
+    /**
+     * Gets current enhancement level for a hand type.
+     *
+     * @param handType Poker hand type to check
+     * @return Current level (minimum 1)
+     */
     public static int getLevel(PokerHand.HandType handType) {
-        return LEVELS.getOrDefault(handType, 1);
+        return LEVELS.get(handType);
     }
 
-    // Static method to get chip increment for a hand type
-    public static int getChipIncrement(PokerHand.HandType handType) {
-        PlanetCard card = CARDS.get(handType);
-        return card != null ? card.chipIncrement : 0;
-    }
-
-    // Static method to get multi increment for a hand type
-    public static int getMultiIncrement(PokerHand.HandType handType) {
-        PlanetCard card = CARDS.get(handType);
-        return card != null ? card.multiIncrement : 0;
-    }
-
-    // Apply level-up for this card's hand type
-    public void apply() {
-        LEVELS.put(handType, LEVELS.getOrDefault(handType, 1) + 1);
-    }
-
-    // Getters
-    public String getName() {
-        return name;
-    }
-
+    /**
+     * @return Base chip increment without level scaling
+     */
     public int getChipIncrement() {
         return chipIncrement;
     }
 
+    /**
+     * Calculates total chip increment for a hand type at its current level.
+     *
+     * @param handType Poker hand type to check
+     * @return Total chip value including level scaling
+     */
+    public static int getChipIncrement(PokerHand.HandType handType) {
+        PlanetCard card = CARDS.get(handType);
+        assert card != null : "Missing chip configuration for: " + handType;
+        return card != null ? card.chipIncrement : 0;
+    }
+
+    /**
+     * @return Base multiplier increment without level scaling
+     */
     public int getMultiIncrement() {
         return multiIncrement;
     }
 
+    /**
+     * Calculates total multiplier increment for a hand type at its current level.
+     *
+     * @param handType Poker hand type to check
+     * @return Total multiplier value including level scaling
+     */
+    public static int getMultiIncrement(PokerHand.HandType handType) {
+        PlanetCard card = CARDS.get(handType);
+        assert card != null : "Missing multiplier configuration for: " + handType;
+        return card != null ? card.multiIncrement : 0;
+    }
+
+    /**
+     * Enhances this card's associated hand type by one level. Affects all instances using this hand
+     * type.
+     */
+    public void apply() {
+        LEVELS.put(handType, LEVELS.get(handType) + 1);
+    }
+
+    /**
+     * @return Planetary display name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return Associated poker hand type
+     */
     public PokerHand.HandType getHandType() {
         return handType;
     }
 
-    /*
-    To level up a hand: PlanetCard.getForHand(HandType.HIGH_CARD).apply();
-    To get current stats: PlanetCard.getLevel(HandType.HIGH_CARD)
-
-    // Level up "High Card" using Pluto
-    PlanetCard pluto = PlanetCard.getForHand(PokerHand.HandType.HIGH_CARD);
-    pluto.apply();
-
-    // Create a High Card poker hand
-    PokerHand highCard = new PokerHand(PokerHand.HandType.HIGH_CARD);
-    System.out.println(highCard.getChips()); // 5 + (2-1)*10 = 15
-    System.out.println(highCard.getMultiplier()); // 1 + (2-1)*1 = 2
-    */
+    /**
+     * @return Resource path for planetary visualization
+     */
+    public String getPath() {
+        return path;
+    }
 }
