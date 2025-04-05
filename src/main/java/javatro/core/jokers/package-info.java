@@ -1,7 +1,8 @@
 package javatro.core.jokers;
 
 /**
- * The {@code jokers} package contains the joker logic and data structures necessary for instantiating and creating Jokers.
+ * The {@code jokers} package contains the joker logic and data structures necessary for
+ * instantiating and creating Jokers.
  *
  * <p>This package is responsible for handling the distribution and logic of Jokers.
  *
