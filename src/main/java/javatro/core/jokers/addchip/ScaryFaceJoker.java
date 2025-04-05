@@ -1,6 +1,6 @@
 package javatro.core.jokers.addchip;
 
-//@@author jwyk
+// @@author jwyk
 
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BLUE;
@@ -12,9 +12,7 @@ import javatro.core.Card;
 import javatro.core.Score;
 import javatro.core.jokers.Joker;
 
-/**
- * Represents a AbstractJoker Joker, based off the Abstract Joker of Balatro.
- */
+/** Represents a AbstractJoker Joker, based off the Abstract Joker of Balatro. */
 public class ScaryFaceJoker extends Joker {
 
     public ScaryFaceJoker() {
