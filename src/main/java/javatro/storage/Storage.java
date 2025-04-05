@@ -137,7 +137,7 @@ public class Storage {
         Storage.serializedRunData = serializedRunData;
     }
 
-    public int getNumberOfRuns() {return 5;}
+    public int getNumberOfRuns() {return serializedRunData.size();}
 
     public String getValue(int runNumber,int idx) {
         return serializedRunData.get(runNumber).get(idx);
