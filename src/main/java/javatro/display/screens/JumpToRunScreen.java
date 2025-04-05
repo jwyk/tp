@@ -1,7 +1,6 @@
 // @@author Markneoneo
 package javatro.display.screens;
 
-
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
@@ -27,7 +26,7 @@ public class JumpToRunScreen extends Screen {
     public JumpToRunScreen() throws JavatroException {
         super("Jump To A Run");
         super.commandMap.add(new LoadRunSelectOption());
-        for(int i = 1; i<= Storage.getStorageInstance().getNumberOfRuns();i++) {
+        for (int i = 1; i <= Storage.getStorageInstance().getNumberOfRuns(); i++) {
             SelectRunNumberOption newRunOption = new SelectRunNumberOption();
             newRunOption.setRunNumber(i);
             super.commandMap.add(newRunOption);

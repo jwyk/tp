@@ -114,7 +114,7 @@ public class Storage {
 
             } catch (Exception e) {
                 createSaveFile(); // Create a new save file since current save file is corrupted or
-                                  // could not be read
+                // could not be read
                 throw new JavatroException("Error reading save file: " + e.getMessage());
             }
         } else {
@@ -135,7 +135,9 @@ public class Storage {
         Storage.serializedRunData = serializedRunData;
     }
 
-    public int getNumberOfRuns() {return serializedRunData.size();}
+    public int getNumberOfRuns() {
+        return serializedRunData.size();
+    }
 
     public String getValue(int runNumber, int idx) {
         return serializedRunData.get(runNumber).get(idx);
