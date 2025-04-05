@@ -1,10 +1,9 @@
 package javatro.storage;
 
-
 import static javatro.core.Ante.Blind.*;
+import static javatro.display.ansi.DeckArt.ABANDONED_DECK;
 import static javatro.display.ansi.DeckArt.BLUE_DECK;
 import static javatro.display.ansi.DeckArt.CHECKERED_DECK;
-import static javatro.display.ansi.DeckArt.ABANDONED_DECK;
 import static javatro.display.ansi.DeckArt.RED_DECK;
 
 import javatro.core.Ante;
@@ -13,7 +12,6 @@ import javatro.core.JavatroException;
 import javatro.display.ansi.DeckArt;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

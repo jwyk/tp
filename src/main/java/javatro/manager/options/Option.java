@@ -4,7 +4,6 @@ import javatro.core.JavatroException;
 
 public interface Option {
 
-
     /**
      * Retrieves a description of the command. This method has a default implementation returning an
      * empty string.
@@ -14,7 +13,6 @@ public interface Option {
     default String getDescription() {
         return "";
     }
-
 
     /**
      * Executes the command. Implementing classes must define specific behavior.
@@ -29,8 +27,7 @@ public interface Option {
      * @param description The new description to set.
      */
     default void setDescription(String description) {
-        throw new UnsupportedOperationException("Description updates are not supported by this option.");
+        throw new UnsupportedOperationException(
+                "Description updates are not supported by this option.");
     }
-
-
 }
