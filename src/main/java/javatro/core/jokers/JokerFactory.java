@@ -27,7 +27,7 @@ public class JokerFactory {
     /**
      * Returns a random Joker from the above list.
      *
-     * @return A RandomJoker
+     * @return A Joker from the List of Jokers above.
      */
     public static Joker createRandomJoker() {
         return jokerSuppliers.get(random.nextInt(jokerSuppliers.size())).get();
