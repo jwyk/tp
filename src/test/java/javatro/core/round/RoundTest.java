@@ -165,7 +165,11 @@ public class RoundTest {
     }
 
     private void testRoundPlayCards(
-            int anteCount, Ante.Blind blind, int remainingPlays, int playsToMake, boolean expectedIsOver)
+            int anteCount,
+            Ante.Blind blind,
+            int remainingPlays,
+            int playsToMake,
+            boolean expectedIsOver)
             throws JavatroException {
         assertRoundOver(anteCount, blind, remainingPlays, playsToMake, expectedIsOver);
     }
@@ -179,7 +183,11 @@ public class RoundTest {
     }
 
     private void testPlayCardsFails(
-            int anteCount, Ante.Blind blind, int remainingPlays, int playsToMake, String expectedError)
+            int anteCount,
+            Ante.Blind blind,
+            int remainingPlays,
+            int playsToMake,
+            String expectedError)
             throws JavatroException {
         assertPlayCardsFails(anteCount, blind, remainingPlays, playsToMake, expectedError);
     }
@@ -229,22 +237,22 @@ public class RoundTest {
     public void round_playCards_smallBlind_fewPlays() throws JavatroException {
         testRoundPlayCards(1, Ante.Blind.SMALL_BLIND, 3, 1, false);
     }
-    
+
     @Test
     public void round_playCards_largeBlind_fewPlays() throws JavatroException {
         testRoundPlayCards(1, Ante.Blind.LARGE_BLIND, 10000, 1, false);
     }
-    
+
     @Test
     public void round_playCards_smallBlind_highAnte() throws JavatroException {
         testRoundPlayCards(8, Ante.Blind.SMALL_BLIND, 10000, 1, false);
     }
-    
+
     @Test
     public void round_playCards_largeBlind_highAnte() throws JavatroException {
         testRoundPlayCards(8, Ante.Blind.LARGE_BLIND, 10000, 1, false);
     }
-    
+
     @Test
     public void round_playCards_smallBlind_manyPlays() throws JavatroException {
         testRoundPlayCards(1, Ante.Blind.SMALL_BLIND, 10000, 8, true);
@@ -254,17 +262,17 @@ public class RoundTest {
     public void round_playCards_roundOver_smallBlind() throws JavatroException {
         testRoundOver(8, Ante.Blind.SMALL_BLIND, 3, 3);
     }
-    
+
     @Test
     public void round_playCards_roundOver_bossBlind1() throws JavatroException {
         testRoundOver(8, Ante.Blind.BOSS_BLIND, 5, 5);
     }
-    
+
     @Test
     public void round_playCards_roundOver_bossBlind2() throws JavatroException {
         testRoundOver(8, Ante.Blind.BOSS_BLIND, 8, 8);
     }
-    
+
     @Test
     public void round_playCards_roundOver_smallBlind_exactPlays() throws JavatroException {
         testRoundOver(1, Ante.Blind.SMALL_BLIND, 1, 1);
@@ -274,9 +282,15 @@ public class RoundTest {
     public void round_playCards_tooManyPlays_case1() throws JavatroException {
         testPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 3, 3, "No plays remaining.");
     }
+
     @Test
     public void round_playCards_tooManyPlays_case2() throws JavatroException {
-        testPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 0, 0, "Number of plays per round must be greater than 0.");
+        testPlayCardsFails(
+                1,
+                Ante.Blind.SMALL_BLIND,
+                0,
+                0,
+                "Number of plays per round must be greater than 0.");
     }
 
     @Test
@@ -387,18 +401,18 @@ public class RoundTest {
         Ante ante = new Ante();
         ante.setAnteCount(1);
         ante.setBlind(Ante.Blind.BOSS_BLIND);
-        
+
         // Test THE_NEEDLE
         Round needleRound = new Round(ante, 3, deck, heldJokers, "", "");
         needleRound.setBossType(BossType.THE_NEEDLE);
         assertEquals(1, needleRound.getRemainingPlays());
         assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, needleRound.getConfig().getMinHandSize());
-        
+
         // Test THE_WATER
         Round waterRound = new Round(ante, 3, deck, heldJokers, "", "");
         waterRound.setBossType(BossType.THE_WATER);
         assertEquals(0, waterRound.getRemainingDiscards());
-        
+
         // Test THE_PSYCHIC
         Round psychicRound = new Round(ante, 3, deck, heldJokers, "", "");
         psychicRound.setBossType(BossType.THE_PSYCHIC);

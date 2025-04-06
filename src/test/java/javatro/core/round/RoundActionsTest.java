@@ -53,10 +53,15 @@ public class RoundActionsTest {
         int initialDeckSize = deck.getRemainingCards();
 
         // Perform the play action and validate the results
-        RoundActions.ActionResult result = RoundActions.playCards(roundState, roundConfig, cardIndices);
+        RoundActions.ActionResult result =
+                RoundActions.playCards(roundState, roundConfig, cardIndices);
         assertEquals(3, result.getCards().size(), "Should have played 3 cards");
-        assertEquals(8, playerHand.getHand().size(), "Player should still have 8 cards after play and draw");
-        assertEquals(initialDeckSize - 3, deck.getRemainingCards(), "Deck should have 3 fewer cards");
+        assertEquals(
+                8,
+                playerHand.getHand().size(),
+                "Player should still have 8 cards after play and draw");
+        assertEquals(
+                initialDeckSize - 3, deck.getRemainingCards(), "Deck should have 3 fewer cards");
         assertNotNull(result.getPointsEarned(), "Points should be earned for playing cards");
     }
 
@@ -73,11 +78,11 @@ public class RoundActionsTest {
         List<Integer> cardIndices = List.of(0, 1, 2);
 
         // Validate that an exception is thrown
-        JavatroException exception = assertThrows(
-            JavatroException.class,
-            () -> RoundActions.playCards(stateWithNoPlays, roundConfig, cardIndices),
-            "Should throw JavatroException when no plays remain"
-        );
+        JavatroException exception =
+                assertThrows(
+                        JavatroException.class,
+                        () -> RoundActions.playCards(stateWithNoPlays, roundConfig, cardIndices),
+                        "Should throw JavatroException when no plays remain");
         assertEquals(UI.RED + "No plays remaining." + UI.END, exception.getMessage());
     }
 
@@ -90,13 +95,14 @@ public class RoundActionsTest {
         List<Integer> cardIndices = List.of(0, 1);
 
         // Validate that an exception is thrown
-        JavatroException exception = assertThrows(
-            JavatroException.class,
-            () -> RoundActions.playCards(roundState, config, cardIndices),
-            "Should throw JavatroException when playing fewer cards than minimum"
-        );
-        assertEquals(UI.RED + "A poker hand must contain between 3 and 5 cards." + UI.END, 
-            exception.getMessage());
+        JavatroException exception =
+                assertThrows(
+                        JavatroException.class,
+                        () -> RoundActions.playCards(roundState, config, cardIndices),
+                        "Should throw JavatroException when playing fewer cards than minimum");
+        assertEquals(
+                UI.RED + "A poker hand must contain between 3 and 5 cards." + UI.END,
+                exception.getMessage());
     }
 
     @Test
@@ -108,13 +114,14 @@ public class RoundActionsTest {
         List<Integer> cardIndices = List.of(0, 1, 2, 3, 4);
 
         // Validate that an exception is thrown
-        JavatroException exception = assertThrows(
-            JavatroException.class,
-            () -> RoundActions.playCards(roundState, config, cardIndices),
-            "Should throw JavatroException when playing more cards than maximum"
-        );
-        assertEquals(UI.RED + "A poker hand must contain between 1 and 3 cards." + UI.END, 
-            exception.getMessage());
+        JavatroException exception =
+                assertThrows(
+                        JavatroException.class,
+                        () -> RoundActions.playCards(roundState, config, cardIndices),
+                        "Should throw JavatroException when playing more cards than maximum");
+        assertEquals(
+                UI.RED + "A poker hand must contain between 1 and 3 cards." + UI.END,
+                exception.getMessage());
     }
 
     @Test
@@ -123,13 +130,15 @@ public class RoundActionsTest {
         List<Integer> cardIndices = List.of(0, 20);
 
         // Validate that an exception is thrown
-        JavatroException exception = assertThrows(
-            JavatroException.class,
-            () -> RoundActions.playCards(roundState, roundConfig, cardIndices),
-            "Should throw JavatroException when trying to play a card with an invalid index"
-        );
-        assertEquals(UI.RED + "Invalid index in cards to be played: 20" + UI.END, 
-            exception.getMessage());
+        JavatroException exception =
+                assertThrows(
+                        JavatroException.class,
+                        () -> RoundActions.playCards(roundState, roundConfig, cardIndices),
+                        "Should throw JavatroException when trying to play a card with an invalid"
+                            + " index");
+        assertEquals(
+                UI.RED + "Invalid index in cards to be played: 20" + UI.END,
+                exception.getMessage());
     }
 
     @Test
@@ -164,20 +173,17 @@ public class RoundActionsTest {
     void testPlayCards_NullParameters() {
         // Test behavior when null parameters are passed
         assertThrows(
-            IllegalArgumentException.class,
-            () -> RoundActions.playCards(null, roundConfig, List.of(0, 1, 2)),
-            "Should throw IllegalArgumentException when state is null"
-        );
+                IllegalArgumentException.class,
+                () -> RoundActions.playCards(null, roundConfig, List.of(0, 1, 2)),
+                "Should throw IllegalArgumentException when state is null");
         assertThrows(
-            IllegalArgumentException.class,
-            () -> RoundActions.playCards(roundState, null, List.of(0, 1, 2)),
-            "Should throw IllegalArgumentException when config is null"
-        );
+                IllegalArgumentException.class,
+                () -> RoundActions.playCards(roundState, null, List.of(0, 1, 2)),
+                "Should throw IllegalArgumentException when config is null");
         assertThrows(
-            IllegalArgumentException.class,
-            () -> RoundActions.playCards(roundState, roundConfig, null),
-            "Should throw IllegalArgumentException when card indices are null"
-        );
+                IllegalArgumentException.class,
+                () -> RoundActions.playCards(roundState, roundConfig, null),
+                "Should throw IllegalArgumentException when card indices are null");
     }
 
     @Test
@@ -187,10 +193,15 @@ public class RoundActionsTest {
         int initialDeckSize = deck.getRemainingCards();
 
         // Perform the discard action and validate the results
-        RoundActions.ActionResult result = RoundActions.discardCards(roundState, roundConfig, cardIndices);
+        RoundActions.ActionResult result =
+                RoundActions.discardCards(roundState, roundConfig, cardIndices);
         assertEquals(3, result.getCards().size(), "Should have discarded 3 cards");
-        assertEquals(8, playerHand.getHand().size(), "Player should still have 8 cards after discard and draw");
-        assertEquals(initialDeckSize - 3, deck.getRemainingCards(), "Deck should have 3 fewer cards");
+        assertEquals(
+                8,
+                playerHand.getHand().size(),
+                "Player should still have 8 cards after discard and draw");
+        assertEquals(
+                initialDeckSize - 3, deck.getRemainingCards(), "Deck should have 3 fewer cards");
         assertEquals(0, result.getPointsEarned(), "No points should be earned for discarding");
     }
 
@@ -207,11 +218,13 @@ public class RoundActionsTest {
         List<Integer> cardIndices = List.of(0, 1);
 
         // Validate that an exception is thrown
-        JavatroException exception = assertThrows(
-            JavatroException.class,
-            () -> RoundActions.discardCards(stateWithNoDiscards, roundConfig, cardIndices),
-            "Should throw JavatroException when no discards remain"
-        );
+        JavatroException exception =
+                assertThrows(
+                        JavatroException.class,
+                        () ->
+                                RoundActions.discardCards(
+                                        stateWithNoDiscards, roundConfig, cardIndices),
+                        "Should throw JavatroException when no discards remain");
         assertEquals(UI.RED + "No remaining discards available" + UI.END, exception.getMessage());
     }
 
@@ -224,13 +237,13 @@ public class RoundActionsTest {
         }
 
         // Validate that an exception is thrown
-        JavatroException exception = assertThrows(
-            JavatroException.class,
-            () -> RoundActions.discardCards(roundState, roundConfig, cardIndices),
-            "Should throw JavatroException when trying to discard too many cards"
-        );
-        assertEquals(UI.RED + "Too many cards selected for discarding" + UI.END, 
-            exception.getMessage());
+        JavatroException exception =
+                assertThrows(
+                        JavatroException.class,
+                        () -> RoundActions.discardCards(roundState, roundConfig, cardIndices),
+                        "Should throw JavatroException when trying to discard too many cards");
+        assertEquals(
+                UI.RED + "Too many cards selected for discarding" + UI.END, exception.getMessage());
     }
 
     @Test
@@ -239,11 +252,11 @@ public class RoundActionsTest {
         List<Integer> cardIndices = List.of();
 
         // Validate that an exception is thrown
-        JavatroException exception = assertThrows(
-            JavatroException.class,
-            () -> RoundActions.discardCards(roundState, roundConfig, cardIndices),
-            "Should throw JavatroException when trying to discard zero cards"
-        );
+        JavatroException exception =
+                assertThrows(
+                        JavatroException.class,
+                        () -> RoundActions.discardCards(roundState, roundConfig, cardIndices),
+                        "Should throw JavatroException when trying to discard zero cards");
         assertEquals(UI.RED + "Cannot discard zero cards" + UI.END, exception.getMessage());
     }
 
@@ -254,9 +267,11 @@ public class RoundActionsTest {
         int initialDeckSize = deck.getRemainingCards();
 
         // Perform the discard action and validate the results
-        RoundActions.ActionResult result = RoundActions.discardCards(roundState, roundConfig, cardIndices);
+        RoundActions.ActionResult result =
+                RoundActions.discardCards(roundState, roundConfig, cardIndices);
         assertEquals(3, result.getCards().size(), "Should have discarded 3 unique cards");
-        assertEquals(initialDeckSize - 3, deck.getRemainingCards(), "Deck should have 3 fewer cards");
+        assertEquals(
+                initialDeckSize - 3, deck.getRemainingCards(), "Deck should have 3 fewer cards");
     }
 
     @Test
@@ -265,13 +280,15 @@ public class RoundActionsTest {
         List<Integer> cardIndices = List.of(0, 10);
 
         // Validate that an exception is thrown
-        JavatroException exception = assertThrows(
-            JavatroException.class,
-            () -> RoundActions.discardCards(roundState, roundConfig, cardIndices),
-            "Should throw JavatroException when trying to discard a card with an invalid index"
-        );
-        assertEquals(UI.RED + "Invalid index in cards to be discarded: 10" + UI.END, 
-            exception.getMessage());
+        JavatroException exception =
+                assertThrows(
+                        JavatroException.class,
+                        () -> RoundActions.discardCards(roundState, roundConfig, cardIndices),
+                        "Should throw JavatroException when trying to discard a card with an"
+                            + " invalid index");
+        assertEquals(
+                UI.RED + "Invalid index in cards to be discarded: 10" + UI.END,
+                exception.getMessage());
     }
 
     @Test
@@ -281,7 +298,8 @@ public class RoundActionsTest {
         List<Integer> cardIndices = List.of(0);
 
         // Perform the discard action and validate the results
-        RoundActions.ActionResult result = RoundActions.discardCards(stateWithOneDiscard, roundConfig, cardIndices);
+        RoundActions.ActionResult result =
+                RoundActions.discardCards(stateWithOneDiscard, roundConfig, cardIndices);
         assertNotNull(result, "Result should not be null");
         assertEquals(1, result.getCards().size(), "Should have discarded 1 card");
     }
