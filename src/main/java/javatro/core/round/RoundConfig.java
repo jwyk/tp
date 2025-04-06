@@ -40,6 +40,13 @@ class RoundConfig {
     }
 
     /**
+     * Creates a new round configuration with default values.
+     */
+    public RoundConfig(int blindScore) {
+        this("Default Round", "Default Description", blindScore);
+    }
+
+    /**
      * Gets the target score needed to win this round.
      *
      * @return The blind score target

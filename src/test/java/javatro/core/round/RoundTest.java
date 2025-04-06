@@ -28,7 +28,6 @@ public class RoundTest {
     private static final String INVALIDPLAYSPERROUND =
             "Number of plays per round must be greater than 0.";
     private static final String INVALIDDECK = "Deck cannot be null.";
-    private static final String INVALIDPLAYSREMAINING = "No plays remaining.";
 
     enum isWon {
         WON,
@@ -160,12 +159,63 @@ public class RoundTest {
         assertEquals(expectedIsOver, round.isRoundOver());
     }
 
+    private void testRoundInitialization(int anteCount, Ante.Blind blind, int remainingPlays)
+            throws JavatroException {
+        assertRoundInitialization(anteCount, blind, remainingPlays);
+    }
+
+    private void testRoundPlayCards(
+            int anteCount, Ante.Blind blind, int remainingPlays, int playsToMake, boolean expectedIsOver)
+            throws JavatroException {
+        assertRoundOver(anteCount, blind, remainingPlays, playsToMake, expectedIsOver);
+    }
+
+    private void testRoundOver(int anteCount, Ante.Blind blind, int totalPlays, int playsToMake)
+            throws JavatroException {
+        Ante ante = new Ante();
+        ante.setAnteCount(anteCount);
+        ante.setBlind(blind);
+        assertRoundOverAfterPlays(ante.getRoundScore(), totalPlays, playsToMake, true);
+    }
+
+    private void testPlayCardsFails(
+            int anteCount, Ante.Blind blind, int remainingPlays, int playsToMake, String expectedError)
+            throws JavatroException {
+        assertPlayCardsFails(anteCount, blind, remainingPlays, playsToMake, expectedError);
+    }
+
+    private void testBossType(BossType bossType) throws JavatroException {
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
+        Ante ante = new Ante();
+        ante.setAnteCount(1);
+        ante.setBlind(Ante.Blind.BOSS_BLIND);
+        Round round = new Round(ante, 3, deck, heldJokers, "", "");
+
+        round.setBossType(bossType);
+
+        // Check that default values are maintained for other bosses
+        assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
+        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+    }
+
     @Test
-    public void round_correctInitialization_success() throws JavatroException {
-        assertRoundInitialization(1, Ante.Blind.SMALL_BLIND, 3);
-        assertRoundInitialization(2, Ante.Blind.SMALL_BLIND, 5);
-        assertRoundInitialization(2, Ante.Blind.LARGE_BLIND, 7);
-        assertRoundInitialization(3, Ante.Blind.BOSS_BLIND, 1);
+    public void round_correctInitialization_smallBlind1() throws JavatroException {
+        testRoundInitialization(1, Ante.Blind.SMALL_BLIND, 3);
+    }
+
+    @Test
+    public void round_correctInitialization_smallBlind2() throws JavatroException {
+        testRoundInitialization(2, Ante.Blind.SMALL_BLIND, 5);
+    }
+
+    @Test
+    public void round_correctInitialization_largeBlind() throws JavatroException {
+        testRoundInitialization(2, Ante.Blind.LARGE_BLIND, 7);
+    }
+
+    @Test
+    public void round_correctInitialization_bossBlind() throws JavatroException {
+        testRoundInitialization(3, Ante.Blind.BOSS_BLIND, 1);
     }
 
     @Test
@@ -176,57 +226,62 @@ public class RoundTest {
     }
 
     @Test
-    public void round_playCards_roundNotOver() throws JavatroException {
-        // Test with first blind score and plays
-        assertRoundOver(1, Ante.Blind.SMALL_BLIND, 3, 1, false);
-        // Test with high blind score
-        assertRoundOver(1, Ante.Blind.LARGE_BLIND, 10000, 1, false);
-
-        // Test with high ante count and plays
-        assertRoundOver(8, Ante.Blind.SMALL_BLIND, 10000, 1, false);
-        // Test with many remaining plays
-        assertRoundOver(8, Ante.Blind.LARGE_BLIND, 10000, 1, false);
-
-        // Test won
-        assertRoundOver(1, Ante.Blind.SMALL_BLIND, 10000, 8, true);
+    public void round_playCards_smallBlind_fewPlays() throws JavatroException {
+        testRoundPlayCards(1, Ante.Blind.SMALL_BLIND, 3, 1, false);
+    }
+    
+    @Test
+    public void round_playCards_largeBlind_fewPlays() throws JavatroException {
+        testRoundPlayCards(1, Ante.Blind.LARGE_BLIND, 10000, 1, false);
+    }
+    
+    @Test
+    public void round_playCards_smallBlind_highAnte() throws JavatroException {
+        testRoundPlayCards(8, Ante.Blind.SMALL_BLIND, 10000, 1, false);
+    }
+    
+    @Test
+    public void round_playCards_largeBlind_highAnte() throws JavatroException {
+        testRoundPlayCards(8, Ante.Blind.LARGE_BLIND, 10000, 1, false);
+    }
+    
+    @Test
+    public void round_playCards_smallBlind_manyPlays() throws JavatroException {
+        testRoundPlayCards(1, Ante.Blind.SMALL_BLIND, 10000, 8, true);
     }
 
     @Test
-    public void round_playCards_roundOver() throws JavatroException {
-        Ante ante = new Ante();
-        ante.setAnteCount(8);
-        ante.setBlind(Ante.Blind.SMALL_BLIND);
-        assertRoundOverAfterPlays(ante.getRoundScore(), 3, 3, true);
-
-        ante = new Ante();
-        ante.setAnteCount(8);
-        ante.setBlind(Ante.Blind.BOSS_BLIND);
-        assertRoundOverAfterPlays(ante.getRoundScore(), 5, 5, true);
-
-        ante = new Ante();
-        ante.setAnteCount(8);
-        ante.setBlind(Ante.Blind.BOSS_BLIND);
-        assertRoundOverAfterPlays(ante.getRoundScore(), 8, 8, true);
-
-        ante = new Ante();
-        ante.setAnteCount(1);
-        ante.setBlind(Ante.Blind.SMALL_BLIND);
-        assertRoundOverAfterPlays(ante.getRoundScore(), 1, 1, true);
+    public void round_playCards_roundOver_smallBlind() throws JavatroException {
+        testRoundOver(8, Ante.Blind.SMALL_BLIND, 3, 3);
+    }
+    
+    @Test
+    public void round_playCards_roundOver_bossBlind1() throws JavatroException {
+        testRoundOver(8, Ante.Blind.BOSS_BLIND, 5, 5);
+    }
+    
+    @Test
+    public void round_playCards_roundOver_bossBlind2() throws JavatroException {
+        testRoundOver(8, Ante.Blind.BOSS_BLIND, 8, 8);
+    }
+    
+    @Test
+    public void round_playCards_roundOver_smallBlind_exactPlays() throws JavatroException {
+        testRoundOver(1, Ante.Blind.SMALL_BLIND, 1, 1);
     }
 
     @Test
-    public void round_playCards_tooManyPlays() throws JavatroException {
-        // Test with 3 plays
-        assertPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 3, 3, INVALIDPLAYSREMAINING);
-
-        // Test with 5 plays
-        assertPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 2, 2, INVALIDPLAYSREMAINING);
-        // Test with 0 plays
-        assertPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 0, 0, INVALIDPLAYSPERROUND);
+    public void round_playCards_tooManyPlays_case1() throws JavatroException {
+        testPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 3, 3, "No plays remaining.");
+    }
+    @Test
+    public void round_playCards_tooManyPlays_case2() throws JavatroException {
+        testPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 0, 0, "Number of plays per round must be greater than 0.");
     }
 
     @Test
     public void round_playCards_invalidHandSize() throws JavatroException {
+        // Test with too many cards
         assertPlayCardsInvalidHandSize(
                 1, Ante.Blind.SMALL_BLIND, 3, List.of(0, 1, 2, 3, 4, 5), INVALIDPLAYEDHANDERROR);
         assertPlayCardsInvalidHandSize(
@@ -326,87 +381,54 @@ public class RoundTest {
     }
 
     @Test
-    public void round_bossType_none() throws JavatroException {
-        Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Ante ante = new Ante();
-        ante.setAnteCount(1);
-        ante.setBlind(Ante.Blind.SMALL_BLIND);
-        Round round = new Round(ante, 3, deck, heldJokers, "", "");
-
-        // Check that default values are maintained
-        assertEquals(3, round.getRemainingDiscards());
-        assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
-        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
-    }
-
-    @Test
-    public void round_bossType_theNeedle() throws JavatroException {
+    public void round_bossType_specificBehaviors() throws JavatroException {
+        // Setup and test different boss types in a single test to reduce duplication
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
         ante.setAnteCount(1);
         ante.setBlind(Ante.Blind.BOSS_BLIND);
-        Round round = new Round(ante, 3, deck, heldJokers, "", "");
-
-        round.setBossType(BossType.THE_NEEDLE);
-
-        // Check that max hand size is set to 1
-        assertEquals(1, round.getRemainingPlays());
-        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+        
+        // Test THE_NEEDLE
+        Round needleRound = new Round(ante, 3, deck, heldJokers, "", "");
+        needleRound.setBossType(BossType.THE_NEEDLE);
+        assertEquals(1, needleRound.getRemainingPlays());
+        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, needleRound.getConfig().getMinHandSize());
+        
+        // Test THE_WATER
+        Round waterRound = new Round(ante, 3, deck, heldJokers, "", "");
+        waterRound.setBossType(BossType.THE_WATER);
+        assertEquals(0, waterRound.getRemainingDiscards());
+        
+        // Test THE_PSYCHIC
+        Round psychicRound = new Round(ante, 3, deck, heldJokers, "", "");
+        psychicRound.setBossType(BossType.THE_PSYCHIC);
+        assertEquals(5, psychicRound.getConfig().getMaxHandSize());
+        assertEquals(5, psychicRound.getConfig().getMinHandSize());
     }
 
     @Test
-    public void round_bossType_theWater() throws JavatroException {
-        Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Ante ante = new Ante();
-        ante.setAnteCount(1);
-        ante.setBlind(Ante.Blind.BOSS_BLIND);
-        Round round = new Round(ante, 3, deck, heldJokers, "", "");
-
-        round.setBossType(BossType.THE_WATER);
-
-        // Check that no discards are allowed
-        assertEquals(0, round.getRemainingDiscards());
+    public void round_bossType_theClub() throws JavatroException {
+        testBossType(BossType.THE_CLUB);
     }
 
     @Test
-    public void round_bossType_thePsychic() throws JavatroException {
-        Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Ante ante = new Ante();
-        ante.setAnteCount(1);
-        ante.setBlind(Ante.Blind.BOSS_BLIND);
-        Round round = new Round(ante, 3, deck, heldJokers, "", "");
-
-        round.setBossType(BossType.THE_PSYCHIC);
-
-        // Check that min and max hand size are both 5
-        assertEquals(5, round.getConfig().getMaxHandSize());
-        assertEquals(5, round.getConfig().getMinHandSize());
+    public void round_bossType_theWindow() throws JavatroException {
+        testBossType(BossType.THE_WINDOW);
     }
 
     @Test
-    public void round_bossType_otherBosses() throws JavatroException {
-        Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Ante ante = new Ante();
-        ante.setAnteCount(1);
-        ante.setBlind(Ante.Blind.BOSS_BLIND);
-        Round round = new Round(ante, 3, deck, heldJokers, "", "");
+    public void round_bossType_theHead() throws JavatroException {
+        testBossType(BossType.THE_HEAD);
+    }
 
-        // Test other bosses that don't have specific rule changes
-        BossType[] otherBosses = {
-            BossType.THE_CLUB,
-            BossType.THE_WINDOW,
-            BossType.THE_HEAD,
-            BossType.THE_GOAD,
-            BossType.THE_PLANT
-        };
+    @Test
+    public void round_bossType_theGoad() throws JavatroException {
+        testBossType(BossType.THE_GOAD);
+    }
 
-        for (BossType bossType : otherBosses) {
-            round.setBossType(bossType);
-
-            // Check that default values are maintained for other bosses
-            assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
-            assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
-        }
+    @Test
+    public void round_bossType_thePlant() throws JavatroException {
+        testBossType(BossType.THE_PLANT);
     }
 
     @Test
