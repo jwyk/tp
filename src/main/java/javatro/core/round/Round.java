@@ -1,14 +1,7 @@
 package javatro.core.round;
 
-import javatro.core.Ante;
-import javatro.core.BossType;
-import javatro.core.Card;
-import javatro.core.Deck;
+import javatro.core.*;
 import javatro.core.Deck.DeckType;
-import javatro.core.HandResult;
-import javatro.core.HoldingHand;
-import javatro.core.JavatroException;
-import javatro.core.PokerHand;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.round.RoundActions.ActionResult;
 
@@ -214,6 +207,11 @@ public class Round {
         return state.getCurrentScore();
     }
 
+    public void setCurrentScore(int score) {
+        state.addScore(-1 * state.getCurrentScore());
+        state.addScore(score);
+    }
+
     /**
      * Gets the target score needed to win this round.
      *
@@ -274,8 +272,11 @@ public class Round {
      * @return true if the game is lost, false otherwise
      */
     public boolean isLost() {
+        if (state.getRemainingPlays() <= 0 && !isWon()) {
+            return true;
+        }
         // Game ends if no plays are remaining
-        return state.getRemainingPlays() <= 0 && !isWon();
+        return false;
     }
 
     /**
@@ -340,6 +341,14 @@ public class Round {
      */
     public RoundState getState() {
         return state;
+    }
+
+    public void updatePlays(int plays) {
+        state.setRemainingPlays(plays);
+    }
+
+    public void updateDiscards(int discards) {
+        state.setRemainingDiscards(discards);
     }
 
     /**

@@ -1,5 +1,7 @@
 package javatro.core;
 
+import javatro.storage.Storage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,6 +37,7 @@ public class Deck {
     /** Draws and returns a card from the top of the deck */
     public Card draw() throws JavatroException {
         try {
+
             return deck.remove(0);
         } catch (IndexOutOfBoundsException e) {
             throw JavatroException.noCardsRemaining();
@@ -98,6 +101,22 @@ public class Deck {
         return newDeck;
     }
 
+    public void populateWithSavedDeck() {
+
+        Storage storage = Storage.getStorageInstance();
+        ArrayList<Card> newDeck = new ArrayList<>();
+
+        for (int i = Storage.START_OF_REST_OF_DECK; i < Storage.START_OF_REST_OF_DECK + 44; i++) {
+            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")) continue;
+            newDeck.add(Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
+        }
+
+        Storage.isNewDeck = false;
+
+        Collections.shuffle(newDeck);
+        deck = new ArrayList<>(newDeck);
+    }
+
     /**
      * Initialize a new shuffled 52 card deck for a new game Consists of the standard Poker Deck: 26
      * Cards of the 2 Suites: Spades and Hearts.
@@ -143,11 +162,11 @@ public class Deck {
      * Enum representing the type of the deck. Test Deck is not to be used, and is a default deck.
      */
     public enum DeckType {
-        ABANDONED("Abandoned"),
-        BLUE("Blue"),
-        CHECKERED("Checkered"),
-        RED("Red"),
-        DEFAULT("Default");
+        ABANDONED("ABANDONED"),
+        BLUE("BLUE"),
+        CHECKERED("CHECKERED"),
+        RED("RED"),
+        DEFAULT("DEFAULT");
 
         private final String name;
 

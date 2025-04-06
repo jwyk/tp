@@ -17,6 +17,7 @@ public class AbstractJoker extends Joker {
     public AbstractJoker() {
         super();
         name = "Abstract";
+        identifierName = "ABSTRACTJOKER";
         this.numberOfJokers = 1;
         description =
                 String.format(
