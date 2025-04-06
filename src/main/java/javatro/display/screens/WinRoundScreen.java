@@ -12,6 +12,7 @@ import static javatro.display.UI.YELLOW;
 import static javatro.display.UI.printANSI;
 import static javatro.display.UI.printBorderedContent;
 
+import javatro.audioplayer.AudioPlayer;
 import javatro.core.Ante;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
@@ -64,6 +65,10 @@ public class WinRoundScreen extends Screen {
         } else {
             handleNormalBlindVictory();
         }
+
+        AudioPlayer.getInstance().stopAudio();
+        AudioPlayer.getInstance().playAudio("audioplayer/winning.wav");
+
     }
 
     /** Handles boss blind victory rewards and display */
