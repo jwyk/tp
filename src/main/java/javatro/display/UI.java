@@ -318,7 +318,7 @@ public class UI {
         assert fileName != null && !fileName.isEmpty() : "Filename cannot be null or empty";
 
         try (InputStream inputStream =
-                UI.class.getResourceAsStream("/javatro/display/ansi/" + fileName)) {
+                UI.class.getResourceAsStream("/ansi/" + fileName)) {
             if (inputStream == null) {
                 throw JavatroException.errorLoadingLogo(fileName);
             }

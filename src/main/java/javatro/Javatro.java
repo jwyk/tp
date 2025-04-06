@@ -39,9 +39,10 @@ public class Javatro {
 
 
         assert false : "dummy assertion set to fail";
-        Thread audioThread = new Thread(new AudioPlayer("src/main/java/javatro/audioplayer/balatro_theme.wav"));
-        audioThread.setDaemon(true); // Allows the thread to terminate when the application ends
+        Thread audioThread = new Thread(new AudioPlayer("audioplayer/balatro_theme.wav"));
+        audioThread.setDaemon(true);
         audioThread.start();
+
 
         // Continue with your program's main flow
         JavatroManager.setScreen(new StartScreen());
