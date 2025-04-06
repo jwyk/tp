@@ -66,7 +66,6 @@ public class Storage {
     public static final int FLUSH_FIVE_INDEX = 35;
     public static final int START_OF_REST_OF_DECK = 36;
 
-
     private static Storage storageInstance;
 
     // Serialized Storage Information stored in a TreeMap
@@ -200,7 +199,7 @@ public class Storage {
             }
 
             // Validate the rest of the deck
-            for (int i = START_OF_REST_OF_DECK; i < START_OF_REST_OF_DECK+44; i++) {
+            for (int i = START_OF_REST_OF_DECK; i < START_OF_REST_OF_DECK + 44; i++) {
                 String card = columns[i].trim();
                 if (!card.equals("-") && !isValidCardString(card)) {
                     System.out.println("Invalid rest of the deck card: " + card);
@@ -228,7 +227,7 @@ public class Storage {
         StringBuilder saveData = new StringBuilder();
         for (Integer key : serializedRunData.keySet()) {
             List<String> runInfo = serializedRunData.get(key);
-            for (int i = 0; i < Storage.START_OF_REST_OF_DECK+44; i++) {
+            for (int i = 0; i < Storage.START_OF_REST_OF_DECK + 44; i++) {
                 String runAttribute = runInfo.get(i);
                 saveData.append(runAttribute).append(",");
             }
@@ -241,7 +240,11 @@ public class Storage {
 
     public void updateSaveFile() throws JavatroException {
         try {
-            Files.write(saveFilePath, convertSerializedDataIntoString(), StandardOpenOption.WRITE,StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(
+                    saveFilePath,
+                    convertSerializedDataIntoString(),
+                    StandardOpenOption.WRITE,
+                    StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             throw new JavatroException("SAVING ISSUE: " + e.getMessage());
         }
@@ -325,7 +328,7 @@ public class Storage {
             newRun.add("1"); // Adding "1" for each planet card level
         }
 
-        //Add the rest of the deck cards
+        // Add the rest of the deck cards
         for (int i = 0; i < 44; i++) {
             newRun.add("-"); // Adding "1" for rest of the deck cards
         }

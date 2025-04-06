@@ -172,7 +172,7 @@ public class JavatroCore {
             round.updateDiscards(savedDiscards);
             round.setCurrentScore(savedScore);
 
-            //Update deck with rest of the cards
+            // Update deck with rest of the cards
             currentRound.getDeck().populateWithSavedDeck();
         }
 
@@ -194,7 +194,6 @@ public class JavatroCore {
         if (emptyCardCount < 8) {
             round.setPlayerHandCards(savedCards);
         }
-
     }
 
     /**
