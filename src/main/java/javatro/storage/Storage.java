@@ -209,7 +209,8 @@ public class Storage {
         StringBuilder saveData = new StringBuilder();
         for (Integer key : serializedRunData.keySet()) {
             List<String> runInfo = serializedRunData.get(key);
-            for (String runAttribute : runInfo) {
+            for (int i = 0;i<Storage.FLUSH_FIVE_INDEX;i++) {
+                String runAttribute = runInfo.get(i);
                 saveData.append(runAttribute).append(",");
             }
             saveData.deleteCharAt(saveData.length() - 1); // Removing the last ,

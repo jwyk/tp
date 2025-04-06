@@ -275,8 +275,6 @@ public class Round {
      */
     public boolean isLost() {
         if(state.getRemainingPlays() <= 0 && !isWon()) {
-            int currentLose = Integer.parseInt(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getRunChosen()-1, Storage.LOSSES_INDEX));
-            Storage.getStorageInstance().setValue(Storage.getStorageInstance().getRunChosen()-1, Storage.LOSSES_INDEX, String.valueOf(currentLose + 1));
             return true;
         }
         // Game ends if no plays are remaining
@@ -289,13 +287,7 @@ public class Round {
      * @return true if the player won the round, false otherwise
      */
     public boolean isWon() {
-        if(state.getCurrentScore() >= config.getBlindScore()) {
-            int currentWin = Integer.parseInt(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getNumberOfRuns()-1,Storage.WINS_INDEX));
-            Storage.getStorageInstance().setValue(Storage.getStorageInstance().getRunChosen()-1,Storage.WINS_INDEX, String.valueOf(currentWin+1));
-
-            return true;
-        }
-        return false;
+        return state.getCurrentScore() >= config.getBlindScore();
     }
 
     /**

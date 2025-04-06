@@ -82,13 +82,18 @@ class RoundObservable {
                     i = i + 1;
                 }
 
+                int currentWin = Integer.parseInt(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getNumberOfRuns()-1,Storage.WINS_INDEX));
+                Storage.getStorageInstance().setValue(Storage.getStorageInstance().getRunChosen()-1,Storage.WINS_INDEX, String.valueOf(currentWin+1));
+
             }else if(JavatroCore.currentRound.isLost()) {
                 Ante.Blind currentBlind = JavatroCore.getAnte().getBlind();
+                int anteCount = JavatroCore.getAnte().getAnteCount();
+
                 storage.setValue(storage.getRunChosen()-1, Storage.HAND_INDEX,Integer.toString(-1));
                 storage.setValue(storage.getRunChosen()-1, Storage.DISCARD_INDEX,Integer.toString(-1));
                 storage.setValue(storage.getRunChosen()-1, Storage.ROUND_SCORE_INDEX,Long.toString(0));
                 storage.setValue(storage.getRunChosen()-1, Storage.ROUND_NUMBER_INDEX,Long.toString(JavatroCore.getRoundCount()));
-                storage.setValue(storage.getRunChosen()-1,Storage.ANTE_NUMBER_INDEX, String.valueOf(ante.getAnteCount())); //Update Ante Count
+                storage.setValue(storage.getRunChosen()-1,Storage.ANTE_NUMBER_INDEX, String.valueOf(anteCount)); //Update Ante Count
                 storage.setValue(storage.getRunChosen()-1,Storage.BLIND_INDEX, currentBlind.getName()); //Update Blind
 
                 i = Storage.HOLDING_HAND_START_INDEX;
@@ -96,6 +101,10 @@ class RoundObservable {
                     storage.setValue(storage.getRunChosen()-1, i,"-");
                     i = i + 1;
                 }
+
+                int currentLose = Integer.parseInt(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getRunChosen()-1, Storage.LOSSES_INDEX));
+                Storage.getStorageInstance().setValue(Storage.getStorageInstance().getRunChosen()-1, Storage.LOSSES_INDEX, String.valueOf(currentLose + 1));
+
             }
         }
 

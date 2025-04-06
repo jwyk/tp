@@ -223,6 +223,11 @@ public class PlanetCard {
         storage.setValue(storage.getRunChosen() - 1, Storage.FLUSH_HOUSE_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FLUSH_HOUSE)));
         storage.setValue(storage.getRunChosen() - 1, Storage.FLUSH_FIVE_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FLUSH_FIVE)));
 
+        try {
+            storage.updateSaveFile();
+        } catch (JavatroException e) {
+            System.out.println("Failed To Save");
+        }
     }
 
     /**
