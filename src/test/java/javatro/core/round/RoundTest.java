@@ -23,16 +23,12 @@ public class RoundTest {
         return UI.RED + message + UI.END;
     }
 
-    private static final String INVALIDPLAYEDHANDERROR =
-            "A poker hand must contain between 1 and 5 cards.";
-    private static final String INVALIDPLAYSPERROUND =
-            "Number of plays per round must be greater than 0.";
+    private static final String INVALIDPLAYEDHANDERROR = "A poker hand must contain between 1 and 5 cards.";
+    private static final String INVALIDPLAYSPERROUND = "Number of plays per round must be greater than 0.";
     private static final String INVALIDDECK = "Deck cannot be null.";
 
     enum isWon {
-        WON,
-        LOST,
-        UNKNOWN
+        WON, LOST, UNKNOWN
     }
 
     private static HeldJokers heldJokers;
@@ -197,13 +193,11 @@ public class RoundTest {
         Ante ante = new Ante();
         ante.setAnteCount(1);
         ante.setBlind(Ante.Blind.BOSS_BLIND);
-        Round round = new Round(ante, 3, deck, heldJokers, "", "");
-
-        round.setBossType(bossType);
+        Round round = new Round(ante, 3, deck, heldJokers, bossType);
 
         // Check that default values are maintained for other bosses
-        assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
         assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+        assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
     }
 
     @Test
@@ -396,26 +390,27 @@ public class RoundTest {
 
     @Test
     public void round_bossType_specificBehaviors() throws JavatroException {
-        // Setup and test different boss types in a single test to reduce duplication
+        // Setup
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
         ante.setAnteCount(1);
         ante.setBlind(Ante.Blind.BOSS_BLIND);
 
         // Test THE_NEEDLE
-        Round needleRound = new Round(ante, 3, deck, heldJokers, "", "");
-        needleRound.setBossType(BossType.THE_NEEDLE);
+        Round needleRound = new Round(ante, 3, deck, heldJokers, BossType.THE_NEEDLE);
         assertEquals(1, needleRound.getRemainingPlays());
         assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, needleRound.getConfig().getMinHandSize());
+        assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, needleRound.getConfig().getMaxHandSize());
 
         // Test THE_WATER
-        Round waterRound = new Round(ante, 3, deck, heldJokers, "", "");
-        waterRound.setBossType(BossType.THE_WATER);
+        Round waterRound = new Round(ante, 3, deck, heldJokers, BossType.THE_WATER);
         assertEquals(0, waterRound.getRemainingDiscards());
+        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, waterRound.getConfig().getMinHandSize());
+        assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, waterRound.getConfig().getMaxHandSize());
 
         // Test THE_PSYCHIC
-        Round psychicRound = new Round(ante, 3, deck, heldJokers, "", "");
-        psychicRound.setBossType(BossType.THE_PSYCHIC);
+        Round psychicRound = new Round(ante, 3, deck, heldJokers, BossType.THE_PSYCHIC);
+        assertEquals(3, psychicRound.getRemainingPlays());
         assertEquals(5, psychicRound.getConfig().getMaxHandSize());
         assertEquals(5, psychicRound.getConfig().getMinHandSize());
     }
@@ -446,22 +441,6 @@ public class RoundTest {
     }
 
     @Test
-    public void round_getBossType() throws JavatroException {
-        Deck deck = new Deck(Deck.DeckType.DEFAULT);
-        Ante ante = new Ante();
-        ante.setAnteCount(1);
-        ante.setBlind(Ante.Blind.SMALL_BLIND);
-        Round round = new Round(ante, 3, deck, heldJokers, "", "");
-
-        // Test getting and setting boss type
-        round.setBossType(BossType.THE_NEEDLE);
-        assertEquals(BossType.THE_NEEDLE, round.getBossType());
-
-        round.setBossType(BossType.THE_WATER);
-        assertEquals(BossType.THE_WATER, round.getBossType());
-    }
-
-    @Test
     public void round_testRandomBossType() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
@@ -469,26 +448,48 @@ public class RoundTest {
         ante.setBlind(Ante.Blind.BOSS_BLIND);
         Round round = new Round(ante, 3, deck, heldJokers, "", "");
 
-        switch (round.getBossType()) {
-            case THE_NEEDLE:
-                assertEquals(BossType.THE_NEEDLE, round.getBossType());
-                assertEquals(1, round.getRemainingPlays());
-                assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
-                break;
-            case THE_WATER:
-                assertEquals(BossType.THE_WATER, round.getBossType());
-                assertEquals(0, round.getRemainingDiscards());
-                assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
-                break;
-            case THE_PSYCHIC:
-                assertEquals(BossType.THE_PSYCHIC, round.getBossType());
-                assertEquals(5, round.getConfig().getMaxHandSize());
-                assertEquals(5, round.getConfig().getMinHandSize());
-                break;
-            default:
-                assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
-                assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
-                break;
+        switch(round.getBossType()){
+        case THE_NEEDLE:
+        assertEquals(BossType.THE_NEEDLE, round.getBossType());
+        assertEquals(1, round.getRemainingPlays());
+        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+            break;
+        case THE_WATER:
+        assertEquals(BossType.THE_WATER, round.getBossType());
+        assertEquals(0, round.getRemainingDiscards());
+        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+            break;
+        case THE_PSYCHIC:
+        assertEquals(BossType.THE_PSYCHIC, round.getBossType());
+        assertEquals(5, round.getConfig().getMaxHandSize());
+        assertEquals(5, round.getConfig().getMinHandSize());
+            break;
+        default:
+        assertEquals(RoundConfig.DEFAULT_MAX_HAND_SIZE, round.getConfig().getMaxHandSize());
+        assertEquals(RoundConfig.DEFAULT_MIN_HAND_SIZE, round.getConfig().getMinHandSize());
+            break;
         }
+    }
+
+    @Test
+    public void round_testDeckVariants() throws JavatroException {
+        // Test RED deck variant (increases remaining discards)
+        Deck redDeck = new Deck(Deck.DeckType.RED);
+        Ante ante = new Ante();
+        ante.setAnteCount(1);
+        ante.setBlind(Ante.Blind.SMALL_BLIND);
+        Round redRound = new Round(ante, 3, redDeck, heldJokers, "", "");
+        assertEquals(4, redRound.getRemainingDiscards()); // Default 3 + 1 more from RED deck
+
+        // Test BLUE deck variant (increases remaining plays)
+        Deck blueDeck = new Deck(Deck.DeckType.BLUE);
+        Round blueRound = new Round(ante, 3, blueDeck, heldJokers, "", "");
+        assertEquals(4, blueRound.getRemainingPlays()); // Initial 3 + 1 more from BLUE deck
+
+        // Test DEFAULT deck variant (no changes to discards or plays)
+        Deck deck = new Deck(Deck.DeckType.DEFAULT);
+        Round greenRound = new Round(ante, 3, deck, heldJokers, "", "");
+        assertEquals(3, greenRound.getRemainingDiscards()); // Default value unchanged
+        assertEquals(3, greenRound.getRemainingPlays()); // Default value unchanged
     }
 }

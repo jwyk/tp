@@ -51,9 +51,8 @@ public class Round {
         this.config = new RoundConfig(roundName, roundDescription, ante.getRoundScore());
 
         // Create state with initial values
-        this.state =
-                new RoundState(
-                        0, RoundConfig.MAX_DISCARDS_PER_ROUND, remainingPlays, heldJokers, deck);
+        this.state = new RoundState(
+                0, RoundConfig.MAX_DISCARDS_PER_ROUND, remainingPlays, heldJokers, deck);
 
         // Apply special deck modifications
         applyDeckVariants(deck);
@@ -68,6 +67,42 @@ public class Round {
         this.observable = new RoundObservable(this);
 
         validatePostConstruction();
+    }
+
+    /**
+     * Constructs a new round with specified boss type 
+     *
+     * @warning This constructor is not intended for use in normal gameplay. It is only for testing purposes.
+     * @param ante The ante configuration to use
+     * @param remainingPlays The number of plays allowed in this round
+     * @param deck The deck of cards to be used for this round
+     * @param heldJokers The player's collection of jokers available for this round
+     * @throws JavatroException If any of the provided parameters are invalid
+     */
+    public Round(
+            Ante ante,
+            int remainingPlays,
+            Deck deck,
+            HeldJokers heldJokers,
+            BossType bossType)
+            throws JavatroException {
+        this(ante, remainingPlays, deck, heldJokers, "Default Round", "Default Description");
+        resetVarients();
+        applyDeckVariants(deck);
+        applyAnteInvariants(ante);
+        setBossType(bossType);
+    }
+
+    /**
+     * Resets the boss type and deck variants to their default values.
+     */
+    private void resetVarients() {
+        this.config.setBossType(BossType.NONE);
+        this.state.setRemainingDiscards(RoundConfig.MAX_DISCARDS_PER_ROUND);
+        this.state.setRemainingPlays(3);
+        
+        this.config.setMinHandSize(RoundConfig.DEFAULT_MIN_HAND_SIZE);
+        this.config.setMaxHandSize(RoundConfig.DEFAULT_MAX_HAND_SIZE);
     }
 
     /**
@@ -119,11 +154,6 @@ public class Round {
 
     /** Applies special rules based on the selected boss type. */
     private void applyBossVariants() {
-        // Not needed to reset in production, but useful for testing
-        this.config.setMaxHandSize(RoundConfig.DEFAULT_MAX_HAND_SIZE);
-        this.config.setMinHandSize(RoundConfig.DEFAULT_MIN_HAND_SIZE);
-        this.state.setRemainingDiscards(RoundConfig.MAX_DISCARDS_PER_ROUND);
-
         BossType bossType = this.config.getBossType();
         switch (bossType) {
             case THE_NEEDLE:
@@ -372,12 +402,9 @@ public class Round {
     /**
      * Sets the boss type for this round.
      *
-     * <p>{@code @warning} This method is not intended for use in normal gameplay. It is only for
-     * testing purposes.
-     *
      * @param bossType The new boss type
      */
-    public void setBossType(BossType bossType) {
+    private void setBossType(BossType bossType) {
         config.setBossType(bossType);
         applyBossVariants();
     }
