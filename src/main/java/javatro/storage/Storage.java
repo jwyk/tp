@@ -108,8 +108,6 @@ public class Storage {
                 csvRawData.split(
                         "\\r?\\n"); // Split by newline, handling Windows and Unix line endings
 
-
-
         for (String row : rows) {
             row = row.trim();
 
@@ -132,7 +130,6 @@ public class Storage {
                 System.out.println("Invalid row data detected due to hash mismatch: " + row);
                 return false;
             }
-
 
             // Check if the row has at least enough columns for predefined indexes and planet cards
             if (columns.length
@@ -255,7 +252,6 @@ public class Storage {
             // Generate a hash for the row
             String hash = HashUtil.generateHash(runInfo);
             saveData.append(hash);
-
 
             saveData.append("\n");
         }
