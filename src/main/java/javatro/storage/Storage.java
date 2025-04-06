@@ -108,12 +108,31 @@ public class Storage {
                 csvRawData.split(
                         "\\r?\\n"); // Split by newline, handling Windows and Unix line endings
 
+
+
         for (String row : rows) {
             row = row.trim();
 
             if (row.isEmpty()) continue; // Skip empty lines
 
             String[] columns = row.split(",");
+
+            // Get the stored hash (last column)
+            String storedHash = columns[columns.length - 1];
+
+            // Extract the actual game data
+            List<String> rowData = new ArrayList<>(Arrays.asList(columns));
+            rowData.remove(rowData.size() - 1); // Remove the hash column before validation
+
+            // Generate a hash from the loaded data
+            String computedHash = HashUtil.generateHash(rowData);
+
+            // Compare hashes
+            if (!computedHash.equals(storedHash)) {
+                System.out.println("Invalid row data detected due to hash mismatch: " + row);
+                return false;
+            }
+
 
             // Check if the row has at least enough columns for predefined indexes and planet cards
             if (columns.length
@@ -227,11 +246,17 @@ public class Storage {
         StringBuilder saveData = new StringBuilder();
         for (Integer key : serializedRunData.keySet()) {
             List<String> runInfo = serializedRunData.get(key);
+
             for (int i = 0; i < Storage.START_OF_REST_OF_DECK + 44; i++) {
                 String runAttribute = runInfo.get(i);
                 saveData.append(runAttribute).append(",");
             }
-            saveData.deleteCharAt(saveData.length() - 1); // Removing the last ,
+
+            // Generate a hash for the row
+            String hash = HashUtil.generateHash(runInfo);
+            saveData.append(hash);
+
+
             saveData.append("\n");
         }
         saveData.deleteCharAt(saveData.length() - 1); // Removing the last \n
