@@ -133,7 +133,7 @@ public class JavatroCore {
 
         // Update Jokers
         for (int i = Storage.JOKER_HAND_START_INDEX; i < Storage.JOKER_HAND_START_INDEX + 5; i++) {
-            if (Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "-")) continue;
+            if (Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "-") || Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "NA")) continue;
 
             try {
                 heldJokers.add(
@@ -183,7 +183,7 @@ public class JavatroCore {
         for (int i = Storage.HOLDING_HAND_START_INDEX;
                 i < Storage.HOLDING_HAND_START_INDEX + 8;
                 i++) {
-            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")) {
+            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-") || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
                 emptyCardCount = emptyCardCount + 1;
                 continue;
             }

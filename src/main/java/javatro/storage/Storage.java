@@ -104,11 +104,7 @@ public class Storage {
 
     public boolean isCSVDataValid() {
 
-        String[] rows =
-                csvRawData.split(
-                        "\\r?\\n"); // Split by newline, handling Windows and Unix line endings
-
-
+        String[] rows = csvRawData.split("\\r?\\n"); // Split by newline, handling Windows and Unix line endings
 
         for (String row : rows) {
             row = row.trim();
@@ -124,8 +120,18 @@ public class Storage {
             List<String> rowData = new ArrayList<>(Arrays.asList(columns));
             rowData.remove(rowData.size() - 1); // Remove the hash column before validation
 
-            // Generate a hash from the loaded data
-            String computedHash = HashUtil.generateHash(rowData);
+            // Normalize the row data before hashing
+            List<String> normalizedRowData = new ArrayList<>();
+            for (String data : rowData) {
+                data = data.trim();
+                if (data.equals("-") || data.isEmpty()) {
+                    data = "NA";
+                }
+                normalizedRowData.add(data);
+            }
+
+            // Generate a hash from the normalized data
+            String computedHash = HashUtil.generateHash(normalizedRowData);
 
             // Compare hashes
             if (!computedHash.equals(storedHash)) {
@@ -133,11 +139,8 @@ public class Storage {
                 return false;
             }
 
-
-            // Check if the row has at least enough columns for predefined indexes and planet cards
-            if (columns.length
-                    < Storage.HIGH_CARD_INDEX
-                            + 13) { // Adjusting for all planet card levels (13 total)
+            // Additional validation (Existing Logic)
+            if (columns.length < Storage.HIGH_CARD_INDEX + 13) {
                 System.out.println("Invalid number of columns in row: " + row);
                 return false;
             }
@@ -159,13 +162,8 @@ public class Storage {
             // Validate predefined numeric columns
             try {
                 int[] numericIndexes = {
-                    RUN_NUMBER_INDEX,
-                    ROUND_NUMBER_INDEX,
-                    ROUND_SCORE_INDEX,
-                    HAND_INDEX,
-                    DISCARD_INDEX,
-                    WINS_INDEX,
-                    LOSSES_INDEX
+                        RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX,
+                        HAND_INDEX, DISCARD_INDEX, WINS_INDEX, LOSSES_INDEX
                 };
 
                 for (int index : numericIndexes) {
@@ -175,8 +173,7 @@ public class Storage {
                 // Validate Ante Number (must be between 1 and 8)
                 int anteNumber = Integer.parseInt(columns[ANTE_NUMBER_INDEX]);
                 if (anteNumber < 1 || anteNumber > 8) {
-                    System.out.println(
-                            "Invalid Ante Number (must be between 1 and 8): " + anteNumber);
+                    System.out.println("Invalid Ante Number (must be between 1 and 8): " + anteNumber);
                     return false;
                 }
 
@@ -188,7 +185,7 @@ public class Storage {
             // Validate holding hands (Fixed 8 slots)
             for (int i = HOLDING_HAND_START_INDEX; i < JOKER_HAND_START_INDEX; i++) {
                 String card = columns[i].trim();
-                if (!card.equals("-") && !isValidCardString(card)) {
+                if (!card.equals("NA") && !isValidCardString(card)) {
                     System.out.println("Invalid holding card: " + card);
                     return false;
                 }
@@ -197,7 +194,7 @@ public class Storage {
             // Validate joker hands (Fixed 5 slots)
             for (int i = JOKER_HAND_START_INDEX; i < HIGH_CARD_INDEX; i++) {
                 String joker = columns[i].trim();
-                if (!joker.equals("-") && !isValidJokerString(joker)) {
+                if (!joker.equals("NA") && !isValidJokerString(joker)) {
                     System.out.println("Invalid joker card: " + joker);
                     return false;
                 }
@@ -208,13 +205,11 @@ public class Storage {
                 try {
                     int level = Integer.parseInt(columns[i].trim());
                     if (level < 1) { // Assuming levels must be positive integers
-                        System.out.println(
-                                "Invalid planet card level at index " + i + ": " + columns[i]);
+                        System.out.println("Invalid planet card level at index " + i + ": " + columns[i]);
                         return false;
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println(
-                            "Invalid planet card level at index " + i + ": " + columns[i]);
+                    System.out.println("Invalid planet card level at index " + i + ": " + columns[i]);
                     return false;
                 }
             }
@@ -222,7 +217,7 @@ public class Storage {
             // Validate the rest of the deck
             for (int i = START_OF_REST_OF_DECK; i < START_OF_REST_OF_DECK + 44; i++) {
                 String card = columns[i].trim();
-                if (!card.equals("-") && !isValidCardString(card)) {
+                if (!card.equals("NA") && !isValidCardString(card)) {
                     System.out.println("Invalid rest of the deck card: " + card);
                     return false;
                 }
@@ -247,18 +242,29 @@ public class Storage {
         for (Integer key : serializedRunData.keySet()) {
             List<String> runInfo = serializedRunData.get(key);
 
+            List<String> sanitizedRunInfo = new ArrayList<>();
+
             for (int i = 0; i < Storage.START_OF_REST_OF_DECK + 44; i++) {
-                String runAttribute = runInfo.get(i);
-                saveData.append(runAttribute).append(",");
+                String runAttribute = runInfo.get(i).trim();
+
+                // Normalize empty or placeholder entries
+                if (runAttribute.equals("-") || runAttribute.isEmpty()) {
+                    runAttribute = "NA";
+                }
+
+                sanitizedRunInfo.add(runAttribute);
+                saveData.append(runAttribute);
+
+                if (i < Storage.START_OF_REST_OF_DECK + 44 - 1) { // Avoid trailing comma
+                    saveData.append(",");
+                }
             }
 
-            // Generate a hash for the row
-            String hash = HashUtil.generateHash(runInfo);
-            saveData.append(hash);
-
-
-            saveData.append("\n");
+            // Generate a hash for the row using sanitizedRunInfo
+            String hash = HashUtil.generateHash(sanitizedRunInfo);
+            saveData.append(",").append(hash).append("\n");
         }
+
         saveData.deleteCharAt(saveData.length() - 1); // Removing the last \n
         return saveData.toString().getBytes();
     }
