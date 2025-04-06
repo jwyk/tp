@@ -37,7 +37,6 @@ public class Javatro {
      */
     public static void main(String[] args) throws JavatroException {
 
-
         assert false : "dummy assertion set to fail";
         Thread audioThread = new Thread(new AudioPlayer("audioplayer/balatro_theme.wav"));
         audioThread.setDaemon(true);
@@ -46,7 +45,5 @@ public class Javatro {
 
         // Continue with your program's main flow
         JavatroManager.setScreen(new StartScreen());
-
     }
 }
-
