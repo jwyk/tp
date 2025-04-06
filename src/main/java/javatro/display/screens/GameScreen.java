@@ -1,5 +1,6 @@
 // @@author Markneoneo
 package javatro.display.screens;
+
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BLUE;
 import static javatro.display.UI.BLUE_B;
@@ -115,11 +116,12 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     @Override
     public void displayScreen() {
 
-        if(!AudioPlayer.getInstance().getCurrentAudioPath().equals("audioplayer/balatro_theme.wav")) {
+        if (!AudioPlayer.getInstance()
+                .getCurrentAudioPath()
+                .equals("audioplayer/balatro_theme.wav")) {
             AudioPlayer.getInstance().stopAudio();
             AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
         }
-
 
         // Use StringBuilder for efficient string concatenation.
         StringBuilder sb = new StringBuilder();

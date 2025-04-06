@@ -1,4 +1,5 @@
 package javatro.display.screens;
+
 import static javatro.display.UI.*;
 
 import javatro.audioplayer.AudioPlayer;
@@ -32,8 +33,6 @@ public class RunSelectScreen extends Screen {
         StartGameOption startGameOption = new StartGameOption();
         startGameOption.setDescription("Start A New Run");
         super.commandMap.add(startGameOption);
-
-
     }
 
     @Override
@@ -42,7 +41,6 @@ public class RunSelectScreen extends Screen {
         // Stop the main theme before playing the defeat theme
         AudioPlayer.getInstance().stopAudio();
         AudioPlayer.getInstance().playAudio("audioplayer/windows_error.wav");
-
 
         if (storage.getNumberOfRuns() > 0) displayCurrentChosenRun();
         else {

@@ -1,5 +1,6 @@
 // @@author Markneoneo
 package javatro.display.screens;
+
 import static javatro.display.UI.printANSI;
 
 import javatro.audioplayer.AudioPlayer;

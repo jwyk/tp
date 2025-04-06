@@ -101,7 +101,5 @@ public class LoseScreen extends Screen {
         // Stop the main theme before playing the defeat theme
         AudioPlayer.getInstance().stopAudio();
         AudioPlayer.getInstance().playAudio("audioplayer/cat-laugh-meme-1.wav");
-
-
     }
 }

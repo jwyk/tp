@@ -24,7 +24,6 @@ public class Javatro {
     /** The manager responsible for handling interactions between the view and core components. */
     private static final JavatroManager javatroManager;
 
-
     static {
         try {
             javatroManager = new JavatroManager(javatroView, javatroCore);
