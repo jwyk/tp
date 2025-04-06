@@ -215,12 +215,10 @@ public class Storage {
 
     private void loadCSVData() {
         String[] runs = csvRawData.split("\\r?\\n");
-        System.out.println(runs.length);
 
         for (int i = 0; i < runs.length; i++) {
             String[] runInfo = runs[i].split(",");
             ArrayList<String> runInfoList = new ArrayList<>(Arrays.asList(runInfo));
-            System.out.println(runInfoList.get(7));
             serializedRunData.put(i, runInfoList);
         }
     }
