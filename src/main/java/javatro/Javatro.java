@@ -1,5 +1,6 @@
 package javatro;
 
+import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
@@ -35,7 +36,18 @@ public class Javatro {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) throws JavatroException {
+
+
         assert false : "dummy assertion set to fail";
         JavatroManager.setScreen(new StartScreen());
+
+        // Keep the application alive
+        // Keep the program alive by joining the audio thread
+        Thread audioThread = new Thread(new AudioPlayer("src/don_pollo_linganguli.wav"));
+        audioThread.setDaemon(true); // This will allow the thread to end when the application ends
+        audioThread.start();
+
+
     }
 }
+
