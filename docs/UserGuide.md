@@ -182,7 +182,7 @@ _Enter a number from `1` to `6` to make a gameplay action._
 
 ### Playing Cards
 
-**_Sorted by Suit_**
+**_Sorted by Suit_**  
 ![Play Card Screen](ug_images/play_card_suit.png)
 
 After selecting `1. Play Cards`, the player is directed to the **Play Cards Menu**.  
@@ -212,7 +212,7 @@ as well as the **poker hand** that has been formed.
 
 ### Discarding Cards
 
-**_Sorted by Rank_**
+**_Sorted by Rank_**  
 ![Discard Card Screen](ug_images/discard_card_rank.png)  
 
 After selecting `2. Discard Cards`, the player is directed to the **Discard Cards Menu**.  
