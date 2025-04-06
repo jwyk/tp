@@ -172,8 +172,8 @@ public class JavatroCore {
             round.updateDiscards(savedDiscards);
             round.setCurrentScore(savedScore);
 
-            //Update deck with rest of the cards
-            currentRound.getDeck().populateWithSavedDeck();
+            //Update deck with rest of the cards (If deck is not empty
+            if(!Storage.isNewDeck) currentRound.getDeck().populateWithSavedDeck();
         }
 
         // Update savedCards

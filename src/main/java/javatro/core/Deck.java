@@ -112,6 +112,8 @@ public class Deck {
             newDeck.add(Storage.parseCardString(storage.getValue(storage.getRunChosen()-1,i)));
         }
 
+        Storage.isNewDeck = false;
+
         Collections.shuffle(newDeck);
         deck = new ArrayList<>(newDeck);
     }

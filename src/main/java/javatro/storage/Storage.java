@@ -74,6 +74,8 @@ public class Storage {
 
     private String csvRawData; // Raw data from csv
 
+    public static Boolean isNewDeck = false;
+
     private Storage() throws JavatroException {
         initaliseTaskFile();
     }
@@ -294,6 +296,7 @@ public class Storage {
     public void addNewRun() {
         // Initialize a new list with default values
         ArrayList<String> newRun = new ArrayList<>();
+        isNewDeck = true;
 
         // Get the new run number
         int arrSize = serializedRunData.isEmpty() ? 0 : serializedRunData.size();
@@ -327,7 +330,7 @@ public class Storage {
 
         //Add the rest of the deck cards
         for (int i = 0; i < 44; i++) {
-            newRun.add("-"); // Adding "1" for rest of the deck cards
+            newRun.add("-"); // Adding "-" for rest of the deck cards
         }
 
         // Add the run to the serializedRunData map using the next run number as the key
