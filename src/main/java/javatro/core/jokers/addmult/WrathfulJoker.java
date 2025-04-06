@@ -16,6 +16,7 @@ public class WrathfulJoker extends Joker {
     public WrathfulJoker() {
         super();
         name = "Wrathful";
+        identifierName = "WRATHFULJOKER";
         description =
                 String.format(
                         "Played cards with %s%sSpade%s%s suit give %s%s+3 Mult%s%s when scored",

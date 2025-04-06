@@ -16,6 +16,7 @@ public class GreedyJoker extends Joker {
     public GreedyJoker() {
         super();
         name = "Greedy";
+        identifierName = "GREEDYJOKER";
         description =
                 String.format(
                         "Played cards with %s%sDiamond%s%s suit give %s%s+3 Mult%s%s when scored",
