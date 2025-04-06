@@ -1,9 +1,10 @@
 package javatro.audioplayer;
 
-import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.sound.sampled.*;
 
 public class AudioPlayer implements Runnable {
 
@@ -42,7 +43,10 @@ public class AudioPlayer implements Runnable {
             }
 
             audioStream.close();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+        } catch (UnsupportedAudioFileException
+                | IOException
+                | LineUnavailableException
+                | InterruptedException e) {
             e.printStackTrace();
         }
     }

@@ -42,7 +42,6 @@ public class Javatro {
         audioThread.setDaemon(true);
         audioThread.start();
 
-
         // Continue with your program's main flow
         JavatroManager.setScreen(new StartScreen());
     }
