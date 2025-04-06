@@ -217,7 +217,7 @@ public class Storage {
         StringBuilder saveData = new StringBuilder();
         for (Integer key : serializedRunData.keySet()) {
             List<String> runInfo = serializedRunData.get(key);
-            for (int i = 0; i < Storage.FLUSH_FIVE_INDEX; i++) {
+            for (int i = 0; i <= Storage.FLUSH_FIVE_INDEX; i++) {
                 String runAttribute = runInfo.get(i);
                 saveData.append(runAttribute).append(",");
             }
@@ -320,7 +320,6 @@ public class Storage {
         // Set run chosen to new run
         runChosen = serializedRunData.size();
 
-        System.out.println("SIZE: " + newRun.size());
     }
 
     public int getNumberOfRuns() {
