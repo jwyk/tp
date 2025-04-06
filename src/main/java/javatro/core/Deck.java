@@ -107,7 +107,8 @@ public class Deck {
         ArrayList<Card> newDeck = new ArrayList<>();
 
         for (int i = Storage.START_OF_REST_OF_DECK; i < Storage.START_OF_REST_OF_DECK + 44; i++) {
-            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-") || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) continue  ;
+            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
+                    || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) continue;
             newDeck.add(Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
         }
 

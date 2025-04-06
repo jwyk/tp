@@ -104,7 +104,9 @@ public class Storage {
 
     public boolean isCSVDataValid() {
 
-        String[] rows = csvRawData.split("\\r?\\n"); // Split by newline, handling Windows and Unix line endings
+        String[] rows =
+                csvRawData.split(
+                        "\\r?\\n"); // Split by newline, handling Windows and Unix line endings
 
         for (String row : rows) {
             row = row.trim();
@@ -162,8 +164,13 @@ public class Storage {
             // Validate predefined numeric columns
             try {
                 int[] numericIndexes = {
-                        RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX,
-                        HAND_INDEX, DISCARD_INDEX, WINS_INDEX, LOSSES_INDEX
+                    RUN_NUMBER_INDEX,
+                    ROUND_NUMBER_INDEX,
+                    ROUND_SCORE_INDEX,
+                    HAND_INDEX,
+                    DISCARD_INDEX,
+                    WINS_INDEX,
+                    LOSSES_INDEX
                 };
 
                 for (int index : numericIndexes) {
@@ -173,7 +180,8 @@ public class Storage {
                 // Validate Ante Number (must be between 1 and 8)
                 int anteNumber = Integer.parseInt(columns[ANTE_NUMBER_INDEX]);
                 if (anteNumber < 1 || anteNumber > 8) {
-                    System.out.println("Invalid Ante Number (must be between 1 and 8): " + anteNumber);
+                    System.out.println(
+                            "Invalid Ante Number (must be between 1 and 8): " + anteNumber);
                     return false;
                 }
 
@@ -205,11 +213,13 @@ public class Storage {
                 try {
                     int level = Integer.parseInt(columns[i].trim());
                     if (level < 1) { // Assuming levels must be positive integers
-                        System.out.println("Invalid planet card level at index " + i + ": " + columns[i]);
+                        System.out.println(
+                                "Invalid planet card level at index " + i + ": " + columns[i]);
                         return false;
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid planet card level at index " + i + ": " + columns[i]);
+                    System.out.println(
+                            "Invalid planet card level at index " + i + ": " + columns[i]);
                     return false;
                 }
             }
