@@ -365,7 +365,31 @@ or `2` to end the current game session._
 
 ---
 
+#### Help Option: 
+-`[1] Game Introduction`                                      
+-`[2] Game Rules`                                         
+-`[3] How To Play`                                        
+-`[4] Tips and Tricks`
 
+_Enter `1` to learn more about Javatro as this section gives a brief overview of the game's objective, structure, 
+and what makes it unique. Perfect for first-time players._
+
+_Enter `2` to understand the core rules of the game. This section explains:
+How rounds work
+The goal of each run
+How scoring and progression happen_
+
+_Enter `3` to understand a step-by-step breakdown of gameplay mechanics. This includes:
+Starting your deck
+Drawing cards each turn
+Forming poker hands
+Advancing through increasing blinds and challenges_
+
+_Enter `4` to learn more about the helpful strategies and advice for surviving longer and building a stronger deck.
+Learn how to:
+Manage your deck wisely
+Play strong hands at the right time
+Adapt your playstyle for different runs_
 
 ### Saving / Loading a Game
 
