@@ -429,22 +429,11 @@ Below is how the Score Class returns the calculated score:
 
 1. `Round` initializes `Score`, and `Score` invokes the `getChips()` method from `PokerHand`.
 ![](dg_images/score_2.png)
-
 2. With each `Card` passed from `Score`, `Score` checks whether the card played satisfies BossType conditions, 
-and applies effects if the condition is satisfied. 
-Else, the `Card` is scored, and each `Joker` in `heldJokers` is checked if the `Card` can interact with the `Joker`
-
+and applies effects if the condition is satisfied. Else, the `Card` is scored, and each `Joker` in `heldJokers` is checked if the `Card` can interact with the `Joker`
 ![](dg_images/score_3.png)
-
-
 3. After each `Card` is scored, any `Joker` with the `AFTERHANDPLAY` enum is interacted with.
 ![](dg_images/score_4.png)
-
-
-```mermaid
-
-```
-
 4. `Score` rounds the final score using `calculateFinalScore()` and returns the final `long` value to `Round`.
 ![](dg_images/score_5.png)
 
