@@ -14,14 +14,13 @@
    - [Score Component](#score-component)
 4. [Implementation](#implementation)
 5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
-6. [Documentation](#documentation)
-7. [Appendix: Requirements](#appendix-requirements)
+6. [Appendix: Requirements](#appendix-requirements)
    - [Product Scope](#product-scope)
    - [User Stories](#user-stories)
    - [Use Cases](#use-cases)
    - [Non-Functional Requirements](#non-functional-requirements)
    - [Glossary](#glossary)
-8. [Appendix: Instructions for manual testing]()
+7. [Appendix: Instructions for manual testing]()
    
 
 
@@ -463,10 +462,10 @@ The application's logic flow is divided into several parts:
 
 The Javatro application consists of several packages:
 
-- ``: The main entry point and application setup.
-- ``: Core logic, including card handling, ante management, and game rules.
-- ``: User interface handling, including screens and rendering.
-- ``: Management of different game states and transitions.
+- `javatro`: The main entry point and application setup.
+- `core`: Core logic, including card handling, ante management, and game rules.
+- `display`: User interface handling, including screens and rendering.
+- `manager`: Management of different game states and transitions.
 
 ### Key Components
 
@@ -478,28 +477,14 @@ The Javatro application consists of several packages:
 
 ### Important Methods
 
-1. 
-
-   - `main()`: Initializes the application.
-
-2. 
-
-   - `initialize()`: Sets up core components.
-   - `playRound()`: Manages the game round progression.
-
-3. 
-
-   - `draw()`: Draws a card from the deck.
-   - `shuffle()`: Shuffles the deck.
-
-4. 
-
-   - `getRoundScore()`: Retrieves the score for the current round.
-   - `nextRound()`: Progresses to the next round.
-
-5. 
-
-   - `evaluateHand()`: Evaluates a set of cards according to poker rules.
+- `main()`: Initializes the application.
+- `initialize()`: Sets up core components.
+- `playRound()`: Manages the game round progression.
+- `draw()`: Draws a card from the deck.
+- `shuffle()`: Shuffles the deck.
+- `getRoundScore()`: Retrieves the score for the current round.
+- `nextRound()`: Progresses to the next round.
+ - `evaluateHand()`: Evaluates a set of cards according to poker rules.
 
 ---
 
@@ -519,7 +504,16 @@ The documentation is structured as follows:
 
 Output will be available under `build/docs/javadoc/`.
 
-- Rest To Be Add
+### Testing
+
+The testing follows the main Javatro package structure, as shown below:
+- `core`: Tests written for core logic, including card handling, ante management, and game rules.
+- `round`: Tests written for round logic, including round sanity checks.
+- `display`: Tests written for checking screens rendering correctly and in the right sequence.
+- `manager`: Tests written for monitoring game states after each action is played.
+
+
+
 
 ---
 

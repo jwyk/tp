@@ -19,7 +19,7 @@
         - Designed the system of giving each player a `Joker` card everytime a Boss Blind is won.
         - Created the `JokerFactory` class using the _Factory_ design pattern to distribute a random `Joker` card.
     - **Considerations**:
-        - In normal Balatro, there are many types of Jokers that affect more than just affect your score - such as increasing discards or changing hand sizes. This was considered, but discarded due to time constraints for v2.0.
+        - In Balatro, there are many types of Jokers that affect more than just affect your score - such as increasing discards or changing hand sizes. This was considered, but discarded due to time constraints for v2.0.
         - For Jokers that affect score, there are 3 main types: **+Chips**, **+Mult** and **xMult** Jokers. For Javatro, we decided to focus on the first 2 types of Jokers, as **xMult** would increase the complexity of testing for score for card positions.
         - There are 2 types of trigger effects, `ONCARDPLAY` and `AFTERHANDPLAY`. Other ways of triggering the Jokers such as "on discard" were considered but later disregarded as they were too complex to test.
 
