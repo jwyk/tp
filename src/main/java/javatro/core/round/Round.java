@@ -51,8 +51,9 @@ public class Round {
         this.config = new RoundConfig(roundName, roundDescription, ante.getRoundScore());
 
         // Create state with initial values
-        this.state = new RoundState(
-                0, RoundConfig.MAX_DISCARDS_PER_ROUND, remainingPlays, heldJokers, deck);
+        this.state =
+                new RoundState(
+                        0, RoundConfig.MAX_DISCARDS_PER_ROUND, remainingPlays, heldJokers, deck);
 
         // Apply special deck modifications
         applyDeckVariants(deck);
@@ -70,21 +71,17 @@ public class Round {
     }
 
     /**
-     * Constructs a new round with specified boss type 
+     * Constructs a new round with specified boss type
      *
-     * @warning This constructor is not intended for use in normal gameplay. It is only for testing purposes.
+     * @warning This constructor is not intended for use in normal gameplay. It is only for testing
+     *     purposes.
      * @param ante The ante configuration to use
      * @param remainingPlays The number of plays allowed in this round
      * @param deck The deck of cards to be used for this round
      * @param heldJokers The player's collection of jokers available for this round
      * @throws JavatroException If any of the provided parameters are invalid
      */
-    public Round(
-            Ante ante,
-            int remainingPlays,
-            Deck deck,
-            HeldJokers heldJokers,
-            BossType bossType)
+    public Round(Ante ante, int remainingPlays, Deck deck, HeldJokers heldJokers, BossType bossType)
             throws JavatroException {
         this(ante, remainingPlays, deck, heldJokers, "Default Round", "Default Description");
         resetVarients();
@@ -93,14 +90,12 @@ public class Round {
         setBossType(bossType);
     }
 
-    /**
-     * Resets the boss type and deck variants to their default values.
-     */
+    /** Resets the boss type and deck variants to their default values. */
     private void resetVarients() {
         this.config.setBossType(BossType.NONE);
         this.state.setRemainingDiscards(RoundConfig.MAX_DISCARDS_PER_ROUND);
         this.state.setRemainingPlays(3);
-        
+
         this.config.setMinHandSize(RoundConfig.DEFAULT_MIN_HAND_SIZE);
         this.config.setMaxHandSize(RoundConfig.DEFAULT_MAX_HAND_SIZE);
     }

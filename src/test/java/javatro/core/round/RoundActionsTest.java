@@ -135,7 +135,7 @@ public class RoundActionsTest {
                         JavatroException.class,
                         () -> RoundActions.playCards(roundState, roundConfig, cardIndices),
                         "Should throw JavatroException when trying to play a card with an invalid"
-                            + " index");
+                                + " index");
         assertEquals(
                 UI.RED + "Invalid index in cards to be played: 20" + UI.END,
                 exception.getMessage());
@@ -285,7 +285,7 @@ public class RoundActionsTest {
                         JavatroException.class,
                         () -> RoundActions.discardCards(roundState, roundConfig, cardIndices),
                         "Should throw JavatroException when trying to discard a card with an"
-                            + " invalid index");
+                                + " invalid index");
         assertEquals(
                 UI.RED + "Invalid index in cards to be discarded: 10" + UI.END,
                 exception.getMessage());
