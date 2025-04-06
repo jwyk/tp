@@ -31,7 +31,7 @@ public class HelpHowOption implements Option {
         String[] lines = {
                 "                          Welcome to the Javatro!                          ",
                 "                   Here's how to play and navigate the game:                ",
-                " 1. Start a new game from the Main Menu by selecting [1]                    ",
+                " 1. Start a new game run from the Main Menu by selecting [1]                    ",
                 " 2. Select the deck you desire from [1] to [4]                              ",
                 " 3. Choose your blind level by either accepting [1] or rejecting [2]        ",
                 " 4. Play cards [1] and form valid poker hands                               ",
