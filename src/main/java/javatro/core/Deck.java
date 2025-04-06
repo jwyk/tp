@@ -1,8 +1,11 @@
 package javatro.core;
 
+import javatro.storage.Storage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /*
  * Holds all the free cards the player has
@@ -35,6 +38,7 @@ public class Deck {
     /** Draws and returns a card from the top of the deck */
     public Card draw() throws JavatroException {
         try {
+
             return deck.remove(0);
         } catch (IndexOutOfBoundsException e) {
             throw JavatroException.noCardsRemaining();
@@ -96,6 +100,20 @@ public class Deck {
         }
         Collections.shuffle(newDeck);
         return newDeck;
+    }
+
+    public void populateWithSavedDeck() {
+
+        Storage storage = Storage.getStorageInstance();
+        ArrayList<Card> newDeck = new ArrayList<>();
+
+        for(int i = Storage.START_OF_REST_OF_DECK;i<Storage.START_OF_REST_OF_DECK+44;i++) {
+            if(storage.getValue(storage.getRunChosen()-1,i).equals("-")) continue;
+            newDeck.add(Storage.parseCardString(storage.getValue(storage.getRunChosen()-1,i)));
+        }
+
+        Collections.shuffle(newDeck);
+        deck = new ArrayList<>(newDeck);
     }
 
     /**

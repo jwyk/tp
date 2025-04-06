@@ -64,6 +64,8 @@ public class Storage {
     public static final int FIVE_OF_A_KIND_INDEX = 33;
     public static final int FLUSH_HOUSE_INDEX = 34;
     public static final int FLUSH_FIVE_INDEX = 35;
+    public static final int START_OF_REST_OF_DECK = 36;
+
 
     private static Storage storageInstance;
 
@@ -182,7 +184,7 @@ public class Storage {
             }
 
             // Validate planet card levels (From PLANET_CARD_START_INDEX onwards)
-            for (int i = HIGH_CARD_INDEX; i < columns.length; i++) {
+            for (int i = HIGH_CARD_INDEX; i < START_OF_REST_OF_DECK; i++) {
                 try {
                     int level = Integer.parseInt(columns[i].trim());
                     if (level < 1) { // Assuming levels must be positive integers
@@ -193,6 +195,15 @@ public class Storage {
                 } catch (NumberFormatException e) {
                     System.out.println(
                             "Invalid planet card level at index " + i + ": " + columns[i]);
+                    return false;
+                }
+            }
+
+            // Validate the rest of the deck
+            for (int i = START_OF_REST_OF_DECK; i < START_OF_REST_OF_DECK+44; i++) {
+                String card = columns[i].trim();
+                if (!card.equals("-") && !isValidCardString(card)) {
+                    System.out.println("Invalid rest of the deck card: " + card);
                     return false;
                 }
             }
@@ -217,7 +228,7 @@ public class Storage {
         StringBuilder saveData = new StringBuilder();
         for (Integer key : serializedRunData.keySet()) {
             List<String> runInfo = serializedRunData.get(key);
-            for (int i = 0; i <= Storage.FLUSH_FIVE_INDEX; i++) {
+            for (int i = 0; i < Storage.START_OF_REST_OF_DECK+44; i++) {
                 String runAttribute = runInfo.get(i);
                 saveData.append(runAttribute).append(",");
             }
@@ -230,7 +241,7 @@ public class Storage {
 
     public void updateSaveFile() throws JavatroException {
         try {
-            Files.write(saveFilePath, convertSerializedDataIntoString(), StandardOpenOption.WRITE);
+            Files.write(saveFilePath, convertSerializedDataIntoString(), StandardOpenOption.WRITE,StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             throw new JavatroException("SAVING ISSUE: " + e.getMessage());
         }
@@ -312,6 +323,11 @@ public class Storage {
         // Add planet card levels (13 slots) with "1"
         for (int i = 0; i < 13; i++) {
             newRun.add("1"); // Adding "1" for each planet card level
+        }
+
+        //Add the rest of the deck cards
+        for (int i = 0; i < 44; i++) {
+            newRun.add("-"); // Adding "1" for rest of the deck cards
         }
 
         // Add the run to the serializedRunData map using the next run number as the key
