@@ -1,5 +1,3 @@
-package javatro.core.jokers;
-
 /**
  * The {@code jokers} package contains the joker logic and data structures necessary for
  * instantiating and creating Jokers.
@@ -14,3 +12,4 @@ package javatro.core.jokers;
  *   <li>{@link javatro.core.jokers.HeldJokers} - Represents the player's current Jokers.
  * </ul>
  */
+package javatro.core.jokers;

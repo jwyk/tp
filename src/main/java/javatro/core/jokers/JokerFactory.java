@@ -2,16 +2,22 @@ package javatro.core.jokers;
 
 // @@author jwyk
 
-import javatro.core.jokers.addchip.OddToddJoker;
-import javatro.core.jokers.addchip.ScaryFaceJoker;
-import javatro.core.jokers.addmult.*;
-import javatro.core.jokers.addmult.AbstractJoker;
-
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
-/** Factory for creating and distributing Jokers. */
+import javatro.core.jokers.addchip.OddToddJoker;
+import javatro.core.jokers.addchip.ScaryFaceJoker;
+import javatro.core.jokers.addmult.AbstractJoker;
+import javatro.core.jokers.addmult.GluttonousJoker;
+import javatro.core.jokers.addmult.GreedyJoker;
+import javatro.core.jokers.addmult.HalfJoker;
+import javatro.core.jokers.addmult.LustyJoker;
+import javatro.core.jokers.addmult.WrathfulJoker;
+
+/**
+ * Factory for creating and distributing Jokers.
+ */
 public class JokerFactory {
     private static final List<Supplier<Joker>> jokerSuppliers =
             List.of(
