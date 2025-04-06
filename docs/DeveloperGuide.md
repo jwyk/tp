@@ -157,7 +157,9 @@ public void propertyChange(PropertyChangeEvent evt) {
 ```java  
 public static List<String> getCardArtLines(List<Card> hand) {  
     List<String> lines = new ArrayList<>();  
-    String[][] renderedCards = hand.stream().map(CardRenderer::renderCard).toArray(String[][]::new);  
+    String[][] renderedCards = hand.stream()
+            .map(CardRenderer::renderCard)
+            .toArray(String[][]::new);  
     // Combine lines horizontally  
     return lines;  
 }  
