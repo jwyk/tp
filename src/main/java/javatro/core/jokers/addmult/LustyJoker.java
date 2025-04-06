@@ -15,6 +15,7 @@ public class LustyJoker extends Joker {
     public LustyJoker() {
         super();
         name = "Lusty";
+        identifierName = "LUSTYJOKER";
         description =
                 String.format(
                         "Played cards with %s%sHeart%s%s suit give %s%s+3 Mult%s%s when scored",
