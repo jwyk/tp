@@ -1,7 +1,7 @@
 package javatro.display.screens;
-
 import static javatro.display.UI.*;
 
+import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
@@ -32,12 +32,21 @@ public class RunSelectScreen extends Screen {
         StartGameOption startGameOption = new StartGameOption();
         startGameOption.setDescription("Start A New Run");
         super.commandMap.add(startGameOption);
+
+
     }
 
     @Override
     public void displayScreen() {
+
+        // Stop the main theme before playing the defeat theme
+        AudioPlayer.getInstance().stopAudio();
+        AudioPlayer.getInstance().playAudio("audioplayer/windows_error.wav");
+
+
         if (storage.getNumberOfRuns() > 0) displayCurrentChosenRun();
         else {
+
             List<String> contents = new ArrayList<>();
 
             String[] noSavedRunsArt =

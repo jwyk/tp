@@ -1,8 +1,8 @@
 // @@author Markneoneo
 package javatro.display.screens;
-
 import static javatro.display.UI.printANSI;
 
+import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.HelpMenuOption;
@@ -46,5 +46,7 @@ public class StartScreen extends Screen {
     @Override
     public void displayScreen() {
         printANSI("javatro_logo.txt");
+        AudioPlayer.getInstance().stopAudio();
+        AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
     }
 }

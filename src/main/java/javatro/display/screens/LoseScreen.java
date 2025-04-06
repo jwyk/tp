@@ -1,6 +1,7 @@
 // @@author Markneoneo
 package javatro.display.screens;
 
+import static javatro.Javatro.*;
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BOLD;
 import static javatro.display.UI.BORDER_WIDTH;
@@ -16,6 +17,7 @@ import static javatro.display.UI.centerText;
 import static javatro.display.UI.printANSI;
 import static javatro.display.UI.printBlackB;
 
+import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.MainMenuOption;
@@ -95,5 +97,11 @@ public class LoseScreen extends Screen {
         printBlackB(
                 BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
         System.out.println();
+
+        // Stop the main theme before playing the defeat theme
+        AudioPlayer.getInstance().stopAudio();
+        AudioPlayer.getInstance().playAudio("audioplayer/cat-laugh-meme-1.wav");
+
+
     }
 }

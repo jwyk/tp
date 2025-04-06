@@ -13,6 +13,7 @@ import javatro.manager.JavatroManager;
  * manager to the start screen.
  */
 public class Javatro {
+    private static AudioPlayer mainAudioPlayer;
 
     /** The view component of the application. */
     private static final UI javatroView = new UI();
@@ -22,6 +23,7 @@ public class Javatro {
 
     /** The manager responsible for handling interactions between the view and core components. */
     private static final JavatroManager javatroManager;
+
 
     static {
         try {
@@ -39,11 +41,10 @@ public class Javatro {
     public static void main(String[] args) throws JavatroException {
 
         assert false : "dummy assertion set to fail";
-        Thread audioThread = new Thread(new AudioPlayer("audioplayer/balatro_theme.wav"));
-        audioThread.setDaemon(true);
-        audioThread.start();
-
-        // Continue with your program's main flow
+        AudioPlayer audioPlayer = AudioPlayer.getInstance();
+        audioPlayer.playAudio("audioplayer/balatro_theme.wav");
+        System.out.println(audioPlayer.isPlaying());
+        // Continue with main flow
         JavatroManager.setScreen(new StartScreen());
     }
 }
