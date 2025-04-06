@@ -117,7 +117,15 @@
   - Established patterns for comprehensive unit testing
   - Created helper methods used across multiple test classes
   - Implemented robust test cases covering normal operation and edge cases
-  
+
+| Element         | Class, %   | Method, %    | Line, %       | Branch, %    |
+|-----------------|------------|--------------|---------------|--------------|
+| round           | 100% (7/7) | 79% (62/78)  | 85% (152/177) | 66% (44/66)  |
+| └─ Round        | 100% (2/2) | 66% (24/36)  | 79% (57/72)   | 73% (19/26)  |
+| └─ RoundActions | 100% (2/2) | 100% (9/9)   | 95% (41/43)   | 68% (22/32)  |
+| └─ RoundConfig  | 100% (1/1) | 100% (12/12) | 100% (21/21)  | 50% (1/2)    |
+| └─ RoundObservable | 100% (1/1) | 66% (2/3)    | 90% (9/10)    | 100% (0/0)   |
+| └─ RoundState   | 100% (1/1) | 83% (15/18)  | 77% (24/31)   | 33% (2/6)    |
 
 ### Additional Contributions
 
