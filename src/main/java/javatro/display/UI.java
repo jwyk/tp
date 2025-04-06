@@ -84,8 +84,8 @@ public class UI {
     private static final WinRoundScreen WIN_ROUND_SCREEN;
     private static final WinGameScreen WIN_GAME_SCREEN;
     private static final LoseScreen LOSE_SCREEN;
-    private static final RunSelectScreen RUN_SELECT_SCREEN;
-    private static final JumpToRunScreen JUMP_TO_RUN_SCREEN;
+    private static RunSelectScreen RUN_SELECT_SCREEN;
+    private static JumpToRunScreen JUMP_TO_RUN_SCREEN;
 
     static {
         try {
@@ -429,6 +429,23 @@ public class UI {
     public static RunSelectScreen getRunSelectScreen() {
         return RUN_SELECT_SCREEN;
     }
+
+    public static void reloadRunSelectScreen() {
+        try {
+            RUN_SELECT_SCREEN = new RunSelectScreen();
+        } catch (JavatroException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void reloadJumpToRunScreen() {
+        try {
+            JUMP_TO_RUN_SCREEN = new JumpToRunScreen();
+        } catch (JavatroException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public static JumpToRunScreen getJumpToRunScreen() {
         return JUMP_TO_RUN_SCREEN;

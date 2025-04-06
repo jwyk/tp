@@ -6,9 +6,11 @@ import static javatro.display.ansi.DeckArt.BLUE_DECK;
 import static javatro.display.ansi.DeckArt.CHECKERED_DECK;
 import static javatro.display.ansi.DeckArt.RED_DECK;
 
-import javatro.core.Ante;
-import javatro.core.Deck;
-import javatro.core.JavatroException;
+import javatro.core.*;
+import javatro.core.jokers.Joker;
+import javatro.core.jokers.addchip.OddToddJoker;
+import javatro.core.jokers.addchip.ScaryFaceJoker;
+import javatro.core.jokers.addmult.*;
 import javatro.display.ansi.DeckArt;
 
 import java.io.IOException;
@@ -45,9 +47,23 @@ public class Storage {
     public static final int DECK_INDEX = 9;
 
     // Dynamic Data Indexes (Varying Size)
-    public static final int HOLDING_HAND_START_INDEX = 10; // Maximum 8 holding hands (10 to 19)
-    public static final int JOKER_HAND_START_INDEX = 20;   // Maximum 5 Joker Hands (20 to 24)
-    public static final int PLANET_CARD_START_INDEX = 25;  // Unlimited Planet Cards (25 onwards)
+    public static final int HOLDING_HAND_START_INDEX = 10; // Maximum 8 holding hands (10 to 17)
+    public static final int JOKER_HAND_START_INDEX = 18;   // Maximum 5 Joker Hands (18 to 22)
+
+    // Planet Card Level Indexes
+    public static final int HIGH_CARD_INDEX = 23;
+    public static final int PAIR_INDEX = 24;
+    public static final int TWO_PAIR_INDEX = 25;
+    public static final int THREE_OF_A_KIND_INDEX = 26;
+    public static final int STRAIGHT_INDEX = 27;
+    public static final int FLUSH_INDEX = 28;
+    public static final int FULL_HOUSE_INDEX = 29;
+    public static final int FOUR_OF_A_KIND_INDEX = 30;
+    public static final int STRAIGHT_FLUSH_INDEX = 31;
+    public static final int ROYAL_FLUSH_INDEX = 32;
+    public static final int FIVE_OF_A_KIND_INDEX = 33;
+    public static final int FLUSH_HOUSE_INDEX = 34;
+    public static final int FLUSH_FIVE_INDEX = 35;
 
 
     private static Storage storageInstance;
@@ -95,8 +111,8 @@ public class Storage {
 
             String[] columns = row.split(",");
 
-            // Check if the row has at least enough columns for predefined indexes
-            if (columns.length < DECK_INDEX + 1) { // +1 because array index is zero-based
+            // Check if the row has at least enough columns for predefined indexes and planet cards
+            if (columns.length < Storage.HIGH_CARD_INDEX + 13) { // Adjusting for all planet card levels (13 total)
                 System.out.println("Invalid number of columns in row: " + row);
                 return false;
             }
@@ -115,25 +131,67 @@ public class Storage {
                 return false;
             }
 
-
             // Validate predefined numeric columns
             try {
                 int[] numericIndexes = {
                         RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX, HAND_INDEX, DISCARD_INDEX,
-                        ANTE_NUMBER_INDEX,  WINS_INDEX, LOSSES_INDEX
+                        WINS_INDEX, LOSSES_INDEX
                 };
 
                 for (int index : numericIndexes) {
                     Integer.parseInt(columns[index]);
                 }
+
+                // Validate Ante Number (must be between 1 and 8)
+                int anteNumber = Integer.parseInt(columns[ANTE_NUMBER_INDEX]);
+                if (anteNumber < 1 || anteNumber > 8) {
+                    System.out.println("Invalid Ante Number (must be between 1 and 8): " + anteNumber);
+                    return false;
+                }
+
             } catch (NumberFormatException e) {
                 System.out.println("Invalid numeric value in row: " + row);
                 return false;
+            }
+
+            // Validate holding hands (Fixed 8 slots)
+            for (int i = HOLDING_HAND_START_INDEX; i < JOKER_HAND_START_INDEX; i++) {
+                String card = columns[i].trim();
+                if (!card.equals("-") && !isValidCardString(card)) {
+                    System.out.println("Invalid holding card: " + card);
+                    return false;
+                }
+            }
+
+            // Validate joker hands (Fixed 5 slots)
+            for (int i = JOKER_HAND_START_INDEX; i < HIGH_CARD_INDEX; i++) {
+                String joker = columns[i].trim();
+                if (!joker.equals("-") && !isValidJokerString(joker)) {
+                    System.out.println("Invalid joker card: " + joker);
+                    return false;
+                }
+            }
+
+            // Validate planet card levels (From PLANET_CARD_START_INDEX onwards)
+            for (int i = HIGH_CARD_INDEX; i < columns.length; i++) {
+                try {
+                    int level = Integer.parseInt(columns[i].trim());
+                    if (level < 1) { // Assuming levels must be positive integers
+                        System.out.println("Invalid planet card level at index " + i + ": " + columns[i]);
+                        return false;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid planet card level at index " + i + ": " + columns[i]);
+                    return false;
+                }
             }
         }
 
         return true; // All rows are valid
     }
+
+
+
 
     private void loadCSVData() {
         String[] runs = csvRawData.split("\\r?\\n");
@@ -214,29 +272,46 @@ public class Storage {
     }
 
     public void addNewRun() {
-        // Initialize an empty list with nulls of size EXPECTED_COLUMNS
+        // Initialize a new list with default values
         ArrayList<String> newRun = new ArrayList<>();
-        int arrSize = serializedRunData.isEmpty() ? 1 : serializedRunData.size();
 
-        //3,1,320,2,150,4,5,SORT,BLUE, BOSS BLIND
-        // [Run Number] [Round Number] [Best Hand] [Ante Number] [Chips] [Wins] [Losses] [Last Action]
-        // Add placeholders for all columns
-        newRun.add(String.valueOf(arrSize));
-        newRun.add("1");
-        for (int i = 2; i <= 6; i++) {
-            newRun.add("0");  // You can change this to "0" or "N/A" if you prefer
+        // Get the new run number
+        int arrSize = serializedRunData.isEmpty() ? 0 : serializedRunData.size();
+
+        // Adding default values as specified
+        newRun.add(String.valueOf(arrSize)); // RUN_NUMBER
+        newRun.add("1");                     // ROUND_NUMBER
+        newRun.add("0");                     // ROUND_SCORE
+        newRun.add("10");                     // HAND
+        newRun.add("5");                     // DISCARD
+        newRun.add("1");                     // ANTE_NUMBER
+        newRun.add("SMALL BLIND");           // BLIND
+        newRun.add("0");                     // WINS
+        newRun.add("0");                     // LOSSES
+        newRun.add("");                      // DECK
+
+        // Add holding hands (8 slots) with "-"
+        for (int i = 0; i < 8; i++) {
+            newRun.add("-"); // Adding "-"
         }
-        for (int i = 7; i < EXPECTED_COLUMNS; i++) {
-            newRun.add("NA");  // You can change this to "0" or "N/A" if you prefer
+
+        // Add jokers (5 slots) with "-"
+        for (int i = 0; i < 5; i++) {
+            newRun.add("-"); // Adding "-"
+        }
+
+        // Add planet card levels (13 slots) with "1"
+        for (int i = 0; i < 13; i++) {
+            newRun.add("1"); // Adding "1" for each planet card level
         }
 
         // Add the run to the serializedRunData map using the next run number as the key
         serializedRunData.put(arrSize, newRun);
 
-
         // Set run chosen to new run
-        runChosen = serializedRunData.size()-1;
+        runChosen = serializedRunData.size();
 
+        System.out.println("SIZE: " + newRun.size());
     }
 
     public int getNumberOfRuns() {return serializedRunData.size();}
@@ -287,5 +362,126 @@ public class Storage {
             default -> throw new IllegalArgumentException("Unknown blind type: " + key);
         };
     }
+
+
+    public static Card parseCardString(String cardString) {
+        // Ensure the string is not null or empty
+        if (cardString == null || cardString.length() < 2) {
+            throw new IllegalArgumentException("Invalid card string");
+        }
+
+        // Extract the rank and suit from the string
+        String rankStr =
+                cardString.substring(0, cardString.length() - 1); // All but the last character
+        char suitChar = cardString.charAt(cardString.length() - 1); // Last character
+
+        // Parse the rank
+        Card.Rank rank =
+                switch (rankStr) {
+                    case "2" -> Card.Rank.TWO;
+                    case "3" -> Card.Rank.THREE;
+                    case "4" -> Card.Rank.FOUR;
+                    case "5" -> Card.Rank.FIVE;
+                    case "6" -> Card.Rank.SIX;
+                    case "7" -> Card.Rank.SEVEN;
+                    case "8" -> Card.Rank.EIGHT;
+                    case "9" -> Card.Rank.NINE;
+                    case "10" -> Card.Rank.TEN;
+                    case "J" -> Card.Rank.JACK;
+                    case "Q" -> Card.Rank.QUEEN;
+                    case "K" -> Card.Rank.KING;
+                    case "A" -> Card.Rank.ACE;
+                    default -> throw new IllegalArgumentException("Invalid rank: " + rankStr);
+                };
+
+        // Parse the suit
+        Card.Suit suit =
+                switch (Character.toUpperCase(suitChar)) {
+                    case 'H' -> Card.Suit.HEARTS;
+                    case 'C' -> Card.Suit.CLUBS;
+                    case 'S' -> Card.Suit.SPADES;
+                    case 'D' -> Card.Suit.DIAMONDS;
+                    default -> throw new IllegalArgumentException("Invalid suit: " + suitChar);
+                };
+
+        // Return the constructed Card
+        return new Card(rank, suit);
+    }
+
+    public static String cardToString(Card card) {
+        // Get the rank and suit from the card
+        String rankStr = card.rank().getSymbol(); // Get the symbol (e.g., "A", "K", "10")
+        String suitStr =
+                switch (card.suit()) {
+                    case HEARTS -> "H";
+                    case CLUBS -> "C";
+                    case SPADES -> "S";
+                    case DIAMONDS -> "D";
+                };
+
+        // Combine rank and suit to form the card string
+        return rankStr + suitStr;
+    }
+
+    public static boolean isValidCardString(String cardString) {
+        if (cardString == null || cardString.length() < 2) {
+            return false; // Null or too short to be a valid card
+        }
+
+        // Extract the rank and suit from the string
+        String rankStr = cardString.substring(0, cardString.length() - 1); // All but the last character
+        char suitChar = cardString.charAt(cardString.length() - 1); // Last character
+
+        // Check if the rank is valid
+        boolean isValidRank = switch (rankStr) {
+            case "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" -> true;
+            default -> false;
+        };
+
+        // Check if the suit is valid
+        boolean isValidSuit = switch (Character.toUpperCase(suitChar)) {
+            case 'H', 'C', 'S', 'D' -> true;
+            default -> false;
+        };
+
+        // Return true only if both rank and suit are valid
+        return isValidRank && isValidSuit;
+    }
+
+
+    public static Joker parseJokerString(String jokerName) {
+        return switch (jokerName.toUpperCase()) {
+            case "ODDTODDJOKER" -> new OddToddJoker();
+            case "SCARYFACEJOKER" -> new ScaryFaceJoker();
+            case "ABSTRACTJOKER" -> new AbstractJoker();
+            case "GLUTTONOUSJOKER" -> new GluttonousJoker();
+            case "GREEDYJOKER" -> new GreedyJoker();
+            case "HALFJOKER" -> new HalfJoker();
+            case "LUSTYJOKER" -> new LustyJoker();
+            case "WRATHFULJOKER" -> new WrathfulJoker();
+            default -> throw new IllegalArgumentException("Invalid Joker name: " + jokerName);
+        };
+    }
+
+    public static String jokerToString(Joker joker) {
+        if (joker == null) {
+            throw new IllegalArgumentException("Joker cannot be null");
+        }
+        return joker.getIdentifierName(); // Returns the class name of the Joker
+    }
+
+    public static boolean isValidJokerString(String jokerName) {
+        if (jokerName == null || jokerName.trim().isEmpty()) {
+            return false; // Null or empty string is not valid
+        }
+
+        return switch (jokerName.toUpperCase()) {
+            case "ODDTODDJOKER", "SCARYFACEJOKER", "ABSTRACTJOKER", "GLUTTONOUSJOKER",
+                 "GREEDYJOKER", "HALFJOKER", "LUSTYJOKER", "WRATHFULJOKER" -> true;
+            default -> false;
+        };
+    }
+
+
 
 }

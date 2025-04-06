@@ -137,6 +137,13 @@ public class RunSelectScreen extends Screen {
         int deckNamePadding = 81 + (visibleCardLine.length() - cardDesc.length()) / 2;
         String paddedDeckName = String.format("%" + deckNamePadding + "s", italicDeckName);
 
+        String handValue = storage.getValue(runNumber - 1, Storage.HAND_INDEX);
+        String discardValue = storage.getValue(runNumber - 1, Storage.DISCARD_INDEX);
+
+        String handsOutput = handValue.equals("-1") ? "NA" : handValue;
+        String discardsOutput = discardValue.equals("-1") ? "NA" : discardValue;
+
+
         for (int i = 0; i < screenSize-1; i++) {
             String leftText = "";
             if (i == 0)
@@ -145,10 +152,8 @@ public class RunSelectScreen extends Screen {
                 leftText = "Round Score: " + storage.getValue(runNumber - 1, Storage.ROUND_SCORE_INDEX);
             else if (i == 2)
                 leftText =
-                        "Hands: "
-                                + storage.getValue(runNumber - 1, Storage.HAND_INDEX)
-                                + " | Discards: "
-                                + storage.getValue(runNumber - 1, Storage.DISCARD_INDEX);
+                        "Hands: " + (handValue.equals("-1") ? "NA" : handValue) +
+                                " | Discards: " + (discardValue.equals("-1") ? "NA" : discardValue);
             else if (i == 3) leftText = "------------------------";
             else if (i == 4)
                 leftText = "Ante: " + storage.getValue(runNumber - 1, Storage.ANTE_NUMBER_INDEX);

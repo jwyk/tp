@@ -1,16 +1,10 @@
 package javatro.core.round;
 
-import javatro.core.Ante;
-import javatro.core.BossType;
-import javatro.core.Card;
-import javatro.core.Deck;
+import javatro.core.*;
 import javatro.core.Deck.DeckType;
-import javatro.core.HandResult;
-import javatro.core.HoldingHand;
-import javatro.core.JavatroException;
-import javatro.core.PokerHand;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.round.RoundActions.ActionResult;
+import javatro.storage.Storage;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -280,8 +274,13 @@ public class Round {
      * @return true if the game is lost, false otherwise
      */
     public boolean isLost() {
+        if(state.getRemainingPlays() <= 0 && !isWon()) {
+            int currentLose = Integer.parseInt(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getRunChosen()-1, Storage.LOSSES_INDEX));
+            Storage.getStorageInstance().setValue(Storage.getStorageInstance().getRunChosen()-1, Storage.LOSSES_INDEX, String.valueOf(currentLose + 1));
+            return true;
+        }
         // Game ends if no plays are remaining
-        return state.getRemainingPlays() <= 0 && !isWon();
+        return false;
     }
 
     /**
@@ -290,7 +289,13 @@ public class Round {
      * @return true if the player won the round, false otherwise
      */
     public boolean isWon() {
-        return state.getCurrentScore() >= config.getBlindScore();
+        if(state.getCurrentScore() >= config.getBlindScore()) {
+            int currentWin = Integer.parseInt(Storage.getStorageInstance().getValue(Storage.getStorageInstance().getNumberOfRuns()-1,Storage.WINS_INDEX));
+            Storage.getStorageInstance().setValue(Storage.getStorageInstance().getRunChosen()-1,Storage.WINS_INDEX, String.valueOf(currentWin+1));
+
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -4,6 +4,7 @@
  */
 package javatro.manager.options;
 
+import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
@@ -24,6 +25,17 @@ public class LoadRunSelectOption implements Option {
     /** Executes the command to change the screen to the start menu. */
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.setScreen(UI.getRunSelectScreen());
+        if (JavatroCore.currentRound == null || JavatroCore.currentRound.isLost()) {
+            UI.reloadRunSelectScreen();
+            UI.reloadJumpToRunScreen();
+            JavatroManager.setScreen(UI.getRunSelectScreen());
+        }
+
+        if (JavatroCore.currentRound != null) {
+            UI.reloadRunSelectScreen();
+            UI.reloadJumpToRunScreen();
+            JavatroManager.setScreen(UI.getGameScreen());
+        }
+
     }
 }

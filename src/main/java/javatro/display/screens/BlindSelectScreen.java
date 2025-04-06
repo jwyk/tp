@@ -55,7 +55,7 @@ public class BlindSelectScreen extends Screen {
     private int getCurrentBlindIndex() {
         Ante.Blind currentBlind = JavatroCore.getAnte().getBlind();
         Storage.getStorageInstance()
-                .setValue(Storage.getStorageInstance().getRunChosen(), 9, currentBlind.getName());
+                .setValue(Storage.getStorageInstance().getRunChosen()-1, Storage.BLIND_INDEX, currentBlind.getName());
         return (currentBlind == Ante.Blind.SMALL_BLIND)
                 ? 0
                 : (currentBlind == Ante.Blind.LARGE_BLIND) ? 1 : 2;

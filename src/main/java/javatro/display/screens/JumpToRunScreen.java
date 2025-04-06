@@ -5,6 +5,10 @@ import javatro.core.JavatroException;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Initial application screen displaying main menu options and game logo.
  *
@@ -46,5 +50,6 @@ public class JumpToRunScreen extends Screen {
      * </ul>
      */
     @Override
-    public void displayScreen() {}
+    public void displayScreen() {
+    }
 }
