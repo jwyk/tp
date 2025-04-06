@@ -319,7 +319,6 @@ public class Storage {
 
         // Set run chosen to new run
         runChosen = serializedRunData.size();
-
     }
 
     public int getNumberOfRuns() {

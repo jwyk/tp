@@ -157,9 +157,8 @@ class RoundObservable {
         }
 
         try {
-            storage
-                    .updateSaveFile(); // Update save file at each run with the updated hands,
-                                       // discards and round score
+            storage.updateSaveFile(); // Update save file at each run with the updated hands,
+            // discards and round score
         } catch (JavatroException e) {
             System.out.println("Failed to Save To System");
         }

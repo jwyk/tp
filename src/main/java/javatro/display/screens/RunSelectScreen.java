@@ -93,7 +93,7 @@ public class RunSelectScreen extends Screen {
             contents.add("\u001B[38;5;81mMaybe your journey is just waiting to begin.\u001B[0m");
             contents.add(
                     "\u001B[38;5;178mStart a new run and I'll disappear, leaving only your progress"
-                        + " behind...\u001B[0m");
+                            + " behind...\u001B[0m");
 
             contents.add("\u001B[0m"); // Reset to avoid color bleeding
 
