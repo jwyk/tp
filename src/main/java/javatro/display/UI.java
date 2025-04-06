@@ -351,9 +351,11 @@ public class UI {
             previousScreen = currentScreen;
         }
 
-        System.out.printf(
-                "%s%sTransitioning to: %s%s%n",
-                ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
+        // For Logging and Testing
+//        System.out.printf(
+//                "%s%sTransitioning to: %s%s%n",
+//                ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
+
         currentScreen = screen;
         currentScreen.displayScreen();
         PARSER.getOptionInput();
