@@ -194,7 +194,6 @@ public class JavatroCore {
         if (emptyCardCount < 8) {
             round.setPlayerHandCards(savedCards);
         }
-
     }
 
     /**

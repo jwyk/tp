@@ -5,7 +5,6 @@ import javatro.storage.Storage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 /*
  * Holds all the free cards the player has
@@ -107,9 +106,9 @@ public class Deck {
         Storage storage = Storage.getStorageInstance();
         ArrayList<Card> newDeck = new ArrayList<>();
 
-        for(int i = Storage.START_OF_REST_OF_DECK;i<Storage.START_OF_REST_OF_DECK+44;i++) {
-            if(storage.getValue(storage.getRunChosen()-1,i).equals("-")) continue;
-            newDeck.add(Storage.parseCardString(storage.getValue(storage.getRunChosen()-1,i)));
+        for (int i = Storage.START_OF_REST_OF_DECK; i < Storage.START_OF_REST_OF_DECK + 44; i++) {
+            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")) continue;
+            newDeck.add(Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
         }
 
         Storage.isNewDeck = false;

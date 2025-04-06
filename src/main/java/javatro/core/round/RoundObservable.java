@@ -6,7 +6,6 @@ import javatro.storage.Storage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.List;
 
 /** Handles observer notifications for round state changes without direct Round dependencies. */
 class RoundObservable {
@@ -67,22 +66,23 @@ class RoundObservable {
             i = i + 1;
         }
 
-
         ArrayList<Card> restOfTheCards = JavatroCore.currentRound.getDeck().getWholeDeck();
 
         Storage storage = Storage.getStorageInstance();
 
-        for(int j = Storage.START_OF_REST_OF_DECK; j < Storage.START_OF_REST_OF_DECK+44; j++) {
+        for (int j = Storage.START_OF_REST_OF_DECK; j < Storage.START_OF_REST_OF_DECK + 44; j++) {
 
             int idx = j - Storage.START_OF_REST_OF_DECK;
 
-            if(idx >= restOfTheCards.size()) {
-                storage.setValue(storage.getRunChosen()-1,j,"-");
-            }else {
-                storage.setValue(storage.getRunChosen()-1,j,Storage.cardToString(restOfTheCards.get(idx)));
+            if (idx >= restOfTheCards.size()) {
+                storage.setValue(storage.getRunChosen() - 1, j, "-");
+            } else {
+                storage.setValue(
+                        storage.getRunChosen() - 1,
+                        j,
+                        Storage.cardToString(restOfTheCards.get(idx)));
             }
         }
-
 
         // Check whether player has won or lost
         if (JavatroCore.currentRound.isRoundOver()

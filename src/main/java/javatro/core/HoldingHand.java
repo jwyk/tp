@@ -1,6 +1,5 @@
 package javatro.core;
 
-import javatro.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.Comparator;
