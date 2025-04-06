@@ -47,7 +47,7 @@ public class StartScreen extends Screen {
     @Override
     public void displayScreen() {
         printANSI("javatro_logo.txt");
-        
+
         AudioPlayer.getInstance().stopAudio();
         AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
     }

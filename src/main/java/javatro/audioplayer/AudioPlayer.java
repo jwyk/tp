@@ -60,7 +60,7 @@ public class AudioPlayer {
                                     try {
                                         Thread.sleep(
                                                 100); // Check every 100ms if the audio is still
-                                                      // playing
+                                        // playing
                                     } catch (InterruptedException e) {
                                         break; // Exit if interrupted
                                     }

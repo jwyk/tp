@@ -17,7 +17,6 @@ import static javatro.display.UI.centerText;
 import static javatro.display.UI.printANSI;
 import static javatro.display.UI.printBlackB;
 
-import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.MainMenuOption;
@@ -74,8 +73,6 @@ public class WinGameScreen extends Screen {
     public void displayScreen() {
         // Display primary victory graphic
         printANSI("jimbo.txt");
-
-
 
         // Select and display random quote
         int quoteIndex = ThreadLocalRandom.current().nextInt(QUOTES.size());

@@ -68,7 +68,6 @@ public class WinRoundScreen extends Screen {
 
         AudioPlayer.getInstance().stopAudio();
         AudioPlayer.getInstance().playAudio("audioplayer/winning.wav");
-
     }
 
     /** Handles boss blind victory rewards and display */
