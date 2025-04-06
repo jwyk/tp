@@ -21,6 +21,7 @@ This guide explains the features, commands, and game flow to help you master Jav
     - [3.8 Viewing Poker Hands](#viewing-poker-hands)
     - [3.9 Winning a Small / Large Blind](#winning-a-small--large-blind)
     - [3.10 Winning a Boss Blind](#winning-a-boss-blind)
+    - [3.11 Help Menu](#help-menu)
     - [3.11 Saving / Loading a Game](#saving--loading-a-game)
 - [4. Gameplay Flow](#gameplay-flow)
 - [5. Tips for New Players](#tips-for-new-players)
@@ -366,30 +367,36 @@ or `2` to end the current game session._
 ---
 
 #### Help Option: 
--`[1] Game Introduction`                                      
+![img_2.png](img_2.png)
+
+-`[1] Game Introduction`                               
 -`[2] Game Rules`                                         
 -`[3] How To Play`                                        
 -`[4] Tips and Tricks`
 
 _Enter `1` to learn more about Javatro as this section gives a brief overview of the game's objective, structure, 
 and what makes it unique. Perfect for first-time players._
+![img_3.png](img_3.png)  
 
 _Enter `2` to understand the core rules of the game. This section explains:
 How rounds work
 The goal of each run
 How scoring and progression happen_
+![img_4.png](img_4.png)
 
 _Enter `3` to understand a step-by-step breakdown of gameplay mechanics. This includes:
 Starting your deck
 Drawing cards each turn
 Forming poker hands
 Advancing through increasing blinds and challenges_
+![img_5.png](img_5.png)
 
 _Enter `4` to learn more about the helpful strategies and advice for surviving longer and building a stronger deck.
 Learn how to:
 Manage your deck wisely
 Play strong hands at the right time
 Adapt your playstyle for different runs_
+![img_6.png](img_6.png)
 
 ### Saving / Loading a Game
 
