@@ -26,19 +26,22 @@ public class HelpRulesOption implements Option {
         return "Game Rules";
     }
 
-    /** Executes the command to display the rules of the game. */
+    /**
+     * Executes the command to display the rules of the game.
+     */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + BOLD + "Javatro Rules" + " 🃏 ♦️ ♣️" + END;
+        String title =                            "Javatro Rules" ;
 
         String[] lines = {
-            "1. Start with a basic deck of cards.",
-            "2. Each turn, draw cards and form poker hands to attack or defend.",
-            "3. Earn new cards after each battle and upgrade your deck.",
-            "4. If your health reaches zero, the run ends—try again with a new strategy!",
-            "5. Different enemies and challenges appear in each run.",
-            "",
-            "Remember: Careful deck management is key to survival!"
+                "1. Start with a basic deck of cards.                                                      ",
+                "2. Each turn, draw cards and form poker hands.                                            ",
+                "3. Use your best hands to score points and progress through rounds.                       ",
+                "4. Earn new cards after each round and upgrade your deck.                                 ",
+                "5. The run ends when you fail to meet the score threshold—try again with a new strategy!  ",
+                "6. Each run introduces new challenges to test your poker skills.                          ",
+                "",
+                "Remember: Strategic hand selection and deck management are key to success!                "
         };
 
         UI.printBorderedContent(title, List.of(lines));
