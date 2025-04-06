@@ -352,9 +352,9 @@ public class UI {
         }
 
         // For Logging and Testing
-//        System.out.printf(
-//                "%s%sTransitioning to: %s%s%n",
-//                ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
+        //        System.out.printf(
+        //                "%s%sTransitioning to: %s%s%n",
+        //                ORANGE, UNDERLINE, screen.getClass().getSimpleName(), END);
 
         currentScreen = screen;
         currentScreen.displayScreen();
