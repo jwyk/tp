@@ -3,6 +3,7 @@ package javatro.display.screens;
 
 import static javatro.display.UI.printANSI;
 
+import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.HelpMenuOption;
@@ -27,7 +28,7 @@ public class StartScreen extends Screen {
      * @throws JavatroException if screen initialization fails
      */
     public StartScreen() throws JavatroException {
-        super("MAIN MENU");
+        super("MAIN MENU (RAISE YOUR PC VOL!!)");
         commandMap.add(new LoadRunSelectOption());
         commandMap.add(new HelpMenuOption());
         commandMap.add(new ExitGameOption());
@@ -46,5 +47,8 @@ public class StartScreen extends Screen {
     @Override
     public void displayScreen() {
         printANSI("javatro_logo.txt");
+
+        AudioPlayer.getInstance().stopAudio();
+        AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
     }
 }

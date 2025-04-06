@@ -309,8 +309,7 @@ public class UI {
     public static void printANSI(String fileName) {
         assert fileName != null && !fileName.isEmpty() : "Filename cannot be null or empty";
 
-        try (InputStream inputStream =
-                UI.class.getResourceAsStream("/javatro/display/ansi/" + fileName)) {
+        try (InputStream inputStream = UI.class.getResourceAsStream("/ansi/" + fileName)) {
             if (inputStream == null) {
                 throw JavatroException.errorLoadingLogo(fileName);
             }
