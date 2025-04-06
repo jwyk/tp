@@ -39,14 +39,12 @@ public class Javatro {
 
 
         assert false : "dummy assertion set to fail";
-        JavatroManager.setScreen(new StartScreen());
-
-        // Keep the application alive
-        // Keep the program alive by joining the audio thread
-        Thread audioThread = new Thread(new AudioPlayer("src/don_pollo_linganguli.wav"));
-        audioThread.setDaemon(true); // This will allow the thread to end when the application ends
+        Thread audioThread = new Thread(new AudioPlayer("src/main/java/javatro/audioplayer/don_pollo_linganguli.wav"));
+        audioThread.setDaemon(true); // Allows the thread to terminate when the application ends
         audioThread.start();
 
+        // Continue with your program's main flow
+        JavatroManager.setScreen(new StartScreen());
 
     }
 }
