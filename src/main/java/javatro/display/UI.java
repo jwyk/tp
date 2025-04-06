@@ -446,7 +446,6 @@ public class UI {
         }
     }
 
-
     public static JumpToRunScreen getJumpToRunScreen() {
         return JUMP_TO_RUN_SCREEN;
     }

@@ -4,7 +4,6 @@ import javatro.core.*;
 import javatro.core.Deck.DeckType;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.round.RoundActions.ActionResult;
-import javatro.storage.Storage;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -209,10 +208,9 @@ public class Round {
     }
 
     public void setCurrentScore(int score) {
-        state.addScore(-1*state.getCurrentScore());
+        state.addScore(-1 * state.getCurrentScore());
         state.addScore(score);
     }
-
 
     /**
      * Gets the target score needed to win this round.
@@ -274,7 +272,7 @@ public class Round {
      * @return true if the game is lost, false otherwise
      */
     public boolean isLost() {
-        if(state.getRemainingPlays() <= 0 && !isWon()) {
+        if (state.getRemainingPlays() <= 0 && !isWon()) {
             return true;
         }
         // Game ends if no plays are remaining
@@ -345,7 +343,6 @@ public class Round {
         return state;
     }
 
-
     public void updatePlays(int plays) {
         state.setRemainingPlays(plays);
     }
@@ -353,7 +350,6 @@ public class Round {
     public void updateDiscards(int discards) {
         state.setRemainingDiscards(discards);
     }
-
 
     /**
      * Gets the configuration object for this round.

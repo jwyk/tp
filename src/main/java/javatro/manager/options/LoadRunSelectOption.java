@@ -36,6 +36,5 @@ public class LoadRunSelectOption implements Option {
             UI.reloadJumpToRunScreen();
             JavatroManager.setScreen(UI.getGameScreen());
         }
-
     }
 }

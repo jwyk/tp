@@ -53,7 +53,6 @@ class RoundState {
         this.deck = deck;
         this.playerHand = new HoldingHand();
 
-
         drawInitialCards(RoundConfig.INITIAL_HAND_SIZE);
     }
 

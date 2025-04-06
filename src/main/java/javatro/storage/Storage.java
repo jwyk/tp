@@ -31,8 +31,8 @@ public class Storage {
 
     private static final int EXPECTED_COLUMNS = 13;
     private static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
-    private static final Set<String> VALID_BLINDS = Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
-
+    private static final Set<String> VALID_BLINDS =
+            Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
 
     // Basic Info Indexes (Fixed Position)
     public static final int RUN_NUMBER_INDEX = 0;
@@ -48,7 +48,7 @@ public class Storage {
 
     // Dynamic Data Indexes (Varying Size)
     public static final int HOLDING_HAND_START_INDEX = 10; // Maximum 8 holding hands (10 to 17)
-    public static final int JOKER_HAND_START_INDEX = 18;   // Maximum 5 Joker Hands (18 to 22)
+    public static final int JOKER_HAND_START_INDEX = 18; // Maximum 5 Joker Hands (18 to 22)
 
     // Planet Card Level Indexes
     public static final int HIGH_CARD_INDEX = 23;
@@ -64,7 +64,6 @@ public class Storage {
     public static final int FIVE_OF_A_KIND_INDEX = 33;
     public static final int FLUSH_HOUSE_INDEX = 34;
     public static final int FLUSH_FIVE_INDEX = 35;
-
 
     private static Storage storageInstance;
 
@@ -102,7 +101,9 @@ public class Storage {
 
     public boolean isCSVDataValid() {
 
-        String[] rows = csvRawData.split("\\r?\\n"); // Split by newline, handling Windows and Unix line endings
+        String[] rows =
+                csvRawData.split(
+                        "\\r?\\n"); // Split by newline, handling Windows and Unix line endings
 
         for (String row : rows) {
             row = row.trim();
@@ -112,7 +113,9 @@ public class Storage {
             String[] columns = row.split(",");
 
             // Check if the row has at least enough columns for predefined indexes and planet cards
-            if (columns.length < Storage.HIGH_CARD_INDEX + 13) { // Adjusting for all planet card levels (13 total)
+            if (columns.length
+                    < Storage.HIGH_CARD_INDEX
+                            + 13) { // Adjusting for all planet card levels (13 total)
                 System.out.println("Invalid number of columns in row: " + row);
                 return false;
             }
@@ -134,8 +137,13 @@ public class Storage {
             // Validate predefined numeric columns
             try {
                 int[] numericIndexes = {
-                        RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX, HAND_INDEX, DISCARD_INDEX,
-                        WINS_INDEX, LOSSES_INDEX
+                    RUN_NUMBER_INDEX,
+                    ROUND_NUMBER_INDEX,
+                    ROUND_SCORE_INDEX,
+                    HAND_INDEX,
+                    DISCARD_INDEX,
+                    WINS_INDEX,
+                    LOSSES_INDEX
                 };
 
                 for (int index : numericIndexes) {
@@ -145,7 +153,8 @@ public class Storage {
                 // Validate Ante Number (must be between 1 and 8)
                 int anteNumber = Integer.parseInt(columns[ANTE_NUMBER_INDEX]);
                 if (anteNumber < 1 || anteNumber > 8) {
-                    System.out.println("Invalid Ante Number (must be between 1 and 8): " + anteNumber);
+                    System.out.println(
+                            "Invalid Ante Number (must be between 1 and 8): " + anteNumber);
                     return false;
                 }
 
@@ -177,11 +186,13 @@ public class Storage {
                 try {
                     int level = Integer.parseInt(columns[i].trim());
                     if (level < 1) { // Assuming levels must be positive integers
-                        System.out.println("Invalid planet card level at index " + i + ": " + columns[i]);
+                        System.out.println(
+                                "Invalid planet card level at index " + i + ": " + columns[i]);
                         return false;
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid planet card level at index " + i + ": " + columns[i]);
+                    System.out.println(
+                            "Invalid planet card level at index " + i + ": " + columns[i]);
                     return false;
                 }
             }
@@ -189,9 +200,6 @@ public class Storage {
 
         return true; // All rows are valid
     }
-
-
-
 
     private void loadCSVData() {
         String[] runs = csvRawData.split("\\r?\\n");
@@ -209,7 +217,7 @@ public class Storage {
         StringBuilder saveData = new StringBuilder();
         for (Integer key : serializedRunData.keySet()) {
             List<String> runInfo = serializedRunData.get(key);
-            for (int i = 0;i<Storage.FLUSH_FIVE_INDEX;i++) {
+            for (int i = 0; i < Storage.FLUSH_FIVE_INDEX; i++) {
                 String runAttribute = runInfo.get(i);
                 saveData.append(runAttribute).append(",");
             }
@@ -251,7 +259,7 @@ public class Storage {
 
             } catch (Exception e) {
                 createSaveFile(); // Create a new save file since current save file is corrupted or
-                                  // could not be read
+                // could not be read
                 System.out.println("Creating new save file..");
             }
         } else {
@@ -281,15 +289,15 @@ public class Storage {
 
         // Adding default values as specified
         newRun.add(String.valueOf(arrSize)); // RUN_NUMBER
-        newRun.add("1");                     // ROUND_NUMBER
-        newRun.add("0");                     // ROUND_SCORE
-        newRun.add("10");                     // HAND
-        newRun.add("5");                     // DISCARD
-        newRun.add("1");                     // ANTE_NUMBER
-        newRun.add("SMALL BLIND");           // BLIND
-        newRun.add("0");                     // WINS
-        newRun.add("0");                     // LOSSES
-        newRun.add("");                      // DECK
+        newRun.add("1"); // ROUND_NUMBER
+        newRun.add("0"); // ROUND_SCORE
+        newRun.add("10"); // HAND
+        newRun.add("5"); // DISCARD
+        newRun.add("1"); // ANTE_NUMBER
+        newRun.add("SMALL BLIND"); // BLIND
+        newRun.add("0"); // WINS
+        newRun.add("0"); // LOSSES
+        newRun.add(""); // DECK
 
         // Add holding hands (8 slots) with "-"
         for (int i = 0; i < 8; i++) {
@@ -315,16 +323,17 @@ public class Storage {
         System.out.println("SIZE: " + newRun.size());
     }
 
-    public int getNumberOfRuns() {return serializedRunData.size();}
+    public int getNumberOfRuns() {
+        return serializedRunData.size();
+    }
 
     public String getValue(int runNumber, int idx) {
         return serializedRunData.get(runNumber).get(idx);
     }
 
     public void setValue(int runNumber, int idx, String value) {
-        serializedRunData.get(runNumber).set(idx,value);
+        serializedRunData.get(runNumber).set(idx, value);
     }
-
 
     public int getRunChosen() {
         return runChosen;
@@ -333,7 +342,6 @@ public class Storage {
     public void setRunChosen(int runChosen) {
         Storage.runChosen = runChosen;
     }
-
 
     public static DeckArt fromStorageKey(String key) {
         return switch (key.toUpperCase()) {
@@ -363,7 +371,6 @@ public class Storage {
             default -> throw new IllegalArgumentException("Unknown blind type: " + key);
         };
     }
-
 
     public static Card parseCardString(String cardString) {
         // Ensure the string is not null or empty
@@ -430,25 +437,27 @@ public class Storage {
         }
 
         // Extract the rank and suit from the string
-        String rankStr = cardString.substring(0, cardString.length() - 1); // All but the last character
+        String rankStr =
+                cardString.substring(0, cardString.length() - 1); // All but the last character
         char suitChar = cardString.charAt(cardString.length() - 1); // Last character
 
         // Check if the rank is valid
-        boolean isValidRank = switch (rankStr) {
-            case "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" -> true;
-            default -> false;
-        };
+        boolean isValidRank =
+                switch (rankStr) {
+                    case "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" -> true;
+                    default -> false;
+                };
 
         // Check if the suit is valid
-        boolean isValidSuit = switch (Character.toUpperCase(suitChar)) {
-            case 'H', 'C', 'S', 'D' -> true;
-            default -> false;
-        };
+        boolean isValidSuit =
+                switch (Character.toUpperCase(suitChar)) {
+                    case 'H', 'C', 'S', 'D' -> true;
+                    default -> false;
+                };
 
         // Return true only if both rank and suit are valid
         return isValidRank && isValidSuit;
     }
-
 
     public static Joker parseJokerString(String jokerName) {
         return switch (jokerName.toUpperCase()) {
@@ -477,12 +486,15 @@ public class Storage {
         }
 
         return switch (jokerName.toUpperCase()) {
-            case "ODDTODDJOKER", "SCARYFACEJOKER", "ABSTRACTJOKER", "GLUTTONOUSJOKER",
-                 "GREEDYJOKER", "HALFJOKER", "LUSTYJOKER", "WRATHFULJOKER" -> true;
+            case "ODDTODDJOKER",
+                    "SCARYFACEJOKER",
+                    "ABSTRACTJOKER",
+                    "GLUTTONOUSJOKER",
+                    "GREEDYJOKER",
+                    "HALFJOKER",
+                    "LUSTYJOKER",
+                    "WRATHFULJOKER" -> true;
             default -> false;
         };
     }
-
-
-
 }

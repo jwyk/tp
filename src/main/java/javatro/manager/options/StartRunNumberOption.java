@@ -29,14 +29,15 @@ public class StartRunNumberOption implements Option {
     /** Executes the command to change the screen to the start menu. */
     @Override
     public void execute() throws JavatroException {
-        //Update Storage with chosen run number
+        // Update Storage with chosen run number
         storage.setRunChosen(runNumber);
-        JavatroManager.beginGame((Storage.DeckFromKey(storage.getValue(storage.getRunChosen()-1, Storage.DECK_INDEX))));
+        JavatroManager.beginGame(
+                (Storage.DeckFromKey(
+                        storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX))));
 
         JavatroManager.jc.beginGame();
         JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
         JavatroCore.currentRound.updateRoundVariables();
         JavatroManager.setScreen(UI.getGameScreen());
     }
-
 }
