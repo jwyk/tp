@@ -441,6 +441,10 @@ Else, the `Card` is scored, and each `Joker` in `heldJokers` is checked if the `
 ![](dg_images/score_4.png)
 
 
+```mermaid
+
+```
+
 4. `Score` rounds the final score using `calculateFinalScore()` and returns the final `long` value to `Round`.
 ![](dg_images/score_5.png)
 
@@ -584,20 +588,15 @@ Javatro provides a streamlined, text-based roguelike deck-building experience in
 
 1. User requests to view their current hand.
 2. System displays the current hand of cards.
+   1. Use case ends.
 3. User selects cards to discard.
+   1. The user selects invalid cards for discarding.
+      1. System shows an error message.
+      2. Use case resumes at step 2.
 4. System removes the selected cards and draws new cards to replace them.
 5. System displays the updated hand.
 
-   Use case ends.
-
-**Extensions**
-
-- 2a. The hand is empty.
-  - Use case ends.
-
-- 3a. The user selects invalid cards for discarding.
-  - 3a1. System shows an error message.
-  - Use case resumes at step 2.
+Use case ends.
 
 ---
 
@@ -608,15 +607,12 @@ Javatro provides a streamlined, text-based roguelike deck-building experience in
 1. User requests to save the game.
 2. System serializes the current game state.
 3. System saves the serialized data to a file.
+   1. The file cannot be created or written.
+      1. System shows an error message indicating failure to save.
+      2. Use case ends.
 4. System confirms that the game has been successfully saved.
 
-   Use case ends.
-
-**Extensions**
-
-- 3a. The file cannot be created or written.
-  - 3a1. System shows an error message indicating failure to save.
-  - Use case ends.
+Use case ends.
 
 ---
 
@@ -626,20 +622,14 @@ Javatro provides a streamlined, text-based roguelike deck-building experience in
 
 1. User requests to load a previously saved game.
 2. System presents a list of available saved game files.
+   1. No saved game files are found.
+      1. Use case ends.
 3. User selects a saved game file to load.
 4. System reads the file and deserializes the game state.
+   1. The selected file is corrupted or incompatible.
+      1. System shows an error message.
+      2. Use case ends.
 5. System initializes the game to the loaded state.
-
-   Use case ends.
-
-**Extensions**
-
-- 2a. No saved game files are found.
-  - Use case ends.
-
-- 4a. The selected file is corrupted or incompatible.
-  - 4a1. System shows an error message.
-  - Use case ends.
 
 ---
 
