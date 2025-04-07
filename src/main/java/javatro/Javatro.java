@@ -1,10 +1,8 @@
 package javatro;
 
-import java.io.IOException;
 import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
-import javatro.display.OutputUtils;
 import javatro.display.UI;
 import javatro.display.screens.StartScreen;
 import javatro.manager.JavatroManager;
