@@ -8,7 +8,7 @@ import static javatro.display.UI.ITALICS;
 import static javatro.display.UI.printBorderedContent;
 
 import javatro.core.JavatroException;
-import javatro.display.OutputUtils;
+import javatro.utilities.outpututils.OutputUtils;
 import javatro.manager.options.Option;
 
 import java.io.IOException;

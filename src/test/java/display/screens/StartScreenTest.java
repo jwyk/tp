@@ -51,7 +51,12 @@ public class StartScreenTest extends ScreenTest {
     @Test
     public void testStartScreenOutput() throws IOException {
         // Compare the captured output with the file content
-        compareOutputToFile("StartScreen.txt");
+        // Capture the output and save it to file
+        pipeOutputToFile("data.txt", UI.getStartScreen());
+
+        // Compare the output with the expected file
+        compareOutputToFile2("StartScreen.txt");
+
     }
 
     // AudioPlayer Handling

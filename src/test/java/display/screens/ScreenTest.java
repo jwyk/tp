@@ -1,5 +1,6 @@
 package display.screens;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javatro.core.JavatroCore;
@@ -108,13 +109,32 @@ public abstract class ScreenTest {
 
   protected void compareOutputToFile(String fileName) throws IOException {
     String actualOutput = getOutput();
-    CSVUtils.writeSampleToCSV("src/test/resources/screens/nigga.txt",actualOutput);
+    CSVUtils.writeSampleToCSV("src/test/resources/screens/data.txt",actualOutput);
     String expectedOutput = readExpectedOutput(fileName);
 
     if (!actualOutput.equals(expectedOutput)) {
       fail("Output mismatch for file: " + fileName);
     }
   }
+
+  protected void compareOutputToFile2(String expectedFileName) throws IOException {
+    // Read the expected output file
+    String expectedOutput = normalizeLineEndings(readExpectedOutput(expectedFileName));
+
+    // Read the actual output file (data.txt)
+    String actualOutput = normalizeLineEndings(readExpectedOutput("data.txt"));
+
+    // Compare outputs
+    if (!actualOutput.equals(expectedOutput)) {
+      fail("Output mismatch between data.txt and " + expectedFileName);
+    }
+  }
+
+  private String normalizeLineEndings(String input) {
+    return input.replace("\r\n", "\n").replace("\r", "\n").stripTrailing();
+  }
+
+
 
   @Test
   public void testAccessingClearedCommandMap() {
@@ -127,6 +147,35 @@ public abstract class ScreenTest {
 
     assertTrue(exception.getMessage().contains("Index 0 out of bounds"));
   }
+
+  /**
+   * Pipes the output of the current screen to a file during testing.
+   *
+   * @param fileName The name of the file to compare against.
+   * @param renderable The renderable screen object.
+   * @throws IOException If an I/O error occurs.
+   */
+  protected void pipeOutputToFile(String fileName, Screen renderable) throws IOException {
+    // Prepare to capture the output
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    PrintStream originalOut = System.out;
+    System.setOut(new PrintStream(outContent));
+
+    try {
+      JavatroManager.setScreen(renderable);
+    } catch (JavatroException e) {
+      throw new RuntimeException(e);
+    }
+
+    // Save the captured output to a file
+    try (FileOutputStream fos = new FileOutputStream("src/test/resources/screens/" + fileName)) {
+      fos.write(outContent.toString().getBytes());
+    } finally {
+      // Reset the standard output
+      System.setOut(originalOut);
+    }
+  }
+
 
 
 //  @Test

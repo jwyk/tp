@@ -40,8 +40,6 @@ public class GameScreenTest extends ScreenTest {
     }
 
     Storage storage = Storage.getStorageInstance();
-    AudioPlayer audioPlayer = AudioPlayer.getInstance();
-
     super.setUp();
 
     try {
@@ -53,14 +51,7 @@ public class GameScreenTest extends ScreenTest {
       JavatroManager.jc.beginGame();
       JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
       JavatroCore.currentRound.updateRoundVariables();
-//      UI.getGameScreen().getCommandMap().add(new PlayCardOption());
-//      UI.getGameScreen().getCommandMap().add(new DiscardCardOption());
-//      UI.getGameScreen().getCommandMap().add(new PokerHandOption());
-//      UI.getGameScreen().getCommandMap().add(new DeckViewOption());
-//      UI.getGameScreen().getCommandMap().add(new MainMenuOption());
-//      UI.getGameScreen().getCommandMap().add(new ExitGameOption());
       System.out.println(UI.getGameScreen().getCommandMap().size());
-      JavatroManager.setScreen(UI.getGameScreen());
     } catch (JavatroException e) {
       fail("Failed to load the game screen: " + e);
     }
@@ -68,6 +59,11 @@ public class GameScreenTest extends ScreenTest {
 
   @Test
   public void testCommandMatchWithSave() {
+    try {
+      JavatroManager.ui.setCurrentScreen(UI.getGameScreen());
+    } catch (JavatroException e) {
+      throw new RuntimeException(e);
+    }
     List<Class<?>> expectedCommands = List.of(
         PlayCardOption.class,
         DiscardCardOption.class,
@@ -83,11 +79,19 @@ public class GameScreenTest extends ScreenTest {
 
   @Test
   public void testRunSelectScreenOutputWithSave() throws IOException {
-    compareOutputToFile("GameScreen.txt");
+    pipeOutputToFile("data.txt", UI.getGameScreen());
+
+    compareOutputToFile2("GameScreen.txt");
   }
 
   @Override
   protected Class<?> getExpectedScreenType() {
+    try {
+      JavatroManager.setScreen(UI.getGameScreen());
+      JavatroManager.ui.setCurrentScreen(UI.getGameScreen());
+    } catch (JavatroException e) {
+      throw new RuntimeException(e);
+    }
     return GameScreen.class;
   }
 

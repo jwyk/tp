@@ -50,13 +50,6 @@ public class StartScreen extends Screen {
     public void displayScreen() {
         printANSI("javatro_logo.txt");
 
-//        //Pipe output to test
-//        if(!JavatroManager.runningTests) {
-//            JavatroManager.runningTests = true;
-//            this.getOutput();
-//            JavatroManager.runningTests = false;
-//        }
-
         AudioPlayer.getInstance().stopAudio();
         AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
     }

@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
 public class JavatroManager implements PropertyChangeListener {
 
     /** The main view responsible for rendering the user interface. */
-    private static UI ui;
+    public static UI ui;
     /** The main model responsible for handling game logic. */
     public static JavatroCore jc;
     /** Stores the last recorded user input. */

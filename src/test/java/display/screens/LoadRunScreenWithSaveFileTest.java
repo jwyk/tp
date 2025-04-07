@@ -52,7 +52,9 @@ public class LoadRunScreenWithSaveFileTest extends ScreenTest {
 
   @Test
   public void testRunSelectScreenOutputWithSave() throws IOException {
-    compareOutputToFile("RunSelectScreen_OneSave.txt");
+    pipeOutputToFile("data.txt", UI.getRunSelectScreen());
+
+    compareOutputToFile2("RunSelectScreen_OneSave.txt");
   }
 
   @Override

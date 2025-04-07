@@ -1,11 +1,14 @@
 package javatro;
 
+import java.io.IOException;
 import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
+import javatro.display.screens.GameScreen;
 import javatro.display.screens.StartScreen;
 import javatro.manager.JavatroManager;
+import javatro.utilities.outpututils.OutputUtils;
 
 /**
  * The {@code javatro} class serves as the main entry point for the application. It initializes the
@@ -40,10 +43,22 @@ public class Javatro {
     public static void main(String[] args) throws JavatroException {
 
         assert false : "dummy assertion set to fail";
-        AudioPlayer audioPlayer = AudioPlayer.getInstance();
-        audioPlayer.playAudio("audioplayer/balatro_theme.wav");
-        System.out.println(audioPlayer.isPlaying());
-        // Continue with main flow
-        JavatroManager.setScreen(new StartScreen());
+//        AudioPlayer audioPlayer = AudioPlayer.getInstance();
+//        audioPlayer.playAudio("audioplayer/balatro_theme.wav");
+//        System.out.println(audioPlayer.isPlaying());
+//        // Continue with main flow
+        //JavatroManager.setScreen(new StartScreen());
+        //Pipe output to test
+        if(!JavatroManager.runningTests) {
+            JavatroManager.runningTests = true;
+          try {
+            OutputUtils.pipeOutputToFile("StartScreenTest" + ".txt", UI.getStartScreen());
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+          JavatroManager.runningTests = false;
+        }
+
+
     }
 }
