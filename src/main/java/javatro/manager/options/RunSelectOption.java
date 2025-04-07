@@ -11,7 +11,7 @@ import javatro.manager.JavatroManager;
 /** A command that loads the run selection screen when executed. */
 public class RunSelectOption implements Option {
 
-    String description = "Select a Run";
+    String description = "Start a Run";
 
     /**
      * Provides a brief description of the command.
