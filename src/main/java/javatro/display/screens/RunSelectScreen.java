@@ -6,8 +6,8 @@ import javatro.core.Deck.DeckType;
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
 import javatro.storage.DataParser;
-import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
+import javatro.storage.utils.CardUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -180,7 +180,8 @@ public class RunSelectScreen extends Screen {
         for (int i = 0; i < screenSize - 1; i++) {
             String leftText = "";
             if (i == 0)
-                leftText = "Round: " + storage.getValue(runNumber - 1, DataParser.ROUND_NUMBER_INDEX);
+                leftText =
+                        "Round: " + storage.getValue(runNumber - 1, DataParser.ROUND_NUMBER_INDEX);
             if (i == 1)
                 leftText =
                         "Round Score: "
