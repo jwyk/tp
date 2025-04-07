@@ -14,14 +14,13 @@
    - [Score Component](#score-component)
 4. [Implementation](#implementation)
 5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
-6. [Documentation](#documentation)
-7. [Appendix: Requirements](#appendix-requirements)
+6. [Appendix: Requirements](#appendix-requirements)
    - [Product Scope](#product-scope)
    - [User Stories](#user-stories)
    - [Use Cases](#use-cases)
    - [Non-Functional Requirements](#non-functional-requirements)
    - [Glossary](#glossary)
-8. [Appendix: Instructions for manual testing]()
+7. [Appendix: Instructions for manual testing]()
    
 
 
@@ -139,6 +138,7 @@ public void propertyChange(PropertyChangeEvent evt) {
 ### 5. Key Enhancements  
 
 #### 5.1. Enhancement: Screen Transition Mechanism  
+
 **Implementation**:  
 - **Transition Messages**: ANSI-formatted logs (e.g., `Transitioning to: GameScreen`).  
 - **Back Navigation**: `previousScreen` allows reverting to prior states (e.g., exiting `HelpScreen`).  
@@ -155,6 +155,7 @@ public void propertyChange(PropertyChangeEvent evt) {
 - **Grid Layout**: Renders 8 cards in two rows, spaced with ANSI backgrounds.  
 
 **Code Snippet**:  
+
 ```java  
 public static List<String> getCardArtLines(List<Card> hand) {  
     List<String> lines = new ArrayList<>();  
@@ -170,6 +171,7 @@ public static List<String> getCardArtLines(List<Card> hand) {
 
 ##### **Initial Attempt**  
 Emojis and Unicode symbols (e.g., 🃏, ♥️, ♥) were initially incorporated into the UI to enhance visual appeal. For example:  
+
 ```java  
 // Early prototype (discarded)  
 private static String getSuitSymbol(Card.Suit suit) {  
@@ -196,6 +198,7 @@ private static String getSuitSymbol(Card.Suit suit) {
 
 ##### **Final Approach**  
 To ensure cross-terminal compatibility and consistent spacing, **letters** (`H`, `D`, `C`, `S`) replaced symbols:  
+
 ```java  
 // Current implementation (CardRenderer.java)  
 private static String getSuitSymbol(Card.Suit suit) {  
@@ -207,6 +210,7 @@ private static String getSuitSymbol(Card.Suit suit) {
     };  
 }  
 ```  
+
 - **Advantages**:  
   - Fixed-width characters ensure alignment in card art.  
   - Works universally across terminals without configuration.  
@@ -430,18 +434,11 @@ Below is how the Score Class returns the calculated score:
 
 1. `Round` initializes `Score`, and `Score` invokes the `getChips()` method from `PokerHand`.
 ![](dg_images/score_2.png)
-
 2. With each `Card` passed from `Score`, `Score` checks whether the card played satisfies BossType conditions, 
-and applies effects if the condition is satisfied. 
-Else, the `Card` is scored, and each `Joker` in `heldJokers` is checked if the `Card` can interact with the `Joker`
-
+and applies effects if the condition is satisfied. Else, the `Card` is scored, and each `Joker` in `heldJokers` is checked if the `Card` can interact with the `Joker`
 ![](dg_images/score_3.png)
-
-
 3. After each `Card` is scored, any `Joker` with the `AFTERHANDPLAY` enum is interacted with.
 ![](dg_images/score_4.png)
-
-
 4. `Score` rounds the final score using `calculateFinalScore()` and returns the final `long` value to `Round`.
 ![](dg_images/score_5.png)
 
@@ -465,10 +462,10 @@ The application's logic flow is divided into several parts:
 
 The Javatro application consists of several packages:
 
-- ``: The main entry point and application setup.
-- ``: Core logic, including card handling, ante management, and game rules.
-- ``: User interface handling, including screens and rendering.
-- ``: Management of different game states and transitions.
+- `javatro`: The main entry point and application setup.
+- `core`: Core logic, including card handling, ante management, and game rules.
+- `display`: User interface handling, including screens and rendering.
+- `manager`: Management of different game states and transitions.
 
 ### Key Components
 
@@ -480,28 +477,14 @@ The Javatro application consists of several packages:
 
 ### Important Methods
 
-1. 
-
-   - `main()`: Initializes the application.
-
-2. 
-
-   - `initialize()`: Sets up core components.
-   - `playRound()`: Manages the game round progression.
-
-3. 
-
-   - `draw()`: Draws a card from the deck.
-   - `shuffle()`: Shuffles the deck.
-
-4. 
-
-   - `getRoundScore()`: Retrieves the score for the current round.
-   - `nextRound()`: Progresses to the next round.
-
-5. 
-
-   - `evaluateHand()`: Evaluates a set of cards according to poker rules.
+- `main()`: Initializes the application.
+- `initialize()`: Sets up core components.
+- `playRound()`: Manages the game round progression.
+- `draw()`: Draws a card from the deck.
+- `shuffle()`: Shuffles the deck.
+- `getRoundScore()`: Retrieves the score for the current round.
+- `nextRound()`: Progresses to the next round.
+- `evaluateHand()`: Evaluates a set of cards according to poker rules.
 
 ---
 
@@ -521,7 +504,13 @@ The documentation is structured as follows:
 
 Output will be available under `build/docs/javadoc/`.
 
-- Rest To Be Add
+### Testing
+
+The testing follows the main Javatro package structure, as shown below:
+- `core`: Tests written for core logic, including card handling, ante management, and game rules.
+- `round`: Tests written for round logic, including round sanity checks.
+- `display`: Tests written for checking screens rendering correctly and in the right sequence.
+- `manager`: Tests written for monitoring game states after each action is played.
 
 ---
 
@@ -590,20 +579,15 @@ Javatro provides a streamlined, text-based roguelike deck-building experience in
 
 1. User requests to view their current hand.
 2. System displays the current hand of cards.
+   1. Use case ends.
 3. User selects cards to discard.
+   1. The user selects invalid cards for discarding.
+      1. System shows an error message.
+      2. Use case resumes at step 2.
 4. System removes the selected cards and draws new cards to replace them.
 5. System displays the updated hand.
 
-   Use case ends.
-
-**Extensions**
-
-- 2a. The hand is empty.
-  - Use case ends.
-
-- 3a. The user selects invalid cards for discarding.
-  - 3a1. System shows an error message.
-  - Use case resumes at step 2.
+Use case ends.
 
 ---
 
@@ -614,15 +598,12 @@ Javatro provides a streamlined, text-based roguelike deck-building experience in
 1. User requests to save the game.
 2. System serializes the current game state.
 3. System saves the serialized data to a file.
+   1. The file cannot be created or written.
+      1. System shows an error message indicating failure to save.
+      2. Use case ends.
 4. System confirms that the game has been successfully saved.
 
-   Use case ends.
-
-**Extensions**
-
-- 3a. The file cannot be created or written.
-  - 3a1. System shows an error message indicating failure to save.
-  - Use case ends.
+Use case ends.
 
 ---
 
@@ -632,20 +613,14 @@ Javatro provides a streamlined, text-based roguelike deck-building experience in
 
 1. User requests to load a previously saved game.
 2. System presents a list of available saved game files.
+   1. No saved game files are found.
+      1. Use case ends.
 3. User selects a saved game file to load.
 4. System reads the file and deserializes the game state.
+   1. The selected file is corrupted or incompatible.
+      1. System shows an error message.
+      2. Use case ends.
 5. System initializes the game to the loaded state.
-
-   Use case ends.
-
-**Extensions**
-
-- 2a. No saved game files are found.
-  - Use case ends.
-
-- 4a. The selected file is corrupted or incompatible.
-  - 4a1. System shows an error message.
-  - Use case ends.
 
 ---
 
@@ -691,14 +666,47 @@ Javatro provides a streamlined, text-based roguelike deck-building experience in
 
 ### Glossary
 
-- **Ante**: The initial bet placed by players before cards are dealt.
-- **Poker Hand**: A set of cards evaluated according to poker rules.
-- **Deck**: A collection of cards used in the game.
+**Ante**  
+A stage of a run. Each run is divided into multiple antes (usually eight),
+with each ante consisting of several rounds ( 3 blinds per ante) that you must clear to progress. As the
+antes increase, the score to beat also progressively increases.
+
+**Blind**  
+A round within an ante where you must score enough points (chips) to beat the challenge. There are three types:
+- **Small Blind**: The first round; you can skip or play it.
+- **Big Blind**: The second round; you can skip or play it.
+- **Boss Blind**: The final round of an ante with a unique, often restrictive challenge. This round cannot be skipped.
+
+**Chips**  
+Points earned from playing a hand.
+Each hand’s chip value is calculated from the cards played and later multiplied by a multiplier.
+
+**Multiplier**  
+A factor that increases your hand’s chip score.
+Multipliers can be raised through various effects, most notably by equipping Joker cards and obtaining Planet Cards.
+
+**Joker**  
+Special cards that reside in your “Joker slots” (up to five by default) and grant passive effects.
+These effects may add chips, boost multipliers, or modify how hands are scored.
+
+**Playing Cards**  
+The standard cards (initially a 52-card deck) that form the basis of every hand.
+
+**Planet Cards**  
+Upgrades specific poker hand types by increasing their base chip value and multiplier.
+
+**Discard**  
+A limited resource per round that lets you exchange unwanted cards from your hand.
+Managing discards is crucial for optimizing your hand.
+
+**Hand Size**  
+The number of cards drawn at the start of each round. It determines your options for forming poker hands.
+
+**Hands**  
+The number of times you can play cards during a round (similar to “lives”).
+If you run out of hands before meeting the blind’s score, the run ends.
+
+**Run**  
+A complete play session. A run ends when you fail an ante or successfully clear the final Boss Blind.
 
 ---
-
-### Dependencies
-
-- TO ADD
-
-

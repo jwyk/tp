@@ -154,6 +154,7 @@ Upon reaching the score requirement, the round ends and the player receives rewa
 When Ante 8 is completed, the player **wins** the run, and is allowed to start a new one.
 
 #### Information Provided:
+
 | Blind Information                                          |
 |------------------------------------------------------------|
 | Blind Name _(Boss Blinds will have unique names)_          |
@@ -279,6 +280,7 @@ Higher tier hands _take precedence_ over lower tier hands regardless of their le
 _Enter `1` to go back to the previous screen._
 
 #### Poker Hand Descriptions:
+
 | Poker Hand          | Condition                                                                                                                    |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
 | **High Card**       | When no other hand is possible, the one highest card in your hand. Aces are counted high for this hand.                      |
@@ -311,6 +313,7 @@ _Enter `1` to proceed to the next blind,
 or `2` to end the current game session._
 
 #### Planet Card Effects:
+
 | Planet Card | Bonus Stats           | Poker Hand      | Base Score          |
 |-------------|-----------------------|-----------------|---------------------|
 | Pluto       | +1 Mult and +10 Chips | High Card       | 1 Mult x 5 Chips    |
