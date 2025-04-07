@@ -2,8 +2,8 @@ package javatro.display.screens;
 
 import static javatro.display.UI.*;
 
-import javatro.core.Deck.DeckType;
 import javatro.audioplayer.AudioPlayer;
+import javatro.core.Deck.DeckType;
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
