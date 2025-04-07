@@ -26,29 +26,29 @@ public class HelpHowOption implements Option {
     /** Executes the command to display instructions on how to play. */
     @Override
     public void execute() throws JavatroException {
-        String title =                     "How To Play Javatro" ;
+        String title = "How To Play Javatro";
 
         String[] lines = {
-                "                          Welcome to the Javatro!                          ",
-                "                   Here's how to play and navigate the game:                ",
-                " 1. Start a new game run from the Main Menu by selecting [1]                    ",
-                " 2. Select the deck you desire from [1] to [4]                              ",
-                " 3. Choose your blind level by either accepting [1] or rejecting [2]        ",
-                " 4. Play cards [1] and form valid poker hands                               ",
-                " 5. Discard cards [2] you don't want to strategize your deck                ",
-                " 6. View deck [4] or poker hands [3] anytime                                ",
-                " 7. Follow menu navigation by entering the number for desired commands      ",
-                " 8. Build your strategy and aim for the highest score!                      ",
-                "                                                                            ",
-                "                         Ante and Blind System:                             ",
-                " - Each round starts with an ante and blind selection                       ",
-                " - The ante increases as you progress through rounds                        ",
-                " - Blinds rotate: Small Blind, Large Blind, and Boss Blind                  ",
-                " - Score requirements increase progressively                                ",
-                " - Only Boss Blind is compulsory; others are optional                       ",
-                " - Higher blinds mean higher risks and rewards!                             ",
-                "                                                                            ",
-                "              Have fun playing and may the best hand win!                   "
+            "                          Welcome to the Javatro!                          ",
+            "                   Here's how to play and navigate the game:                ",
+            " 1. Start a new game run from the Main Menu by selecting [1]                    ",
+            " 2. Select the deck you desire from [1] to [4]                              ",
+            " 3. Choose your blind level by either accepting [1] or rejecting [2]        ",
+            " 4. Play cards [1] and form valid poker hands                               ",
+            " 5. Discard cards [2] you don't want to strategize your deck                ",
+            " 6. View deck [4] or poker hands [3] anytime                                ",
+            " 7. Follow menu navigation by entering the number for desired commands      ",
+            " 8. Build your strategy and aim for the highest score!                      ",
+            "                                                                            ",
+            "                         Ante and Blind System:                             ",
+            " - Each round starts with an ante and blind selection                       ",
+            " - The ante increases as you progress through rounds                        ",
+            " - Blinds rotate: Small Blind, Large Blind, and Boss Blind                  ",
+            " - Score requirements increase progressively                                ",
+            " - Only Boss Blind is compulsory; others are optional                       ",
+            " - Higher blinds mean higher risks and rewards!                             ",
+            "                                                                            ",
+            "              Have fun playing and may the best hand win!                   "
         };
 
         UI.printBorderedContent(title, List.of(lines));
