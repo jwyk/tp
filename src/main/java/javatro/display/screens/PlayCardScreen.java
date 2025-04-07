@@ -19,7 +19,7 @@ public class PlayCardScreen extends CardSelectScreen {
      * @throws JavatroException if an error occurs during initialization.
      */
     public PlayCardScreen() throws JavatroException {
-        super("SELECT CARDS TO PLAY");
+        super("Select Cards to Play");
     }
 
     /**

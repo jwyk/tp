@@ -22,7 +22,7 @@ public class RunSelectScreen extends Screen {
      * @throws JavatroException if optionsTitle is null or empty
      */
     public RunSelectScreen() throws JavatroException {
-        super("Select Run To Load");
+        super("RUN SELECT MENU");
         if (storage.getNumberOfRuns() > 0) {
             super.commandMap.add(new StartRunOption());
             super.commandMap.add(new ViewNextRunOption());
@@ -95,7 +95,7 @@ public class RunSelectScreen extends Screen {
 
             contents.add("\u001B[0m"); // Reset to avoid color bleeding
 
-            printBorderedContent("NO SAVED RUNS", contents);
+            printBorderedContent("NO SAVED RUNS FOUND!", contents);
         }
     }
 

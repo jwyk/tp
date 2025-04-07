@@ -19,7 +19,7 @@ public class DiscardCardScreen extends CardSelectScreen {
      * @throws JavatroException if an error occurs during initialization.
      */
     public DiscardCardScreen() throws JavatroException {
-        super("SELECT CARDS TO DISCARD");
+        super("Select Cards to Discard");
     }
 
     /**
