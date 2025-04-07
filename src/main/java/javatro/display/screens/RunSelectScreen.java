@@ -2,7 +2,7 @@ package javatro.display.screens;
 
 import static javatro.display.UI.*;
 
-import javatro.audioplayer.AudioPlayer;
+import javatro.core.Deck.DeckType;
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
@@ -24,27 +24,16 @@ public class RunSelectScreen extends Screen {
     public RunSelectScreen() throws JavatroException {
         super("Select Run To Load");
         if (storage.getNumberOfRuns() > 0) {
-            super.commandMap.add(new StartRunNumberOption());
-            super.commandMap.add(new SeeNextRunOption());
-            super.commandMap.add(new SeePreviousRun());
-            super.commandMap.add(new LoadJumpToRunScreenOption());
+            super.commandMap.add(new StartRunOption());
+            super.commandMap.add(new ViewNextRunOption());
+            super.commandMap.add(new ViewPrevRunOption());
+            super.commandMap.add(new ViewRunListOption());
         }
-
-        StartGameOption startGameOption = new StartGameOption();
-        startGameOption.setDescription("Start A New Run");
-        super.commandMap.add(startGameOption);
+        super.commandMap.add(new StartGameOption());
     }
 
     @Override
     public void displayScreen() {
-
-        // Pipe output to test
-        //        if(!JavatroManager.runningTests) {
-        //            JavatroManager.runningTests = true;
-        //            this.getOutput();
-        //            JavatroManager.runningTests = false;
-        //        }
-
         if (storage.getNumberOfRuns() > 0) displayCurrentChosenRun();
         else {
 
@@ -107,10 +96,7 @@ public class RunSelectScreen extends Screen {
             contents.add("\u001B[0m"); // Reset to avoid color bleeding
 
             printBorderedContent("NO SAVED RUNS", contents);
-            System.out.println("\n");
         }
-        AudioPlayer.getInstance().stopAudio();
-        AudioPlayer.getInstance().playAudio("audioplayer/windows_error.wav");
     }
 
     public int getRunNumber() {
@@ -171,9 +157,16 @@ public class RunSelectScreen extends Screen {
         optionLines.add("");
 
         // Italicized deck name
+        int padding = 81;
+        if (Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX))
+                        == DeckType.ABANDONED
+                || Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX))
+                        == DeckType.CHECKERED) {
+            padding = 90;
+        }
         String italicDeckName = "\u001B[3m" + cardDesc + "\u001B[0m";
         visibleCardLine = stripAnsi(cardArt[0]);
-        int deckNamePadding = 81 + (visibleCardLine.length() - cardDesc.length()) / 2;
+        int deckNamePadding = padding + (visibleCardLine.length() - cardDesc.length()) / 2;
         String paddedDeckName = String.format("%" + deckNamePadding + "s", italicDeckName);
 
         String handValue = storage.getValue(runNumber - 1, Storage.HAND_INDEX);
@@ -219,7 +212,6 @@ public class RunSelectScreen extends Screen {
         optionLines.add(paddedDeckName);
 
         printBorderedContent("RUN #" + runNumber, optionLines);
-        System.out.println("\n");
     }
 
     String stripAnsi(String input) {

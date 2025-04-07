@@ -40,10 +40,6 @@ public class Javatro {
     public static void main(String[] args) throws JavatroException {
 
         assert false : "dummy assertion set to fail";
-        AudioPlayer audioPlayer = AudioPlayer.getInstance();
-        audioPlayer.playAudio("audioplayer/balatro_theme.wav");
-        System.out.println(audioPlayer.isPlaying());
-        // Continue with main flow
         JavatroManager.setScreen(new StartScreen());
     }
 }

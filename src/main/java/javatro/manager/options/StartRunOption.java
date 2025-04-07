@@ -11,7 +11,7 @@ import javatro.manager.JavatroManager;
 import javatro.storage.Storage;
 
 /** A command that loads the run selection screen when executed. */
-public class StartRunNumberOption implements Option {
+public class StartRunOption implements Option {
 
     private int runNumber = 1;
     private final Storage storage = Storage.getStorageInstance();
@@ -23,7 +23,7 @@ public class StartRunNumberOption implements Option {
     @Override
     public String getDescription() {
         runNumber = UI.getRunSelectScreen().getRunNumber();
-        return "Start With Run " + runNumber;
+        return "Continue Run #" + runNumber;
     }
 
     /** Executes the command to change the screen to the start menu. */

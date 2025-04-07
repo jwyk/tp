@@ -7,6 +7,8 @@ import javatro.storage.Storage;
 
 import java.util.ArrayList;
 
+// @@author jwyk
+
 /** Holds all the Jokers the player has in an ArrayList of type Joker. */
 public class HeldJokers {
     // By Default, HOLDING_LIMIT is 5.
@@ -39,6 +41,8 @@ public class HeldJokers {
                             Storage.jokerToString(heldJokers.get(j)));
                 }
             }
+
+            storage.updateSaveFile();
         }
     }
 

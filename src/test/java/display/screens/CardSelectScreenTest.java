@@ -7,7 +7,7 @@ import javatro.display.screens.StartScreen;
 import javatro.manager.JavatroManager;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.HelpMenuOption;
-import javatro.manager.options.LoadRunSelectOption;
+import javatro.manager.options.RunSelectOption;
 import javatro.manager.options.Option;
 import javatro.utilities.csvutils.CSVUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +39,7 @@ public class CardSelectScreenTest extends ScreenTest {
 
     @Test
     public void commandMatchCheck() {
-        expectedCommands.add(LoadRunSelectOption.class);
+        expectedCommands.add(RunSelectOption.class);
         expectedCommands.add(HelpMenuOption.class);
         expectedCommands.add(ExitGameOption.class);
 

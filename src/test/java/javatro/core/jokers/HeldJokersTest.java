@@ -46,7 +46,7 @@ public class HeldJokersTest {
                         new Card(QUEEN, SPADES),
                         new Card(KING, SPADES));
 
-        Storage.getStorageInstance().setRunChosen(1);
+        Storage.saveActive = false;
     }
 
 
@@ -57,7 +57,6 @@ public class HeldJokersTest {
     @Test
     void testIllegalAdd() {
         Joker gluttonousJoker = new GluttonousJoker();
-        Storage.saveActive = false;
         try {
             for (int i = 0; i < 10; i++) {
                 heldJokers.add(gluttonousJoker);

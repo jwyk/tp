@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import javatro.storage.Storage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,7 @@ class PlanetCardTest {
      */
     @AfterEach
     void resetState() {
+        Storage.saveActive = false;
         for (PokerHand.HandType handType : PokerHand.HandType.values()) {
             PlanetCard.LEVELS.put(handType, 1);
         }
@@ -92,6 +94,7 @@ class PlanetCardTest {
      */
     @Test
     void apply_oneHandType_doesNotAffectOtherLevels() {
+        Storage.getStorageInstance().setRunChosen(1);
         PlanetCard modifiedCard = PlanetCard.getForHand(PokerHand.HandType.TWO_PAIR);
         modifiedCard.apply();
 

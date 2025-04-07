@@ -1,7 +1,6 @@
 // @@author flyingapricot
 package javatro.manager.options;
 
-import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
@@ -13,7 +12,7 @@ import javatro.storage.Storage;
  */
 public class StartGameOption implements Option {
 
-    private String description = "Start Game"; // Default description
+    private String description = "Start New Game"; // Default description
 
     /**
      * Provides a brief description of the command.
@@ -43,14 +42,21 @@ public class StartGameOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
+        Storage.getStorageInstance().addNewRun();
+        JavatroManager.setScreen(UI.getDeckSelectScreen());
+
+        /*
         // Return to game if there is an existing game.
         if (JavatroCore.currentRound == null || JavatroCore.currentRound.isLost()) {
             if (JavatroCore.currentRound == null) Storage.getStorageInstance().addNewRun();
             JavatroCore.currentRound = null;
             JavatroManager.setScreen(UI.getDeckSelectScreen());
         }
+
+        // Continue Game
         if (JavatroCore.currentRound != null) {
             JavatroManager.setScreen(UI.getGameScreen());
         }
+        */
     }
 }

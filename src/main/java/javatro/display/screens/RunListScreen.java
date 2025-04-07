@@ -5,8 +5,6 @@ import javatro.core.JavatroException;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
 
-import javax.sound.sampled.*;
-
 /**
  * Initial application screen displaying main menu options and game logo.
  *
@@ -18,21 +16,21 @@ import javax.sound.sampled.*;
  *   <li>Handling basic application navigation
  * </ul>
  */
-public class JumpToRunScreen extends Screen {
+public class RunListScreen extends Screen {
     /**
      * Constructs the jump to run screen with default main menu options.
      *
      * @throws JavatroException if screen initialization fails
      */
-    public JumpToRunScreen() throws JavatroException {
-        super("Jump To A Run");
+    public RunListScreen() throws JavatroException {
+        super("List of Saved Runs");
 
         Storage storage = Storage.getStorageInstance();
         int numberOfRuns = storage.getNumberOfRuns();
-        super.commandMap.add(new LoadRunSelectOption());
+        //        super.commandMap.add(new RunSelectOption());
 
         for (int i = 1; i <= numberOfRuns; i++) {
-            SelectRunNumberOption newRunOption = new SelectRunNumberOption();
+            ViewRunOption newRunOption = new ViewRunOption();
             newRunOption.setRunNumber(i);
             super.commandMap.add(newRunOption);
         }

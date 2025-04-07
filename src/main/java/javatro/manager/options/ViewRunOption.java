@@ -9,7 +9,7 @@ import javatro.display.UI;
 import javatro.manager.JavatroManager;
 
 /** A command that loads the run selection screen when executed. */
-public class SelectRunNumberOption implements Option {
+public class ViewRunOption implements Option {
 
     private int runNumber = 0;
 
@@ -20,7 +20,7 @@ public class SelectRunNumberOption implements Option {
      */
     @Override
     public String getDescription() {
-        return "Jump to Run " + runNumber;
+        return "View Run #" + runNumber;
     }
 
     /** Executes the command to change the screen to the start menu. */
