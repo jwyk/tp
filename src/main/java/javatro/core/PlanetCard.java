@@ -32,38 +32,63 @@ public class PlanetCard {
     private static final Map<PokerHand.HandType, PlanetCard> CARDS =
             new EnumMap<>(PokerHand.HandType.class);
 
-        static {
-            Storage storage = Storage.getStorageInstance();
-            int runIndex = storage.getRunChosen() - 1;
+    static {
+        Storage storage = Storage.getStorageInstance();
+        int runIndex = storage.getRunChosen() - 1;
 
-            if (runIndex >= 0 && runIndex < storage.getNumberOfRuns()) {
-                // Fetch all relevant data for the current run in one go
-                ArrayList<String> runData = StorageManager.getInstance().getRunData(runIndex);
+        if (runIndex >= 0 && runIndex < storage.getNumberOfRuns()) {
+            // Fetch all relevant data for the current run in one go
+            ArrayList<String> runData = StorageManager.getInstance().getRunData(runIndex);
 
-                assert runData != null : "Run data should not be null";
-                assert runData.size() > DataParser.FLUSH_FIVE_INDEX : "Run data is incomplete or corrupted";
+            assert runData != null : "Run data should not be null";
+            assert runData.size() > DataParser.FLUSH_FIVE_INDEX
+                    : "Run data is incomplete or corrupted";
 
-                // Load levels from storage
-                LEVELS.put(PokerHand.HandType.HIGH_CARD, Integer.parseInt(runData.get(DataParser.HIGH_CARD_INDEX)));
-                LEVELS.put(PokerHand.HandType.PAIR, Integer.parseInt(runData.get(DataParser.PAIR_INDEX)));
-                LEVELS.put(PokerHand.HandType.TWO_PAIR, Integer.parseInt(runData.get(DataParser.TWO_PAIR_INDEX)));
-                LEVELS.put(PokerHand.HandType.THREE_OF_A_KIND, Integer.parseInt(runData.get(DataParser.THREE_OF_A_KIND_INDEX)));
-                LEVELS.put(PokerHand.HandType.STRAIGHT, Integer.parseInt(runData.get(DataParser.STRAIGHT_INDEX)));
-                LEVELS.put(PokerHand.HandType.FLUSH, Integer.parseInt(runData.get(DataParser.FLUSH_INDEX)));
-                LEVELS.put(PokerHand.HandType.FULL_HOUSE, Integer.parseInt(runData.get(DataParser.FULL_HOUSE_INDEX)));
-                LEVELS.put(PokerHand.HandType.FOUR_OF_A_KIND, Integer.parseInt(runData.get(DataParser.FOUR_OF_A_KIND_INDEX)));
-                LEVELS.put(PokerHand.HandType.STRAIGHT_FLUSH, Integer.parseInt(runData.get(DataParser.STRAIGHT_FLUSH_INDEX)));
-                LEVELS.put(PokerHand.HandType.ROYAL_FLUSH, Integer.parseInt(runData.get(DataParser.ROYAL_FLUSH_INDEX)));
-                LEVELS.put(PokerHand.HandType.FIVE_OF_A_KIND, Integer.parseInt(runData.get(DataParser.FIVE_OF_A_KIND_INDEX)));
-                LEVELS.put(PokerHand.HandType.FLUSH_HOUSE, Integer.parseInt(runData.get(DataParser.FLUSH_HOUSE_INDEX)));
-                LEVELS.put(PokerHand.HandType.FLUSH_FIVE, Integer.parseInt(runData.get(DataParser.FLUSH_FIVE_INDEX)));
-            } else {
-                // Set default levels if no valid run data is found
-                for (PokerHand.HandType handType : PokerHand.HandType.values()) {
-                    LEVELS.put(handType, 1);
-                }
+            // Load levels from storage
+            LEVELS.put(
+                    PokerHand.HandType.HIGH_CARD,
+                    Integer.parseInt(runData.get(DataParser.HIGH_CARD_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.PAIR, Integer.parseInt(runData.get(DataParser.PAIR_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.TWO_PAIR,
+                    Integer.parseInt(runData.get(DataParser.TWO_PAIR_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.THREE_OF_A_KIND,
+                    Integer.parseInt(runData.get(DataParser.THREE_OF_A_KIND_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.STRAIGHT,
+                    Integer.parseInt(runData.get(DataParser.STRAIGHT_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.FLUSH,
+                    Integer.parseInt(runData.get(DataParser.FLUSH_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.FULL_HOUSE,
+                    Integer.parseInt(runData.get(DataParser.FULL_HOUSE_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.FOUR_OF_A_KIND,
+                    Integer.parseInt(runData.get(DataParser.FOUR_OF_A_KIND_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.STRAIGHT_FLUSH,
+                    Integer.parseInt(runData.get(DataParser.STRAIGHT_FLUSH_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.ROYAL_FLUSH,
+                    Integer.parseInt(runData.get(DataParser.ROYAL_FLUSH_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.FIVE_OF_A_KIND,
+                    Integer.parseInt(runData.get(DataParser.FIVE_OF_A_KIND_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.FLUSH_HOUSE,
+                    Integer.parseInt(runData.get(DataParser.FLUSH_HOUSE_INDEX)));
+            LEVELS.put(
+                    PokerHand.HandType.FLUSH_FIVE,
+                    Integer.parseInt(runData.get(DataParser.FLUSH_FIVE_INDEX)));
+        } else {
+            // Set default levels if no valid run data is found
+            for (PokerHand.HandType handType : PokerHand.HandType.values()) {
+                LEVELS.put(handType, 1);
             }
-
+        }
 
         // Populate predefined planet cards with their configurations
         CARDS.put(
@@ -225,19 +250,45 @@ public class PlanetCard {
         assert runData.size() > DataParser.FLUSH_FIVE_INDEX : "Run data is incomplete or corrupted";
 
         // Update Planet Card Levels in the runData list
-        runData.set(DataParser.HIGH_CARD_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.HIGH_CARD)));
-        runData.set(DataParser.PAIR_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.PAIR)));
-        runData.set(DataParser.TWO_PAIR_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.TWO_PAIR)));
-        runData.set(DataParser.THREE_OF_A_KIND_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.THREE_OF_A_KIND)));
-        runData.set(DataParser.STRAIGHT_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.STRAIGHT)));
-        runData.set(DataParser.FLUSH_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FLUSH)));
-        runData.set(DataParser.FULL_HOUSE_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FULL_HOUSE)));
-        runData.set(DataParser.FOUR_OF_A_KIND_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FOUR_OF_A_KIND)));
-        runData.set(DataParser.STRAIGHT_FLUSH_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.STRAIGHT_FLUSH)));
-        runData.set(DataParser.ROYAL_FLUSH_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.ROYAL_FLUSH)));
-        runData.set(DataParser.FIVE_OF_A_KIND_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FIVE_OF_A_KIND)));
-        runData.set(DataParser.FLUSH_HOUSE_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FLUSH_HOUSE)));
-        runData.set(DataParser.FLUSH_FIVE_INDEX, String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FLUSH_FIVE)));
+        runData.set(
+                DataParser.HIGH_CARD_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.HIGH_CARD)));
+        runData.set(
+                DataParser.PAIR_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.PAIR)));
+        runData.set(
+                DataParser.TWO_PAIR_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.TWO_PAIR)));
+        runData.set(
+                DataParser.THREE_OF_A_KIND_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.THREE_OF_A_KIND)));
+        runData.set(
+                DataParser.STRAIGHT_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.STRAIGHT)));
+        runData.set(
+                DataParser.FLUSH_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FLUSH)));
+        runData.set(
+                DataParser.FULL_HOUSE_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FULL_HOUSE)));
+        runData.set(
+                DataParser.FOUR_OF_A_KIND_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FOUR_OF_A_KIND)));
+        runData.set(
+                DataParser.STRAIGHT_FLUSH_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.STRAIGHT_FLUSH)));
+        runData.set(
+                DataParser.ROYAL_FLUSH_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.ROYAL_FLUSH)));
+        runData.set(
+                DataParser.FIVE_OF_A_KIND_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FIVE_OF_A_KIND)));
+        runData.set(
+                DataParser.FLUSH_HOUSE_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FLUSH_HOUSE)));
+        runData.set(
+                DataParser.FLUSH_FIVE_INDEX,
+                String.valueOf(PlanetCard.getLevel(PokerHand.HandType.FLUSH_FIVE)));
 
         // Save the updated run data back to the storage manager in one operation
         StorageManager.getInstance().saveRunData(runIndex, runData);

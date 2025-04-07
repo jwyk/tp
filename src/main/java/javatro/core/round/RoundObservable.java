@@ -2,9 +2,9 @@ package javatro.core.round;
 
 import javatro.core.*;
 import javatro.storage.DataParser;
+import javatro.storage.Storage;
 import javatro.storage.StorageManager;
 import javatro.storage.utils.CardUtils;
-import javatro.storage.Storage;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -72,7 +72,9 @@ class RoundObservable {
         // Update Rest of the Deck Cards
         ArrayList<Card> restOfTheCards = JavatroCore.currentRound.getDeck().getWholeDeck();
 
-        for (int j = DataParser.START_OF_REST_OF_DECK; j < DataParser.START_OF_REST_OF_DECK + 44; j++) {
+        for (int j = DataParser.START_OF_REST_OF_DECK;
+                j < DataParser.START_OF_REST_OF_DECK + 44;
+                j++) {
             int idx = j - DataParser.START_OF_REST_OF_DECK;
             if (idx >= restOfTheCards.size()) {
                 runData.set(j, "-");
@@ -89,6 +91,5 @@ class RoundObservable {
         } catch (JavatroException e) {
             System.out.println("Failed to Save To System");
         }
-
     }
 }

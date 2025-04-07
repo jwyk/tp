@@ -2,9 +2,9 @@ package javatro.core.jokers;
 
 import javatro.core.JavatroException;
 import javatro.storage.DataParser;
+import javatro.storage.Storage;
 import javatro.storage.StorageManager;
 import javatro.storage.utils.CardUtils;
-import javatro.storage.Storage;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class HeldJokers {
 
     /** Adds 1 Joker to the HeldJokers Class. */
     public void add(Joker joker) throws JavatroException {
-        if (heldJokers.size() >= HeldJokers.HOLDING_LIMIT) {  // Changed to >= for safety
+        if (heldJokers.size() >= HeldJokers.HOLDING_LIMIT) { // Changed to >= for safety
             throw JavatroException.exceedsMaxJokers();
         }
         heldJokers.add(joker);
@@ -42,7 +42,8 @@ public class HeldJokers {
             if (heldJokers.isEmpty() || j >= heldJokers.size()) {
                 runData.set(DataParser.JOKER_HAND_START_INDEX + j, "-");
             } else {
-                runData.set(DataParser.JOKER_HAND_START_INDEX + j,
+                runData.set(
+                        DataParser.JOKER_HAND_START_INDEX + j,
                         CardUtils.jokerToString(heldJokers.get(j)));
             }
         }

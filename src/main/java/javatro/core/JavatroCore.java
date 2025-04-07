@@ -8,9 +8,9 @@ import javatro.core.Deck.DeckType;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.round.Round;
 import javatro.storage.DataParser;
+import javatro.storage.Storage;
 import javatro.storage.StorageManager;
 import javatro.storage.utils.CardUtils;
-import javatro.storage.Storage;
 
 import java.util.*;
 
@@ -85,11 +85,7 @@ public class JavatroCore {
         StorageManager.getInstance().updateRoundData(runIndex, roundData);
 
         // Update deck
-        deck = new Deck(
-                CardUtils.DeckFromKey(
-                        storage.getValue(runIndex, DataParser.DECK_INDEX)
-                )
-        );
+        deck = new Deck(CardUtils.DeckFromKey(storage.getValue(runIndex, DataParser.DECK_INDEX)));
         Storage.isNewDeck = true;
 
         startNewRound(nextRound);
@@ -108,7 +104,8 @@ public class JavatroCore {
         ArrayList<String> runData = StorageManager.getInstance().getRunData(runIndex);
 
         assert runData != null : "Run data should not be null";
-        assert runData.size() > DataParser.JOKER_HAND_START_INDEX + 5 : "Run data is incomplete or corrupted";
+        assert runData.size() > DataParser.JOKER_HAND_START_INDEX + 5
+                : "Run data is incomplete or corrupted";
 
         // Initialize ante and round count
         ante.setBlind(CardUtils.BlindFromKey(runData.get(DataParser.BLIND_INDEX)));
@@ -119,7 +116,9 @@ public class JavatroCore {
         heldJokers = new HeldJokers();
 
         // Update Jokers
-        for (int i = DataParser.JOKER_HAND_START_INDEX; i < DataParser.JOKER_HAND_START_INDEX + 5; i++) {
+        for (int i = DataParser.JOKER_HAND_START_INDEX;
+                i < DataParser.JOKER_HAND_START_INDEX + 5;
+                i++) {
             String jokerString = runData.get(i);
             if (jokerString.equals("-") || jokerString.equals("NA")) continue;
 
@@ -133,7 +132,6 @@ public class JavatroCore {
         deck = new Deck(deckType);
     }
 
-
     /**
      * Starts a new round and assigns it to the current round.
      *
@@ -144,29 +142,31 @@ public class JavatroCore {
         // Set round number, discards and hands
         assert currentRound != null;
 
-        int savedPlays = Integer.parseInt(
-                storage.getValue(storage.getRunChosen() - 1, DataParser.HAND_INDEX)
-        );
-        int savedDiscards = Integer.parseInt(
-                storage.getValue(storage.getRunChosen() - 1, DataParser.DISCARD_INDEX)
-        );
+        int savedPlays =
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.HAND_INDEX));
+        int savedDiscards =
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.DISCARD_INDEX));
 
         if (savedPlays == -1) savedPlays = 4;
         if (savedDiscards == -1) savedDiscards = 3;
 
         currentRound.updatePlays(
-                deck.getDeckName().getName().equals("BLUE") && savedPlays == 4 ? savedPlays + 1 : savedPlays
-        );
+                deck.getDeckName().getName().equals("BLUE") && savedPlays == 4
+                        ? savedPlays + 1
+                        : savedPlays);
         currentRound.updateDiscards(
-                deck.getDeckName().getName().equals("RED") && savedDiscards == 3 ? savedDiscards + 1 : savedDiscards
-        );
+                deck.getDeckName().getName().equals("RED") && savedDiscards == 3
+                        ? savedDiscards + 1
+                        : savedDiscards);
 
         // Collect all the data that needs to be updated
         int runIndex = storage.getRunChosen() - 1;
         List<String> roundData = new ArrayList<>();
-        roundData.add(String.valueOf(currentRound.getRemainingPlays()));  // HAND_INDEX
-        roundData.add(String.valueOf(currentRound.getRemainingDiscards()));  // DISCARD_INDEX
-        roundData.add(String.valueOf(currentRound.getCurrentScore()));  // ROUND_SCORE_INDEX
+        roundData.add(String.valueOf(currentRound.getRemainingPlays())); // HAND_INDEX
+        roundData.add(String.valueOf(currentRound.getRemainingDiscards())); // DISCARD_INDEX
+        roundData.add(String.valueOf(currentRound.getCurrentScore())); // ROUND_SCORE_INDEX
 
         // Update StorageManager in one go
         StorageManager.getInstance().updateNewRoundData(runIndex, roundData);
@@ -208,7 +208,8 @@ public class JavatroCore {
         // Update round attributes
         newRound.setCurrentScore(
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, DataParser.ROUND_SCORE_INDEX)));
+                        storage.getValue(
+                                storage.getRunChosen() - 1, DataParser.ROUND_SCORE_INDEX)));
 
         // Update deck with rest of the cards (If deck is not empty)
         if (!Storage.isNewDeck) newRound.getDeck().populateWithSavedDeck();
@@ -218,8 +219,8 @@ public class JavatroCore {
         int emptyCardCount = 0;
 
         for (int i = DataParser.HOLDING_HAND_START_INDEX;
-             i < DataParser.HOLDING_HAND_START_INDEX + 8;
-             i++) {
+                i < DataParser.HOLDING_HAND_START_INDEX + 8;
+                i++) {
             if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
                     || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
                 emptyCardCount = emptyCardCount + 1;

@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * The {@code DataParser} class provides static utility methods for parsing, validating,
- * and loading CSV data related to game runs. This class is intended to work with the
- * {@link StorageManager} and does not maintain its own state.
+ * The {@code DataParser} class provides static utility methods for parsing, validating, and loading
+ * CSV data related to game runs. This class is intended to work with the {@link StorageManager} and
+ * does not maintain its own state.
  *
- * <p>All methods in this class are static, making it a utility class.
- * Constants related to CSV parsing are defined here for easy access.</p>
+ * <p>All methods in this class are static, making it a utility class. Constants related to CSV
+ * parsing are defined here for easy access.
  */
 public class DataParser {
 
@@ -53,14 +53,12 @@ public class DataParser {
     static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
     static final Set<String> VALID_BLINDS = Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
 
-    /**
-     * Private constructor to prevent instantiation of this utility class.
-     */
-    private DataParser() {
-    }
+    /** Private constructor to prevent instantiation of this utility class. */
+    private DataParser() {}
 
     /**
-     * Validates the provided CSV data for structural integrity, hash consistency, and logical validity.
+     * Validates the provided CSV data for structural integrity, hash consistency, and logical
+     * validity.
      *
      * @param csvRawData The raw CSV data as a {@code String}.
      * @return {@code true} if all rows in the CSV data are valid, otherwise {@code false}.
@@ -82,7 +80,8 @@ public class DataParser {
             List<String> rowData = new ArrayList<>(Arrays.asList(columns));
             rowData.remove(rowData.size() - 1);
 
-            assert storedHash != null && !storedHash.isEmpty() : "Stored hash must not be null or empty.";
+            assert storedHash != null && !storedHash.isEmpty()
+                    : "Stored hash must not be null or empty.";
 
             List<String> normalizedRowData = new ArrayList<>();
             for (String data : rowData) {
@@ -119,7 +118,15 @@ public class DataParser {
             }
 
             try {
-                int[] numericIndexes = {RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX, HAND_INDEX, DISCARD_INDEX, WINS_INDEX, LOSSES_INDEX};
+                int[] numericIndexes = {
+                    RUN_NUMBER_INDEX,
+                    ROUND_NUMBER_INDEX,
+                    ROUND_SCORE_INDEX,
+                    HAND_INDEX,
+                    DISCARD_INDEX,
+                    WINS_INDEX,
+                    LOSSES_INDEX
+                };
 
                 for (int index : numericIndexes) {
                     assert columns[index] != null : "Numeric index must not be null.";
