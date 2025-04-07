@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
-import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;
 import javatro.manager.options.Option;
 import javatro.utilities.csvutils.CSVUtils;

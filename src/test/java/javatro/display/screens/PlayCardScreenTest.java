@@ -1,15 +1,15 @@
 package javatro.display.screens;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import javatro.core.JavatroException;
-import javatro.display.UI;
 import javatro.manager.options.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayCardScreenTest extends ScreenTest {
 
@@ -45,5 +45,4 @@ public class PlayCardScreenTest extends ScreenTest {
 
         compareCommandListTypes(expectedCommands, actualCommands);
     }
-
 }

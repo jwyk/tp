@@ -1,10 +1,12 @@
 package javatro.display.screens;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import javatro.core.Card;
-import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,15 +14,13 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class GameScreenTest extends ScreenTest {
 
     private GameScreen gameScreen;
     private Storage storage;
 
     @BeforeEach
-    public void setUp()  {
+    public void setUp() {
         super.setUp();
         storage = Storage.getStorageInstance();
         Storage.saveActive = false;
@@ -53,10 +53,15 @@ public class GameScreenTest extends ScreenTest {
 
     @Test
     public void testPropertyChangeRoundDescription() {
-        PropertyChangeEvent event = new PropertyChangeEvent(this, "roundDescription", "", "This is a test round description.");
+        PropertyChangeEvent event =
+                new PropertyChangeEvent(
+                        this, "roundDescription", "", "This is a test round description.");
         gameScreen.propertyChange(event);
 
-        assertEquals("This is a test round description.", gameScreen.roundDescription, "Round description should be updated.");
+        assertEquals(
+                "This is a test round description.",
+                gameScreen.roundDescription,
+                "Round description should be updated.");
     }
 
     @Test
@@ -107,8 +112,14 @@ public class GameScreenTest extends ScreenTest {
         gameScreen.propertyChange(event);
 
         assertEquals(8, GameScreen.holdingHand.size(), "Holding hand should contain 8 cards.");
-        assertEquals(Card.Rank.ACE, GameScreen.holdingHand.get(0).rank(), "First card rank should be ACE.");
-        assertEquals(Card.Suit.SPADES, GameScreen.holdingHand.get(0).suit(), "First card suit should be SPADES.");
+        assertEquals(
+                Card.Rank.ACE,
+                GameScreen.holdingHand.get(0).rank(),
+                "First card rank should be ACE.");
+        assertEquals(
+                Card.Suit.SPADES,
+                GameScreen.holdingHand.get(0).suit(),
+                "First card suit should be SPADES.");
     }
 
     @Test

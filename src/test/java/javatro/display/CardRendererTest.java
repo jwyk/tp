@@ -1,11 +1,13 @@
 package javatro.display;
 
+import static javatro.display.UI.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import javatro.core.Card;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static javatro.display.UI.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class CardRendererTest {
 
@@ -68,7 +70,9 @@ public class CardRendererTest {
 
     @Test
     public void testRenderCard_NullCard() {
-        assertThrows(AssertionError.class, () -> CardRenderer.renderCard(null),
+        assertThrows(
+                AssertionError.class,
+                () -> CardRenderer.renderCard(null),
                 "Should throw AssertionError when rendering a null card.");
     }
 
@@ -85,29 +89,35 @@ public class CardRendererTest {
         assertTrue(spadesArt[2].contains("S"), "Spades card should contain 'S'.");
     }
 
-
     @Test
     public void testGetColour_Hearts() {
         String[] cardArt = CardRenderer.renderCard(heartsCard);
-        assertTrue(cardArt[0].contains(BOLD) && cardArt[0].contains(RED), "Hearts card should use RED color.");
+        assertTrue(
+                cardArt[0].contains(BOLD) && cardArt[0].contains(RED),
+                "Hearts card should use RED color.");
     }
 
     @Test
     public void testGetColour_Diamonds() {
         String[] cardArt = CardRenderer.renderCard(diamondsCard);
-        assertTrue(cardArt[0].contains(BOLD) && cardArt[0].contains(ORANGE), "Diamonds card should use ORANGE color.");
+        assertTrue(
+                cardArt[0].contains(BOLD) && cardArt[0].contains(ORANGE),
+                "Diamonds card should use ORANGE color.");
     }
 
     @Test
     public void testGetColour_Clubs() {
         String[] cardArt = CardRenderer.renderCard(clubsCard);
-        assertTrue(cardArt[0].contains(BOLD) && cardArt[0].contains(BLUE), "Clubs card should use BLUE color.");
+        assertTrue(
+                cardArt[0].contains(BOLD) && cardArt[0].contains(BLUE),
+                "Clubs card should use BLUE color.");
     }
 
     @Test
     public void testGetColour_Spades() {
         String[] cardArt = CardRenderer.renderCard(spadesCard);
-        assertTrue(cardArt[0].contains(BOLD) && cardArt[0].contains(PURPLE), "Spades card should use PURPLE color.");
+        assertTrue(
+                cardArt[0].contains(BOLD) && cardArt[0].contains(PURPLE),
+                "Spades card should use PURPLE color.");
     }
-
 }

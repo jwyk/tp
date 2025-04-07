@@ -1,16 +1,17 @@
 package javatro.display.screens;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import javatro.core.Card;
 import javatro.core.Deck;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckViewScreenTest {
 
@@ -28,12 +29,11 @@ public class DeckViewScreenTest {
         JavatroCore.deck = testDeck;
     }
 
-
     @Test
     public void testBuildCountMatrixCountsCorrectly() {
         List<Card> cards = testDeck.getWholeDeck();
-        DeckViewScreen.DeckCountData countData = deckViewScreen.buildCountMatrix(new ArrayList<>(cards));
-
+        DeckViewScreen.DeckCountData countData =
+                deckViewScreen.buildCountMatrix(new ArrayList<>(cards));
 
         assertEquals(13, countData.suitTotals[0]); // Spades
         assertEquals(13, countData.suitTotals[1]); // Hearts
@@ -41,11 +41,11 @@ public class DeckViewScreenTest {
         assertEquals(13, countData.suitTotals[3]); // Diamonds
     }
 
-
     @Test
     public void testBuildDeckTableFormatting() {
         List<Card> cards = testDeck.getWholeDeck();
-        DeckViewScreen.DeckCountData countData = deckViewScreen.buildCountMatrix(new ArrayList<>(cards));
+        DeckViewScreen.DeckCountData countData =
+                deckViewScreen.buildCountMatrix(new ArrayList<>(cards));
 
         StringBuilder table = deckViewScreen.buildDeckTable("Test Deck", countData);
 
@@ -75,7 +75,9 @@ public class DeckViewScreenTest {
     @Test
     public void testDisplayScreenWithNullDeck() {
         JavatroCore.deck = null;
-        assertThrows(NullPointerException.class, () -> deckViewScreen.displayScreen(),
+        assertThrows(
+                NullPointerException.class,
+                () -> deckViewScreen.displayScreen(),
                 "DeckViewScreen should throw an error when the deck is null.");
     }
 }

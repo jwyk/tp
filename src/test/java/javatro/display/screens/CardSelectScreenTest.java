@@ -1,18 +1,16 @@
 package javatro.display.screens;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import javatro.core.*;
-import javatro.core.jokers.HeldJokers;
-import javatro.core.round.Round;
 import javatro.manager.options.*;
-import javatro.display.UI;
 import javatro.storage.Storage;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class CardSelectScreenTest extends ScreenTest {
 
@@ -31,7 +29,9 @@ public class CardSelectScreenTest extends ScreenTest {
 
     @Test
     public void testScreenInitialization() {
-        assertDoesNotThrow(() -> new CardSelectScreenImpl("TEST CARD SELECT SCREEN"), "CardSelectScreen should initialize without errors.");
+        assertDoesNotThrow(
+                () -> new CardSelectScreenImpl("TEST CARD SELECT SCREEN"),
+                "CardSelectScreen should initialize without errors.");
     }
 
     @Test
@@ -49,7 +49,6 @@ public class CardSelectScreenTest extends ScreenTest {
 
         compareCommandListTypes(expectedCommands, actualCommands);
     }
-
 
     // A concrete implementation for the abstract class to enable testing
     private static class CardSelectScreenImpl extends CardSelectScreen {

@@ -1,14 +1,13 @@
 package javatro.display;
 
-import javatro.display.UI;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UIPrintANSITest {
 
@@ -36,7 +35,9 @@ class UIPrintANSITest {
 
         String output = outContent.toString().trim();
 
-        assertFalse(output.contains("ANSI TEXT"), "Should not display fallback message for valid file.");
+        assertFalse(
+                output.contains("ANSI TEXT"),
+                "Should not display fallback message for valid file.");
         assertFalse(output.isEmpty(), "Output should not be empty when valid file is loaded.");
     }
 
@@ -48,19 +49,29 @@ class UIPrintANSITest {
         String output = outContent.toString().trim();
         String errorOutput = errContent.toString().trim();
 
-        assertTrue(output.contains("ANSI TEXT"), "Fallback message should be displayed for invalid file.");
-        assertTrue(errorOutput.contains("Error loading ANSI art"), "Error message should be printed to stderr.");
+        assertTrue(
+                output.contains("ANSI TEXT"),
+                "Fallback message should be displayed for invalid file.");
+        assertTrue(
+                errorOutput.contains("Error loading ANSI art"),
+                "Error message should be printed to stderr.");
     }
 
     @Test
     public void testPrintANSI_NullFileName() {
         // Test with a null file name
-        assertThrows(AssertionError.class, () -> UI.printANSI(null), "Null file name should trigger assertion.");
+        assertThrows(
+                AssertionError.class,
+                () -> UI.printANSI(null),
+                "Null file name should trigger assertion.");
     }
 
     @Test
     public void testPrintANSI_EmptyFileName() {
         // Test with an empty file name
-        assertThrows(AssertionError.class, () -> UI.printANSI(""), "Empty file name should trigger assertion.");
+        assertThrows(
+                AssertionError.class,
+                () -> UI.printANSI(""),
+                "Empty file name should trigger assertion.");
     }
 }

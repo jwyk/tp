@@ -1,5 +1,8 @@
 package javatro.display.screens;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
 
@@ -7,9 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class StartScreenTest extends ScreenTest {
 
@@ -42,7 +42,4 @@ public class StartScreenTest extends ScreenTest {
 
         assertEquals(3, actualCommands.size());
     }
-
-
-
 }
