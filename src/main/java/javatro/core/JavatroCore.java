@@ -240,7 +240,6 @@ public class JavatroCore {
             newRound.setPlayerHandCards(savedCards);
         }
 
-
         // Update Jokers
         for (int i = DataParser.JOKER_HAND_START_INDEX;
                 i < DataParser.JOKER_HAND_START_INDEX + 5;
