@@ -2,8 +2,8 @@ package javatro.core.round;
 
 import javatro.core.*;
 import javatro.storage.DataParser;
-import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
+import javatro.storage.utils.CardUtils;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -72,7 +72,9 @@ class RoundObservable {
 
         Storage storage = Storage.getStorageInstance();
 
-        for (int j = DataParser.START_OF_REST_OF_DECK; j < DataParser.START_OF_REST_OF_DECK + 44; j++) {
+        for (int j = DataParser.START_OF_REST_OF_DECK;
+                j < DataParser.START_OF_REST_OF_DECK + 44;
+                j++) {
 
             int idx = j - DataParser.START_OF_REST_OF_DECK;
 

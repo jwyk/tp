@@ -1,23 +1,16 @@
 package javatro.storage;
 
 import javatro.core.*;
-import javatro.storage.utils.CardUtils;
-import javatro.storage.utils.HashUtil;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 public class Storage {
     /** Path to the task storage file. */
     private static Storage storageInstance;
+
     private static final StorageManager storageManager = StorageManager.getInstance();
     public static Boolean isNewDeck = false;
     private static int runChosen = 0;
-
 
     private Storage() {
         try {
@@ -34,7 +27,6 @@ public class Storage {
         return storageInstance;
     }
 
-
     public void updateSaveFile() throws JavatroException {
         storageManager.updateSaveFile();
     }
@@ -45,7 +37,8 @@ public class Storage {
 
     public TreeMap<Integer, List<String>> getSerializedRunData() {
         TreeMap<Integer, List<String>> copy = new TreeMap<>();
-        for (Map.Entry<Integer, ArrayList<String>> entry : StorageManager.getInstance().getAllRunData().entrySet()) {
+        for (Map.Entry<Integer, ArrayList<String>> entry :
+                StorageManager.getInstance().getAllRunData().entrySet()) {
             // Deep copy each list
             copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
         }
@@ -63,7 +56,7 @@ public class Storage {
 
         // Get the new run number
         int arrSize = storageManager.getNumberOfRuns();
-//        int arrSize = serializedRunData.isEmpty() ? 0 : serializedRunData.size();
+        //        int arrSize = serializedRunData.isEmpty() ? 0 : serializedRunData.size();
 
         // Adding default values as specified
         newRun.add(String.valueOf(arrSize)); // RUN_NUMBER
@@ -99,11 +92,11 @@ public class Storage {
 
         // Add the run to the serializedRunData map using the next run number as the key
         storageManager.saveRunData(arrSize, newRun);
-        //serializedRunData.put(arrSize, newRun);
+        // serializedRunData.put(arrSize, newRun);
 
         // Set run chosen to new run
         runChosen = storageManager.getNumberOfRuns();
-        //runChosen = serializedRunData.size();
+        // runChosen = serializedRunData.size();
     }
 
     public int getNumberOfRuns() {
@@ -119,7 +112,6 @@ public class Storage {
         ArrayList<String> runData = storageManager.getRunData(runNumber);
         runData.set(idx, value);
         storageManager.saveRunData(runNumber, runData);
-
     }
 
     public int getRunChosen() {
@@ -129,5 +121,4 @@ public class Storage {
     public void setRunChosen(int runChosen) {
         Storage.runChosen = runChosen;
     }
-
 }

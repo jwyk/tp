@@ -1,5 +1,13 @@
 package javatro.storage.utils;
 
+import static javatro.core.Ante.Blind.BOSS_BLIND;
+import static javatro.core.Ante.Blind.LARGE_BLIND;
+import static javatro.core.Ante.Blind.SMALL_BLIND;
+import static javatro.display.DeckArt.ABANDONED_DECK;
+import static javatro.display.DeckArt.BLUE_DECK;
+import static javatro.display.DeckArt.CHECKERED_DECK;
+import static javatro.display.DeckArt.RED_DECK;
+
 import javatro.core.Ante;
 import javatro.core.Card;
 import javatro.core.Deck;
@@ -8,14 +16,6 @@ import javatro.core.jokers.addchip.OddToddJoker;
 import javatro.core.jokers.addchip.ScaryFaceJoker;
 import javatro.core.jokers.addmult.*;
 import javatro.display.DeckArt;
-
-import static javatro.core.Ante.Blind.BOSS_BLIND;
-import static javatro.core.Ante.Blind.LARGE_BLIND;
-import static javatro.core.Ante.Blind.SMALL_BLIND;
-import static javatro.display.DeckArt.ABANDONED_DECK;
-import static javatro.display.DeckArt.BLUE_DECK;
-import static javatro.display.DeckArt.CHECKERED_DECK;
-import static javatro.display.DeckArt.RED_DECK;
 
 public class CardUtils {
 

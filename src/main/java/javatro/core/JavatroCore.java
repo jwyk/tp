@@ -8,8 +8,8 @@ import javatro.core.Deck.DeckType;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.round.Round;
 import javatro.storage.DataParser;
-import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
+import javatro.storage.utils.CardUtils;
 
 import java.util.*;
 
@@ -82,8 +82,8 @@ public class JavatroCore {
 
         // Update Holding Hand
         for (int i = DataParser.HOLDING_HAND_START_INDEX;
-             i < DataParser.HOLDING_HAND_START_INDEX + 8;
-             i++) {
+                i < DataParser.HOLDING_HAND_START_INDEX + 8;
+                i++) {
             Card currentCard =
                     nextRound.getPlayerHandCards().get(i - DataParser.HOLDING_HAND_START_INDEX);
             storage.setValue(
@@ -96,7 +96,8 @@ public class JavatroCore {
         deck =
                 new Deck(
                         CardUtils.DeckFromKey(
-                                storage.getValue(storage.getRunChosen() - 1, DataParser.DECK_INDEX)));
+                                storage.getValue(
+                                        storage.getRunChosen() - 1, DataParser.DECK_INDEX)));
         Storage.isNewDeck = true;
 
         startNewRound(nextRound);
@@ -111,23 +112,28 @@ public class JavatroCore {
                         storage.getValue(storage.getRunChosen() - 1, DataParser.BLIND_INDEX)));
         ante.setAnteCount(
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, DataParser.ANTE_NUMBER_INDEX)));
+                        storage.getValue(
+                                storage.getRunChosen() - 1, DataParser.ANTE_NUMBER_INDEX)));
         roundCount =
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, DataParser.ROUND_NUMBER_INDEX));
+                        storage.getValue(
+                                storage.getRunChosen() - 1, DataParser.ROUND_NUMBER_INDEX));
 
         totalPlays = 4;
         heldJokers = new HeldJokers();
 
         // Update Jokers
-        for (int i = DataParser.JOKER_HAND_START_INDEX; i < DataParser.JOKER_HAND_START_INDEX + 5; i++) {
+        for (int i = DataParser.JOKER_HAND_START_INDEX;
+                i < DataParser.JOKER_HAND_START_INDEX + 5;
+                i++) {
             if (Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "-")
                     || Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "NA"))
                 continue;
 
             try {
                 heldJokers.add(
-                        CardUtils.parseJokerString(storage.getValue(storage.getRunChosen() - 1, i)));
+                        CardUtils.parseJokerString(
+                                storage.getValue(storage.getRunChosen() - 1, i)));
             } catch (JavatroException e) {
                 throw new RuntimeException(e);
             }
@@ -148,7 +154,8 @@ public class JavatroCore {
         assert currentRound != null;
 
         int savedPlays =
-                Integer.parseInt(storage.getValue(storage.getRunChosen() - 1, DataParser.HAND_INDEX));
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.HAND_INDEX));
         int savedDiscards =
                 Integer.parseInt(
                         storage.getValue(storage.getRunChosen() - 1, DataParser.DISCARD_INDEX));
@@ -216,7 +223,8 @@ public class JavatroCore {
         // Update round attributes
         newRound.setCurrentScore(
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, DataParser.ROUND_SCORE_INDEX)));
+                        storage.getValue(
+                                storage.getRunChosen() - 1, DataParser.ROUND_SCORE_INDEX)));
 
         // Update deck with rest of the cards (If deck is not empty)
         if (!Storage.isNewDeck) newRound.getDeck().populateWithSavedDeck();
@@ -226,8 +234,8 @@ public class JavatroCore {
         int emptyCardCount = 0;
 
         for (int i = DataParser.HOLDING_HAND_START_INDEX;
-             i < DataParser.HOLDING_HAND_START_INDEX + 8;
-             i++) {
+                i < DataParser.HOLDING_HAND_START_INDEX + 8;
+                i++) {
             if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
                     || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
                 emptyCardCount = emptyCardCount + 1;

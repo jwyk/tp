@@ -21,7 +21,6 @@ public class StorageManager {
     private static final Path saveFilePath = Paths.get(SAVEFILE_LOCATION);
     private String csvRawData; // Raw data from csv
 
-
     private StorageManager() {}
 
     public static StorageManager getInstance() {
@@ -64,7 +63,6 @@ public class StorageManager {
                     "Save File could not be created, current session will not have saving"
                             + " features.");
         }
-
     }
 
     private byte[] convertSerializedDataIntoString() {
@@ -99,7 +97,6 @@ public class StorageManager {
         return saveData.toString().getBytes();
     }
 
-
     public void updateSaveFile() throws JavatroException {
         try {
             Files.write(
@@ -110,7 +107,6 @@ public class StorageManager {
         } catch (IOException e) {
             throw new JavatroException("SAVING ISSUE: " + e.getMessage());
         }
-
     }
 
     public void initaliseSaveFile() throws JavatroException {
@@ -135,12 +131,12 @@ public class StorageManager {
                 DataParser.loadCSVData(csvRawData);
 
             } catch (Exception e) {
-                createSaveFile(); // Create a new save file since current save file is corrupted or has not been created
+                createSaveFile(); // Create a new save file since current save file is corrupted or
+                                  // has not been created
                 System.out.println("Creating new save file..");
             }
         } else {
             createSaveFile();
         }
-
     }
 }

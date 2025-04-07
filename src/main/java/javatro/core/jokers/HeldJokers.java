@@ -2,8 +2,8 @@ package javatro.core.jokers;
 
 import javatro.core.JavatroException;
 import javatro.storage.DataParser;
-import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
+import javatro.storage.utils.CardUtils;
 
 import java.util.ArrayList;
 

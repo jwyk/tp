@@ -7,8 +7,8 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
 import javatro.storage.DataParser;
-import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
+import javatro.storage.utils.CardUtils;
 
 /**
  * Represents a menu option for selecting a specific deck type to start a new game. When executed,

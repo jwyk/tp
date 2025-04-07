@@ -41,8 +41,7 @@ public class DataParser {
     public static final int START_OF_REST_OF_DECK = 36;
 
     static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
-    static final Set<String> VALID_BLINDS =
-            Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
+    static final Set<String> VALID_BLINDS = Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
 
     public static boolean isCSVDataValid(String csvRawData) {
 
@@ -106,13 +105,13 @@ public class DataParser {
             // Validate predefined numeric columns
             try {
                 int[] numericIndexes = {
-                        DataParser.RUN_NUMBER_INDEX,
-                        DataParser.ROUND_NUMBER_INDEX,
-                        DataParser.ROUND_SCORE_INDEX,
-                        DataParser.HAND_INDEX,
-                        DataParser.DISCARD_INDEX,
-                        DataParser.WINS_INDEX,
-                        DataParser.LOSSES_INDEX
+                    DataParser.RUN_NUMBER_INDEX,
+                    DataParser.ROUND_NUMBER_INDEX,
+                    DataParser.ROUND_SCORE_INDEX,
+                    DataParser.HAND_INDEX,
+                    DataParser.DISCARD_INDEX,
+                    DataParser.WINS_INDEX,
+                    DataParser.LOSSES_INDEX
                 };
 
                 for (int index : numericIndexes) {
@@ -133,7 +132,9 @@ public class DataParser {
             }
 
             // Validate holding hands (Fixed 8 slots)
-            for (int i = DataParser.HOLDING_HAND_START_INDEX; i < DataParser.JOKER_HAND_START_INDEX; i++) {
+            for (int i = DataParser.HOLDING_HAND_START_INDEX;
+                    i < DataParser.JOKER_HAND_START_INDEX;
+                    i++) {
                 String card = columns[i].trim();
                 if (!card.equals("NA") && !CardUtils.isValidCardString(card)) {
                     System.out.println("Invalid holding card: " + card);
@@ -167,7 +168,9 @@ public class DataParser {
             }
 
             // Validate the rest of the deck
-            for (int i = DataParser.START_OF_REST_OF_DECK; i < DataParser.START_OF_REST_OF_DECK + 44; i++) {
+            for (int i = DataParser.START_OF_REST_OF_DECK;
+                    i < DataParser.START_OF_REST_OF_DECK + 44;
+                    i++) {
                 String card = columns[i].trim();
                 if (!card.equals("NA") && !CardUtils.isValidCardString(card)) {
                     System.out.println("Invalid rest of the deck card: " + card);
@@ -188,7 +191,5 @@ public class DataParser {
             ArrayList<String> runInfoList = new ArrayList<>(Arrays.asList(runInfo));
             storageManager.saveRunData(i, runInfoList);
         }
-
     }
-
 }
