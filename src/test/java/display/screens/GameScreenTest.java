@@ -1,23 +1,22 @@
 package display.screens;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
-import javatro.display.screens.GameScreen;
-import javatro.display.screens.StartScreen;
 import javatro.manager.JavatroManager;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
 import javatro.utilities.csvutils.CSVUtils;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class GameScreenTest extends ScreenTest {
     @BeforeEach
@@ -61,13 +60,10 @@ public class GameScreenTest extends ScreenTest {
         expectedCommands.add(MainMenuOption.class);
         expectedCommands.add(ExitGameOption.class);
 
-
         List<Option> actualCommands = UI.getGameScreen().getCommandMap();
-
 
         compareCommandListTypes(expectedCommands, actualCommands);
     }
-
 
     // AudioPlayer Handling
     @Test
@@ -82,5 +78,4 @@ public class GameScreenTest extends ScreenTest {
             fail("Audio handling caused an unexpected exception: " + e.getMessage());
         }
     }
-
 }
