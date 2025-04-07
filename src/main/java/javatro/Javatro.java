@@ -1,14 +1,11 @@
 package javatro;
 
-import java.io.IOException;
 import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
-import javatro.display.screens.GameScreen;
 import javatro.display.screens.StartScreen;
 import javatro.manager.JavatroManager;
-import javatro.utilities.outpututils.OutputUtils;
 
 /**
  * The {@code javatro} class serves as the main entry point for the application. It initializes the

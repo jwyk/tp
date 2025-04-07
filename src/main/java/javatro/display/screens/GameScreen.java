@@ -30,11 +30,11 @@ import static javatro.display.UI.getCardArtLines;
 import static javatro.display.UI.getDisplayLength;
 import static javatro.display.UI.padToWidth;
 
-import javatro.audioplayer.AudioPlayer;
 import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.core.jokers.Joker;
+import javatro.manager.JavatroManager;
 import javatro.manager.options.DeckViewOption;
 import javatro.manager.options.DiscardCardOption;
 import javatro.manager.options.ExitGameOption;
@@ -51,7 +51,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import javatro.manager.JavatroManager;
 
 /**
  * GameScreen class represents the game menu screen in the Javatro application. It displays game
@@ -117,15 +116,15 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     @Override
     public void displayScreen() {
 
-//        if (!AudioPlayer.getInstance()
-//                .getCurrentAudioPath()
-//                .equals("audioplayer/balatro_theme.wav")) {
-//            AudioPlayer.getInstance().stopAudio();
-//            AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
-//        }
+        //        if (!AudioPlayer.getInstance()
+        //                .getCurrentAudioPath()
+        //                .equals("audioplayer/balatro_theme.wav")) {
+        //            AudioPlayer.getInstance().stopAudio();
+        //            AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
+        //        }
 
-        //Pipe output to test
-        if(!JavatroManager.runningTests) {
+        // Pipe output to test
+        if (!JavatroManager.runningTests) {
             JavatroManager.runningTests = true;
             this.getOutput();
             JavatroManager.runningTests = false;

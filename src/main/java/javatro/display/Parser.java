@@ -73,7 +73,7 @@ public class Parser {
     public void getOptionInput() throws JavatroException {
         Scanner scanner = new Scanner(System.in);
         int maxRange = getCurrentScreen().getOptionsSize();
-      assert maxRange > 0 : "Screen options size must be positive";
+        assert maxRange > 0 : "Screen options size must be positive";
 
         if (maxRange <= 0) {
             throw JavatroException.invalidOptionsSize();
