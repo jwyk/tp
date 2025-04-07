@@ -5,6 +5,8 @@ import static javatro.display.UI.*;
 import javatro.core.Deck.DeckType;
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
+import javatro.storage.DataParser;
+import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
 
 import java.util.ArrayList;
@@ -114,37 +116,37 @@ public class RunSelectScreen extends Screen {
         // Replace this with the actual split ANSI card art
         String[] cardArt;
         String cardDesc = "";
-        if (storage.getValue(runNumber - 1, Storage.DECK_INDEX)
-                        .charAt(storage.getValue(runNumber - 1, Storage.DECK_INDEX).length() - 1)
+        if (storage.getValue(runNumber - 1, DataParser.DECK_INDEX)
+                        .charAt(storage.getValue(runNumber - 1, DataParser.DECK_INDEX).length() - 1)
                 == ']') {
             cardArt =
-                    Storage.fromStorageKey(
+                    CardUtils.fromStorageKey(
                                     storage.getValue(runNumber - 1, 8)
                                             .substring(
                                                     0,
                                                     storage.getValue(
                                                                             runNumber - 1,
-                                                                            Storage.DECK_INDEX)
+                                                                            DataParser.DECK_INDEX)
                                                                     .length()
                                                             - 1))
                             .getArtLines();
             cardDesc =
-                    Storage.fromStorageKey(
-                                    storage.getValue(runNumber - 1, Storage.DECK_INDEX)
+                    CardUtils.fromStorageKey(
+                                    storage.getValue(runNumber - 1, DataParser.DECK_INDEX)
                                             .substring(
                                                     0,
                                                     storage.getValue(
                                                                             runNumber - 1,
-                                                                            Storage.DECK_INDEX)
+                                                                            DataParser.DECK_INDEX)
                                                                     .length()
                                                             - 1))
                             .getDeckName();
         } else {
             cardArt =
-                    Storage.fromStorageKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX))
+                    CardUtils.fromStorageKey(storage.getValue(runNumber - 1, DataParser.DECK_INDEX))
                             .getArtLines();
             cardDesc =
-                    Storage.fromStorageKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX))
+                    CardUtils.fromStorageKey(storage.getValue(runNumber - 1, DataParser.DECK_INDEX))
                             .getDeckName();
         }
 
@@ -158,9 +160,9 @@ public class RunSelectScreen extends Screen {
 
         // Italicized deck name
         int padding = 81;
-        if (Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX))
+        if (CardUtils.DeckFromKey(storage.getValue(runNumber - 1, DataParser.DECK_INDEX))
                         == DeckType.ABANDONED
-                || Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX))
+                || CardUtils.DeckFromKey(storage.getValue(runNumber - 1, DataParser.DECK_INDEX))
                         == DeckType.CHECKERED) {
             padding = 90;
         }
@@ -169,8 +171,8 @@ public class RunSelectScreen extends Screen {
         int deckNamePadding = padding + (visibleCardLine.length() - cardDesc.length()) / 2;
         String paddedDeckName = String.format("%" + deckNamePadding + "s", italicDeckName);
 
-        String handValue = storage.getValue(runNumber - 1, Storage.HAND_INDEX);
-        String discardValue = storage.getValue(runNumber - 1, Storage.DISCARD_INDEX);
+        String handValue = storage.getValue(runNumber - 1, DataParser.HAND_INDEX);
+        String discardValue = storage.getValue(runNumber - 1, DataParser.DISCARD_INDEX);
 
         String handsOutput = handValue.equals("-1") ? "NA" : handValue;
         String discardsOutput = discardValue.equals("-1") ? "NA" : discardValue;
@@ -178,11 +180,11 @@ public class RunSelectScreen extends Screen {
         for (int i = 0; i < screenSize - 1; i++) {
             String leftText = "";
             if (i == 0)
-                leftText = "Round: " + storage.getValue(runNumber - 1, Storage.ROUND_NUMBER_INDEX);
+                leftText = "Round: " + storage.getValue(runNumber - 1, DataParser.ROUND_NUMBER_INDEX);
             if (i == 1)
                 leftText =
                         "Round Score: "
-                                + storage.getValue(runNumber - 1, Storage.ROUND_SCORE_INDEX);
+                                + storage.getValue(runNumber - 1, DataParser.ROUND_SCORE_INDEX);
             else if (i == 2)
                 leftText =
                         "Hands: "
@@ -191,16 +193,16 @@ public class RunSelectScreen extends Screen {
                                 + (discardValue.equals("-1") ? "NA" : discardValue);
             else if (i == 3) leftText = "------------------------";
             else if (i == 4)
-                leftText = "Ante: " + storage.getValue(runNumber - 1, Storage.ANTE_NUMBER_INDEX);
+                leftText = "Ante: " + storage.getValue(runNumber - 1, DataParser.ANTE_NUMBER_INDEX);
             else if (i == 5)
-                leftText = "Blind: " + storage.getValue(runNumber - 1, Storage.BLIND_INDEX);
+                leftText = "Blind: " + storage.getValue(runNumber - 1, DataParser.BLIND_INDEX);
             else if (i == 6) leftText = "------------------------";
             else if (i == 7)
                 leftText =
                         "Wins: "
-                                + storage.getValue(runNumber - 1, Storage.WINS_INDEX)
+                                + storage.getValue(runNumber - 1, DataParser.WINS_INDEX)
                                 + " | Losses: "
-                                + storage.getValue(runNumber - 1, Storage.LOSSES_INDEX);
+                                + storage.getValue(runNumber - 1, DataParser.LOSSES_INDEX);
 
             String rightAnsi = (i < cardArt.length) ? cardArt[i] : "";
             // Pad leftText to align with ANSI

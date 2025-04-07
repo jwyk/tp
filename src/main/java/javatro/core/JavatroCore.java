@@ -7,6 +7,8 @@ package javatro.core;
 import javatro.core.Deck.DeckType;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.round.Round;
+import javatro.storage.DataParser;
+import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
 
 import java.util.*;
@@ -65,36 +67,36 @@ public class JavatroCore {
         // Update ante and blind values and round count
         storage.setValue(
                 storage.getRunChosen() - 1,
-                Storage.ROUND_NUMBER_INDEX,
+                DataParser.ROUND_NUMBER_INDEX,
                 String.valueOf(roundCount)); // Update Round Count
         storage.setValue(
                 storage.getRunChosen() - 1,
-                Storage.ANTE_NUMBER_INDEX,
+                DataParser.ANTE_NUMBER_INDEX,
                 String.valueOf(ante.getAnteCount())); // Update Ante Count
         storage.setValue(
                 storage.getRunChosen() - 1,
-                Storage.BLIND_INDEX,
+                DataParser.BLIND_INDEX,
                 String.valueOf(ante.getBlind().getName())); // Update Blind
 
         Round nextRound = classicRound();
 
         // Update Holding Hand
-        for (int i = Storage.HOLDING_HAND_START_INDEX;
-                i < Storage.HOLDING_HAND_START_INDEX + 8;
-                i++) {
+        for (int i = DataParser.HOLDING_HAND_START_INDEX;
+             i < DataParser.HOLDING_HAND_START_INDEX + 8;
+             i++) {
             Card currentCard =
-                    nextRound.getPlayerHandCards().get(i - Storage.HOLDING_HAND_START_INDEX);
+                    nextRound.getPlayerHandCards().get(i - DataParser.HOLDING_HAND_START_INDEX);
             storage.setValue(
                     storage.getRunChosen() - 1,
                     i,
-                    Storage.cardToString(currentCard)); // Update Holding Hand Cards
+                    CardUtils.cardToString(currentCard)); // Update Holding Hand Cards
         }
 
         // Update deck
         deck =
                 new Deck(
-                        Storage.DeckFromKey(
-                                storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX)));
+                        CardUtils.DeckFromKey(
+                                storage.getValue(storage.getRunChosen() - 1, DataParser.DECK_INDEX)));
         Storage.isNewDeck = true;
 
         startNewRound(nextRound);
@@ -105,27 +107,27 @@ public class JavatroCore {
         ante = new Ante();
 
         ante.setBlind(
-                Storage.BlindFromKey(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.BLIND_INDEX)));
+                CardUtils.BlindFromKey(
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.BLIND_INDEX)));
         ante.setAnteCount(
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.ANTE_NUMBER_INDEX)));
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.ANTE_NUMBER_INDEX)));
         roundCount =
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.ROUND_NUMBER_INDEX));
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.ROUND_NUMBER_INDEX));
 
         totalPlays = 4;
         heldJokers = new HeldJokers();
 
         // Update Jokers
-        for (int i = Storage.JOKER_HAND_START_INDEX; i < Storage.JOKER_HAND_START_INDEX + 5; i++) {
+        for (int i = DataParser.JOKER_HAND_START_INDEX; i < DataParser.JOKER_HAND_START_INDEX + 5; i++) {
             if (Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "-")
                     || Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "NA"))
                 continue;
 
             try {
                 heldJokers.add(
-                        Storage.parseJokerString(storage.getValue(storage.getRunChosen() - 1, i)));
+                        CardUtils.parseJokerString(storage.getValue(storage.getRunChosen() - 1, i)));
             } catch (JavatroException e) {
                 throw new RuntimeException(e);
             }
@@ -146,10 +148,10 @@ public class JavatroCore {
         assert currentRound != null;
 
         int savedPlays =
-                Integer.parseInt(storage.getValue(storage.getRunChosen() - 1, Storage.HAND_INDEX));
+                Integer.parseInt(storage.getValue(storage.getRunChosen() - 1, DataParser.HAND_INDEX));
         int savedDiscards =
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.DISCARD_INDEX));
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.DISCARD_INDEX));
 
         if (savedPlays == -1) savedPlays = 4;
         if (savedDiscards == -1) savedDiscards = 3;
@@ -165,15 +167,15 @@ public class JavatroCore {
 
         storage.setValue(
                 storage.getRunChosen() - 1,
-                Storage.HAND_INDEX,
+                DataParser.HAND_INDEX,
                 String.valueOf(currentRound.getRemainingPlays())); // Update Number Of Plays
         storage.setValue(
                 storage.getRunChosen() - 1,
-                Storage.DISCARD_INDEX,
+                DataParser.DISCARD_INDEX,
                 String.valueOf(currentRound.getRemainingDiscards())); // Update Number Of Discards
         storage.setValue(
                 storage.getRunChosen() - 1,
-                Storage.ROUND_SCORE_INDEX,
+                DataParser.ROUND_SCORE_INDEX,
                 String.valueOf(currentRound.getCurrentScore())); // Update Current Score
 
         // Update save file
@@ -214,7 +216,7 @@ public class JavatroCore {
         // Update round attributes
         newRound.setCurrentScore(
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.ROUND_SCORE_INDEX)));
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.ROUND_SCORE_INDEX)));
 
         // Update deck with rest of the cards (If deck is not empty)
         if (!Storage.isNewDeck) newRound.getDeck().populateWithSavedDeck();
@@ -223,16 +225,16 @@ public class JavatroCore {
         List<Card> savedCards = new ArrayList<>();
         int emptyCardCount = 0;
 
-        for (int i = Storage.HOLDING_HAND_START_INDEX;
-                i < Storage.HOLDING_HAND_START_INDEX + 8;
-                i++) {
+        for (int i = DataParser.HOLDING_HAND_START_INDEX;
+             i < DataParser.HOLDING_HAND_START_INDEX + 8;
+             i++) {
             if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
                     || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
                 emptyCardCount = emptyCardCount + 1;
                 continue;
             }
             savedCards.add(
-                    Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
+                    CardUtils.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
         }
 
         if (emptyCardCount < 8) {

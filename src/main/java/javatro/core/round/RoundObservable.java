@@ -1,6 +1,8 @@
 package javatro.core.round;
 
 import javatro.core.*;
+import javatro.storage.DataParser;
+import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
 
 import java.beans.PropertyChangeListener;
@@ -49,20 +51,20 @@ class RoundObservable {
 
         storage.setValue(
                 storage.getRunChosen() - 1,
-                Storage.HAND_INDEX,
+                DataParser.HAND_INDEX,
                 Integer.toString(state.getRemainingPlays()));
         storage.setValue(
                 storage.getRunChosen() - 1,
-                Storage.DISCARD_INDEX,
+                DataParser.DISCARD_INDEX,
                 Integer.toString(state.getRemainingDiscards()));
         storage.setValue(
                 storage.getRunChosen() - 1,
-                Storage.ROUND_SCORE_INDEX,
+                DataParser.ROUND_SCORE_INDEX,
                 Long.toString(state.getCurrentScore()));
 
-        int i = Storage.HOLDING_HAND_START_INDEX;
+        int i = DataParser.HOLDING_HAND_START_INDEX;
         for (Card c : state.getPlayerHandCards()) {
-            storage.setValue(storage.getRunChosen() - 1, i, Storage.cardToString(c));
+            storage.setValue(storage.getRunChosen() - 1, i, CardUtils.cardToString(c));
             i = i + 1;
         }
 
@@ -70,9 +72,9 @@ class RoundObservable {
 
         Storage storage = Storage.getStorageInstance();
 
-        for (int j = Storage.START_OF_REST_OF_DECK; j < Storage.START_OF_REST_OF_DECK + 44; j++) {
+        for (int j = DataParser.START_OF_REST_OF_DECK; j < DataParser.START_OF_REST_OF_DECK + 44; j++) {
 
-            int idx = j - Storage.START_OF_REST_OF_DECK;
+            int idx = j - DataParser.START_OF_REST_OF_DECK;
 
             if (idx >= restOfTheCards.size()) {
                 storage.setValue(storage.getRunChosen() - 1, j, "-");
@@ -80,7 +82,7 @@ class RoundObservable {
                 storage.setValue(
                         storage.getRunChosen() - 1,
                         j,
-                        Storage.cardToString(restOfTheCards.get(idx)));
+                        CardUtils.cardToString(restOfTheCards.get(idx)));
             }
         }
 
@@ -96,25 +98,25 @@ class RoundObservable {
                 }
 
                 storage.setValue(
-                        storage.getRunChosen() - 1, Storage.HAND_INDEX, Integer.toString(-1));
+                        storage.getRunChosen() - 1, DataParser.HAND_INDEX, Integer.toString(-1));
                 storage.setValue(
-                        storage.getRunChosen() - 1, Storage.DISCARD_INDEX, Integer.toString(-1));
+                        storage.getRunChosen() - 1, DataParser.DISCARD_INDEX, Integer.toString(-1));
                 storage.setValue(
-                        storage.getRunChosen() - 1, Storage.ROUND_SCORE_INDEX, Long.toString(0));
+                        storage.getRunChosen() - 1, DataParser.ROUND_SCORE_INDEX, Long.toString(0));
                 storage.setValue(
                         storage.getRunChosen() - 1,
-                        Storage.ROUND_NUMBER_INDEX,
+                        DataParser.ROUND_NUMBER_INDEX,
                         Long.toString(JavatroCore.getRoundCount() + 1));
                 storage.setValue(
                         storage.getRunChosen() - 1,
-                        Storage.ANTE_NUMBER_INDEX,
+                        DataParser.ANTE_NUMBER_INDEX,
                         String.valueOf(anteCount)); // Update Ante Count
                 storage.setValue(
                         storage.getRunChosen() - 1,
-                        Storage.BLIND_INDEX,
+                        DataParser.BLIND_INDEX,
                         nextBlind.getName()); // Update Blind
 
-                i = Storage.HOLDING_HAND_START_INDEX;
+                i = DataParser.HOLDING_HAND_START_INDEX;
                 for (Card c : state.getPlayerHandCards()) {
                     storage.setValue(storage.getRunChosen() - 1, i, "-");
                     i = i + 1;
@@ -125,11 +127,11 @@ class RoundObservable {
                                 Storage.getStorageInstance()
                                         .getValue(
                                                 Storage.getStorageInstance().getNumberOfRuns() - 1,
-                                                Storage.WINS_INDEX));
+                                                DataParser.WINS_INDEX));
                 Storage.getStorageInstance()
                         .setValue(
                                 Storage.getStorageInstance().getRunChosen() - 1,
-                                Storage.WINS_INDEX,
+                                DataParser.WINS_INDEX,
                                 String.valueOf(currentWin + 1));
 
             } else if (JavatroCore.currentRound.isLost()) {
@@ -137,25 +139,25 @@ class RoundObservable {
                 int anteCount = JavatroCore.getAnte().getAnteCount();
 
                 storage.setValue(
-                        storage.getRunChosen() - 1, Storage.HAND_INDEX, Integer.toString(-1));
+                        storage.getRunChosen() - 1, DataParser.HAND_INDEX, Integer.toString(-1));
                 storage.setValue(
-                        storage.getRunChosen() - 1, Storage.DISCARD_INDEX, Integer.toString(-1));
+                        storage.getRunChosen() - 1, DataParser.DISCARD_INDEX, Integer.toString(-1));
                 storage.setValue(
-                        storage.getRunChosen() - 1, Storage.ROUND_SCORE_INDEX, Long.toString(0));
+                        storage.getRunChosen() - 1, DataParser.ROUND_SCORE_INDEX, Long.toString(0));
                 storage.setValue(
                         storage.getRunChosen() - 1,
-                        Storage.ROUND_NUMBER_INDEX,
+                        DataParser.ROUND_NUMBER_INDEX,
                         Long.toString(JavatroCore.getRoundCount()));
                 storage.setValue(
                         storage.getRunChosen() - 1,
-                        Storage.ANTE_NUMBER_INDEX,
+                        DataParser.ANTE_NUMBER_INDEX,
                         String.valueOf(anteCount)); // Update Ante Count
                 storage.setValue(
                         storage.getRunChosen() - 1,
-                        Storage.BLIND_INDEX,
+                        DataParser.BLIND_INDEX,
                         currentBlind.getName()); // Update Blind
 
-                i = Storage.HOLDING_HAND_START_INDEX;
+                i = DataParser.HOLDING_HAND_START_INDEX;
                 for (Card c : state.getPlayerHandCards()) {
                     storage.setValue(storage.getRunChosen() - 1, i, "-");
                     i = i + 1;
@@ -166,11 +168,11 @@ class RoundObservable {
                                 Storage.getStorageInstance()
                                         .getValue(
                                                 Storage.getStorageInstance().getRunChosen() - 1,
-                                                Storage.LOSSES_INDEX));
+                                                DataParser.LOSSES_INDEX));
                 Storage.getStorageInstance()
                         .setValue(
                                 Storage.getStorageInstance().getRunChosen() - 1,
-                                Storage.LOSSES_INDEX,
+                                DataParser.LOSSES_INDEX,
                                 String.valueOf(currentLose + 1));
             }
         }

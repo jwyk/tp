@@ -1,8 +1,8 @@
 package javatro.core.jokers;
 
-import static javatro.core.JavatroCore.heldJokers;
-
 import javatro.core.JavatroException;
+import javatro.storage.DataParser;
+import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
 
 import java.util.ArrayList;
@@ -32,12 +32,12 @@ public class HeldJokers {
         for (int j = 0; j < HeldJokers.HOLDING_LIMIT; j++) {
             if (heldJokers.isEmpty() || j >= heldJokers.size()) {
                 storage.setValue(
-                        storage.getRunChosen() - 1, Storage.JOKER_HAND_START_INDEX + j, "-");
+                        storage.getRunChosen() - 1, DataParser.JOKER_HAND_START_INDEX + j, "-");
             } else {
                 storage.setValue(
                         storage.getRunChosen() - 1,
-                        Storage.JOKER_HAND_START_INDEX + j,
-                        Storage.jokerToString(heldJokers.get(j)));
+                        DataParser.JOKER_HAND_START_INDEX + j,
+                        CardUtils.jokerToString(heldJokers.get(j)));
             }
         }
 

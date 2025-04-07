@@ -1,5 +1,7 @@
 package javatro.core;
 
+import javatro.storage.DataParser;
+import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
 
 import java.util.ArrayList;
@@ -106,10 +108,10 @@ public class Deck {
         Storage storage = Storage.getStorageInstance();
         ArrayList<Card> newDeck = new ArrayList<>();
 
-        for (int i = Storage.START_OF_REST_OF_DECK; i < Storage.START_OF_REST_OF_DECK + 44; i++) {
+        for (int i = DataParser.START_OF_REST_OF_DECK; i < DataParser.START_OF_REST_OF_DECK + 44; i++) {
             if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
                     || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) continue;
-            newDeck.add(Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
+            newDeck.add(CardUtils.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
         }
 
         Storage.isNewDeck = false;
