@@ -18,6 +18,7 @@ public class OddToddJoker extends Joker {
     public OddToddJoker() {
         super();
         name = "Odd Todd";
+        identifierName = "ODDTODDJOKER";
         description =
                 String.format(
                         "Played cards with %s%sOdd%s%s rank gives %s%s+31 Chips%s%s when scored (A,"

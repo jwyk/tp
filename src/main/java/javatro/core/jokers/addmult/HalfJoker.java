@@ -17,6 +17,7 @@ public class HalfJoker extends Joker {
     public HalfJoker() {
         super();
         name = "Half";
+        identifierName = "HALFJOKER";
         description =
                 String.format(
                         "%s%s+20 Mult%s%s if played hand has %s%s3 or fewer%s%s cards",

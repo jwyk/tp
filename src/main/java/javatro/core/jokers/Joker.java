@@ -10,6 +10,7 @@ import javatro.core.Score;
  */
 public abstract class Joker {
     protected static String name;
+    protected static String identifierName;
     protected static String description;
     protected static String path;
     public ScoreType scoreType;
@@ -33,6 +34,10 @@ public abstract class Joker {
 
     public String getName() {
         return name;
+    }
+
+    public String getIdentifierName() {
+        return identifierName;
     }
 
     public String getDescription() {

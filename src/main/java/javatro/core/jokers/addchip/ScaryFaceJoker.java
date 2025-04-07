@@ -18,6 +18,7 @@ public class ScaryFaceJoker extends Joker {
     public ScaryFaceJoker() {
         super();
         name = "Scary Face";
+        identifierName = "SCARYFACEJOKER";
         description =
                 String.format(
                         "Played %s%sFace%s%s (K, Q, J) Cards give %s%s+30 Chips%s%s",
