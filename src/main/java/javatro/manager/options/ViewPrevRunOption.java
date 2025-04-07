@@ -10,7 +10,7 @@ import javatro.manager.JavatroManager;
 import javatro.storage.Storage;
 
 /** A command that loads the run selection screen when executed. */
-public class SeePreviousRun implements Option {
+public class ViewPrevRunOption implements Option {
 
     /**
      * Provides a brief description of the command.
@@ -19,7 +19,7 @@ public class SeePreviousRun implements Option {
      */
     @Override
     public String getDescription() {
-        return "See Previous Run";
+        return "View Previous Run";
     }
 
     /** Executes the command to change the screen to the start menu. */

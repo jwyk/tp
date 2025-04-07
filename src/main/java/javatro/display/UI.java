@@ -85,7 +85,7 @@ public class UI {
     private static final WinGameScreen WIN_GAME_SCREEN;
     private static final LoseScreen LOSE_SCREEN;
     private static RunSelectScreen RUN_SELECT_SCREEN;
-    private static JumpToRunScreen JUMP_TO_RUN_SCREEN;
+    private static RunListScreen JUMP_TO_RUN_SCREEN;
 
     static {
         try {
@@ -103,7 +103,7 @@ public class UI {
             WIN_GAME_SCREEN = new WinGameScreen();
             LOSE_SCREEN = new LoseScreen();
             RUN_SELECT_SCREEN = new RunSelectScreen();
-            JUMP_TO_RUN_SCREEN = new JumpToRunScreen();
+            JUMP_TO_RUN_SCREEN = new RunListScreen();
         } catch (JavatroException e) {
             System.err.println("Failed to initialize screens: " + e.getMessage());
             e.printStackTrace();
@@ -441,13 +441,13 @@ public class UI {
 
     public static void reloadJumpToRunScreen() {
         try {
-            JUMP_TO_RUN_SCREEN = new JumpToRunScreen();
+            JUMP_TO_RUN_SCREEN = new RunListScreen();
         } catch (JavatroException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static JumpToRunScreen getJumpToRunScreen() {
+    public static RunListScreen getJumpToRunScreen() {
         return JUMP_TO_RUN_SCREEN;
     }
 

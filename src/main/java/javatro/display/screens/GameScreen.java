@@ -115,14 +115,6 @@ public class GameScreen extends Screen implements PropertyChangeListener {
      */
     @Override
     public void displayScreen() {
-
-        if (!AudioPlayer.getInstance()
-                .getCurrentAudioPath()
-                .equals("audioplayer/balatro_theme.wav")) {
-            AudioPlayer.getInstance().stopAudio();
-            AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
-        }
-
         // Use StringBuilder for efficient string concatenation.
         StringBuilder sb = new StringBuilder();
 

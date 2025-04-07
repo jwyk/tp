@@ -17,6 +17,7 @@ import static javatro.display.UI.centerText;
 import static javatro.display.UI.printANSI;
 import static javatro.display.UI.printBlackB;
 
+import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.MainMenuOption;
@@ -71,6 +72,10 @@ public class WinGameScreen extends Screen {
      */
     @Override
     public void displayScreen() {
+        // Play Win Sound
+        AudioPlayer.getInstance().stopAudio();
+        AudioPlayer.getInstance().playAudio("audioplayer/winning.wav");
+
         // Display primary victory graphic
         printANSI("jimbo.txt");
 
