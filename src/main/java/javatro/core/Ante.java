@@ -114,6 +114,19 @@ public class Ante {
         }
     }
 
+    public Blind getNextBlind() {
+        Blind newBlind = null;
+        if (blind == Blind.SMALL_BLIND) {
+            newBlind = Blind.LARGE_BLIND;
+        } else if (blind == Blind.LARGE_BLIND) {
+            newBlind = Blind.BOSS_BLIND;
+        } else {
+            if (anteCount == MAX_ANTE_COUNT) return null;
+            newBlind = Blind.SMALL_BLIND;
+        }
+        return newBlind;
+    }
+
     /**
      * Sets the blind level manually.
      *

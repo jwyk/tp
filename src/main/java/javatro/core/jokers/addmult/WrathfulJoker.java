@@ -1,5 +1,7 @@
 package javatro.core.jokers.addmult;
 
+// @@author jwyk
+
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BOLD;
 import static javatro.display.UI.END;
@@ -16,6 +18,7 @@ public class WrathfulJoker extends Joker {
     public WrathfulJoker() {
         super();
         name = "Wrathful";
+        identifierName = "WRATHFULJOKER";
         description =
                 String.format(
                         "Played cards with %s%sSpade%s%s suit give %s%s+3 Mult%s%s when scored",

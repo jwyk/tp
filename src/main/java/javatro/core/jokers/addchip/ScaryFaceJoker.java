@@ -1,5 +1,7 @@
 package javatro.core.jokers.addchip;
 
+// @@author jwyk
+
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BLUE;
 import static javatro.display.UI.BOLD;
@@ -16,6 +18,7 @@ public class ScaryFaceJoker extends Joker {
     public ScaryFaceJoker() {
         super();
         name = "Scary Face";
+        identifierName = "SCARYFACEJOKER";
         description =
                 String.format(
                         "Played %s%sFace%s%s (K, Q, J) Cards give %s%s+30 Chips%s%s",

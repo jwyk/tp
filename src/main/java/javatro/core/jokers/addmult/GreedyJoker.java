@@ -1,5 +1,7 @@
 package javatro.core.jokers.addmult;
 
+// @@author jwyk
+
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BOLD;
 import static javatro.display.UI.END;
@@ -16,6 +18,7 @@ public class GreedyJoker extends Joker {
     public GreedyJoker() {
         super();
         name = "Greedy";
+        identifierName = "GREEDYJOKER";
         description =
                 String.format(
                         "Played cards with %s%sDiamond%s%s suit give %s%s+3 Mult%s%s when scored",
