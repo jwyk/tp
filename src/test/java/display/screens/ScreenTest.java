@@ -108,7 +108,7 @@ public abstract class ScreenTest {
 
   protected void compareOutputToFile(String fileName) throws IOException {
     String actualOutput = getOutput();
-//    CSVUtils.writeSampleToCSV("src/test/resources/screens/nigga.txt",actualOutput);
+    CSVUtils.writeSampleToCSV("src/test/resources/screens/nigga.txt",actualOutput);
     String expectedOutput = readExpectedOutput(fileName);
 
     if (!actualOutput.equals(expectedOutput)) {

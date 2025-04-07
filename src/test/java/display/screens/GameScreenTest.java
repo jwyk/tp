@@ -4,16 +4,27 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.List;
+import javatro.audioplayer.AudioPlayer;
+import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.display.screens.GameScreen;
 import javatro.display.screens.RunSelectScreen;
+import javatro.display.screens.StartScreen;
+import javatro.manager.JavatroManager;
+import javatro.manager.options.DeckViewOption;
+import javatro.manager.options.DiscardCardOption;
+import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.LoadJumpToRunScreenOption;
+import javatro.manager.options.MainMenuOption;
 import javatro.manager.options.Option;
+import javatro.manager.options.PlayCardOption;
+import javatro.manager.options.PokerHandOption;
 import javatro.manager.options.SeeNextRunOption;
 import javatro.manager.options.SeePreviousRun;
 import javatro.manager.options.StartGameOption;
 import javatro.manager.options.StartRunNumberOption;
+import javatro.storage.Storage;
 import javatro.utilities.csvutils.CSVUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,20 +33,48 @@ public class GameScreenTest extends ScreenTest {
 
   @BeforeEach
   public void setUp() {
+    try {
+      CSVUtils.writeSampleToCSV(SAVEFILE_PATH, SAMPLE_DATA);
+    } catch (IOException e) {
+      fail("Failed To Write To CSV: " + e);
+    }
+
+    Storage storage = Storage.getStorageInstance();
+    AudioPlayer audioPlayer = AudioPlayer.getInstance();
 
     super.setUp();
 
     try {
-      UI.getStartScreen().getCommand(0).execute();
+      storage.setRunChosen(1);
+      JavatroManager.beginGame(
+          (Storage.DeckFromKey(
+              storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX))));
+
+      JavatroManager.jc.beginGame();
+      JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
+      JavatroCore.currentRound.updateRoundVariables();
+//      UI.getGameScreen().getCommandMap().add(new PlayCardOption());
+//      UI.getGameScreen().getCommandMap().add(new DiscardCardOption());
+//      UI.getGameScreen().getCommandMap().add(new PokerHandOption());
+//      UI.getGameScreen().getCommandMap().add(new DeckViewOption());
+//      UI.getGameScreen().getCommandMap().add(new MainMenuOption());
+//      UI.getGameScreen().getCommandMap().add(new ExitGameOption());
+      System.out.println(UI.getGameScreen().getCommandMap().size());
+      JavatroManager.setScreen(UI.getGameScreen());
     } catch (JavatroException e) {
-      fail("Failed to Set Screen: " + e.getMessage());
+      fail("Failed to load the game screen: " + e);
     }
   }
 
   @Test
   public void testCommandMatchWithSave() {
     List<Class<?>> expectedCommands = List.of(
-        StartGameOption.class
+        PlayCardOption.class,
+        DiscardCardOption.class,
+        PokerHandOption.class,
+        DeckViewOption.class,
+        MainMenuOption.class,
+        ExitGameOption.class
     );
 
     List<Option> actualCommands = UI.getCurrentScreen().getCommandMap();

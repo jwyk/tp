@@ -36,12 +36,6 @@ public class StartScreen extends Screen {
 
         assert commandMap.size() == 3 : "StartScreen should have exactly 3 initial options";
 
-//        //Pipe output to test
-//        if(!JavatroManager.runningTests) {
-//            JavatroManager.runningTests = true;
-//            this.getOutput();
-//            JavatroManager.runningTests = false;
-//        }
     }
 
     /**
@@ -55,6 +49,13 @@ public class StartScreen extends Screen {
     @Override
     public void displayScreen() {
         printANSI("javatro_logo.txt");
+
+//        //Pipe output to test
+//        if(!JavatroManager.runningTests) {
+//            JavatroManager.runningTests = true;
+//            this.getOutput();
+//            JavatroManager.runningTests = false;
+//        }
 
         AudioPlayer.getInstance().stopAudio();
         AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
