@@ -455,16 +455,16 @@ or `2` to end the current game session._
 -`[4] Tips and Tricks`
 
 _Enter `1` to learn more about Javatro as this section gives a brief overview of the game's objective, structure, 
-and what makes it unique. Perfect for first-time players._
+and what makes it unique. Perfect for first-time players._  
 ![](ug_images/help_intro.png)  
 
-_Enter `2` to understand the core rules of the game._
+_Enter `2` to understand the core rules of the game._  
 ![](ug_images/help_rules.png)
 
-_Enter `3` to understand a step-by-step breakdown of gameplay mechanics._
+_Enter `3` to understand a step-by-step breakdown of gameplay mechanics._  
 ![](ug_images/help_howto.png)
 
-_Enter `4` to learn more about the helpful strategies and advice for surviving longer and building a stronger deck._
+_Enter `4` to learn more about the helpful strategies and advice for surviving longer and building a stronger deck._  
 ![](ug_images/help_tips.png)
 
 ---
@@ -522,7 +522,7 @@ _A: Your game progress is automatically saved whenever you finish a run or make 
 _A: Currently, the game does not support deleting or overwriting saved runs._
 
 **Q: Can I cheat or modify my saved data?**  
-_A: Modifying the save file will corrupt the save data and reset your saves.
+_A: Modifying the save file will corrupt the save data and reset your saves._
 
 **Q: What happens if my save file gets corrupted?**  
 _A: If the game detects a corrupted save file, it will attempt to create a new one and all your progress will be wiped_
