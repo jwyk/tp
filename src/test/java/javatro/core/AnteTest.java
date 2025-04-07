@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-// @author swethacool
+// @@author swethacool
 /**
  * Test class for the {@link Ante} class. This class tests the functionality of the Ante class,
  * including the initialization of values, progression between rounds, blind multipliers, and score
