@@ -7,10 +7,11 @@ package javatro.manager.options;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
-import javatro.storage.Storage;
 
 /** A command that loads the run selection screen when executed. */
-public class SeeNextRunOption implements Option {
+public class RunSelectOption implements Option {
+
+    String description = "Select a Run";
 
     /**
      * Provides a brief description of the command.
@@ -19,18 +20,14 @@ public class SeeNextRunOption implements Option {
      */
     @Override
     public String getDescription() {
-        return "See Next Run";
+        return description;
     }
 
     /** Executes the command to change the screen to the start menu. */
     @Override
     public void execute() throws JavatroException {
-
-        int currentRun = UI.getRunSelectScreen().getRunNumber();
-        int totalRuns = Storage.getStorageInstance().getNumberOfRuns();
-        int nextRun = (currentRun % totalRuns) + 1;
-        UI.getRunSelectScreen().setRunNumber(nextRun);
-
-        JavatroManager.setScreen(UI.getRunSelectScreen());
+        UI.reloadRunSelectScreen();
+        UI.reloadJumpToRunScreen();
+        JavatroManager.setScreen(UI.getRunSelectScreen()); // New Game
     }
 }
