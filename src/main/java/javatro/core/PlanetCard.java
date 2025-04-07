@@ -204,7 +204,7 @@ public class PlanetCard {
     public void apply() {
         LEVELS.put(handType, LEVELS.get(handType) + 1);
 
-        if(Storage.saveActive) {
+        if (Storage.saveActive) {
             Storage storage = Storage.getStorageInstance();
             // Update Planet Cards
             storage.setValue(

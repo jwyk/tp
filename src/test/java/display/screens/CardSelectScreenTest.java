@@ -10,8 +10,8 @@ import javatro.display.screens.StartScreen;
 import javatro.manager.JavatroManager;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.HelpMenuOption;
-import javatro.manager.options.RunSelectOption;
 import javatro.manager.options.Option;
+import javatro.manager.options.RunSelectOption;
 import javatro.utilities.csvutils.CSVUtils;
 
 import org.junit.jupiter.api.BeforeEach;

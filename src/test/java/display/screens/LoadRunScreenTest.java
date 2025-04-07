@@ -1,7 +1,5 @@
 package display.screens;
 
-
-
 import javatro.storage.Storage;
 
 import org.junit.jupiter.api.BeforeEach;
