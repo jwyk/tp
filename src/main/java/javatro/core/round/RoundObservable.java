@@ -81,6 +81,18 @@ class RoundObservable {
             }
         }
 
+        // Update Wins or Losses if applicable
+        if (JavatroCore.currentRound.isRoundOver() && JavatroCore.currentRound.isWon()) {
+            int currentWins = Integer.parseInt(runData.get(DataParser.WINS_INDEX));
+            runData.set(DataParser.WINS_INDEX, String.valueOf(currentWins + 1));
+        }
+
+        if (JavatroCore.currentRound.isRoundOver() && JavatroCore.currentRound.isLost()) {
+            int currentLosses = Integer.parseInt(runData.get(DataParser.LOSSES_INDEX));
+            runData.set(DataParser.LOSSES_INDEX, String.valueOf(currentLosses + 1));
+        }
+
+
         // Save all updated data at once
         StorageManager.getInstance().saveRunData(runIndex, runData);
 

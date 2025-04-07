@@ -7,6 +7,7 @@ package javatro.manager.options;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
+import javatro.display.screens.RunSelectScreen;
 import javatro.manager.JavatroManager;
 import javatro.storage.DataParser;
 import javatro.storage.Storage;
@@ -24,7 +25,7 @@ public class StartRunOption implements Option {
      */
     @Override
     public String getDescription() {
-        runNumber = UI.getRunSelectScreen().getRunNumber();
+        runNumber = RunSelectScreen.getRunNumber();
         return "Continue Run #" + runNumber;
     }
 
