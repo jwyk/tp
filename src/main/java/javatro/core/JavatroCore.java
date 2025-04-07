@@ -90,8 +90,11 @@ public class JavatroCore {
                     Storage.cardToString(currentCard)); // Update Holding Hand Cards
         }
 
-        //Update deck
-        deck = new Deck(Storage.DeckFromKey(storage.getValue(storage.getRunChosen()-1,Storage.DECK_INDEX)));
+        // Update deck
+        deck =
+                new Deck(
+                        Storage.DeckFromKey(
+                                storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX)));
         Storage.isNewDeck = true;
 
         startNewRound(nextRound);
@@ -143,30 +146,35 @@ public class JavatroCore {
         assert currentRound != null;
 
         int savedPlays =
-            Integer.parseInt(storage.getValue(storage.getRunChosen() - 1, Storage.HAND_INDEX));
+                Integer.parseInt(storage.getValue(storage.getRunChosen() - 1, Storage.HAND_INDEX));
         int savedDiscards =
-            Integer.parseInt(
-                storage.getValue(storage.getRunChosen() - 1, Storage.DISCARD_INDEX));
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, Storage.DISCARD_INDEX));
 
-        if(savedPlays == -1) savedPlays = 4;
-        if(savedDiscards == -1) savedDiscards = 3;
+        if (savedPlays == -1) savedPlays = 4;
+        if (savedDiscards == -1) savedDiscards = 3;
 
-        currentRound.updatePlays(deck.getDeckName().getName().equals("BLUE") && savedPlays == 4 ? savedPlays + 1 : savedPlays);
-        currentRound.updateDiscards(deck.getDeckName().getName().equals("RED") && savedDiscards == 3 ? savedDiscards + 1 : savedDiscards);
+        currentRound.updatePlays(
+                deck.getDeckName().getName().equals("BLUE") && savedPlays == 4
+                        ? savedPlays + 1
+                        : savedPlays);
+        currentRound.updateDiscards(
+                deck.getDeckName().getName().equals("RED") && savedDiscards == 3
+                        ? savedDiscards + 1
+                        : savedDiscards);
 
         storage.setValue(
-            storage.getRunChosen() - 1,
-            Storage.HAND_INDEX,
-            String.valueOf(currentRound.getRemainingPlays())); // Update Number Of Plays
+                storage.getRunChosen() - 1,
+                Storage.HAND_INDEX,
+                String.valueOf(currentRound.getRemainingPlays())); // Update Number Of Plays
         storage.setValue(
-            storage.getRunChosen() - 1,
-            Storage.DISCARD_INDEX,
-            String.valueOf(currentRound.getRemainingDiscards())); // Update Number Of Discards
+                storage.getRunChosen() - 1,
+                Storage.DISCARD_INDEX,
+                String.valueOf(currentRound.getRemainingDiscards())); // Update Number Of Discards
         storage.setValue(
-            storage.getRunChosen() - 1,
-            Storage.ROUND_SCORE_INDEX,
-            String.valueOf(currentRound.getCurrentScore())); // Update Current Score
-
+                storage.getRunChosen() - 1,
+                Storage.ROUND_SCORE_INDEX,
+                String.valueOf(currentRound.getCurrentScore())); // Update Current Score
 
         // Update save file
         try {
@@ -174,7 +182,6 @@ public class JavatroCore {
         } catch (JavatroException e) {
             System.out.println("Could not save info.");
         }
-
     }
 
     /**
@@ -215,15 +222,15 @@ public class JavatroCore {
         int emptyCardCount = 0;
 
         for (int i = Storage.HOLDING_HAND_START_INDEX;
-            i < Storage.HOLDING_HAND_START_INDEX + 8;
-            i++) {
+                i < Storage.HOLDING_HAND_START_INDEX + 8;
+                i++) {
             if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
-                || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
+                    || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
                 emptyCardCount = emptyCardCount + 1;
                 continue;
             }
             savedCards.add(
-                Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
+                    Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
         }
 
         if (emptyCardCount < 8) {
