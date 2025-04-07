@@ -27,7 +27,7 @@ public class HeldJokers {
         }
         heldJokers.add(joker);
 
-        if(Storage.saveActive) {
+        if (Storage.saveActive) {
             Storage storage = Storage.getStorageInstance();
             // Update Joker Cards
             for (int j = 0; j < HeldJokers.HOLDING_LIMIT; j++) {

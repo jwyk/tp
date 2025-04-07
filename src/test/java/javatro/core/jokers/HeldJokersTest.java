@@ -23,8 +23,8 @@ import javatro.core.jokers.addmult.GluttonousJoker;
 import javatro.core.jokers.addmult.GreedyJoker;
 import javatro.core.jokers.addmult.LustyJoker;
 import javatro.core.jokers.addmult.WrathfulJoker;
-
 import javatro.storage.Storage;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +48,6 @@ public class HeldJokersTest {
 
         Storage.saveActive = false;
     }
-
 
     /**
      * Test that a normal HeldJokers cannot add more than 5 Jokers without exceeding the maximum
