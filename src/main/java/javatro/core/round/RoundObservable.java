@@ -94,7 +94,6 @@ class RoundObservable {
             runData.set(DataParser.LOSSES_INDEX, String.valueOf(currentLosses + 1));
         }
 
-
         // Save all updated data at once
         StorageManager.getInstance().saveRunData(runIndex, runData);
 

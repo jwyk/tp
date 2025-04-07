@@ -10,7 +10,7 @@ public class DeckRenderer {
         if (deckArt != null) {
             return deckArt.getArtLines();
         }
-        return new String[] { "No art available." };
+        return new String[] {"No art available."};
     }
 
     public static String renderDeckName(String deckName) {
