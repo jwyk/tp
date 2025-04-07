@@ -5,6 +5,7 @@ import static javatro.display.UI.printANSI;
 
 import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroException;
+import javatro.manager.JavatroManager;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.HelpMenuOption;
 import javatro.manager.options.LoadRunSelectOption;
@@ -34,6 +35,13 @@ public class StartScreen extends Screen {
         commandMap.add(new ExitGameOption());
 
         assert commandMap.size() == 3 : "StartScreen should have exactly 3 initial options";
+
+//        //Pipe output to test
+//        if(!JavatroManager.runningTests) {
+//            JavatroManager.runningTests = true;
+//            this.getOutput();
+//            JavatroManager.runningTests = false;
+//        }
     }
 
     /**
@@ -51,4 +59,5 @@ public class StartScreen extends Screen {
         AudioPlayer.getInstance().stopAudio();
         AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
     }
+
 }

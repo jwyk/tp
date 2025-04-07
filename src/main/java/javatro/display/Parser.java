@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import javatro.manager.JavatroManager;
 
 /**
  * Handles parsing and validation of user input for the Javatro application.
@@ -78,9 +79,10 @@ public class Parser {
             throw JavatroException.invalidOptionsSize();
         }
 
-        while (true) {
+        getCurrentScreen().displayOptions();
+
+        while (!JavatroManager.runningTests) {
             try {
-                getCurrentScreen().displayOptions();
                 System.out.printf(MENU_PROMPT, maxRange);
 
                 String line = scanner.nextLine().trim();

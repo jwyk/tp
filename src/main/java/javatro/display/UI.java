@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javatro.manager.JavatroManager;
 
 /**
  * The {@code UI} class is responsible for managing and displaying different screens in the
