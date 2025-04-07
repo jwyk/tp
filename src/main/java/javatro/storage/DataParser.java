@@ -1,6 +1,6 @@
+// @@author flyingapricot
 package javatro.storage;
 
-import javatro.storage.utils.CardUtils;
 import javatro.storage.utils.HashUtil;
 
 import java.util.ArrayList;
@@ -8,6 +8,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The {@code DataParser} class provides static utility methods for parsing, validating,
+ * and loading CSV data related to game runs. This class is intended to work with the
+ * {@link StorageManager} and does not maintain its own state.
+ *
+ * <p>All methods in this class are static, making it a utility class.
+ * Constants related to CSV parsing are defined here for easy access.</p>
+ */
 public class DataParser {
 
     // Basic Info Indexes (Fixed Position)
@@ -21,9 +29,11 @@ public class DataParser {
     public static final int WINS_INDEX = 7;
     public static final int LOSSES_INDEX = 8;
     public static final int DECK_INDEX = 9;
+
     // Dynamic Data Indexes (Varying Size)
-    public static final int HOLDING_HAND_START_INDEX = 10; // Maximum 8 holding hands (10 to 17)
-    public static final int JOKER_HAND_START_INDEX = 18; // Maximum 5 Joker Hands (18 to 22)
+    public static final int HOLDING_HAND_START_INDEX = 10;
+    public static final int JOKER_HAND_START_INDEX = 18;
+
     // Planet Card Level Indexes
     public static final int HIGH_CARD_INDEX = 23;
     public static final int PAIR_INDEX = 24;
@@ -41,35 +51,39 @@ public class DataParser {
     public static final int START_OF_REST_OF_DECK = 36;
 
     static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
-    static final Set<String> VALID_BLINDS =
-            Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
+    static final Set<String> VALID_BLINDS = Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
 
+    /**
+     * Private constructor to prevent instantiation of this utility class.
+     */
     private DataParser() {
-        // Private constructor to prevent instantiation
     }
 
-
+    /**
+     * Validates the provided CSV data for structural integrity, hash consistency, and logical validity.
+     *
+     * @param csvRawData The raw CSV data as a {@code String}.
+     * @return {@code true} if all rows in the CSV data are valid, otherwise {@code false}.
+     */
     public static boolean isCSVDataValid(String csvRawData) {
+        assert csvRawData != null : "CSV raw data must not be null";
+        assert !csvRawData.trim().isEmpty() : "CSV raw data must not be empty";
 
-        String[] rows =
-                csvRawData.split(
-                        "\\r?\\n"); // Split by newline, handling Windows and Unix line endings
+        String[] rows = csvRawData.split("\\r?\\n");
 
         for (String row : rows) {
             row = row.trim();
-
-            if (row.isEmpty()) continue; // Skip empty lines
+            if (row.isEmpty()) continue;
 
             String[] columns = row.split(",");
+            assert columns.length > 0 : "Columns should not be empty for a row.";
 
-            // Get the stored hash (last column)
             String storedHash = columns[columns.length - 1];
-
-            // Extract the actual game data
             List<String> rowData = new ArrayList<>(Arrays.asList(columns));
-            rowData.remove(rowData.size() - 1); // Remove the hash column before validation
+            rowData.remove(rowData.size() - 1);
 
-            // Normalize the row data before hashing
+            assert storedHash != null && !storedHash.isEmpty() : "Stored hash must not be null or empty.";
+
             List<String> normalizedRowData = new ArrayList<>();
             for (String data : rowData) {
                 data = data.trim();
@@ -79,121 +93,68 @@ public class DataParser {
                 normalizedRowData.add(data);
             }
 
-            // Generate a hash from the normalized data
             String computedHash = HashUtil.generateHash(normalizedRowData);
+            assert !computedHash.isEmpty() : "Computed hash must not be null or empty.";
 
-            // Compare hashes
             if (!computedHash.equals(storedHash)) {
                 System.out.println("Invalid row data detected due to hash mismatch: " + row);
                 return false;
             }
 
-            // Additional validation (Existing Logic)
             if (columns.length < DataParser.HIGH_CARD_INDEX + 13) {
                 System.out.println("Invalid number of columns in row: " + row);
                 return false;
             }
 
-            // Check if deck name is valid
             String deckName = columns[DataParser.DECK_INDEX].trim();
             if (!VALID_DECKS.contains(deckName)) {
                 System.out.println("Invalid deck name in row: " + row);
                 return false;
             }
 
-            // Check if blind name is valid
             String blindName = columns[DataParser.BLIND_INDEX].trim();
             if (!VALID_BLINDS.contains(blindName)) {
                 System.out.println("Invalid blind name in row: " + row);
                 return false;
             }
 
-            // Validate predefined numeric columns
             try {
-                int[] numericIndexes = {
-                        DataParser.RUN_NUMBER_INDEX,
-                        DataParser.ROUND_NUMBER_INDEX,
-                        DataParser.ROUND_SCORE_INDEX,
-                        DataParser.HAND_INDEX,
-                        DataParser.DISCARD_INDEX,
-                        DataParser.WINS_INDEX,
-                        DataParser.LOSSES_INDEX
-                };
+                int[] numericIndexes = {RUN_NUMBER_INDEX, ROUND_NUMBER_INDEX, ROUND_SCORE_INDEX, HAND_INDEX, DISCARD_INDEX, WINS_INDEX, LOSSES_INDEX};
 
                 for (int index : numericIndexes) {
+                    assert columns[index] != null : "Numeric index must not be null.";
                     Integer.parseInt(columns[index]);
                 }
 
-                // Validate Ante Number (must be between 1 and 8)
                 int anteNumber = Integer.parseInt(columns[DataParser.ANTE_NUMBER_INDEX]);
-                if (anteNumber < 1 || anteNumber > 8) {
-                    System.out.println(
-                            "Invalid Ante Number (must be between 1 and 8): " + anteNumber);
-                    return false;
-                }
+                assert anteNumber >= 1 && anteNumber <= 8 : "Ante Number must be between 1 and 8.";
 
             } catch (NumberFormatException e) {
                 System.out.println("Invalid numeric value in row: " + row);
                 return false;
             }
-
-            // Validate holding hands (Fixed 8 slots)
-            for (int i = DataParser.HOLDING_HAND_START_INDEX; i < DataParser.JOKER_HAND_START_INDEX; i++) {
-                String card = columns[i].trim();
-                if (!card.equals("NA") && !CardUtils.isValidCardString(card)) {
-                    System.out.println("Invalid holding card: " + card);
-                    return false;
-                }
-            }
-
-            // Validate joker hands (Fixed 5 slots)
-            for (int i = DataParser.JOKER_HAND_START_INDEX; i < DataParser.HIGH_CARD_INDEX; i++) {
-                String joker = columns[i].trim();
-                if (!joker.equals("NA") && !CardUtils.isValidJokerString(joker)) {
-                    System.out.println("Invalid joker card: " + joker);
-                    return false;
-                }
-            }
-
-            // Validate planet card levels (From PLANET_CARD_START_INDEX onwards)
-            for (int i = DataParser.HIGH_CARD_INDEX; i < DataParser.START_OF_REST_OF_DECK; i++) {
-                try {
-                    int level = Integer.parseInt(columns[i].trim());
-                    if (level < 1) { // Assuming levels must be positive integers
-                        System.out.println(
-                                "Invalid planet card level at index " + i + ": " + columns[i]);
-                        return false;
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println(
-                            "Invalid planet card level at index " + i + ": " + columns[i]);
-                    return false;
-                }
-            }
-
-            // Validate the rest of the deck
-            for (int i = DataParser.START_OF_REST_OF_DECK; i < DataParser.START_OF_REST_OF_DECK + 44; i++) {
-                String card = columns[i].trim();
-                if (!card.equals("NA") && !CardUtils.isValidCardString(card)) {
-                    System.out.println("Invalid rest of the deck card: " + card);
-                    return false;
-                }
-            }
         }
-
-        return true; // All rows are valid
+        return true;
     }
 
+    /**
+     * Loads the CSV data into the {@link StorageManager}.
+     *
+     * @param csvRawData The raw CSV data as a {@code String}.
+     */
     public static void loadCSVData(String csvRawData) {
+        assert csvRawData != null : "CSV raw data must not be null.";
+        assert !csvRawData.trim().isEmpty() : "CSV raw data must not be empty.";
+
         String[] runs = csvRawData.split("\\r?\\n");
         StorageManager storageManager = StorageManager.getInstance();
 
         for (int i = 0; i < runs.length; i++) {
             String[] runInfo = runs[i].split(",");
+            assert runInfo.length > 0 : "Run info should not be empty.";
+
             ArrayList<String> runInfoList = new ArrayList<>(Arrays.asList(runInfo));
             storageManager.saveRunData(i, runInfoList);
         }
-
     }
-
 }

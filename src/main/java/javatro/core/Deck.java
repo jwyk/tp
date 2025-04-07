@@ -1,6 +1,7 @@
 package javatro.core;
 
 import javatro.storage.DataParser;
+import javatro.storage.StorageManager;
 import javatro.storage.utils.CardUtils;
 import javatro.storage.Storage;
 
@@ -104,20 +105,43 @@ public class Deck {
     }
 
     public void populateWithSavedDeck() {
-
         Storage storage = Storage.getStorageInstance();
+        int runIndex = storage.getRunChosen() - 1;
+
+        // Retrieve current run data
+        ArrayList<String> runData = StorageManager.getInstance().getRunData(runIndex);
+        assert runData != null : "Run data should not be null";
+        assert runData.size() >= DataParser.START_OF_REST_OF_DECK + 44 : "Run data is incomplete or corrupted";
+
         ArrayList<Card> newDeck = new ArrayList<>();
 
+        // Parse all cards in one go
         for (int i = DataParser.START_OF_REST_OF_DECK; i < DataParser.START_OF_REST_OF_DECK + 44; i++) {
-            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
-                    || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) continue;
-            newDeck.add(CardUtils.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
+            String cardString = runData.get(i);
+
+            if (!cardString.equals("-") && !cardString.equals("NA")) {
+                try {
+                    newDeck.add(CardUtils.parseCardString(cardString));
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Failed to parse card string: " + cardString);
+                }
+            }
         }
 
         Storage.isNewDeck = false;
 
+        // Shuffle the deck and update the local deck variable
         Collections.shuffle(newDeck);
         deck = new ArrayList<>(newDeck);
+
+        // Save the updated deck to storage
+        StorageManager.getInstance().saveRunData(runIndex, runData);
+
+        try {
+            storage.updateSaveFile();
+        } catch (JavatroException e) {
+            System.out.println("Failed to save updated deck to file.");
+        }
     }
 
     /**

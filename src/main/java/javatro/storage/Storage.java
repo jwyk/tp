@@ -1,3 +1,4 @@
+// @@author flyingapricot
 package javatro.storage;
 
 import javatro.core.JavatroException;
@@ -26,6 +27,9 @@ public class Storage {
     /** Stores the index of the current run. */
     private static int runChosen = 0;
 
+    /** Stores whether storage is active for the game or not */
+    public static boolean storageActive = true;
+
     /**
      * Private constructor to enforce Singleton pattern.
      * Initializes the save file by calling the underlying {@link StorageManager}.
@@ -45,7 +49,7 @@ public class Storage {
      */
     public static Storage getStorageInstance() {
         if (storageInstance == null) {
-            return storageInstance = new Storage();
+            storageInstance = new Storage();
         }
         return storageInstance;
     }
@@ -76,8 +80,10 @@ public class Storage {
     public TreeMap<Integer, List<String>> getSerializedRunData() {
         TreeMap<Integer, List<String>> copy = new TreeMap<>();
         for (Map.Entry<Integer, ArrayList<String>> entry : storageManager.getAllRunData().entrySet()) {
+            assert entry != null : "Entry in serializedRunData should not be null.";
             copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
         }
+        assert copy != null : "Copy of serialized run data should not be null.";
         return copy;
     }
 
@@ -87,6 +93,7 @@ public class Storage {
      * @param serializedRunData The run data to be set.
      */
     public void setSerializedRunData(TreeMap<Integer, ArrayList<String>> serializedRunData) {
+        assert serializedRunData != null : "Serialized run data should not be null.";
         storageManager.setSerializedRunData(serializedRunData);
     }
 
@@ -98,25 +105,29 @@ public class Storage {
         isNewDeck = true;
 
         int arrSize = storageManager.getNumberOfRuns();
+        assert arrSize >= 0 : "Array size must be non-negative.";
 
-        newRun.add(String.valueOf(arrSize)); // RUN_NUMBER
-        newRun.add("1"); // ROUND_NUMBER
-        newRun.add("0"); // ROUND_SCORE
-        newRun.add("4"); // HAND
-        newRun.add("3"); // DISCARD
-        newRun.add("1"); // ANTE_NUMBER
-        newRun.add("SMALL BLIND"); // BLIND
-        newRun.add("0"); // WINS
-        newRun.add("0"); // LOSSES
-        newRun.add(""); // DECK
+        newRun.add(String.valueOf(arrSize));
+        newRun.add("1");
+        newRun.add("0");
+        newRun.add("4");
+        newRun.add("3");
+        newRun.add("1");
+        newRun.add("SMALL BLIND");
+        newRun.add("0");
+        newRun.add("0");
+        newRun.add("");
 
         for (int i = 0; i < 8; i++) newRun.add("-");
         for (int i = 0; i < 5; i++) newRun.add("-");
         for (int i = 0; i < 13; i++) newRun.add("1");
         for (int i = 0; i < 44; i++) newRun.add("-");
 
+        assert newRun.size() == DataParser.START_OF_REST_OF_DECK + 44 : "New run should have the correct size.";
+
         storageManager.saveRunData(arrSize, newRun);
         runChosen = storageManager.getNumberOfRuns();
+        assert runChosen == arrSize + 1 : "Run chosen should be updated correctly.";
     }
 
     /**
@@ -125,7 +136,9 @@ public class Storage {
      * @return The total number of runs.
      */
     public int getNumberOfRuns() {
-        return storageManager.getNumberOfRuns();
+        int numberOfRuns = storageManager.getNumberOfRuns();
+        assert numberOfRuns >= 0 : "Number of runs must be non-negative.";
+        return numberOfRuns;
     }
 
     /**
@@ -137,6 +150,9 @@ public class Storage {
      */
     public String getValue(int runNumber, int idx) {
         ArrayList<String> runData = storageManager.getRunData(runNumber);
+        assert runData != null : "Run data should not be null.";
+        assert idx >= 0 && idx < runData.size() : "Index must be within valid range.";
+
         return runData.get(idx);
     }
 
@@ -149,6 +165,10 @@ public class Storage {
      */
     public void setValue(int runNumber, int idx, String value) {
         ArrayList<String> runData = storageManager.getRunData(runNumber);
+        assert runData != null : "Run data should not be null.";
+        assert idx >= 0 && idx < runData.size() : "Index must be within valid range.";
+        assert value != null : "Value to set should not be null.";
+
         runData.set(idx, value);
         storageManager.saveRunData(runNumber, runData);
     }
@@ -159,6 +179,7 @@ public class Storage {
      * @return The index of the current run.
      */
     public int getRunChosen() {
+        assert runChosen >= 0 : "Run chosen index must be non-negative.";
         return runChosen;
     }
 
@@ -168,7 +189,7 @@ public class Storage {
      * @param runChosen The run index to set.
      */
     public void setRunChosen(int runChosen) {
+        assert runChosen >= 0 : "Run chosen index must be non-negative.";
         Storage.runChosen = runChosen;
     }
-
 }
