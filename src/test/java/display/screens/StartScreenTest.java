@@ -51,7 +51,6 @@ public class StartScreenTest extends ScreenTest {
 
         // Compare the output with the expected file
         compareOutputToFile2("StartScreen.txt");
-
     }
 
     // AudioPlayer Handling

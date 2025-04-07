@@ -1,5 +1,3 @@
 package display.screens;
 
-public class DiscardScreenTest extends ScreenTest {
-
-}
+public class DiscardScreenTest extends ScreenTest {}
