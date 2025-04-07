@@ -2,7 +2,6 @@
 package javatro.manager.options;
 
 import javatro.core.Deck;
-import javatro.core.Deck.DeckType;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
@@ -56,12 +55,10 @@ public class DeckSelectOption implements Option {
         // Initialize core game deck
         Storage storage = Storage.getStorageInstance();
         JavatroCore.deck = new Deck(deckType);
-        storage.setValue(storage.getRunChosen() - 1,
-                        Storage.DECK_INDEX,
-                        deckType.getName());
+        storage.setValue(storage.getRunChosen() - 1, Storage.DECK_INDEX, deckType.getName());
         JavatroManager.beginGame(
                 (Storage.DeckFromKey(
-                    storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX))));
+                        storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX))));
         assert JavatroCore.deck != null : "Deck initialization failed";
 
         // Start game session with selected deck
