@@ -21,6 +21,7 @@ This guide explains the features, commands, and game flow to help you master Jav
     - [3.8 Viewing Poker Hands](#viewing-poker-hands)
     - [3.9 Winning a Small / Large Blind](#winning-a-small--large-blind)
     - [3.10 Winning a Boss Blind](#winning-a-boss-blind)
+    - [3.11 Help Menu](#help-menu)
     - [3.11 Saving / Loading a Game](#saving--loading-a-game)
 - [4. Gameplay Flow](#gameplay-flow)
 - [5. Tips for New Players](#tips-for-new-players)
@@ -76,7 +77,7 @@ _This section details the various screens and features available in Javatro._
 Players will be shown the **Javatro Main Menu** whenever they boot up the game or select `Main Menu`.
 
 #### Menu Options:
-- `1. New Game`
+- `1. Start Game`
 - `2. Load Game`
 - `3. Help Menu`
 - `4. Exit Game`
@@ -115,8 +116,8 @@ For each round, the player has to get enough score to beat the Blind, losing the
 _Defeating the Blind will award the player with rewards._
 
 An **Ante** is made up of three Blinds in succession: a Small Blind, a Large Blind, and a random Boss Blind. 
-The player can choose to take on a Small or Big Blind, or to skip one or both. 
-_Boss Blinds must always be played and cannot be skipped._
+The Small and Big Blinds are optional in the gameplay.  
+_However the Boss Blind must always be played and cannot be skipped._
 
 The score required by a certain Blind is determined by the Ante level. 
 Players start at Ante 1 and go up a level for every Boss Blind defeated, 
@@ -134,7 +135,7 @@ and can win the game by beating the last level of a run, at Ante 8.
 - `2. Reject Blind`
 
 _Enter `1` to accept the current blind and proceed to the game, 
-or `2` to reject the current blind and select a different one._
+or `2` to reject the current blind and progress to the next one._
 
 ---
 
@@ -365,7 +366,37 @@ or `2` to end the current game session._
 
 ---
 
+#### Help Option: 
+![img_2.png](img_2.png)
 
+-`[1] Game Introduction`                               
+-`[2] Game Rules`                                         
+-`[3] How To Play`                                        
+-`[4] Tips and Tricks`
+
+_Enter `1` to learn more about Javatro as this section gives a brief overview of the game's objective, structure, 
+and what makes it unique. Perfect for first-time players._
+![img_3.png](img_3.png)  
+
+_Enter `2` to understand the core rules of the game. This section explains:
+How rounds work
+The goal of each run
+How scoring and progression happen_
+![img_4.png](img_4.png)
+
+_Enter `3` to understand a step-by-step breakdown of gameplay mechanics. This includes:
+Starting your deck
+Drawing cards each turn
+Forming poker hands
+Advancing through increasing blinds and challenges_
+![img_5.png](img_5.png)
+
+_Enter `4` to learn more about the helpful strategies and advice for surviving longer and building a stronger deck.
+Learn how to:
+Manage your deck wisely
+Play strong hands at the right time
+Adapt your playstyle for different runs_
+![img_6.png](img_6.png)
 
 ### Saving / Loading a Game
 
@@ -472,12 +503,13 @@ Following these guidelines will help maintain the intended appearance and functi
 
 **Ante**  
 A stage of a run. Each run is divided into multiple antes (usually eight), 
-with each ante consisting of several rounds (blinds) that you must clear to progress.
+with each ante consisting of several rounds ( 3 blinds per ante) that you must clear to progress. As the 
+antes increase, the score to beat also progressively increases. 
 
 **Blind**  
 A round within an ante where you must score enough points (chips) to beat the challenge. There are three types:
-- **Small Blind**: The first round; you can optionally skip it.
-- **Big Blind**: The second round; similar to the Small Blind.
+- **Small Blind**: The first round; you can skip or play it.
+- **Big Blind**: The second round; you can skip or play it.
 - **Boss Blind**: The final round of an ante with a unique, often restrictive challenge. This round cannot be skipped.
 
 **Chips**  
