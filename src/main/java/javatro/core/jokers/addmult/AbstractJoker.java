@@ -1,5 +1,7 @@
 package javatro.core.jokers.addmult;
 
+// @@author jwyk
+
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BOLD;
 import static javatro.display.UI.END;
@@ -17,6 +19,7 @@ public class AbstractJoker extends Joker {
     public AbstractJoker() {
         super();
         name = "Abstract";
+        identifierName = "ABSTRACTJOKER";
         this.numberOfJokers = 1;
         description =
                 String.format(

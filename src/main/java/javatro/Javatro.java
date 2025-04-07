@@ -1,5 +1,6 @@
 package javatro;
 
+import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
@@ -12,6 +13,8 @@ import javatro.manager.JavatroManager;
  * manager to the start screen.
  */
 public class Javatro {
+    private static AudioPlayer mainAudioPlayer;
+
     /** The view component of the application. */
     private static final UI javatroView = new UI();
 
@@ -35,7 +38,12 @@ public class Javatro {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) throws JavatroException {
+
         assert false : "dummy assertion set to fail";
+        AudioPlayer audioPlayer = AudioPlayer.getInstance();
+        audioPlayer.playAudio("audioplayer/balatro_theme.wav");
+        System.out.println(audioPlayer.isPlaying());
+        // Continue with main flow
         JavatroManager.setScreen(new StartScreen());
     }
 }

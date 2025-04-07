@@ -1,5 +1,7 @@
 package javatro.core.jokers.addmult;
 
+// @@author jwyk
+
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BLUE;
 import static javatro.display.UI.BOLD;
@@ -16,6 +18,7 @@ public class GluttonousJoker extends Joker {
     public GluttonousJoker() {
         super();
         name = "Gluttonous";
+        identifierName = "GLUTTONOUSJOKER";
         description =
                 String.format(
                         "Played cards with %s%sClub%s%s suit give %s%s+3 Mult%s%s when scored",

@@ -7,9 +7,9 @@ package javatro.core;
 import javatro.core.Deck.DeckType;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.round.Round;
+import javatro.storage.Storage;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
@@ -31,6 +31,8 @@ public class JavatroCore {
 
     /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
     public static HeldJokers heldJokers;
+
+    private static final Storage storage = Storage.getStorageInstance();
 
     /** Stores the play counts for each poker hand type */
     private static final Map<PokerHand.HandType, Integer> pokerHandPlayCounts =
@@ -59,15 +61,76 @@ public class JavatroCore {
     public void nextRound() {
         ante.nextRound();
         roundCount++;
-        startNewRound(classicRound());
+
+        // Update ante and blind values and round count
+        storage.setValue(
+                storage.getRunChosen() - 1,
+                Storage.ROUND_NUMBER_INDEX,
+                String.valueOf(roundCount)); // Update Round Count
+        storage.setValue(
+                storage.getRunChosen() - 1,
+                Storage.ANTE_NUMBER_INDEX,
+                String.valueOf(ante.getAnteCount())); // Update Ante Count
+        storage.setValue(
+                storage.getRunChosen() - 1,
+                Storage.BLIND_INDEX,
+                String.valueOf(ante.getBlind().getName())); // Update Blind
+
+        Round nextRound = classicRound();
+
+        // Update Holding Hand
+        for (int i = Storage.HOLDING_HAND_START_INDEX;
+                i < Storage.HOLDING_HAND_START_INDEX + 8;
+                i++) {
+            Card currentCard =
+                    nextRound.getPlayerHandCards().get(i - Storage.HOLDING_HAND_START_INDEX);
+            storage.setValue(
+                    storage.getRunChosen() - 1,
+                    i,
+                    Storage.cardToString(currentCard)); // Update Holding Hand Cards
+        }
+
+        // Update deck
+        deck =
+                new Deck(
+                        Storage.DeckFromKey(
+                                storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX)));
+        Storage.isNewDeck = true;
+
+        startNewRound(nextRound);
     }
 
     /** Initializes a new game by resetting the ante, round count, jokers and decks. */
     public void setupNewGame(DeckType deckType) {
         ante = new Ante();
-        roundCount = 1;
+
+        ante.setBlind(
+                Storage.BlindFromKey(
+                        storage.getValue(storage.getRunChosen() - 1, Storage.BLIND_INDEX)));
+        ante.setAnteCount(
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, Storage.ANTE_NUMBER_INDEX)));
+        roundCount =
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, Storage.ROUND_NUMBER_INDEX));
+
         totalPlays = 4;
         heldJokers = new HeldJokers();
+
+        // Update Jokers
+        for (int i = Storage.JOKER_HAND_START_INDEX; i < Storage.JOKER_HAND_START_INDEX + 5; i++) {
+            if (Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "-")
+                    || Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "NA"))
+                continue;
+
+            try {
+                heldJokers.add(
+                        Storage.parseJokerString(storage.getValue(storage.getRunChosen() - 1, i)));
+            } catch (JavatroException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         deck = new Deck(deckType);
     }
     // @author swethaiscool
@@ -76,18 +139,55 @@ public class JavatroCore {
      * Starts a new round and assigns it to the current round.
      *
      * @param round The new round to start.
-     * @throws JavatroException If an error occurs while initializing the round.
      */
     private static void startNewRound(Round round) {
         currentRound = round;
+        // Set round number, discards and hands
         assert currentRound != null;
+
+        int savedPlays =
+                Integer.parseInt(storage.getValue(storage.getRunChosen() - 1, Storage.HAND_INDEX));
+        int savedDiscards =
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, Storage.DISCARD_INDEX));
+
+        if (savedPlays == -1) savedPlays = 4;
+        if (savedDiscards == -1) savedDiscards = 3;
+
+        currentRound.updatePlays(
+                deck.getDeckName().getName().equals("BLUE") && savedPlays == 4
+                        ? savedPlays + 1
+                        : savedPlays);
+        currentRound.updateDiscards(
+                deck.getDeckName().getName().equals("RED") && savedDiscards == 3
+                        ? savedDiscards + 1
+                        : savedDiscards);
+
+        storage.setValue(
+                storage.getRunChosen() - 1,
+                Storage.HAND_INDEX,
+                String.valueOf(currentRound.getRemainingPlays())); // Update Number Of Plays
+        storage.setValue(
+                storage.getRunChosen() - 1,
+                Storage.DISCARD_INDEX,
+                String.valueOf(currentRound.getRemainingDiscards())); // Update Number Of Discards
+        storage.setValue(
+                storage.getRunChosen() - 1,
+                Storage.ROUND_SCORE_INDEX,
+                String.valueOf(currentRound.getCurrentScore())); // Update Current Score
+
+        // Update save file
+        try {
+            storage.updateSaveFile();
+        } catch (JavatroException e) {
+            System.out.println("Could not save info.");
+        }
     }
 
     /**
      * Creates a new classic round with predefined settings.
      *
      * @return A {@code Round} instance configured as a classic round.
-     * @throws JavatroException If an error occurs while creating the round.
      */
     private static Round classicRound() {
         Deck d;
@@ -109,7 +209,37 @@ public class JavatroCore {
      * @throws JavatroException If an error occurs while starting the game.
      */
     public void beginGame() throws JavatroException {
-        startNewRound(classicRound());
+        Round newRound = Objects.requireNonNull(classicRound());
+
+        // Update round attributes
+        newRound.setCurrentScore(
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, Storage.ROUND_SCORE_INDEX)));
+
+        // Update deck with rest of the cards (If deck is not empty)
+        if (!Storage.isNewDeck) newRound.getDeck().populateWithSavedDeck();
+
+        // Update savedCards
+        List<Card> savedCards = new ArrayList<>();
+        int emptyCardCount = 0;
+
+        for (int i = Storage.HOLDING_HAND_START_INDEX;
+                i < Storage.HOLDING_HAND_START_INDEX + 8;
+                i++) {
+            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
+                    || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
+                emptyCardCount = emptyCardCount + 1;
+                continue;
+            }
+            savedCards.add(
+                    Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
+        }
+
+        if (emptyCardCount < 8) {
+            newRound.setPlayerHandCards(savedCards);
+        }
+
+        startNewRound(newRound);
     }
 
     /** Initializes poker hand play counts at game start */

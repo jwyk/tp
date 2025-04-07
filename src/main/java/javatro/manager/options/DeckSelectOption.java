@@ -6,6 +6,7 @@ import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
+import javatro.storage.Storage;
 
 /**
  * Represents a menu option for selecting a specific deck type to start a new game. When executed,
@@ -52,7 +53,12 @@ public class DeckSelectOption implements Option {
     @Override
     public void execute() throws JavatroException {
         // Initialize core game deck
+        Storage storage = Storage.getStorageInstance();
         JavatroCore.deck = new Deck(deckType);
+        storage.setValue(storage.getRunChosen() - 1, Storage.DECK_INDEX, deckType.getName());
+        JavatroManager.beginGame(
+                (Storage.DeckFromKey(
+                        storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX))));
         assert JavatroCore.deck != null : "Deck initialization failed";
 
         // Start game session with selected deck

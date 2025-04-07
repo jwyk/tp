@@ -1,5 +1,7 @@
 package javatro.core.jokers.addmult;
 
+// @@author jwyk
+
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BOLD;
 import static javatro.display.UI.END;
@@ -15,6 +17,7 @@ public class HalfJoker extends Joker {
     public HalfJoker() {
         super();
         name = "Half";
+        identifierName = "HALFJOKER";
         description =
                 String.format(
                         "%s%s+20 Mult%s%s if played hand has %s%s3 or fewer%s%s cards",
