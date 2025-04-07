@@ -58,4 +58,4 @@
 
 ### Review/Mentoring Contributions:
 - Reviewed pull requests related to the scoring mechanic and provided timely feedback on how to refactor the code.
-- Kept track of and resolved bugs that popped up relating to the scoring mechanic.
+- Kept track of and resolved bugs that popped up relating to the scoring mechanic and deck such as [#130](https://github.com/AY2425S2-CS2113-W13-1/tp/pull/130), [#118](https://github.com/AY2425S2-CS2113-W13-1/tp/pull/118) and [#84](https://github.com/AY2425S2-CS2113-W13-1/tp/pull/84).
