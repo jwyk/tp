@@ -34,7 +34,6 @@ import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.core.jokers.Joker;
-import javatro.manager.JavatroManager;
 import javatro.manager.options.DeckViewOption;
 import javatro.manager.options.DiscardCardOption;
 import javatro.manager.options.ExitGameOption;

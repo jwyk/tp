@@ -12,8 +12,8 @@ import javatro.core.Deck;
 import javatro.core.JavatroException;
 import javatro.core.jokers.HeldJokers;
 import javatro.display.UI;
-
 import javatro.storage.Storage;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

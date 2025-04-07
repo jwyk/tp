@@ -47,7 +47,7 @@ class RoundObservable {
         support.firePropertyChange("holdingHand", null, state.getPlayerHandCards());
         support.firePropertyChange("currentScore", null, state.getCurrentScore());
 
-        if(Storage.saveActive) {
+        if (Storage.saveActive) {
             storage.setValue(
                     storage.getRunChosen() - 1,
                     Storage.HAND_INDEX,
@@ -71,7 +71,9 @@ class RoundObservable {
 
             Storage storage = Storage.getStorageInstance();
 
-            for (int j = Storage.START_OF_REST_OF_DECK; j < Storage.START_OF_REST_OF_DECK + 44; j++) {
+            for (int j = Storage.START_OF_REST_OF_DECK;
+                    j < Storage.START_OF_REST_OF_DECK + 44;
+                    j++) {
 
                 int idx = j - Storage.START_OF_REST_OF_DECK;
 
@@ -99,9 +101,13 @@ class RoundObservable {
                     storage.setValue(
                             storage.getRunChosen() - 1, Storage.HAND_INDEX, Integer.toString(-1));
                     storage.setValue(
-                            storage.getRunChosen() - 1, Storage.DISCARD_INDEX, Integer.toString(-1));
+                            storage.getRunChosen() - 1,
+                            Storage.DISCARD_INDEX,
+                            Integer.toString(-1));
                     storage.setValue(
-                            storage.getRunChosen() - 1, Storage.ROUND_SCORE_INDEX, Long.toString(0));
+                            storage.getRunChosen() - 1,
+                            Storage.ROUND_SCORE_INDEX,
+                            Long.toString(0));
                     storage.setValue(
                             storage.getRunChosen() - 1,
                             Storage.ROUND_NUMBER_INDEX,
@@ -125,7 +131,8 @@ class RoundObservable {
                             Integer.parseInt(
                                     Storage.getStorageInstance()
                                             .getValue(
-                                                    Storage.getStorageInstance().getNumberOfRuns() - 1,
+                                                    Storage.getStorageInstance().getNumberOfRuns()
+                                                            - 1,
                                                     Storage.WINS_INDEX));
                     Storage.getStorageInstance()
                             .setValue(
@@ -140,9 +147,13 @@ class RoundObservable {
                     storage.setValue(
                             storage.getRunChosen() - 1, Storage.HAND_INDEX, Integer.toString(-1));
                     storage.setValue(
-                            storage.getRunChosen() - 1, Storage.DISCARD_INDEX, Integer.toString(-1));
+                            storage.getRunChosen() - 1,
+                            Storage.DISCARD_INDEX,
+                            Integer.toString(-1));
                     storage.setValue(
-                            storage.getRunChosen() - 1, Storage.ROUND_SCORE_INDEX, Long.toString(0));
+                            storage.getRunChosen() - 1,
+                            Storage.ROUND_SCORE_INDEX,
+                            Long.toString(0));
                     storage.setValue(
                             storage.getRunChosen() - 1,
                             Storage.ROUND_NUMBER_INDEX,
