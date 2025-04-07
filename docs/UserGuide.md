@@ -12,24 +12,27 @@ This guide explains the features, commands, and game flow to help you master Jav
 - [2. Quick Start](#quick-start)
 - [3. Features](#features)
     - [3.1 Main Menu](#main-menu)
-    - [3.2 Selecting a Deck](#selecting-a-deck)
-    - [3.3 Choosing a Blind](#choosing-a-blind)
-    - [3.4 Game Interface](#game-interface)
-    - [3.5 Playing Cards](#playing-cards)
-    - [3.6 Discarding Cards](#discarding-cards)
-    - [3.7 Viewing the Deck](#viewing-the-deck)
-    - [3.8 Viewing Poker Hands](#viewing-poker-hands)
-    - [3.9 Winning a Small / Large Blind](#winning-a-small--large-blind)
-    - [3.10 Winning a Boss Blind](#winning-a-boss-blind)
-    - [3.11 Help Menu](#help-menu)
-    - [3.11 Saving / Loading a Game](#saving--loading-a-game)
+    - [3.2 Selecting a Run](#selecting-a-run)
+    - [3.3 Selecting a Deck](#selecting-a-deck)
+    - [3.4 Choosing a Blind](#choosing-a-blind)
+    - [3.5 Game Interface](#game-interface)
+    - [3.6 Playing Cards](#playing-cards)
+    - [3.7 Discarding Cards](#discarding-cards)
+    - [3.8 Viewing the Deck](#viewing-the-deck)
+    - [3.9 Viewing Poker Hands](#viewing-poker-hands)
+    - [3.10 Winning a Small / Large Blind](#winning-a-small--large-blind)
+    - [3.11 Winning a Boss Blind](#winning-a-boss-blind)
+    - [3.12 Winning the Game](#winning-the-game)
+    - [3.13 Losing the Game](#losing-the-game)
+    - [3.14 Help Menu](#help-menu)
 - [4. Gameplay Flow](#gameplay-flow)
-- [5. Tips for New Players](#tips-for-new-players)
-- [6. FAQs](#faqs)
-- [7. Known Issues](#known-issues)
-    - [7.1 Terminal Window Behaviour](#terminal-window-behavior)
-- [8. Glossary](#glossary)
-- [9. Acknowledgements](#acknowledgements)
+- [5. FAQs](#faqs)
+- [6. Known Issues](#known-issues)
+    - [6.1 Terminal Window Behaviour](#terminal-window-behavior)
+    - [6.2 Exiting the Game Mid-Move](#exiting-the-game-mid-move)
+    - [6.3 Editing the Save File Manually](#editing-the-save-file-manually)
+- [7. Glossary](#glossary)
+- [8. Acknowledgements](#acknowledgements)
 
 ---
 
@@ -41,12 +44,12 @@ Build high-scoring poker hands, leverage unique deck abilities, and defeat chall
 The _objective_ of the game is to score the highest points by creating valid poker hands from the cards dealt. 
 It adds a layer of complexity with various deck types and special mechanics, making it a unique experience.
 
-
 ---
 
 ## Quick Start
 
-Before you begin, ensure you have **Java 17** installed.
+Before you begin, ensure you have **Java 17** installed.  
+_Javatro has **audio** implemented. Turn up your volume for the best experience!_
 
 1. **Installation:**
     - Download the `javatro.jar` file from the [latest release](https://github.com/AY2425S2-CS2113-W13-1/tp/releases/tag/release-v2.1) of Javatro.
@@ -74,24 +77,69 @@ _This section details the various screens and features available in Javatro._
 ### Main Menu
 ![Main Menu Screen](ug_images/main_menu.png)
 
-Players will be shown the **Javatro Main Menu** whenever they boot up the game or select `Main Menu`.
+Players will be shown the **Javatro Main Menu** whenever they boot up the game or select `Main Menu`.  
+_Javatro Music Theme will begin playing._
 
 #### Menu Options:
-- `1. Start Game`
-- `2. Load Game`
-- `3. Help Menu`
-- `4. Exit Game`
+- `1. Start a Run`
+- `2. Help Menu`
+- `3. Exit Game`
 
-_Enter `1` if the player wishes to start an entirely new run,
-`2` if there is a previous unfinished run and the player continues from where they previously left off, 
-`3` to see helpful information about Javatro, or `4` to exit the game._
+_Enter `1` to continue an existing run or start a new one.  
+Enter `2` to see helpful information about Javatro.   
+Enter `3` to exit the game._
+
+---
+
+### Selecting a Run
+![No Saves](ug_images/no_save.png)
+
+When launching Javatro for the _first time_, if **no saved game runs exist**, 
+players will be prompted to _start a new game run_ immediately.
+
+If the player has _existing saved runs_, the game will take you to the **Run Select Menu**, 
+where they can manage and continue their game progress. 
+
+![Run Select Menu](ug_images/run_select.png)
+
+The **Run Select Menu** shows information about the _currently selected run_. 
+Players can browse through their saved runs using the available navigation options.
+
+#### Information Provided:
+- Round count _(how many rounds have been played)_
+- Total score accumulated 
+- Remaining hands and discards 
+- Current ante count 
+- Type of blind 
+- Wins/Losses recorded in this run 
+- Deck type used in the run
+
+#### Menu Options:
+
+- `1. Continue Run #X`
+- `2. View Next Run`
+- `3. View Previous Run`
+- `4. View List of Runs`
+- `5. Start New Game`
+
+_Enter `1` to continue the currently displayed run.  
+Enter `2` to view the next run in the saved run list.   
+Enter `3` to view the previous run.  
+Enter `4` to view the full list of saved runs.  
+Enter `5` to start a new game run._
+
+![Run List](ug_images/run_list.png)
+
+If the player has multiple saved runs, selecting the `View List of Runs` option will display the **entire list** of saved runs.
+Players can then select a **specific run** to _inspect or continue_, avoiding the need to click through runs one-by-one.  
+_This feature is especially helpful for players managing many game sessions._
 
 ---
 
 ### Selecting a Deck
 ![Deck Selection](ug_images/deck_select.png)
  
-After selecting `1. New Game`, players will be prompted to choose from various decks to use at the start of every run.
+After selecting `Start New Game`, players will be prompted to choose from various decks to use at the start of every run.
 **Decks** contain playing cards that are key to forming poker hands. 
 _Each deck has different effects with unique rules or bonuses._
 
@@ -142,16 +190,12 @@ or `2` to reject the current blind and progress to the next one._
 ### Game Interface
 ![Game Screen](ug_images/small_blind.png)
 
-After selecting `1. Accept Blind`, players will be shown the main **Javatro game interface** and dealt cards at the start of each round.
+After selecting `Accept Blind` or `Continue Run`, players will be shown the main **Javatro game interface** and dealt cards at the start of each round.
 
 To **defeat a blind**, the player must select cards from their hand to play poker hands and score chips. 
-_A given number of discards are available to assist with creating better hands._ 
-
-If the player is unable to reach the blind's chip requirement in the allotted number of hands, 
-the run is **lost**, and the player must _restart_ from Ante 1.
+_A given number of discards are available to assist with creating better hands._
 
 Upon reaching the score requirement, the round ends and the player receives rewards.
-When Ante 8 is completed, the player **wins** the run, and is allowed to start a new one.
 
 #### Information Provided:
 
@@ -187,7 +231,7 @@ _Enter a number from `1` to `6` to make a gameplay action._
 **_Sorted by Suit_**  
 ![Play Card Screen](ug_images/play_card_suit.png)
 
-After selecting `1. Play Cards`, the player is directed to the **Play Cards Menu**.  
+After selecting `Play Cards`, the player is directed to the **Play Cards Menu**.  
 Players are able to _select_ and _play_ cards to form valid poker hands. 
 **Sorting options** are also provided to help arrange cards effectively before making a selection.
 
@@ -217,7 +261,7 @@ as well as the **poker hand** that has been formed.
 **_Sorted by Rank_**  
 ![Discard Card Screen](ug_images/discard_card_rank.png)  
 
-After selecting `2. Discard Cards`, the player is directed to the **Discard Cards Menu**.  
+After selecting `Discard Cards`, the player is directed to the **Discard Cards Menu**.  
 Player can _strategize_ and make preparations by _discarding_ unwanted cards, 
 allowing them to possibly form better poker hands by _redrawing_ new cards.
 
@@ -297,7 +341,7 @@ _Enter `1` to go back to the previous screen._
 ---
 
 ### Winning a Small / Large Blind
-![Win Planet Card Screen](ug_images/win_planet_card.png)
+![Win Planet Card Screen](ug_images/planet_card.png)
 
 **Small and Large Blinds** have no other effects and can be _skipped_.  
 The score required is _1x base chips_ for **Small Blind**, and _1.5x base chips_ for **Large Blind**.  
@@ -332,14 +376,15 @@ or `2` to end the current game session._
 ---
 
 ### Winning a Boss Blind
-
-![Win Joker Screen](ug_images/win_joker.png)
+![Boss Blind](ug_images/boss_blind.png)
 
 **Boss Blinds** are the last blind of an **Ante**, most of which require a score of _2x base chips_.  
 **Boss Blinds** have certain special effects that add difficulty to the round and are randomly selected.
 _Boss Blinds cannot be skipped._
 
 After successfully beating a **Boss Blind**, players receive a _random_ **Joker Card**.
+
+![Win Joker Screen](ug_images/joker.png)
 
 **Jokers** are special cards at the core of Javatro's gameplay. They possess _unique effects_ that can synergize, 
 and a strong combination of jokers is typically essential for the player to defeat Blinds at higher Antes.
@@ -369,44 +414,58 @@ or `2` to end the current game session._
 
 ---
 
-#### Help Option: 
-![img_2.png](img_2.png)
+### Winning the Game
+![Win](ug_images/win.png)
 
+When _Ante 8_ is completed, the player **wins** the run, and is allowed to start a new one.  
+_Victory Music will begin playing._
+
+#### Menu Options:
+- `1. Main Menu`
+- `2. Exit Game`
+
+_Enter `1` to return to the main menu,
+or `2` to end the current game session._
+
+---
+
+### Losing the Game
+![lose](ug_images/lose.png)
+
+If the player is unable to reach the blind's chip requirement in the allotted number of hands,
+the run is **lost**, and the player must _restart_ from Ante 1.  
+_Losing Sound Effect will begin playing._
+
+#### Menu Options:
+- `1. Main Menu`
+- `2. Exit Game`
+
+_Enter `1` to return to the main menu,
+or `2` to end the current game session._
+
+---
+
+### Help Menu
+![img_2.png](ug_images/help_menu.png)
+
+#### Menu Options:
 -`[1] Game Introduction`                               
 -`[2] Game Rules`                                         
 -`[3] How To Play`                                        
 -`[4] Tips and Tricks`
 
 _Enter `1` to learn more about Javatro as this section gives a brief overview of the game's objective, structure, 
-and what makes it unique. Perfect for first-time players._
-![img_3.png](img_3.png)  
+and what makes it unique. Perfect for first-time players._  
+![](ug_images/help_intro.png)  
 
-_Enter `2` to understand the core rules of the game. This section explains:
-How rounds work
-The goal of each run
-How scoring and progression happen_
-![img_4.png](img_4.png)
+_Enter `2` to understand the core rules of the game._  
+![](ug_images/help_rules.png)
 
-_Enter `3` to understand a step-by-step breakdown of gameplay mechanics. This includes:
-Starting your deck
-Drawing cards each turn
-Forming poker hands
-Advancing through increasing blinds and challenges_
-![img_5.png](img_5.png)
+_Enter `3` to understand a step-by-step breakdown of gameplay mechanics._  
+![](ug_images/help_howto.png)
 
-_Enter `4` to learn more about the helpful strategies and advice for surviving longer and building a stronger deck.
-Learn how to:
-Manage your deck wisely
-Play strong hands at the right time
-Adapt your playstyle for different runs_
-![img_6.png](img_6.png)
-
-### Saving / Loading a Game
-
-Neeraj yap
-
-
-
+_Enter `4` to learn more about the helpful strategies and advice for surviving longer and building a stronger deck._  
+![](ug_images/help_tips.png)
 
 ---
 
@@ -442,14 +501,6 @@ Neeraj yap
 
 ---
 
-## Tips for New Players
-- **Understand Deck Mechanics**: Each deck provides unique advantages. Choose one that suits your play style.
-- **Plan Your Moves**: Don’t rush through rounds. Think carefully about which cards to play or discard.
-- **Monitor Your Score**:The blind level you choose influences your gameplay.
-- **Utilize Special Cards**: Use Joker and Planet Cards wisely for extra benefits.
-
----
-
 ## FAQs
 
 **Q: How do I view remaining hands/discards?**  
@@ -463,6 +514,28 @@ _A: No, deck selection is permanent for each run. Start a new game to try differ
 
 **Q: What if I enter an invalid command?**  
 _A: Javatro displays an error message to help you correct your input._
+
+**Q: How do i save my game progress?**  
+_A: Your game progress is automatically saved whenever you finish a run or make significant progress._
+
+**Q: Can I delete or overwrite saved runs?**  
+_A: Currently, the game does not support deleting or overwriting saved runs._
+
+**Q: Can I cheat or modify my saved data?**  
+_A: Modifying the save file will corrupt the save data and reset your saves._
+
+**Q: What happens if my save file gets corrupted?**  
+_A: If the game detects a corrupted save file, it will attempt to create a new one and all your progress will be wiped_
+
+**Q: I exited the game halfway right after making a move. What happens to my save?**  
+_A: The save will be metastable. Doing this may most likely break your save, you have been warned..._
+
+**Q: How do I enable or disable music in the game?**  
+_A: Music is enabled by default when you start the game and cannot be disabled, it runs throughout the game._
+
+**Q: What happens if I exit the game while music is playing?**  
+_A: If you exit the game without stopping the music, the audio thread will be forcefully terminated. 
+The next time you start the game, it will reinitialize the audio system and play the default music._
 
 ### How do I navigate through Javatro?
 
@@ -499,6 +572,30 @@ To ensure proper UI rendering, players are advised to:
 - Ensure the terminal is **wide enough** to accommodate full-line prints without wrapping.
 
 Following these guidelines will help maintain the intended appearance and functionality of the **Javatro**’s UI.
+
+### Exiting the Game Mid-Move
+
+**Description:**  
+Exiting the game immediately after making a move can corrupt the save file, 
+resulting in inaccurate or invalid values within the storage system. 
+When the game attempts to load the corrupted data, it may fail to function correctly or produce unintended behavior.
+
+**Recommended Solution:**  
+To prevent this issue, players should avoid closing the game abruptly during critical operations such as card plays or menu selections. 
+Always allow the game to complete its saving process before exiting. 
+If the issue persists, delete the corrupted save file and start a new game.
+
+### Editing the Save File Manually
+
+**Description:**  
+Editing the save file (savefile.csv) directly will wipe all saved data. 
+When the game starts, it generates a hash using the existing save data and compares it against the saved hash. 
+Any modification to the save file will cause the hashes to mismatch, 
+prompting the game to delete the save file and reset progress.
+
+**Recommended Solution:**  
+Avoid manually modifying the save file. If you need to transfer or backup save data, copy the entire file without altering its contents. 
+If editing is necessary, ensure the hashes are recalculated using the same method as the game to prevent data loss.
 
 ---
 
@@ -552,6 +649,9 @@ A complete play session. A run ends when you fail an ante or successfully clear 
 ## Acknowledgements
 
 - Javatro game concept is inspired by **Balatro**, a roguelike deck builder game developed by _LocalThunk_ and published by _Playstack_.
+- **Javatro Music:** _Balatro - Complete Original Soundtrack (Official), Composed by LouisF._
+- **Winning Music:** _We Are the Champions, Song by Queen - 1977._
+- **Losing Sound Effect:** _[Cat Laughing At You](https://youtu.be/L8XbI9aJOXk?feature=shared)_
 
 ---
 

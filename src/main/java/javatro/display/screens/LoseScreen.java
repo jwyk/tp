@@ -78,6 +78,10 @@ public class LoseScreen extends Screen {
      */
     @Override
     public void displayScreen() {
+        // Cat laugh sound
+        AudioPlayer.getInstance().stopAudio();
+        AudioPlayer.getInstance().playAudio("audioplayer/cat-laugh-meme-1.wav");
+
         printANSI("jimbo.txt");
 
         int quoteIndex = ThreadLocalRandom.current().nextInt(QUOTES.size());
@@ -97,9 +101,5 @@ public class LoseScreen extends Screen {
         printBlackB(
                 BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
         System.out.println();
-
-        // Cat laugh sound
-        AudioPlayer.getInstance().stopAudio();
-        AudioPlayer.getInstance().playAudio("audioplayer/cat-laugh-meme-1.wav");
     }
 }
