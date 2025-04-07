@@ -212,7 +212,9 @@ public class JavatroCore {
         Round newRound = Objects.requireNonNull(classicRound());
 
         // Update round attributes
-        newRound.setCurrentScore(Integer.parseInt(storage.getValue(storage.getRunChosen()-1,Storage.ROUND_SCORE_INDEX)));
+        newRound.setCurrentScore(
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, Storage.ROUND_SCORE_INDEX)));
 
         // Update deck with rest of the cards (If deck is not empty)
         if (!Storage.isNewDeck) newRound.getDeck().populateWithSavedDeck();
