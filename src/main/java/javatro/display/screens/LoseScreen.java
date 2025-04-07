@@ -98,6 +98,7 @@ public class LoseScreen extends Screen {
                 BOTTOM_LEFT + String.valueOf(HORIZONTAL).repeat(BORDER_WIDTH - 2) + BOTTOM_RIGHT);
         System.out.println();
 
+        // Cat laugh sound
         AudioPlayer.getInstance().stopAudio();
         AudioPlayer.getInstance().playAudio("audioplayer/cat-laugh-meme-1.wav");
     }

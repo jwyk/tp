@@ -7,7 +7,7 @@ import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroException;
 import javatro.manager.options.ExitGameOption;
 import javatro.manager.options.HelpMenuOption;
-import javatro.manager.options.LoadRunSelectOption;
+import javatro.manager.options.RunSelectOption;
 
 /**
  * Initial application screen displaying main menu options and game logo.
@@ -28,8 +28,8 @@ public class StartScreen extends Screen {
      * @throws JavatroException if screen initialization fails
      */
     public StartScreen() throws JavatroException {
-        super("MAIN MENU (RAISE YOUR PC VOL!!)");
-        commandMap.add(new LoadRunSelectOption());
+        super("MAIN MENU");
+        commandMap.add(new RunSelectOption());
         commandMap.add(new HelpMenuOption());
         commandMap.add(new ExitGameOption());
 

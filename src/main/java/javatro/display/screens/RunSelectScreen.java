@@ -2,7 +2,6 @@ package javatro.display.screens;
 
 import static javatro.display.UI.*;
 
-import javatro.audioplayer.AudioPlayer;
 import javatro.core.Deck.DeckType;
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
@@ -25,24 +24,16 @@ public class RunSelectScreen extends Screen {
     public RunSelectScreen() throws JavatroException {
         super("Select Run To Load");
         if (storage.getNumberOfRuns() > 0) {
-            super.commandMap.add(new StartRunNumberOption());
-            super.commandMap.add(new SeeNextRunOption());
-            super.commandMap.add(new SeePreviousRun());
-            super.commandMap.add(new LoadJumpToRunScreenOption());
+            super.commandMap.add(new StartRunOption());
+            super.commandMap.add(new ViewNextRunOption());
+            super.commandMap.add(new ViewPrevRunOption());
+            super.commandMap.add(new ViewRunListOption());
         }
-
-        StartGameOption startGameOption = new StartGameOption();
-        startGameOption.setDescription("Start A New Run");
-        super.commandMap.add(startGameOption);
+        super.commandMap.add(new StartGameOption());
     }
 
     @Override
     public void displayScreen() {
-
-        // Stop the main theme before playing the defeat theme
-        AudioPlayer.getInstance().stopAudio();
-        AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
-
         if (storage.getNumberOfRuns() > 0) displayCurrentChosenRun();
         else {
 
@@ -105,7 +96,6 @@ public class RunSelectScreen extends Screen {
             contents.add("\u001B[0m"); // Reset to avoid color bleeding
 
             printBorderedContent("NO SAVED RUNS", contents);
-            System.out.println("\n");
         }
     }
 
@@ -222,7 +212,6 @@ public class RunSelectScreen extends Screen {
         optionLines.add(paddedDeckName);
 
         printBorderedContent("RUN #" + runNumber, optionLines);
-        System.out.println("\n");
     }
 
     String stripAnsi(String input) {

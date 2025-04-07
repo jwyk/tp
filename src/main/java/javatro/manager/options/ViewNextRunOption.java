@@ -7,9 +7,10 @@ package javatro.manager.options;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
+import javatro.storage.Storage;
 
 /** A command that loads the run selection screen when executed. */
-public class LoadJumpToRunScreenOption implements Option {
+public class ViewNextRunOption implements Option {
 
     /**
      * Provides a brief description of the command.
@@ -18,12 +19,18 @@ public class LoadJumpToRunScreenOption implements Option {
      */
     @Override
     public String getDescription() {
-        return "Jump To A Run";
+        return "View Next Run";
     }
 
     /** Executes the command to change the screen to the start menu. */
     @Override
     public void execute() throws JavatroException {
-        JavatroManager.setScreen(UI.getJumpToRunScreen());
+
+        int currentRun = UI.getRunSelectScreen().getRunNumber();
+        int totalRuns = Storage.getStorageInstance().getNumberOfRuns();
+        int nextRun = (currentRun % totalRuns) + 1;
+        UI.getRunSelectScreen().setRunNumber(nextRun);
+
+        JavatroManager.setScreen(UI.getRunSelectScreen());
     }
 }
