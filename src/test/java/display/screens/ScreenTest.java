@@ -1,4 +1,3 @@
 package display.screens;
 
-public class ScreenTest {
-}
+public class ScreenTest {}
