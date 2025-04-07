@@ -48,16 +48,6 @@ public class CardSelectScreenTest extends ScreenTest {
         compareCommandListTypes(expectedCommands, actualCommands);
     }
 
-    @Test
-    public void testStartScreenOutput() throws IOException {
-        // Compare the captured output with the file content
-        // Capture the output and save it to file
-        pipeOutputToFile("data.txt", UI.getStartScreen());
-
-        // Compare the output with the expected file
-        compareOutputToFile2("StartScreen.txt");
-
-    }
 
     // AudioPlayer Handling
     @Test

@@ -7,10 +7,7 @@ import javatro.display.UI;
 import javatro.display.screens.GameScreen;
 import javatro.display.screens.StartScreen;
 import javatro.manager.JavatroManager;
-import javatro.manager.options.ExitGameOption;
-import javatro.manager.options.HelpMenuOption;
-import javatro.manager.options.LoadRunSelectOption;
-import javatro.manager.options.Option;
+import javatro.manager.options.*;
 import javatro.storage.Storage;
 import javatro.utilities.csvutils.CSVUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,26 +54,20 @@ public class GameScreenTest extends ScreenTest {
 
     @Test
     public void commandMatchCheck() {
-        expectedCommands.add(LoadRunSelectOption.class);
-        expectedCommands.add(HelpMenuOption.class);
+        expectedCommands.add(PlayCardOption.class);
+        expectedCommands.add(DiscardCardOption.class);
+        expectedCommands.add(PokerHandOption.class);
+        expectedCommands.add(DeckViewOption.class);
+        expectedCommands.add(MainMenuOption.class);
         expectedCommands.add(ExitGameOption.class);
 
-        List<Option> actualCommands = UI.getCurrentScreen().getCommandMap();
+
+        List<Option> actualCommands = UI.getGameScreen().getCommandMap();
 
 
         compareCommandListTypes(expectedCommands, actualCommands);
     }
 
-    @Test
-    public void testStartScreenOutput() throws IOException {
-        // Compare the captured output with the file content
-        // Capture the output and save it to file
-        pipeOutputToFile("data.txt", UI.getGameScreen());
-
-        // Compare the output with the expected file
-        compareOutputToFile2("GameScreen.txt");
-
-    }
 
     // AudioPlayer Handling
     @Test

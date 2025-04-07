@@ -25,17 +25,19 @@ public class HeldJokers {
         }
         heldJokers.add(joker);
 
-        Storage storage = Storage.getStorageInstance();
-        // Update Joker Cards
-        for (int j = 0; j < HeldJokers.HOLDING_LIMIT; j++) {
-            if (heldJokers.isEmpty() || j > heldJokers.size()) {
-                storage.setValue(
-                        storage.getRunChosen() - 1, Storage.JOKER_HAND_START_INDEX + j, "-");
-            } else {
-                storage.setValue(
-                        storage.getRunChosen() - 1,
-                        Storage.JOKER_HAND_START_INDEX + j,
-                        Storage.jokerToString(heldJokers.get(j)));
+        if(Storage.saveActive) {
+            Storage storage = Storage.getStorageInstance();
+            // Update Joker Cards
+            for (int j = 0; j < HeldJokers.HOLDING_LIMIT; j++) {
+                if (heldJokers.isEmpty() || j >= heldJokers.size()) {
+                    storage.setValue(
+                            storage.getRunChosen() - 1, Storage.JOKER_HAND_START_INDEX + j, "-");
+                } else {
+                    storage.setValue(
+                            storage.getRunChosen() - 1,
+                            Storage.JOKER_HAND_START_INDEX + j,
+                            Storage.jokerToString(heldJokers.get(j)));
+                }
             }
         }
     }

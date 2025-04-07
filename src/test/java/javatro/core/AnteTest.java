@@ -2,6 +2,7 @@ package javatro.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import javatro.storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

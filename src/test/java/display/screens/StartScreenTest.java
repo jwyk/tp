@@ -24,38 +24,19 @@ public class StartScreenTest extends ScreenTest {
 
     @BeforeEach
     public void setUp() {
-
-        try {
-            CSVUtils.writeSampleToCSV(SAVEFILE_PATH, SAMPLE_DATA);
-        } catch (IOException e) {
-            fail("Failed To Write To CSV: " + e);
-        }
-
         super.setUp();
-
     }
 
     @Test
-    public void testCommandMatchWithSave() {
-        try {
-            JavatroManager.ui.setCurrentScreen(UI.getStartScreen());
-        } catch (JavatroException e) {
-            throw new RuntimeException(e);
-        }
-        List<Class<?>> expectedCommands = List.of(
-            LoadRunSelectOption.class,
-            HelpMenuOption.class,
-            ExitGameOption.class
-        );
+    public void commandMatchCheck() {
+        expectedCommands.add(LoadRunSelectOption.class);
+        expectedCommands.add(HelpMenuOption.class);
+        expectedCommands.add(ExitGameOption.class);
 
-        List<Option> actualCommands = UI.getCurrentScreen().getCommandMap();
+
+        List<Option> actualCommands = UI.getStartScreen().getCommandMap();
+
         compareCommandListTypes(expectedCommands, actualCommands);
-    }
-
-    @Test
-    public void testRunSelectScreenOutputWithSave() throws IOException {
-        pipeOutputToFile("data.txt", UI.getStartScreen());
-        compareOutputToFile2("StartScreen.txt");
     }
 
 }

@@ -28,6 +28,7 @@ public class Storage {
 
     private static boolean saveFileValid = true;
     private static int runChosen = 0;
+    public static boolean saveActive = true;
 
     private static final int EXPECTED_COLUMNS = 13;
     private static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");

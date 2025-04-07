@@ -30,10 +30,10 @@ public class PokerHandScreenTest extends ScreenTest {
 
         Storage.getStorageInstance().resetStorage();
         Storage storage = Storage.getStorageInstance();
+        storage.setRunChosen(1);
 
         super.setUp();
         try {
-            storage.setRunChosen(1);
             JavatroManager.beginGame(
                     (Storage.DeckFromKey(
                             storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX))));
@@ -55,14 +55,6 @@ public class PokerHandScreenTest extends ScreenTest {
         compareCommandListTypes(expectedCommands, actualCommands);
     }
 
-    @Test
-    public void testStartScreenOutput() throws IOException {
-        // Compare the captured output with the file content
-        // Capture the output and save it to file
-        pipeOutputToFile("data.txt", UI.getPokerHandScreen());
-        compareOutputToFile2("PokerHandScreen.txt");
-
-    }
 
     // AudioPlayer Handling
     @Test

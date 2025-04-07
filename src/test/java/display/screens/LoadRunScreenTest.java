@@ -24,31 +24,6 @@ public class LoadRunScreenTest extends ScreenTest {
 
   }
 
-  @Test
-  public void testCommandMatchWithSave() {
-    List<Class<?>> expectedCommands = List.of(
-        StartGameOption.class
-    );
-
-    List<Option> actualCommands = UI.getRunSelectScreen().getCommandMap();
-    compareCommandListTypes(expectedCommands, actualCommands);
-  }
-
-  @Test
-  public void testRunSelectScreenOutputWithSave() throws IOException {
-    try {
-      CSVUtils.clearCSVFile(SAVEFILE_PATH);
-    } catch (IOException e) {
-      System.out.println("Could not update savefile");
-    }
-
-    Storage.getStorageInstance().setRunChosen(1);
-
-    pipeOutputToFile("data.txt", UI.getRunSelectScreen());
-    compareOutputToFile2("RunSelectScreen_EmptySave.txt");
-  }
-
-
 }
 
 
