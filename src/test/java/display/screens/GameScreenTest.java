@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import javatro.core.JavatroException;
 import javatro.display.UI;
+import javatro.display.screens.GameScreen;
 import javatro.display.screens.RunSelectScreen;
 import javatro.manager.options.LoadJumpToRunScreenOption;
 import javatro.manager.options.Option;
@@ -17,15 +18,10 @@ import javatro.utilities.csvutils.CSVUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LoadRunScreenWithEmptySaveFileTest extends ScreenTest {
+public class GameScreenTest extends ScreenTest {
 
   @BeforeEach
   public void setUp() {
-    try {
-      CSVUtils.clearCSVFile(SAVEFILE_PATH);
-    } catch (IOException e) {
-      System.out.println("Could not update savefile");
-    }
 
     super.setUp();
 
@@ -48,12 +44,12 @@ public class LoadRunScreenWithEmptySaveFileTest extends ScreenTest {
 
   @Test
   public void testRunSelectScreenOutputWithSave() throws IOException {
-    compareOutputToFile("RunSelectScreen_EmptySave.txt");
+    compareOutputToFile("GameScreen.txt");
   }
 
   @Override
   protected Class<?> getExpectedScreenType() {
-    return RunSelectScreen.class;
+    return GameScreen.class;
   }
 
 

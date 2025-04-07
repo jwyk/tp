@@ -36,6 +36,8 @@ public abstract class ScreenTest {
   protected List<Class<?>> expectedCommands = new ArrayList<>();
 
   protected JavatroManager javatroManager;
+  protected static final String SAMPLE_DATA = "0,1,0,4,5,1,SMALL BLIND,0,0,RED,3H,5H,8H,10H,4H,JD,JH,10D,-,-,-,-,-,1,1,1,1,1,1,1,1,1,1,1,1,1,9D,10C,AC,6H,AS,2C,3C,AD,6C,JC,5D,6S,3S,7C,5C,QH,QS,10S,KD,7H,QC,7D,8S,QD,KS,2D,3D,9H,2H,JS,2S,4C,8C,9C,AH,4D,4S,KH,9S,6D,8D,7S,5S,KC,1cdb399415e1c91d8ef8b7bd443598dd014c2dc996e65e8b6c93f703f4001437";
+  protected final String SAVEFILE_PATH = "./savefile.csv";
 
   @BeforeEach
   public void setUp() {

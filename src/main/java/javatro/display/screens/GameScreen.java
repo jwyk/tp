@@ -51,6 +51,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import javatro.manager.JavatroManager;
 
 /**
  * GameScreen class represents the game menu screen in the Javatro application. It displays game
@@ -121,6 +122,13 @@ public class GameScreen extends Screen implements PropertyChangeListener {
                 .equals("audioplayer/balatro_theme.wav")) {
             AudioPlayer.getInstance().stopAudio();
             AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
+        }
+
+        //Pipe output to test
+        if(!JavatroManager.runningTests) {
+            JavatroManager.runningTests = true;
+            this.getOutput();
+            JavatroManager.runningTests = false;
         }
 
         // Use StringBuilder for efficient string concatenation.
