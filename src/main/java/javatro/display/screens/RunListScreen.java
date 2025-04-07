@@ -27,7 +27,7 @@ public class RunListScreen extends Screen {
 
         Storage storage = Storage.getStorageInstance();
         int numberOfRuns = storage.getNumberOfRuns();
-//        super.commandMap.add(new RunSelectOption());
+        //        super.commandMap.add(new RunSelectOption());
 
         for (int i = 1; i <= numberOfRuns; i++) {
             ViewRunOption newRunOption = new ViewRunOption();

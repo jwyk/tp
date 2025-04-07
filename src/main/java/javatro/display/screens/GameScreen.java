@@ -30,7 +30,6 @@ import static javatro.display.UI.getCardArtLines;
 import static javatro.display.UI.getDisplayLength;
 import static javatro.display.UI.padToWidth;
 
-import javatro.audioplayer.AudioPlayer;
 import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;

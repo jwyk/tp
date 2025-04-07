@@ -1,7 +1,6 @@
 // @@author flyingapricot
 package javatro.manager.options;
 
-import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.JavatroManager;
