@@ -1,4 +1,4 @@
-//author @@flyingapricot
+// author @@flyingapricot
 package javatro.display.screens;
 
 import static javatro.display.UI.*;
@@ -14,8 +14,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class RunSelectScreen extends Screen {
-
-
 
     private static int runNumber = 1;
     private final Storage storage = Storage.getStorageInstance();
@@ -44,21 +42,23 @@ public class RunSelectScreen extends Screen {
         Collections.addAll(contents, noSavedRunsArt);
 
         contents.add("");
-        contents.add("\u001B[1;38;5;117mHmm... It looks lonely here. No saved runs found.\u001B[0m");
+        contents.add(
+                "\u001B[1;38;5;117mHmm... It looks lonely here. No saved runs found.\u001B[0m");
         contents.add("\u001B[38;5;81mMaybe your journey is just waiting to begin.\u001B[0m");
-        contents.add("\u001B[38;5;178mStart a new run and I'll disappear, leaving only your progress behind...\u001B[0m");
+        contents.add(
+                "\u001B[38;5;178mStart a new run and I'll disappear, leaving only your progress"
+                    + " behind...\u001B[0m");
         contents.add("\u001B[0m"); // Reset to avoid color bleeding
 
         printBorderedContent("NO SAVED RUNS", contents);
-
     }
 
     @Override
     public void displayScreen() {
-        if(storage.getNumberOfRuns() > 0) {
+        if (storage.getNumberOfRuns() > 0) {
             List<String> optionLines = DisplayFormatter.formatRunInformation(storage, runNumber);
             printBorderedContent("RUN #" + runNumber, optionLines);
-        }else {
+        } else {
             noSavedRunsDisplay();
         }
     }
@@ -70,7 +70,6 @@ public class RunSelectScreen extends Screen {
     public static void setRunNumber(int runNumber) {
         RunSelectScreen.runNumber = runNumber;
     }
-
 
     String stripAnsi(String input) {
         return input.replaceAll("\\u001B\\[[;\\d]*m", "");

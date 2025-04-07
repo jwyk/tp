@@ -1,9 +1,9 @@
-//author @@flyingapricot
+// author @@flyingapricot
 package javatro.display.formatter.runselect;
 
 import javatro.core.Deck.DeckType;
-import javatro.storage.Storage;
 import javatro.storage.DataParser;
+import javatro.storage.Storage;
 import javatro.storage.utils.CardUtils;
 
 import java.util.ArrayList;
@@ -20,8 +20,14 @@ public class DisplayFormatter {
         String deckIndexValue = storage.getValue(runNumber - 1, DataParser.DECK_INDEX);
 
         if (deckIndexValue.charAt(deckIndexValue.length() - 1) == ']') {
-            cardArt = CardUtils.fromStorageKey(deckIndexValue.substring(0, deckIndexValue.length() - 1)).getArtLines();
-            cardDesc = CardUtils.fromStorageKey(deckIndexValue.substring(0, deckIndexValue.length() - 1)).getDeckName();
+            cardArt =
+                    CardUtils.fromStorageKey(
+                                    deckIndexValue.substring(0, deckIndexValue.length() - 1))
+                            .getArtLines();
+            cardDesc =
+                    CardUtils.fromStorageKey(
+                                    deckIndexValue.substring(0, deckIndexValue.length() - 1))
+                            .getDeckName();
         } else {
             cardArt = CardUtils.fromStorageKey(deckIndexValue).getArtLines();
             cardDesc = CardUtils.fromStorageKey(deckIndexValue).getDeckName();
@@ -38,9 +44,9 @@ public class DisplayFormatter {
         // Italicized deck name
         int padding = 81;
         DeckType deckType = CardUtils.DeckFromKey(deckIndexValue);
-        if(deckType == DeckType.CHECKERED || deckType == DeckType.ABANDONED) {
+        if (deckType == DeckType.CHECKERED || deckType == DeckType.ABANDONED) {
             padding = 89;
-        }else if(deckType == DeckType.RED) {
+        } else if (deckType == DeckType.RED) {
             padding = 80;
         }
 
@@ -61,14 +67,22 @@ public class DisplayFormatter {
         for (int i = 0; i < screenSize - 1; i++) {
             String leftText = "";
             switch (i) {
-                case 0 -> leftText = "Round: " + storage.getValue(runNumber - 1, DataParser.ROUND_NUMBER_INDEX);
-                case 1 -> leftText = "Round Score: " + storage.getValue(runNumber - 1, DataParser.ROUND_SCORE_INDEX);
+                case 0 -> leftText =
+                        "Round: " + storage.getValue(runNumber - 1, DataParser.ROUND_NUMBER_INDEX);
+                case 1 -> leftText =
+                        "Round Score: "
+                                + storage.getValue(runNumber - 1, DataParser.ROUND_SCORE_INDEX);
                 case 2 -> leftText = "Hands: " + handsOutput + " | Discards: " + discardsOutput;
                 case 3, 6 -> leftText = "------------------------";
-                case 4 -> leftText = "Ante: " + storage.getValue(runNumber - 1, DataParser.ANTE_NUMBER_INDEX);
-                case 5 -> leftText = "Blind: " + storage.getValue(runNumber - 1, DataParser.BLIND_INDEX);
-                case 7 -> leftText = "Wins: " + storage.getValue(runNumber - 1, DataParser.WINS_INDEX)
-                        + " | Losses: " + storage.getValue(runNumber - 1, DataParser.LOSSES_INDEX);
+                case 4 -> leftText =
+                        "Ante: " + storage.getValue(runNumber - 1, DataParser.ANTE_NUMBER_INDEX);
+                case 5 -> leftText =
+                        "Blind: " + storage.getValue(runNumber - 1, DataParser.BLIND_INDEX);
+                case 7 -> leftText =
+                        "Wins: "
+                                + storage.getValue(runNumber - 1, DataParser.WINS_INDEX)
+                                + " | Losses: "
+                                + storage.getValue(runNumber - 1, DataParser.LOSSES_INDEX);
             }
 
             String rightAnsi = (i < cardArt.length) ? cardArt[i] : "";

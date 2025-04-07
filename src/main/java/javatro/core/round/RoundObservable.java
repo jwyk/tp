@@ -136,7 +136,6 @@ class RoundObservable {
 
         }
 
-
         // Save all updated data at once
         StorageManager.getInstance().saveRunData(runIndex, runData);
 
