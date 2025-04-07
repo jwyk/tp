@@ -3,6 +3,7 @@ package javatro.display.screens;
 import static javatro.display.UI.*;
 import static javatro.display.ansi.DeckArt.*;
 
+import javatro.core.Deck.DeckType;
 import javatro.core.JavatroException;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
@@ -160,9 +161,13 @@ public class RunSelectScreen extends Screen {
         optionLines.add("");
 
         // Italicized deck name
+        int padding = 81;
+        if(Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX)) == DeckType.ABANDONED || Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX)) == DeckType.CHECKERED) {
+            padding = 90;
+        }
         String italicDeckName = "\u001B[3m" + cardDesc + "\u001B[0m";
         visibleCardLine = stripAnsi(cardArt[0]);
-        int deckNamePadding = 81 + (visibleCardLine.length() - cardDesc.length()) / 2;
+        int deckNamePadding = padding + (visibleCardLine.length() - cardDesc.length()) / 2;
         String paddedDeckName = String.format("%" + deckNamePadding + "s", italicDeckName);
 
         String handValue = storage.getValue(runNumber - 1, Storage.HAND_INDEX);
