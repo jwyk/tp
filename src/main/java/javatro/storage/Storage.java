@@ -348,7 +348,7 @@ public class Storage {
         newRun.add("1"); // ROUND_NUMBER
         newRun.add("0"); // ROUND_SCORE
         newRun.add("4"); // HAND
-        newRun.add("5"); // DISCARD
+        newRun.add("3"); // DISCARD
         newRun.add("1"); // ANTE_NUMBER
         newRun.add("SMALL BLIND"); // BLIND
         newRun.add("0"); // WINS

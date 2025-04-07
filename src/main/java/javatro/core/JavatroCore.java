@@ -78,20 +78,6 @@ public class JavatroCore {
 
         Round nextRound = classicRound();
 
-        assert nextRound != null;
-        storage.setValue(
-                storage.getRunChosen() - 1,
-                Storage.HAND_INDEX,
-                String.valueOf(nextRound.getRemainingPlays())); // Update Number Of Plays
-        storage.setValue(
-                storage.getRunChosen() - 1,
-                Storage.DISCARD_INDEX,
-                String.valueOf(nextRound.getRemainingDiscards())); // Update Number Of Discards
-        storage.setValue(
-                storage.getRunChosen() - 1,
-                Storage.ROUND_SCORE_INDEX,
-                String.valueOf(nextRound.getCurrentScore())); // Update Current Score
-
         // Update Holding Hand
         for (int i = Storage.HOLDING_HAND_START_INDEX;
                 i < Storage.HOLDING_HAND_START_INDEX + 8;
@@ -104,12 +90,9 @@ public class JavatroCore {
                     Storage.cardToString(currentCard)); // Update Holding Hand Cards
         }
 
-        // Update save file
-        try {
-            storage.updateSaveFile();
-        } catch (JavatroException e) {
-            System.out.println("Could not save info.");
-        }
+        //Update deck
+        deck = new Deck(Storage.DeckFromKey(storage.getValue(storage.getRunChosen()-1,Storage.DECK_INDEX)));
+        Storage.isNewDeck = true;
 
         startNewRound(nextRound);
     }
@@ -159,44 +142,39 @@ public class JavatroCore {
         // Set round number, discards and hands
         assert currentRound != null;
 
-        // Update round attributes
         int savedPlays =
-                Integer.parseInt(storage.getValue(storage.getRunChosen() - 1, Storage.HAND_INDEX));
+            Integer.parseInt(storage.getValue(storage.getRunChosen() - 1, Storage.HAND_INDEX));
         int savedDiscards =
-                Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.DISCARD_INDEX));
-        int savedScore =
-                Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.ROUND_SCORE_INDEX));
+            Integer.parseInt(
+                storage.getValue(storage.getRunChosen() - 1, Storage.DISCARD_INDEX));
 
-        if (savedPlays != -1 && savedDiscards != -1) {
-            round.updatePlays(savedPlays);
-            round.updateDiscards(savedDiscards);
-            round.setCurrentScore(savedScore);
+        if(savedPlays == -1) savedPlays = 4;
+        if(savedDiscards == -1) savedDiscards = 3;
 
-            // Update deck with rest of the cards (If deck is not empty
-            if (!Storage.isNewDeck) currentRound.getDeck().populateWithSavedDeck();
+        currentRound.updatePlays(deck.getDeckName().getName().equals("BLUE") && savedPlays == 4 ? savedPlays + 1 : savedPlays);
+        currentRound.updateDiscards(deck.getDeckName().getName().equals("RED") && savedDiscards == 3 ? savedDiscards + 1 : savedDiscards);
+
+        storage.setValue(
+            storage.getRunChosen() - 1,
+            Storage.HAND_INDEX,
+            String.valueOf(currentRound.getRemainingPlays())); // Update Number Of Plays
+        storage.setValue(
+            storage.getRunChosen() - 1,
+            Storage.DISCARD_INDEX,
+            String.valueOf(currentRound.getRemainingDiscards())); // Update Number Of Discards
+        storage.setValue(
+            storage.getRunChosen() - 1,
+            Storage.ROUND_SCORE_INDEX,
+            String.valueOf(currentRound.getCurrentScore())); // Update Current Score
+
+
+        // Update save file
+        try {
+            storage.updateSaveFile();
+        } catch (JavatroException e) {
+            System.out.println("Could not save info.");
         }
 
-        // Update savedCards
-        List<Card> savedCards = new ArrayList<>();
-        int emptyCardCount = 0;
-
-        for (int i = Storage.HOLDING_HAND_START_INDEX;
-                i < Storage.HOLDING_HAND_START_INDEX + 8;
-                i++) {
-            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
-                    || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
-                emptyCardCount = emptyCardCount + 1;
-                continue;
-            }
-            savedCards.add(
-                    Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
-        }
-
-        if (emptyCardCount < 8) {
-            round.setPlayerHandCards(savedCards);
-        }
     }
 
     /**
@@ -224,7 +202,35 @@ public class JavatroCore {
      * @throws JavatroException If an error occurs while starting the game.
      */
     public void beginGame() throws JavatroException {
-        startNewRound(Objects.requireNonNull(classicRound()));
+        Round newRound = Objects.requireNonNull(classicRound());
+
+        // Update round attributes
+        newRound.setCurrentScore(580);
+
+        // Update deck with rest of the cards (If deck is not empty)
+        if (!Storage.isNewDeck) currentRound.getDeck().populateWithSavedDeck();
+
+        // Update savedCards
+        List<Card> savedCards = new ArrayList<>();
+        int emptyCardCount = 0;
+
+        for (int i = Storage.HOLDING_HAND_START_INDEX;
+            i < Storage.HOLDING_HAND_START_INDEX + 8;
+            i++) {
+            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
+                || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
+                emptyCardCount = emptyCardCount + 1;
+                continue;
+            }
+            savedCards.add(
+                Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
+        }
+
+        if (emptyCardCount < 8) {
+            newRound.setPlayerHandCards(savedCards);
+        }
+
+        startNewRound(newRound);
     }
 
     /** Initializes poker hand play counts at game start */
