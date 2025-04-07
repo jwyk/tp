@@ -7,12 +7,11 @@ import static javatro.display.UI.END;
 import static javatro.display.UI.ITALICS;
 import static javatro.display.UI.printBorderedContent;
 
-import java.io.IOException;
 import javatro.core.JavatroException;
 import javatro.display.OutputUtils;
-import javatro.manager.JavatroManager;
 import javatro.manager.options.Option;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +50,6 @@ public abstract class Screen {
             throw JavatroException.invalidOptionsTitle();
         }
         this.optionsTitle = String.format(TITLE_FORMAT, BOLD, optionsTitle.trim(), END);
-
     }
 
     /**
@@ -98,7 +96,7 @@ public abstract class Screen {
         return commandMap;
     }
 
-    //For Testing
+    // For Testing
     public void clearCommandMap() {
         commandMap.clear();
     }
@@ -111,7 +109,6 @@ public abstract class Screen {
     public int getOptionsSize() {
         return commandMap.size();
     }
-
 
     /**
      * Retrieves a command by its index position.

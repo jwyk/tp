@@ -29,8 +29,7 @@ public class JavatroManager implements PropertyChangeListener {
     public static int roundCount = 1;
 
     public static boolean runningTests =
-        false; // If tests are running, some settings will be adjusted
-
+            false; // If tests are running, some settings will be adjusted
 
     /**
      * Constructs a {@code JavatroManager} and registers it as an observer to the view.

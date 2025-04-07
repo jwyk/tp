@@ -7,6 +7,7 @@ import static javatro.display.UI.END;
 import static javatro.display.UI.getCurrentScreen;
 
 import javatro.core.JavatroException;
+import javatro.manager.JavatroManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -16,7 +17,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import javatro.manager.JavatroManager;
 
 /**
  * Handles parsing and validation of user input for the Javatro application.
