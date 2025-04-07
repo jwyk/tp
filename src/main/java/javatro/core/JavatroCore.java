@@ -232,14 +232,11 @@ public class JavatroCore {
         }
 
         // Only update deck if it is not empty
-        if (!Storage.isNewDeck && !allRestOfDeckEmpty) {
+        if (!allHoldingHandEmpty && !allRestOfDeckEmpty) {
             newRound.getDeck().populateWithSavedDeck();
-        }
-
-        // Only update saved cards if they are not all empty
-        if (!allHoldingHandEmpty) {
             newRound.setPlayerHandCards(savedCards);
         }
+
 
         // Update Jokers
         for (int i = DataParser.JOKER_HAND_START_INDEX; i < DataParser.JOKER_HAND_START_INDEX + 5; i++) {
