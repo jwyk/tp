@@ -57,11 +57,6 @@ public class LoadRunScreenWithSaveFileTest extends ScreenTest {
     compareOutputToFile2("RunSelectScreen_OneSave.txt");
   }
 
-  @Override
-  protected Class<?> getExpectedScreenType() {
-    return RunSelectScreen.class;
-  }
-
 
 }
 

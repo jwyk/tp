@@ -53,11 +53,6 @@ public class LoadRunScreenWithEmptySaveFileTest extends ScreenTest {
     compareOutputToFile2("RunSelectScreen_EmptySave.txt");
   }
 
-  @Override
-  protected Class<?> getExpectedScreenType() {
-    return RunSelectScreen.class;
-  }
-
 
 }
 

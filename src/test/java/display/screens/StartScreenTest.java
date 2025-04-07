@@ -32,11 +32,6 @@ public class StartScreenTest extends ScreenTest {
         }
     }
 
-    @Override
-    protected Class<?> getExpectedScreenType() {
-        return StartScreen.class;
-    }
-
     @Test
     public void commandMatchCheck() {
         expectedCommands.add(LoadRunSelectOption.class);

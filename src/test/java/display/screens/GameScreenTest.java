@@ -80,20 +80,9 @@ public class GameScreenTest extends ScreenTest {
   @Test
   public void testRunSelectScreenOutputWithSave() throws IOException {
     pipeOutputToFile("data.txt", UI.getGameScreen());
-
     compareOutputToFile2("GameScreen.txt");
   }
 
-  @Override
-  protected Class<?> getExpectedScreenType() {
-    try {
-      JavatroManager.setScreen(UI.getGameScreen());
-      JavatroManager.ui.setCurrentScreen(UI.getGameScreen());
-    } catch (JavatroException e) {
-      throw new RuntimeException(e);
-    }
-    return GameScreen.class;
-  }
 
 
 }

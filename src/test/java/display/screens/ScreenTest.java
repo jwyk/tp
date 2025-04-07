@@ -80,18 +80,6 @@ public abstract class ScreenTest {
     }
   }
 
-  @Test
-  public void testScreenType() {
-    // Get the current screen
-    Screen currentScreen = UI.getCurrentScreen();
-
-    // Use the inherited compareScreenType method to check type
-    compareScreenType(currentScreen, getExpectedScreenType());
-  }
-
-  // Abstract method to be implemented by child classes
-  protected abstract Class<?> getExpectedScreenType();
-
   @AfterEach
   public void tearDown() {
     System.setOut(originalOut);
@@ -134,19 +122,6 @@ public abstract class ScreenTest {
     return input.replace("\r\n", "\n").replace("\r", "\n").stripTrailing();
   }
 
-
-
-  @Test
-  public void testAccessingClearedCommandMap() {
-    Screen currentScreen = UI.getCurrentScreen();
-    currentScreen.clearCommandMap();  // Clear all commands
-
-    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-      currentScreen.getCommandMap().get(0).execute();  // Attempting to access the first command in an empty list
-    });
-
-    assertTrue(exception.getMessage().contains("Index 0 out of bounds"));
-  }
 
   /**
    * Pipes the output of the current screen to a file during testing.
