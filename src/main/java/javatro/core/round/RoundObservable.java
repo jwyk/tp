@@ -87,8 +87,8 @@ class RoundObservable {
         if (JavatroCore.currentRound.isRoundOver() && JavatroCore.currentRound.isWon()) {
             int currentWins = Integer.parseInt(runData.get(DataParser.WINS_INDEX));
             runData.set(DataParser.WINS_INDEX, String.valueOf(currentWins + 1));
-            runData.set(DataParser.HAND_INDEX,Integer.toString(-1));
-            runData.set(DataParser.DISCARD_INDEX,Integer.toString(-1));
+            runData.set(DataParser.HAND_INDEX, Integer.toString(-1));
+            runData.set(DataParser.DISCARD_INDEX, Integer.toString(-1));
 
             Ante.Blind nextBlind = JavatroCore.getAnte().getNextBlind();
             int anteCount = JavatroCore.getAnte().getAnteCount();
@@ -99,41 +99,47 @@ class RoundObservable {
 
             runData.set(DataParser.BLIND_INDEX, nextBlind.getName());
             runData.set(DataParser.ANTE_NUMBER_INDEX, String.valueOf(anteCount));
-            runData.set(DataParser.ROUND_NUMBER_INDEX, String.valueOf(JavatroCore.getRoundCount()+1));
-
+            runData.set(
+                    DataParser.ROUND_NUMBER_INDEX, String.valueOf(JavatroCore.getRoundCount() + 1));
 
             // Set all Holding Hand cards to "NA"
-            for (int i = DataParser.HOLDING_HAND_START_INDEX; i < DataParser.HOLDING_HAND_START_INDEX + 8; i++) {
+            for (int i = DataParser.HOLDING_HAND_START_INDEX;
+                    i < DataParser.HOLDING_HAND_START_INDEX + 8;
+                    i++) {
                 runData.set(i, "NA");
             }
 
             // Set all Rest of Deck cards to "NA"
-            for (int i = DataParser.START_OF_REST_OF_DECK; i < DataParser.START_OF_REST_OF_DECK + 44; i++) {
+            for (int i = DataParser.START_OF_REST_OF_DECK;
+                    i < DataParser.START_OF_REST_OF_DECK + 44;
+                    i++) {
                 runData.set(i, "NA");
             }
 
             runData.set(DataParser.ROUND_SCORE_INDEX, Long.toString(0));
-
         }
 
         if (JavatroCore.currentRound.isRoundOver() && JavatroCore.currentRound.isLost()) {
             int currentLosses = Integer.parseInt(runData.get(DataParser.LOSSES_INDEX));
             runData.set(DataParser.LOSSES_INDEX, String.valueOf(currentLosses + 1));
-            runData.set(DataParser.HAND_INDEX,Integer.toString(-1));
-            runData.set(DataParser.DISCARD_INDEX,Integer.toString(-1));
+            runData.set(DataParser.HAND_INDEX, Integer.toString(-1));
+            runData.set(DataParser.DISCARD_INDEX, Integer.toString(-1));
 
             // Set all Holding Hand cards to "NA"
-            for (int i = DataParser.HOLDING_HAND_START_INDEX; i < DataParser.HOLDING_HAND_START_INDEX + 8; i++) {
+            for (int i = DataParser.HOLDING_HAND_START_INDEX;
+                    i < DataParser.HOLDING_HAND_START_INDEX + 8;
+                    i++) {
                 runData.set(i, "NA");
             }
 
             // Set all Rest of Deck cards to "NA"
-            for (int i = DataParser.START_OF_REST_OF_DECK; i < DataParser.START_OF_REST_OF_DECK + 44; i++) {
+            for (int i = DataParser.START_OF_REST_OF_DECK;
+                    i < DataParser.START_OF_REST_OF_DECK + 44;
+                    i++) {
                 runData.set(i, "NA");
             }
 
             runData.set(DataParser.ROUND_SCORE_INDEX, Long.toString(0));
-
         }
 
         // Save all updated data at once
