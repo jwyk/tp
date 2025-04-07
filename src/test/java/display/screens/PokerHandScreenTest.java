@@ -4,13 +4,9 @@ import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
-import javatro.display.screens.GameScreen;
 import javatro.display.screens.StartScreen;
 import javatro.manager.JavatroManager;
-import javatro.manager.options.ExitGameOption;
-import javatro.manager.options.HelpMenuOption;
-import javatro.manager.options.LoadRunSelectOption;
-import javatro.manager.options.Option;
+import javatro.manager.options.*;
 import javatro.storage.Storage;
 import javatro.utilities.csvutils.CSVUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,11 +18,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class GameScreenTest extends ScreenTest {
+public class PokerHandScreenTest extends ScreenTest {
     @BeforeEach
     public void setUp() {
-
-        Storage.getStorageInstance().resetStorage();
 
         try {
             CSVUtils.writeSampleToCSV(SAVEFILE_PATH, SAMPLE_DATA);
@@ -34,22 +28,19 @@ public class GameScreenTest extends ScreenTest {
             fail("Failed To Write To CSV: " + e);
         }
 
-        Storage.getStorageInstance().setRunChosen(1);
+        Storage.getStorageInstance().resetStorage();
+        Storage storage = Storage.getStorageInstance();
 
         super.setUp();
-
         try {
+            storage.setRunChosen(1);
             JavatroManager.beginGame(
                     (Storage.DeckFromKey(
-                            Storage.getStorageInstance()
-                                    .getValue(
-                                            Storage.getStorageInstance().getRunChosen() - 1,
-                                            Storage.DECK_INDEX))));
+                            storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX))));
 
             JavatroManager.jc.beginGame();
             JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());
             JavatroCore.currentRound.updateRoundVariables();
-            Storage.getStorageInstance().updateSaveFile();
         } catch (JavatroException e) {
             System.out.println("Failed to Set Screen: " + e.getMessage());
         }
@@ -57,12 +48,9 @@ public class GameScreenTest extends ScreenTest {
 
     @Test
     public void commandMatchCheck() {
-        expectedCommands.add(LoadRunSelectOption.class);
-        expectedCommands.add(HelpMenuOption.class);
-        expectedCommands.add(ExitGameOption.class);
+        expectedCommands.add(ReturnOption.class);
 
-        List<Option> actualCommands = UI.getCurrentScreen().getCommandMap();
-
+        List<Option> actualCommands = UI.getPokerHandScreen().getCommandMap();
 
         compareCommandListTypes(expectedCommands, actualCommands);
     }
@@ -71,10 +59,8 @@ public class GameScreenTest extends ScreenTest {
     public void testStartScreenOutput() throws IOException {
         // Compare the captured output with the file content
         // Capture the output and save it to file
-        pipeOutputToFile("data.txt", UI.getGameScreen());
-
-        // Compare the output with the expected file
-        compareOutputToFile2("GameScreen.txt");
+        pipeOutputToFile("data.txt", UI.getPokerHandScreen());
+        compareOutputToFile2("PokerHandScreen.txt");
 
     }
 

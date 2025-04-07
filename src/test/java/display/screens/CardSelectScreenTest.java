@@ -19,7 +19,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class DiscardScreenTest extends ScreenTest {
+public class CardSelectScreenTest extends ScreenTest {
     @BeforeEach
     public void setUp() {
 

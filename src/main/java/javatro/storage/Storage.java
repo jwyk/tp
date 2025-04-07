@@ -536,4 +536,8 @@ public class Storage {
             default -> false;
         };
     }
+
+    public void resetStorage() {
+        storageInstance = null;
+    }
 }
