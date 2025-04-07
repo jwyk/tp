@@ -44,6 +44,11 @@ public class DataParser {
     static final Set<String> VALID_BLINDS =
             Set.of("SMALL BLIND", "LARGE BLIND", "BOSS BLIND");
 
+    private DataParser() {
+        // Private constructor to prevent instantiation
+    }
+
+
     public static boolean isCSVDataValid(String csvRawData) {
 
         String[] rows =
