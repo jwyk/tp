@@ -13,45 +13,43 @@
 
 ### Technical Contributions
 
-#### Core Round Component Implementation
-- **Total code contribution**: 1828 lines across 19 files
-  - Functional code: 1109 lines
-  - Test code: 372 lines
-  - Documentation: 341 lines
-
 #### Key Classes Developed
-1. **`Round` Class (331 lines)**
+1. **`Round` Class**
    - Implemented the primary game round management system using object-oriented principles
    - Designed the class to follow Single Responsibility Principle by delegating specific functionality to helper classes
    - Created methods for tracking game state, evaluating win conditions, and applying boss-specific modifiers
    - Implemented proper exception handling with custom error messages for invalid game actions
 
-2. **`RoundState` Class (203 lines)**
+2. **`RoundState` Class**
    - Developed a dedicated state management class to encapsulate the mutable aspects of a game round
    - Implemented methods for tracking scores, remaining plays/discards, and player resources
    - Created a clean interface for state modifications with validation
 
-3. **`RoundActions` Class (160 lines)**
+3. **`RoundActions` Class**
    - Designed a utility class to handle card play and discard logic with robust validation
    - Implemented the ActionResult pattern to return multiple pieces of information about game actions
    - Created validation methods that enforce game rules for card plays and discards
 
-4. **`RoundConfig` Class (145 lines)**
+4. **`RoundConfig` Class**
    - Developed a configuration class to store game round parameters and settings
    - Implemented boss-type specific configurations that modify gameplay rules
    - Created constants and configuration methods with appropriate access modifiers
 
-5. **`RoundObservable` Class (44 lines)**
+5. **`RoundObservable` Class**
    - Implemented the Observer pattern to notify UI components of state changes
    - Created methods for registering listeners and broadcasting state updates
 
 #### Comprehensive Testing
-- **`RoundTest` Class (372 lines)**
+- **`RoundTest` Class**
    - Created extensive unit tests covering all aspects of the Round component
    - Implemented tests for normal gameplay, edge cases, and error conditions
    - Developed helper methods to reduce code duplication in tests
    - Achieved high test coverage for the Round component
 
+- **`RoundActionsTest` Class**
+   - Developed unit tests for the RoundActions class to ensure correct card play and discard logic
+   - Implemented tests for all possible action outcomes, including valid and invalid scenarios
+  
 ### Enhancements Implemented
 
 #### Game Round Management
