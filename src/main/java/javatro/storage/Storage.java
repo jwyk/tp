@@ -1,17 +1,17 @@
 package javatro.storage;
 
 import static javatro.core.Ante.Blind.*;
-import static javatro.display.ansi.DeckArt.ABANDONED_DECK;
-import static javatro.display.ansi.DeckArt.BLUE_DECK;
-import static javatro.display.ansi.DeckArt.CHECKERED_DECK;
-import static javatro.display.ansi.DeckArt.RED_DECK;
+import static javatro.display.DeckArt.ABANDONED_DECK;
+import static javatro.display.DeckArt.BLUE_DECK;
+import static javatro.display.DeckArt.CHECKERED_DECK;
+import static javatro.display.DeckArt.RED_DECK;
 
 import javatro.core.*;
 import javatro.core.jokers.Joker;
 import javatro.core.jokers.addchip.OddToddJoker;
 import javatro.core.jokers.addchip.ScaryFaceJoker;
 import javatro.core.jokers.addmult.*;
-import javatro.display.ansi.DeckArt;
+import javatro.display.DeckArt;
 
 import java.io.IOException;
 import java.nio.file.Files;

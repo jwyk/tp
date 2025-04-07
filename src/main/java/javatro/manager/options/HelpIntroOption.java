@@ -29,14 +29,14 @@ public class HelpIntroOption implements Option {
     /** Executes the command to display the introduction message. */
     @Override
     public void execute() throws JavatroException {
-        String title = "♥️ ♠️ 🃏 " + BOLD + "Welcome to Javatro" + " 🃏 ♦️ ♣️" + END;
+        String title =                 "Welcome to Javatro" ;
 
         String[] lines = {
-            "Javatro is a text-based roguelike deck-building game inspired by Balatro.",
-            "Your goal is to strategically build a deck and progress through challenges.",
-            "Each turn, you'll play poker-style hands to defeat enemies and earn new cards.",
+            "Javatro is a text-based roguelike deck-building game inspired by Balatro.      ",
+            "Your goal is to strategically build a deck and progress through challenges.    ",
+            "Each turn, you'll play poker-style hands to defeat enemies and earn new cards. ",
             "",
-            "Think strategically, manage your deck wisely, and see how far you can go!"
+            "Think strategically, manage your deck wisely, and see how far you can go!      "
         };
 
         UI.printBorderedContent(title, List.of(lines));

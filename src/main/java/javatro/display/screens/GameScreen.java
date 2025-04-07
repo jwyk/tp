@@ -30,6 +30,7 @@ import static javatro.display.UI.getCardArtLines;
 import static javatro.display.UI.getDisplayLength;
 import static javatro.display.UI.padToWidth;
 
+import javatro.audioplayer.AudioPlayer;
 import javatro.core.Card;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
@@ -114,6 +115,14 @@ public class GameScreen extends Screen implements PropertyChangeListener {
      */
     @Override
     public void displayScreen() {
+
+        if (!AudioPlayer.getInstance()
+                .getCurrentAudioPath()
+                .equals("audioplayer/balatro_theme.wav")) {
+            AudioPlayer.getInstance().stopAudio();
+            AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
+        }
+
         // Use StringBuilder for efficient string concatenation.
         StringBuilder sb = new StringBuilder();
 
