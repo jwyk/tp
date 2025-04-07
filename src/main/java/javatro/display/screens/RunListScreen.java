@@ -9,6 +9,7 @@ import javatro.storage.Storage;
  * Represents the screen that displays the list of saved game runs.
  *
  * <p>This screen is responsible for:
+ *
  * <ul>
  *   <li>Fetching the list of saved game runs from {@link Storage}
  *   <li>Dynamically generating menu options for each saved run
@@ -20,13 +21,13 @@ import javatro.storage.Storage;
 public class RunListScreen extends Screen {
 
     /**
-     * Constructs the RunListScreen by retrieving the saved runs from storage
-     * and creating corresponding {@link ViewRunOption} objects for each run.
+     * Constructs the RunListScreen by retrieving the saved runs from storage and creating
+     * corresponding {@link ViewRunOption} objects for each run.
      *
      * <p>The options are then added to the command map for user interaction.
      *
-     * @throws JavatroException if there is an error initializing the screen, such as
-     *                          issues with accessing the {@link Storage} instance or fetching run data.
+     * @throws JavatroException if there is an error initializing the screen, such as issues with
+     *     accessing the {@link Storage} instance or fetching run data.
      */
     public RunListScreen() throws JavatroException {
         super("List of Saved Runs");
@@ -49,6 +50,7 @@ public class RunListScreen extends Screen {
      * Displays the list of saved runs on the screen.
      *
      * <p>This method is responsible for rendering:
+     *
      * <ul>
      *   <li>The screen title: "List of Saved Runs"
      *   <li>Menu options dynamically generated from saved run data

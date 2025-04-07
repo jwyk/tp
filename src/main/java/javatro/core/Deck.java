@@ -1,9 +1,9 @@
 package javatro.core;
 
 import javatro.storage.DataParser;
+import javatro.storage.Storage;
 import javatro.storage.StorageManager;
 import javatro.storage.utils.CardUtils;
-import javatro.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,12 +111,15 @@ public class Deck {
         // Retrieve current run data
         ArrayList<String> runData = StorageManager.getInstance().getRunData(runIndex);
         assert runData != null : "Run data should not be null";
-        assert runData.size() >= DataParser.START_OF_REST_OF_DECK + 44 : "Run data is incomplete or corrupted";
+        assert runData.size() >= DataParser.START_OF_REST_OF_DECK + 44
+                : "Run data is incomplete or corrupted";
 
         ArrayList<Card> newDeck = new ArrayList<>();
 
         // Parse all cards in one go
-        for (int i = DataParser.START_OF_REST_OF_DECK; i < DataParser.START_OF_REST_OF_DECK + 44; i++) {
+        for (int i = DataParser.START_OF_REST_OF_DECK;
+                i < DataParser.START_OF_REST_OF_DECK + 44;
+                i++) {
             String cardString = runData.get(i);
 
             if (!cardString.equals("-") && !cardString.equals("NA")) {

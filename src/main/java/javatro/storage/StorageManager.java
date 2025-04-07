@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.TreeMap;
 
 /**
- * The {@code StorageManager} class is responsible for managing the storage of game data,
- * including reading from and writing to a save file. This class handles the serialization
- * and deserialization of game data.
+ * The {@code StorageManager} class is responsible for managing the storage of game data, including
+ * reading from and writing to a save file. This class handles the serialization and deserialization
+ * of game data.
  *
- * <p>This class follows the Singleton pattern to ensure only one instance of the manager
- * exists throughout the application.</p>
+ * <p>This class follows the Singleton pattern to ensure only one instance of the manager exists
+ * throughout the application.
  */
 public class StorageManager {
 
@@ -27,9 +27,7 @@ public class StorageManager {
     private static final String SAVEFILE_LOCATION = "./savefile.csv";
     private static final Path saveFilePath = Paths.get(SAVEFILE_LOCATION);
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
+    /** Private constructor to prevent instantiation. */
     private StorageManager() {}
 
     /**
@@ -48,7 +46,7 @@ public class StorageManager {
      * Saves a run's data in the storage map.
      *
      * @param runNumber The run number serving as the key.
-     * @param runData   The run data to be saved.
+     * @param runData The run data to be saved.
      */
     public void saveRunData(int runNumber, ArrayList<String> runData) {
         assert runData != null : "Run data should not be null.";
@@ -224,18 +222,18 @@ public class StorageManager {
             // Save back to storage
             saveRunData(runIndex, existingData);
         } else {
-            throw new IllegalArgumentException("Run data for index " + runIndex + " does not exist.");
+            throw new IllegalArgumentException(
+                    "Run data for index " + runIndex + " does not exist.");
         }
     }
 
     /**
      * Updates round-specific data for a new round in the storage.
      *
-     * @param runIndex  The index of the current run being updated.
-     * @param roundData A list containing the updated round data in the following order:
-     *                  - Remaining plays (HAND_INDEX)
-     *                  - Remaining discards (DISCARD_INDEX)
-     *                  - Current round score (ROUND_SCORE_INDEX)
+     * @param runIndex The index of the current run being updated.
+     * @param roundData A list containing the updated round data in the following order: - Remaining
+     *     plays (HAND_INDEX) - Remaining discards (DISCARD_INDEX) - Current round score
+     *     (ROUND_SCORE_INDEX)
      */
     public void updateNewRoundData(int runIndex, List<String> roundData) {
         assert roundData.size() == 3 : "Round data must contain exactly 3 elements";
@@ -251,9 +249,8 @@ public class StorageManager {
             // Save updated data to storage
             saveRunData(runIndex, existingData);
         } else {
-            throw new IllegalArgumentException("Run data for index " + runIndex + " does not exist.");
+            throw new IllegalArgumentException(
+                    "Run data for index " + runIndex + " does not exist.");
         }
     }
-
-
 }

@@ -1,9 +1,9 @@
 /**
- * The {@code ViewRunOption} class represents a command that allows users to select and view
- * a specific saved run. When executed, it triggers the display of the associated run's details.
+ * The {@code ViewRunOption} class represents a command that allows users to select and view a
+ * specific saved run. When executed, it triggers the display of the associated run's details.
  *
- * <p>This class implements the {@link Option} interface and is typically used within screens
- * that list available saved runs, such as {@link javatro.display.screens.RunListScreen}.
+ * <p>This class implements the {@link Option} interface and is typically used within screens that
+ * list available saved runs, such as {@link javatro.display.screens.RunListScreen}.
  */
 package javatro.manager.options;
 
@@ -13,9 +13,9 @@ import javatro.manager.JavatroManager;
 
 /**
  * A command that loads the run selection screen for a specific saved run.
- * <p>
- * This command is dynamically created for each saved run and added to a command map.
- * When executed, it transitions the application to the corresponding run's detail screen.
+ *
+ * <p>This command is dynamically created for each saved run and added to a command map. When
+ * executed, it transitions the application to the corresponding run's detail screen.
  */
 public class ViewRunOption implements Option {
 
@@ -45,8 +45,9 @@ public class ViewRunOption implements Option {
      * Executes the command to change the screen to the run selection screen.
      *
      * <p>This method triggers the following actions:
+     *
      * <ul>
-     *     <li>Sets the run number of the {@link UI#getRunSelectScreen()} instance.</li>
+     *   <li>Sets the run number of the {@link UI#getRunSelectScreen()} instance.
      * </ul>
      *
      * @throws JavatroException if there is an error during screen transition.

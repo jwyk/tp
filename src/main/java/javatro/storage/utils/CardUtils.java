@@ -1,6 +1,9 @@
 // @@author flyingapricot
 package javatro.storage.utils;
 
+import static javatro.core.Ante.Blind.*;
+import static javatro.display.DeckArt.*;
+
 import javatro.core.Ante;
 import javatro.core.Card;
 import javatro.core.Deck;
@@ -9,15 +12,12 @@ import javatro.core.jokers.addchip.OddToddJoker;
 import javatro.core.jokers.addchip.ScaryFaceJoker;
 import javatro.display.DeckArt;
 
-import static javatro.core.Ante.Blind.*;
-import static javatro.display.DeckArt.*;
-
 /**
- * The {@code CardUtils} class provides utility methods for handling cards, decks, blinds,
- * and jokers in the Javatro application. It provides various conversion, parsing, and validation
+ * The {@code CardUtils} class provides utility methods for handling cards, decks, blinds, and
+ * jokers in the Javatro application. It provides various conversion, parsing, and validation
  * functionalities.
  *
- * <p>This class is designed to be used statically and should not be instantiated.</p>
+ * <p>This class is designed to be used statically and should not be instantiated.
  */
 public class CardUtils {
 
@@ -88,30 +88,32 @@ public class CardUtils {
         String rankStr = cardString.substring(0, cardString.length() - 1);
         char suitChar = cardString.charAt(cardString.length() - 1);
 
-        Card.Rank rank = switch (rankStr) {
-            case "2" -> Card.Rank.TWO;
-            case "3" -> Card.Rank.THREE;
-            case "4" -> Card.Rank.FOUR;
-            case "5" -> Card.Rank.FIVE;
-            case "6" -> Card.Rank.SIX;
-            case "7" -> Card.Rank.SEVEN;
-            case "8" -> Card.Rank.EIGHT;
-            case "9" -> Card.Rank.NINE;
-            case "10" -> Card.Rank.TEN;
-            case "J" -> Card.Rank.JACK;
-            case "Q" -> Card.Rank.QUEEN;
-            case "K" -> Card.Rank.KING;
-            case "A" -> Card.Rank.ACE;
-            default -> throw new IllegalArgumentException("Invalid rank: " + rankStr);
-        };
+        Card.Rank rank =
+                switch (rankStr) {
+                    case "2" -> Card.Rank.TWO;
+                    case "3" -> Card.Rank.THREE;
+                    case "4" -> Card.Rank.FOUR;
+                    case "5" -> Card.Rank.FIVE;
+                    case "6" -> Card.Rank.SIX;
+                    case "7" -> Card.Rank.SEVEN;
+                    case "8" -> Card.Rank.EIGHT;
+                    case "9" -> Card.Rank.NINE;
+                    case "10" -> Card.Rank.TEN;
+                    case "J" -> Card.Rank.JACK;
+                    case "Q" -> Card.Rank.QUEEN;
+                    case "K" -> Card.Rank.KING;
+                    case "A" -> Card.Rank.ACE;
+                    default -> throw new IllegalArgumentException("Invalid rank: " + rankStr);
+                };
 
-        Card.Suit suit = switch (Character.toUpperCase(suitChar)) {
-            case 'H' -> Card.Suit.HEARTS;
-            case 'C' -> Card.Suit.CLUBS;
-            case 'S' -> Card.Suit.SPADES;
-            case 'D' -> Card.Suit.DIAMONDS;
-            default -> throw new IllegalArgumentException("Invalid suit: " + suitChar);
-        };
+        Card.Suit suit =
+                switch (Character.toUpperCase(suitChar)) {
+                    case 'H' -> Card.Suit.HEARTS;
+                    case 'C' -> Card.Suit.CLUBS;
+                    case 'S' -> Card.Suit.SPADES;
+                    case 'D' -> Card.Suit.DIAMONDS;
+                    default -> throw new IllegalArgumentException("Invalid suit: " + suitChar);
+                };
 
         return new Card(rank, suit);
     }
@@ -124,12 +126,13 @@ public class CardUtils {
      */
     public static String cardToString(Card card) {
         assert card != null : "Card cannot be null";
-        return card.rank().getSymbol() + switch (card.suit()) {
-            case HEARTS -> "H";
-            case CLUBS -> "C";
-            case SPADES -> "S";
-            case DIAMONDS -> "D";
-        };
+        return card.rank().getSymbol()
+                + switch (card.suit()) {
+                    case HEARTS -> "H";
+                    case CLUBS -> "C";
+                    case SPADES -> "S";
+                    case DIAMONDS -> "D";
+                };
     }
 
     /**
@@ -145,15 +148,17 @@ public class CardUtils {
         String rankStr = cardString.substring(0, cardString.length() - 1);
         char suitChar = cardString.charAt(cardString.length() - 1);
 
-        boolean isValidRank = switch (rankStr) {
-            case "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" -> true;
-            default -> false;
-        };
+        boolean isValidRank =
+                switch (rankStr) {
+                    case "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" -> true;
+                    default -> false;
+                };
 
-        boolean isValidSuit = switch (Character.toUpperCase(suitChar)) {
-            case 'H', 'C', 'S', 'D' -> true;
-            default -> false;
-        };
+        boolean isValidSuit =
+                switch (Character.toUpperCase(suitChar)) {
+                    case 'H', 'C', 'S', 'D' -> true;
+                    default -> false;
+                };
 
         return isValidRank && isValidSuit;
     }
@@ -184,7 +189,6 @@ public class CardUtils {
         assert joker != null : "Joker cannot be null";
         return joker.getIdentifierName(); // Returns the class name of the Joker
     }
-
 
     /**
      * Validates if a given joker name is valid.

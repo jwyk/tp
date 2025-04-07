@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * The {@code Storage} class serves as a facade to interact with the underlying
- * storage mechanism managed by {@link StorageManager}. It provides methods for
- * saving, loading, and updating game data runs. This class uses the Singleton pattern.
+ * The {@code Storage} class serves as a facade to interact with the underlying storage mechanism
+ * managed by {@link StorageManager}. It provides methods for saving, loading, and updating game
+ * data runs. This class uses the Singleton pattern.
  */
 public class Storage {
 
@@ -31,8 +31,8 @@ public class Storage {
     public static boolean storageActive = true;
 
     /**
-     * Private constructor to enforce Singleton pattern.
-     * Initializes the save file by calling the underlying {@link StorageManager}.
+     * Private constructor to enforce Singleton pattern. Initializes the save file by calling the
+     * underlying {@link StorageManager}.
      */
     private Storage() {
         try {
@@ -79,7 +79,8 @@ public class Storage {
      */
     public TreeMap<Integer, List<String>> getSerializedRunData() {
         TreeMap<Integer, List<String>> copy = new TreeMap<>();
-        for (Map.Entry<Integer, ArrayList<String>> entry : storageManager.getAllRunData().entrySet()) {
+        for (Map.Entry<Integer, ArrayList<String>> entry :
+                storageManager.getAllRunData().entrySet()) {
             assert entry != null : "Entry in serializedRunData should not be null.";
             copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
         }
@@ -97,9 +98,7 @@ public class Storage {
         storageManager.setSerializedRunData(serializedRunData);
     }
 
-    /**
-     * Adds a new run to the storage with default values.
-     */
+    /** Adds a new run to the storage with default values. */
     public void addNewRun() {
         ArrayList<String> newRun = new ArrayList<>();
         isNewDeck = true;
@@ -123,7 +122,8 @@ public class Storage {
         for (int i = 0; i < 13; i++) newRun.add("1");
         for (int i = 0; i < 44; i++) newRun.add("-");
 
-        assert newRun.size() == DataParser.START_OF_REST_OF_DECK + 44 : "New run should have the correct size.";
+        assert newRun.size() == DataParser.START_OF_REST_OF_DECK + 44
+                : "New run should have the correct size.";
 
         storageManager.saveRunData(arrSize, newRun);
         runChosen = storageManager.getNumberOfRuns();
