@@ -162,7 +162,10 @@ public class RunSelectScreen extends Screen {
 
         // Italicized deck name
         int padding = 81;
-        if(Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX)) == DeckType.ABANDONED || Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX)) == DeckType.CHECKERED) {
+        if (Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX))
+                        == DeckType.ABANDONED
+                || Storage.DeckFromKey(storage.getValue(runNumber - 1, Storage.DECK_INDEX))
+                        == DeckType.CHECKERED) {
             padding = 90;
         }
         String italicDeckName = "\u001B[3m" + cardDesc + "\u001B[0m";
