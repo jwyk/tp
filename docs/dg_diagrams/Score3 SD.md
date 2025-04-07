@@ -1,7 +1,6 @@
 ```mermaid
 sequenceDiagram
     participant #58;Score
-    participant #58;PokerHand
     participant #58;Joker
     activate #58;Score
     loop Card card: playedCardList
