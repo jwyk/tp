@@ -208,7 +208,7 @@ public class JavatroCore {
         newRound.setCurrentScore(580);
 
         // Update deck with rest of the cards (If deck is not empty)
-        if (!Storage.isNewDeck) currentRound.getDeck().populateWithSavedDeck();
+        if (!Storage.isNewDeck) newRound.getDeck().populateWithSavedDeck();
 
         // Update savedCards
         List<Card> savedCards = new ArrayList<>();

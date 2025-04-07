@@ -38,6 +38,8 @@ public class HeldJokers {
                         Storage.jokerToString(heldJokers.get(j)));
             }
         }
+
+        storage.updateSaveFile();
     }
 
     /** Removes the Joker from the specified index. */
