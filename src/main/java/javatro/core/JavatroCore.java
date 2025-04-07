@@ -200,38 +200,57 @@ public class JavatroCore {
      * Starts the game by initializing a new set of game parameters. This method is called when the
      * game begins.
      *
-     * @throws JavatroException If an error occurs while starting the game.
      */
-    public void beginGame() throws JavatroException {
+    public void beginGame() {
         Round newRound = Objects.requireNonNull(classicRound());
 
-        // Update round attributes
+        // Update Score
         newRound.setCurrentScore(
                 Integer.parseInt(
                         storage.getValue(
                                 storage.getRunChosen() - 1, DataParser.ROUND_SCORE_INDEX)));
 
-        // Update deck with rest of the cards (If deck is not empty)
-        if (!Storage.isNewDeck) newRound.getDeck().populateWithSavedDeck();
-
-        // Update savedCards
-        List<Card> savedCards = new ArrayList<>();
-        int emptyCardCount = 0;
-
-        for (int i = DataParser.HOLDING_HAND_START_INDEX;
-                i < DataParser.HOLDING_HAND_START_INDEX + 8;
-                i++) {
-            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
-                    || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
-                emptyCardCount = emptyCardCount + 1;
-                continue;
+        // Check if the deck is empty (all "NA")
+        boolean allRestOfDeckEmpty = true;
+        for (int i = DataParser.START_OF_REST_OF_DECK; i < DataParser.START_OF_REST_OF_DECK + 44; i++) {
+            String cardValue = storage.getValue(storage.getRunChosen() - 1, i);
+            if (!cardValue.equals("-") && !cardValue.equals("NA")) {
+                allRestOfDeckEmpty = false;
+                break;
             }
-            savedCards.add(
-                    CardUtils.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
         }
 
-        if (emptyCardCount < 8) {
+        // Check if the holding hand is empty (all "NA")
+        boolean allHoldingHandEmpty = true;
+        List<Card> savedCards = new ArrayList<>();
+        for (int i = DataParser.HOLDING_HAND_START_INDEX; i < DataParser.HOLDING_HAND_START_INDEX + 8; i++) {
+            String cardValue = storage.getValue(storage.getRunChosen() - 1, i);
+            if (!cardValue.equals("-") && !cardValue.equals("NA")) {
+                allHoldingHandEmpty = false;
+                savedCards.add(CardUtils.parseCardString(cardValue));
+            }
+        }
+
+        // Only update deck if it is not empty
+        if (!Storage.isNewDeck && !allRestOfDeckEmpty) {
+            newRound.getDeck().populateWithSavedDeck();
+        }
+
+        // Only update saved cards if they are not all empty
+        if (!allHoldingHandEmpty) {
             newRound.setPlayerHandCards(savedCards);
+        }
+
+        // Update Jokers
+        for (int i = DataParser.JOKER_HAND_START_INDEX; i < DataParser.JOKER_HAND_START_INDEX + 5; i++) {
+            String jokerName = storage.getValue(storage.getRunChosen() - 1, i);
+            if (!jokerName.equals("-") && !jokerName.equals("NA")) {
+                try {
+                    heldJokers.add(CardUtils.parseJokerString(jokerName));
+                } catch (JavatroException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
         startNewRound(newRound);
