@@ -1,8 +1,6 @@
 // @@author swethacool
 package javatro.manager.options;
 
-import static javatro.display.UI.BOLD;
-import static javatro.display.UI.END;
 
 import javatro.core.JavatroException;
 import javatro.display.UI;
@@ -29,7 +27,7 @@ public class HelpIntroOption implements Option {
     /** Executes the command to display the introduction message. */
     @Override
     public void execute() throws JavatroException {
-        String title =                 "Welcome to Javatro" ;
+        String title = "Welcome to Javatro";
 
         String[] lines = {
             "Javatro is a text-based roguelike deck-building game inspired by Balatro.      ",
