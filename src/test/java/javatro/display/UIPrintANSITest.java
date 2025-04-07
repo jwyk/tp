@@ -1,4 +1,4 @@
-package display;
+package javatro.display;
 
 import javatro.display.UI;
 import org.junit.jupiter.api.AfterEach;

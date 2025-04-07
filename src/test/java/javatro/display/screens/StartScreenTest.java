@@ -1,8 +1,6 @@
-package display.screens;
+package javatro.display.screens;
 
 import javatro.core.JavatroException;
-import javatro.display.UI;
-import javatro.display.screens.StartScreen;
 import javatro.manager.options.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class StartScreenTest extends ScreenTest {
@@ -36,5 +35,14 @@ public class StartScreenTest extends ScreenTest {
 
         compareCommandListTypes(expectedCommands, actualCommands);
     }
+
+    @Test
+    public void commandCountCheck() {
+        List<Option> actualCommands = startScreen.getCommandMap();
+
+        assertEquals(3, actualCommands.size());
+    }
+
+
 
 }

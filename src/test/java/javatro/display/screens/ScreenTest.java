@@ -1,4 +1,4 @@
-package display.screens;
+package javatro.display.screens;
 
 import static org.junit.jupiter.api.Assertions.fail;
 

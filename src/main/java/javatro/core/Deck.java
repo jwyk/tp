@@ -5,6 +5,7 @@ import javatro.storage.Storage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /*
  * Holds all the free cards the player has
@@ -117,6 +118,7 @@ public class Deck {
         Collections.shuffle(newDeck);
         deck = new ArrayList<>(newDeck);
     }
+
 
     /**
      * Initialize a new shuffled 52 card deck for a new game Consists of the standard Poker Deck: 26

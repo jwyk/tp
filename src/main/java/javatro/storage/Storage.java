@@ -77,7 +77,9 @@ public class Storage {
     public static Boolean isNewDeck = false;
 
     private Storage() throws JavatroException {
-        initaliseTaskFile();
+        if(saveActive) {
+            initaliseTaskFile();
+        }
     }
 
     public static Storage getStorageInstance() {
