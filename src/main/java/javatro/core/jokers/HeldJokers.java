@@ -30,7 +30,7 @@ public class HeldJokers {
         Storage storage = Storage.getStorageInstance();
         // Update Joker Cards
         for (int j = 0; j < HeldJokers.HOLDING_LIMIT; j++) {
-            if (heldJokers.isEmpty() || j > heldJokers.size()) {
+            if (heldJokers.isEmpty() || j >= heldJokers.size()) {
                 storage.setValue(
                         storage.getRunChosen() - 1, Storage.JOKER_HAND_START_INDEX + j, "-");
             } else {
@@ -40,6 +40,8 @@ public class HeldJokers {
                         Storage.jokerToString(heldJokers.get(j)));
             }
         }
+
+        storage.updateSaveFile();
     }
 
     /** Removes the Joker from the specified index. */
