@@ -41,7 +41,7 @@ public class RunSelectScreen extends Screen {
 
         // Stop the main theme before playing the defeat theme
         AudioPlayer.getInstance().stopAudio();
-        AudioPlayer.getInstance().playAudio("audioplayer/windows_error.wav");
+        AudioPlayer.getInstance().playAudio("audioplayer/balatro_theme.wav");
 
         if (storage.getNumberOfRuns() > 0) displayCurrentChosenRun();
         else {
