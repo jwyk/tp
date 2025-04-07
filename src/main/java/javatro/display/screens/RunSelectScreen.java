@@ -4,6 +4,7 @@ import static javatro.display.UI.*;
 
 import javatro.audioplayer.AudioPlayer;
 import javatro.core.JavatroException;
+import javatro.manager.JavatroManager;
 import javatro.manager.options.*;
 import javatro.storage.Storage;
 
@@ -33,14 +34,19 @@ public class RunSelectScreen extends Screen {
         StartGameOption startGameOption = new StartGameOption();
         startGameOption.setDescription("Start A New Run");
         super.commandMap.add(startGameOption);
+
     }
 
     @Override
     public void displayScreen() {
 
-        // Stop the main theme before playing the defeat theme
-        AudioPlayer.getInstance().stopAudio();
-        AudioPlayer.getInstance().playAudio("audioplayer/windows_error.wav");
+        //Pipe output to test
+//        if(!JavatroManager.runningTests) {
+//            JavatroManager.runningTests = true;
+//            this.getOutput();
+//            JavatroManager.runningTests = false;
+//        }
+
 
         if (storage.getNumberOfRuns() > 0) displayCurrentChosenRun();
         else {
@@ -106,6 +112,9 @@ public class RunSelectScreen extends Screen {
             printBorderedContent("NO SAVED RUNS", contents);
             System.out.println("\n");
         }
+        AudioPlayer.getInstance().stopAudio();
+        AudioPlayer.getInstance().playAudio("audioplayer/windows_error.wav");
+
     }
 
     public int getRunNumber() {
