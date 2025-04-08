@@ -28,18 +28,15 @@ public class RoundTest {
     private static final String INVALIDDECK = "Deck cannot be null.";
     private static HeldJokers heldJokers;
 
-
     enum isWon {
         WON,
         LOST,
         UNKNOWN
     }
 
-
     private static String getExceptionMessage(String message) {
         return UI.RED + message + UI.END;
     }
-
 
     @BeforeAll
     public static void init() {

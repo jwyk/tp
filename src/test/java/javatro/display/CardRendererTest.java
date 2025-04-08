@@ -5,6 +5,7 @@ import static javatro.display.UI.BOLD;
 import static javatro.display.UI.ORANGE;
 import static javatro.display.UI.PURPLE;
 import static javatro.display.UI.RED;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -1,4 +1,4 @@
-//@@author flyingapricot
+// @@author flyingapricot
 package javatro.audioplayer;
 
 import java.io.BufferedInputStream;
@@ -12,9 +12,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * The {@code AudioPlayer} class provides functionality for playing, stopping, and switching audio files.
- * This class is implemented as a singleton to ensure only one instance of the player is active at any given time.
- * It supports looping audio files continuously.
+ * The {@code AudioPlayer} class provides functionality for playing, stopping, and switching audio
+ * files. This class is implemented as a singleton to ensure only one instance of the player is
+ * active at any given time. It supports looping audio files continuously.
  */
 public class AudioPlayer {
 
@@ -23,9 +23,7 @@ public class AudioPlayer {
     private Thread audioThread;
     private String currentAudioPath;
 
-    /**
-     * Private constructor to prevent instantiation from other classes.
-     */
+    /** Private constructor to prevent instantiation from other classes. */
     private AudioPlayer() {}
 
     /**
@@ -41,7 +39,8 @@ public class AudioPlayer {
     }
 
     /**
-     * Plays an audio file. If the specified audio file is already playing, this method returns without restarting it.
+     * Plays an audio file. If the specified audio file is already playing, this method returns
+     * without restarting it.
      *
      * @param audioPath The path of the audio file to play. Must not be null or empty.
      */
@@ -66,49 +65,54 @@ public class AudioPlayer {
 
         stopAudio(); // Stop the current audio first
 
-        audioThread = new Thread(() -> {
-            try {
-                currentAudioPath = newAudioPath;
+        audioThread =
+                new Thread(
+                        () -> {
+                            try {
+                                currentAudioPath = newAudioPath;
 
-                // Load the audio file from resources
-                InputStream inputStream = getClass().getResourceAsStream("/" + newAudioPath);
-                if (inputStream == null) {
-                    throw new IOException("Audio file not found: " + newAudioPath);
-                }
+                                // Load the audio file from resources
+                                InputStream inputStream =
+                                        getClass().getResourceAsStream("/" + newAudioPath);
+                                if (inputStream == null) {
+                                    throw new IOException("Audio file not found: " + newAudioPath);
+                                }
 
-                BufferedInputStream bufferedStream = new BufferedInputStream(inputStream);
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedStream);
+                                BufferedInputStream bufferedStream =
+                                        new BufferedInputStream(inputStream);
+                                AudioInputStream audioStream =
+                                        AudioSystem.getAudioInputStream(bufferedStream);
 
-                audioClip = AudioSystem.getClip();
-                audioClip.open(audioStream);
-                audioClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop indefinitely
-                audioClip.start();
+                                audioClip = AudioSystem.getClip();
+                                audioClip.open(audioStream);
+                                audioClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop indefinitely
+                                audioClip.start();
 
-                // Assert that the audio clip has successfully started
-                assert audioClip.isRunning() : "Audio clip failed to start";
+                                // Assert that the audio clip has successfully started
+                                assert audioClip.isRunning() : "Audio clip failed to start";
 
-                while (audioClip != null && audioClip.isRunning()) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        break;
-                    }
-                }
+                                while (audioClip != null && audioClip.isRunning()) {
+                                    try {
+                                        Thread.sleep(100);
+                                    } catch (InterruptedException e) {
+                                        break;
+                                    }
+                                }
 
-                audioStream.close();
+                                audioStream.close();
 
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-                e.printStackTrace();
-            }
-        });
+                            } catch (UnsupportedAudioFileException
+                                    | IOException
+                                    | LineUnavailableException e) {
+                                e.printStackTrace();
+                            }
+                        });
 
         audioThread.setDaemon(true); // Ensure the thread doesn't block the application from exiting
         audioThread.start();
     }
 
-    /**
-     * Stops the currently playing audio, if any, and properly cleans up resources.
-     */
+    /** Stops the currently playing audio, if any, and properly cleans up resources. */
     public synchronized void stopAudio() {
         if (audioClip != null) {
             audioClip.stop();

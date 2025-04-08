@@ -27,7 +27,6 @@ public class Storage {
     /** Indicates if a new deck is being used. */
     public static Boolean isNewDeck = false;
 
-
     /** Stores whether storage is active for the game or not */
     public static boolean saveActive = true;
 

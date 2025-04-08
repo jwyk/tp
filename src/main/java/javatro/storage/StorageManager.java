@@ -27,7 +27,6 @@ public class StorageManager {
     private static StorageManager instance;
     private TreeMap<Integer, ArrayList<String>> serializedRunData = new TreeMap<>();
 
-
     /** Private constructor to prevent instantiation. */
     private StorageManager() {}
 

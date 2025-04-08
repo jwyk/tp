@@ -49,8 +49,6 @@ public class JavatroCore {
     /** The current round count of the game. */
     protected static int roundCount;
 
-
-
     // @author swethaiscool
     /**
      * Retrieves the current ante.

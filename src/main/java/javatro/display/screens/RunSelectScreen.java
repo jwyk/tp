@@ -14,14 +14,13 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The {@code RunSelectScreen} class represents a screen used to select and load runs
- * within the game. It displays saved runs or prompts the user to start a new run
- * if no runs are found.
+ * The {@code RunSelectScreen} class represents a screen used to select and load runs within the
+ * game. It displays saved runs or prompts the user to start a new run if no runs are found.
  *
- * <p>This class is part of the {@code javatro.display.screens} package and extends
- * the {@link Screen} class, inheriting its basic screen functionalities. It interacts
- * with the {@link Storage} class to retrieve stored runs and displays them using
- * formatted content through the {@link DisplayFormatter} class.
+ * <p>This class is part of the {@code javatro.display.screens} package and extends the {@link
+ * Screen} class, inheriting its basic screen functionalities. It interacts with the {@link Storage}
+ * class to retrieve stored runs and displays them using formatted content through the {@link
+ * DisplayFormatter} class.
  *
  * <p>Author: @@flyingapricot
  */
@@ -31,8 +30,8 @@ public class RunSelectScreen extends Screen {
     private final Storage storage = Storage.getStorageInstance();
 
     /**
-     * Constructs a {@code RunSelectScreen} with a specified options menu title.
-     * If saved runs are found, corresponding options are added to the command map.
+     * Constructs a {@code RunSelectScreen} with a specified options menu title. If saved runs are
+     * found, corresponding options are added to the command map.
      *
      * @throws JavatroException if optionsTitle is null or empty
      */
@@ -48,8 +47,8 @@ public class RunSelectScreen extends Screen {
     }
 
     /**
-     * Displays a message indicating that no saved runs are found.
-     * Also prints an ASCII art representation when no runs are available.
+     * Displays a message indicating that no saved runs are found. Also prints an ASCII art
+     * representation when no runs are available.
      */
     private void noSavedRunsDisplay() {
         List<String> contents = new ArrayList<>();
@@ -71,9 +70,9 @@ public class RunSelectScreen extends Screen {
     }
 
     /**
-     * Displays the screen content based on whether saved runs are available or not.
-     * If runs are found, formatted run information is displayed. Otherwise, a message
-     * prompting the user to start a new run is shown.
+     * Displays the screen content based on whether saved runs are available or not. If runs are
+     * found, formatted run information is displayed. Otherwise, a message prompting the user to
+     * start a new run is shown.
      */
     @Override
     public void displayScreen() {
@@ -102,5 +101,4 @@ public class RunSelectScreen extends Screen {
     public static void setRunNumber(int runNumber) {
         RunSelectScreen.runNumber = runNumber;
     }
-
 }

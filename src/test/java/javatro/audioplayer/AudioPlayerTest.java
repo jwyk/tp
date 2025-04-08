@@ -37,5 +37,4 @@ public class AudioPlayerTest {
                 () -> AudioPlayer.getInstance().stopAudio(),
                 "Audio stopping should not cause any exceptions.");
     }
-
 }
