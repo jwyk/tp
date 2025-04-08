@@ -1,7 +1,6 @@
 // @@author Markneoneo
 package javatro.display.screens;
 
-import static javatro.Javatro.*;
 import static javatro.display.UI.BLACK_B;
 import static javatro.display.UI.BOLD;
 import static javatro.display.UI.BORDER_WIDTH;

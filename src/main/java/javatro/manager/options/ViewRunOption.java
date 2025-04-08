@@ -35,7 +35,7 @@ public class ViewRunOption implements Option {
     /**
      * Returns a description of this option, which includes the run number it represents.
      *
-     * @return A string describing this option, formatted as "View Run #<runNumber>".
+     * @return A string describing this option, formatted as "View Run".
      */
     @Override
     public String getDescription() {

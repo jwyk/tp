@@ -1,9 +1,16 @@
 package javatro.display.screens;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import javatro.core.*;
-import javatro.manager.options.*;
+import javatro.core.JavatroException;
+import javatro.manager.options.CardSelectOption;
+import javatro.manager.options.DeckViewOption;
+import javatro.manager.options.Option;
+import javatro.manager.options.PokerHandOption;
+import javatro.manager.options.ResumeGameOption;
+import javatro.manager.options.SortByRankOption;
+import javatro.manager.options.SortBySuitOption;
 import javatro.storage.Storage;
 
 import org.junit.jupiter.api.BeforeEach;

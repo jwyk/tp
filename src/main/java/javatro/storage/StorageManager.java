@@ -22,10 +22,11 @@ import java.util.TreeMap;
  */
 public class StorageManager {
 
-    private static StorageManager instance;
-    private TreeMap<Integer, ArrayList<String>> serializedRunData = new TreeMap<>();
     private static final String SAVEFILE_LOCATION = "./savefile.csv";
     private static final Path saveFilePath = Paths.get(SAVEFILE_LOCATION);
+    private static StorageManager instance;
+    private TreeMap<Integer, ArrayList<String>> serializedRunData = new TreeMap<>();
+
 
     /** Private constructor to prevent instantiation. */
     private StorageManager() {}

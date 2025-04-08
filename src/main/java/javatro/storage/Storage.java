@@ -21,11 +21,12 @@ public class Storage {
     /** Singleton instance of StorageManager responsible for handling storage operations. */
     private static final StorageManager storageManager = StorageManager.getInstance();
 
+    /** Stores the index of the current run. */
+    private static int runChosen = 0;
+
     /** Indicates if a new deck is being used. */
     public static Boolean isNewDeck = false;
 
-    /** Stores the index of the current run. */
-    private static int runChosen = 0;
 
     /** Stores whether storage is active for the game or not */
     public static boolean saveActive = true;
@@ -117,10 +118,18 @@ public class Storage {
         newRun.add("0");
         newRun.add("");
 
-        for (int i = 0; i < 8; i++) newRun.add("-");
-        for (int i = 0; i < 5; i++) newRun.add("-");
-        for (int i = 0; i < 13; i++) newRun.add("1");
-        for (int i = 0; i < 44; i++) newRun.add("-");
+        for (int i = 0; i < 8; i++) {
+            newRun.add("-");
+        }
+        for (int i = 0; i < 5; i++) {
+            newRun.add("-");
+        }
+        for (int i = 0; i < 13; i++) {
+            newRun.add("1");
+        }
+        for (int i = 0; i < 44; i++) {
+            newRun.add("-");
+        }
 
         assert newRun.size() == DataParser.START_OF_REST_OF_DECK + 44
                 : "New run should have the correct size.";

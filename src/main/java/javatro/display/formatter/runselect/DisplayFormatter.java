@@ -43,7 +43,7 @@ public class DisplayFormatter {
 
         // Italicized deck name
         int padding = 81;
-        DeckType deckType = CardUtils.DeckFromKey(deckIndexValue);
+        DeckType deckType = CardUtils.deckFromKey(deckIndexValue);
         if (deckType == DeckType.CHECKERED || deckType == DeckType.ABANDONED) {
             padding = 89;
         } else if (deckType == DeckType.RED) {

@@ -29,10 +29,18 @@ public class RunListScreenTest extends ScreenTest {
 
         String rowData1 =
                 "0,1,0,4,5,1,SMALL"
-                    + " BLIND,0,0,RED,9D,2D,3D,6D,AC,5H,3C,KD,-,-,-,-,-,1,1,1,1,1,1,1,1,1,1,1,1,1,9S,2H,6H,3H,10D,4S,2S,10H,5S,KS,JH,4C,9C,3S,10C,QH,10S,5C,KC,AH,AD,2C,5D,QD,JD,4H,7S,8C,KH,AS,QC,8D,JC,QS,8H,8S,9H,6S,7C,6C,4D,7H,7D,JS,0be01025238ce77a8671d79d1884f7ed0223806cd9f9004300678b4d6b1fe565";
+                    + " BLIND,0,0,RED,9D,2D,3D,6D,AC,5H,3C,KD,-,-,-,-,-," +
+                        "1,1,1,1,1,1,1,1,1,1,1,1,1,9S,2H,6H,3H,10D,4S,2S,10H,5S,KS,JH,4C," +
+                        "9C,3S,10C,QH,10S,5C,KC,AH,AD,2C,5D,QD,JD,4H,7S,8C,KH,AS,QC,8D,JC," +
+                        "QS,8H,8S,9H,6S,7C,6C,4D,7H,7D,JS," +
+                        "0be01025238ce77a8671d79d1884f7ed0223806cd9f9004300678b4d6b1fe565";
         String rowData2 =
                 "1,1,0,4,5,1,LARGE"
-                    + " BLIND,0,0,BLUE,9D,2D,3D,6D,AC,5H,3C,KD,-,-,-,-,-,1,1,1,1,1,1,1,1,1,1,1,1,1,9S,2H,6H,3H,10D,4S,2S,10H,5S,KS,JH,4C,9C,3S,10C,QH,10S,5C,KC,AH,AD,2C,5D,QD,JD,4H,7S,8C,KH,AS,QC,8D,JC,QS,8H,8S,9H,6S,7C,6C,4D,7H,7D,JS,1d82aa58d1a4d3f5e4afae4c8c1eb4bb5671ff5bfc9480c66b9484f7ae217e13";
+                    + " BLIND,0,0,BLUE,9D,2D,3D,6D,AC,5H,3C,KD,-,-,-,-,-," +
+                        "1,1,1,1,1,1,1,1,1,1,1,1,1,9S,2H,6H,3H,10D,4S,2S," +
+                        "10H,5S,KS,JH,4C,9C,3S,10C,QH,10S,5C,KC,AH,AD,2C,5D," +
+                        "QD,JD,4H,7S,8C,KH,AS,QC,8D,JC,QS,8H,8S,9H,6S,7C,6C,4D," +
+                        "7H,7D,JS,1d82aa58d1a4d3f5e4afae4c8c1eb4bb5671ff5bfc9480c66b9484f7ae217e13";
 
         ArrayList<String> dataList1 = new ArrayList<>(Arrays.asList(rowData1.split(",")));
         ArrayList<String> dataList2 = new ArrayList<>(Arrays.asList(rowData2.split(",")));

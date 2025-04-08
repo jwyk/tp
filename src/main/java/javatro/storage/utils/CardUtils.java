@@ -2,7 +2,10 @@
 package javatro.storage.utils;
 
 import static javatro.core.Ante.Blind.*;
-import static javatro.display.DeckArt.*;
+import static javatro.display.DeckArt.ABANDONED_DECK;
+import static javatro.display.DeckArt.BLUE_DECK;
+import static javatro.display.DeckArt.CHECKERED_DECK;
+import static javatro.display.DeckArt.RED_DECK;
 
 import javatro.core.Ante;
 import javatro.core.Card;
@@ -46,7 +49,7 @@ public class CardUtils {
      * @return The corresponding {@code Deck.DeckType}.
      * @throws IllegalArgumentException If the key is invalid.
      */
-    public static Deck.DeckType DeckFromKey(String key) {
+    public static Deck.DeckType deckFromKey(String key) {
         assert key != null : "Deck key cannot be null";
         return switch (key.toUpperCase()) {
             case "RED" -> Deck.DeckType.RED;
@@ -64,7 +67,7 @@ public class CardUtils {
      * @return The corresponding {@code Ante.Blind}.
      * @throws IllegalArgumentException If the key is invalid.
      */
-    public static Ante.Blind BlindFromKey(String key) {
+    public static Ante.Blind blindFromKey(String key) {
         assert key != null : "Blind key cannot be null";
         return switch (key.toUpperCase()) {
             case "SMALL BLIND" -> SMALL_BLIND;
@@ -143,7 +146,9 @@ public class CardUtils {
      */
     public static boolean isValidCardString(String cardString) {
         assert cardString != null : "Card string cannot be null";
-        if (cardString.length() < 2) return false;
+        if (cardString.length() < 2) {
+            return false;
+        }
 
         String rankStr = cardString.substring(0, cardString.length() - 1);
         char suitChar = cardString.charAt(cardString.length() - 1);

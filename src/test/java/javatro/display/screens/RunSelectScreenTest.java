@@ -1,9 +1,18 @@
 package javatro.display.screens;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import javatro.core.JavatroException;
-import javatro.manager.options.*;
+import javatro.manager.options.Option;
+import javatro.manager.options.StartGameOption;
+import javatro.manager.options.StartRunOption;
+import javatro.manager.options.ViewNextRunOption;
+import javatro.manager.options.ViewPrevRunOption;
+import javatro.manager.options.ViewRunListOption;
 import javatro.storage.Storage;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +38,11 @@ public class RunSelectScreenTest extends ScreenTest {
         // Load the test data into the TreeMap
         String rowData =
                 "0,1,0,4,5,1,SMALL"
-                    + " BLIND,0,0,RED,9D,2D,3D,6D,AC,5H,3C,KD,-,-,-,-,-,1,1,1,1,1,1,1,1,1,1,1,1,1,9S,2H,6H,3H,10D,4S,2S,10H,5S,KS,JH,4C,9C,3S,10C,QH,10S,5C,KC,AH,AD,2C,5D,QD,JD,4H,7S,8C,KH,AS,QC,8D,JC,QS,8H,8S,9H,6S,7C,6C,4D,7H,7D,JS,0be01025238ce77a8671d79d1884f7ed0223806cd9f9004300678b4d6b1fe565";
+                    + " BLIND,0,0,RED,9D,2D,3D,6D,AC,5H,3C,KD,-,-,-,-,-," +
+                        "1,1,1,1,1,1,1,1,1,1,1,1,1,9S,2H,6H,3H,10D,4S,2S," +
+                        "10H,5S,KS,JH,4C,9C,3S,10C,QH,10S,5C,KC,AH,AD,2C,5D,QD," +
+                        "JD,4H,7S,8C,KH,AS,QC,8D,JC,QS,8H,8S,9H,6S,7C,6C,4D," +
+                        "7H,7D,JS,0be01025238ce77a8671d79d1884f7ed0223806cd9f9004300678b4d6b1fe565";
 
         // Split the row data by comma and store it as an ArrayList
         ArrayList<String> dataList = new ArrayList<>(Arrays.asList(rowData.split(",")));

@@ -35,7 +35,7 @@ public class StartRunOption implements Option {
         // Update Storage with chosen run number
         storage.setRunChosen(runNumber);
         JavatroManager.beginGame(
-                (CardUtils.DeckFromKey(
+                (CardUtils.deckFromKey(
                         storage.getValue(storage.getRunChosen() - 1, DataParser.DECK_INDEX))));
 
         JavatroManager.jc.beginGame();

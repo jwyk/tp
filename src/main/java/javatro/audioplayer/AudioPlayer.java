@@ -87,12 +87,11 @@ public class AudioPlayer {
                 // Assert that the audio clip has successfully started
                 assert audioClip.isRunning() : "Audio clip failed to start";
 
-                // Keep the thread alive while the audio is playing
                 while (audioClip != null && audioClip.isRunning()) {
                     try {
-                        Thread.sleep(100); // Check every 100ms if the audio is still playing
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
-                        break; // Exit if interrupted
+                        break;
                     }
                 }
 

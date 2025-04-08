@@ -71,7 +71,9 @@ public class DataParser {
 
         for (String row : rows) {
             row = row.trim();
-            if (row.isEmpty()) continue;
+            if (row.isEmpty()) {
+                continue;
+            }
 
             String[] columns = row.split(",");
             assert columns.length > 0 : "Columns should not be empty for a row.";

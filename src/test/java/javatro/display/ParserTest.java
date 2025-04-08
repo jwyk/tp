@@ -1,6 +1,6 @@
 package javatro.display;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javatro.display.screens.Screen;
 import javatro.manager.JavatroManager;

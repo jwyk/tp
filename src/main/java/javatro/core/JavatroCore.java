@@ -12,7 +12,11 @@ import javatro.storage.Storage;
 import javatro.storage.StorageManager;
 import javatro.storage.utils.CardUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
@@ -25,12 +29,13 @@ public class JavatroCore {
     private static final Map<PokerHand.HandType, Integer> pokerHandPlayCounts =
             new EnumMap<>(PokerHand.HandType.class);
 
+    // 3. Static Protected Variables (Protected APIs)
+    /** The current ante for the game. */
+    protected static Ante ante;
+
     // 2. Static Public Variables (Public APIs)
     /** The current active round in the game. */
     public static Round currentRound;
-
-    /** The number of plays given per round (Default value = 4). */
-    public static int totalPlays;
 
     /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
     public static Deck deck;
@@ -38,12 +43,13 @@ public class JavatroCore {
     /** The held jokers used throughout the game. */
     public static HeldJokers heldJokers;
 
-    // 3. Static Protected Variables (Protected APIs)
-    /** The current ante for the game. */
-    protected static Ante ante;
+    /** The number of plays given per round (Default value = 4). */
+    public static int totalPlays;
 
     /** The current round count of the game. */
     protected static int roundCount;
+
+
 
     // @author swethaiscool
     /**
@@ -89,7 +95,7 @@ public class JavatroCore {
         StorageManager.getInstance().updateRoundData(runIndex, roundData);
 
         // Update deck
-        deck = new Deck(CardUtils.DeckFromKey(storage.getValue(runIndex, DataParser.DECK_INDEX)));
+        deck = new Deck(CardUtils.deckFromKey(storage.getValue(runIndex, DataParser.DECK_INDEX)));
         Storage.isNewDeck = true;
 
         startNewRound(nextRound);
@@ -112,7 +118,7 @@ public class JavatroCore {
                 : "Run data is incomplete or corrupted";
 
         // Initialize ante and round count
-        ante.setBlind(CardUtils.BlindFromKey(runData.get(DataParser.BLIND_INDEX)));
+        ante.setBlind(CardUtils.blindFromKey(runData.get(DataParser.BLIND_INDEX)));
         ante.setAnteCount(Integer.parseInt(runData.get(DataParser.ANTE_NUMBER_INDEX)));
         roundCount = Integer.parseInt(runData.get(DataParser.ROUND_NUMBER_INDEX));
 

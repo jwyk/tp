@@ -59,7 +59,7 @@ public class DeckSelectOption implements Option {
         JavatroCore.deck = new Deck(deckType);
         storage.setValue(storage.getRunChosen() - 1, DataParser.DECK_INDEX, deckType.getName());
         JavatroManager.beginGame(
-                (CardUtils.DeckFromKey(
+                (CardUtils.deckFromKey(
                         storage.getValue(storage.getRunChosen() - 1, DataParser.DECK_INDEX))));
         assert JavatroCore.deck != null : "Deck initialization failed";
 
