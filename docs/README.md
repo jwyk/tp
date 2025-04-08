@@ -5,6 +5,8 @@
 **Javatro** is a command-line card game inspired by **Balatro**.  
 It blends strategic decision-making with poker mechanics and roguelike elements to deliver an engaging, fast-paced experience right in your terminal.
 
+---
+
 ## Overview
 
 - **Gameplay:**  
@@ -14,6 +16,8 @@ It blends strategic decision-making with poker mechanics and roguelike elements 
 - **Objective:**  
   Progress through rounds—each featuring Small, Large, and Boss Blinds—to eventually win at Ante 8 and earn your victory.
   
+---
+
 ## Quick Start
 
 **Requirements:**  
@@ -31,12 +35,16 @@ It blends strategic decision-making with poker mechanics and roguelike elements 
 
 *Tip:* Ensure your volume is turned up—Javatro features immersive audio effects!
 
+---
+
 ## Documentation & Guides
 
 For more in-depth details on playing the game and contributing to it, check out the following:
 - [User Guide](UserGuide.md) – Detailed explanation of gameplay mechanics, commands, and troubleshooting.
 - [Developer Guide](DeveloperGuide.md) – Insights into the codebase, design decisions, and contribution guidelines.
-- [JavaDocs]() – 
+- [JavaDocs](https://ay2425s2-cs2113-w13-1.github.io/tp/javadoc/index.html) – Auto-generated HTML documentation of the project's classes, methods, and packages.
+
+---
 
 ## Project Portfolio
 
@@ -47,6 +55,8 @@ Learn more about the team and our journey:
 - [Neeraj Kumbar](team/flyingapricot.md)
 - [Kwa Jian Quan](team/k-j-q.md)
 - [Saravanan Swetha](team/swethacool.md)
+
+---
 
 ## Key Features
 
@@ -65,6 +75,8 @@ Learn more about the team and our journey:
 - **Save & Resume:**  
   Your game progress is automatically saved after each run—just pick up from where you left off!
 
+---
+
 ## Known Issues
 
 - **Terminal Window Behavior:**  
@@ -72,6 +84,8 @@ Learn more about the team and our journey:
 
 - **Saving During Critical Operations:**  
   Avoid exiting abruptly after making a move to prevent any potential save file corruption. For more guidance, see the details in the [User Guide](UserGuide.md).
+
+---
 
 ## Acknowledgements
 
@@ -81,3 +95,9 @@ Learn more about the team and our journey:
     - **Main Music:** *Balatro - Complete Original Soundtrack* (Composed by LouisF)
     - **Victory Music:** "We Are the Champions" by Queen
     - **Losing Sound Effect:** *Cat Laughing At You* ([YouTube](https://youtu.be/L8XbI
+
+---
+
+#### Shuffle up, go all-in, and may the deck always be stacked in your favor. Thanks for playing!
+
+![](https://the-indie-in-former.com/wp-content/uploads/2024/09/Balatro-mobile-annoucement.jpg)
