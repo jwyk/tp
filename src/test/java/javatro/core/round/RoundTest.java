@@ -20,15 +20,13 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 public class RoundTest {
-    private static String getExceptionMessage(String message) {
-        return UI.RED + message + UI.END;
-    }
 
     private static final String INVALIDPLAYEDHANDERROR =
             "A poker hand must contain between 1 and 5 cards.";
     private static final String INVALIDPLAYSPERROUND =
             "Number of plays per round must be greater than 0.";
     private static final String INVALIDDECK = "Deck cannot be null.";
+    private static HeldJokers heldJokers;
 
     enum isWon {
         WON,
@@ -36,7 +34,9 @@ public class RoundTest {
         UNKNOWN
     }
 
-    private static HeldJokers heldJokers;
+    private static String getExceptionMessage(String message) {
+        return UI.RED + message + UI.END;
+    }
 
     @BeforeAll
     public static void init() {
@@ -207,84 +207,84 @@ public class RoundTest {
     }
 
     @Test
-    public void round_correctInitialization_smallBlind1() throws JavatroException {
+    public void roundcorrectInitialization_smallBlind1() throws JavatroException {
         testRoundInitialization(1, Ante.Blind.SMALL_BLIND, 3);
     }
 
     @Test
-    public void round_correctInitialization_smallBlind2() throws JavatroException {
+    public void roundcorrectInitialization_smallBlind2() throws JavatroException {
         testRoundInitialization(2, Ante.Blind.SMALL_BLIND, 5);
     }
 
     @Test
-    public void round_correctInitialization_largeBlind() throws JavatroException {
+    public void roundcorrectInitialization_largeBlind() throws JavatroException {
         testRoundInitialization(2, Ante.Blind.LARGE_BLIND, 7);
     }
 
     @Test
-    public void round_correctInitialization_bossBlind() throws JavatroException {
+    public void roundcorrectInitialization_bossBlind() throws JavatroException {
         testRoundInitialization(3, Ante.Blind.BOSS_BLIND, 1);
     }
 
     @Test
-    public void round_incorrectInitializatioin() throws JavatroException {
+    public void roundincorrectInitializatioin() throws JavatroException {
         assertRoundInitializationFailure(
                 1, Ante.Blind.SMALL_BLIND, 0, new Deck(DEFAULT), INVALIDPLAYSPERROUND);
         assertRoundInitializationFailure(1, Ante.Blind.SMALL_BLIND, 3, null, INVALIDDECK);
     }
 
     @Test
-    public void round_playCards_smallBlind_fewPlays() throws JavatroException {
+    public void roundplayCards_smallBlind_fewPlays() throws JavatroException {
         testRoundPlayCards(1, Ante.Blind.SMALL_BLIND, 3, 1, false);
     }
 
     @Test
-    public void round_playCards_largeBlind_fewPlays() throws JavatroException {
+    public void roundplayCards_largeBlind_fewPlays() throws JavatroException {
         testRoundPlayCards(1, Ante.Blind.LARGE_BLIND, 10000, 1, false);
     }
 
     @Test
-    public void round_playCards_smallBlind_highAnte() throws JavatroException {
+    public void roundplayCards_smallBlind_highAnte() throws JavatroException {
         testRoundPlayCards(8, Ante.Blind.SMALL_BLIND, 10000, 1, false);
     }
 
     @Test
-    public void round_playCards_largeBlind_highAnte() throws JavatroException {
+    public void roundplayCards_largeBlind_highAnte() throws JavatroException {
         testRoundPlayCards(8, Ante.Blind.LARGE_BLIND, 10000, 1, false);
     }
 
     @Test
-    public void round_playCards_smallBlind_manyPlays() throws JavatroException {
+    public void roundplayCards_smallBlind_manyPlays() throws JavatroException {
         testRoundPlayCards(1, Ante.Blind.SMALL_BLIND, 10000, 8, true);
     }
 
     @Test
-    public void round_playCards_roundOver_smallBlind() throws JavatroException {
+    public void roundplayCards_roundOver_smallBlind() throws JavatroException {
         testRoundOver(8, Ante.Blind.SMALL_BLIND, 3, 3);
     }
 
     @Test
-    public void round_playCards_roundOver_bossBlind1() throws JavatroException {
+    public void roundplayCards_roundOver_bossBlind1() throws JavatroException {
         testRoundOver(8, Ante.Blind.BOSS_BLIND, 5, 5);
     }
 
     @Test
-    public void round_playCards_roundOver_bossBlind2() throws JavatroException {
+    public void roundplayCards_roundOver_bossBlind2() throws JavatroException {
         testRoundOver(8, Ante.Blind.BOSS_BLIND, 8, 8);
     }
 
     @Test
-    public void round_playCards_roundOver_smallBlind_exactPlays() throws JavatroException {
+    public void roundplayCards_roundOver_smallBlind_exactPlays() throws JavatroException {
         testRoundOver(1, Ante.Blind.SMALL_BLIND, 1, 1);
     }
 
     @Test
-    public void round_playCards_tooManyPlays_case1() throws JavatroException {
+    public void roundplayCards_tooManyPlays_case1() throws JavatroException {
         testPlayCardsFails(1, Ante.Blind.SMALL_BLIND, 3, 3, "No plays remaining.");
     }
 
     @Test
-    public void round_playCards_tooManyPlays_case2() throws JavatroException {
+    public void roundplayCards_tooManyPlays_case2() throws JavatroException {
         testPlayCardsFails(
                 1,
                 Ante.Blind.SMALL_BLIND,
@@ -294,7 +294,7 @@ public class RoundTest {
     }
 
     @Test
-    public void round_playCards_invalidHandSize() throws JavatroException {
+    public void roundplayCards_invalidHandSize() throws JavatroException {
         // Test with too many cards
         assertPlayCardsInvalidHandSize(
                 1, Ante.Blind.SMALL_BLIND, 3, List.of(0, 1, 2, 3, 4, 5), INVALIDPLAYEDHANDERROR);
@@ -312,7 +312,7 @@ public class RoundTest {
     }
 
     @Test
-    public void round_discardCards_success() throws JavatroException {
+    public void rounddiscardCards_success() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
         ante.setAnteCount(1);
@@ -332,7 +332,7 @@ public class RoundTest {
     }
 
     @Test
-    public void round_discardCards_tooManyDiscards() throws JavatroException {
+    public void rounddiscardCards_tooManyDiscards() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
         ante.setAnteCount(1);
@@ -354,7 +354,7 @@ public class RoundTest {
     }
 
     @Test
-    public void round_emptyDiscardList() throws JavatroException {
+    public void roundemptyDiscardList() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
         ante.setAnteCount(1);
@@ -378,7 +378,7 @@ public class RoundTest {
     }
 
     @Test
-    public void round_setNameAndDescription() throws JavatroException {
+    public void roundsetNameAndDescription() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
         ante.setAnteCount(1);
@@ -395,7 +395,7 @@ public class RoundTest {
     }
 
     @Test
-    public void round_bossType_specificBehaviors() throws JavatroException {
+    public void roundbossType_specificBehaviors() throws JavatroException {
         // Setup
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
@@ -422,32 +422,32 @@ public class RoundTest {
     }
 
     @Test
-    public void round_bossType_theClub() throws JavatroException {
+    public void roundbossType_theClub() throws JavatroException {
         testBossType(BossType.THE_CLUB);
     }
 
     @Test
-    public void round_bossType_theWindow() throws JavatroException {
+    public void roundbossType_theWindow() throws JavatroException {
         testBossType(BossType.THE_WINDOW);
     }
 
     @Test
-    public void round_bossType_theHead() throws JavatroException {
+    public void roundbossType_theHead() throws JavatroException {
         testBossType(BossType.THE_HEAD);
     }
 
     @Test
-    public void round_bossType_theGoad() throws JavatroException {
+    public void roundbossType_theGoad() throws JavatroException {
         testBossType(BossType.THE_GOAD);
     }
 
     @Test
-    public void round_bossType_thePlant() throws JavatroException {
+    public void roundbossType_thePlant() throws JavatroException {
         testBossType(BossType.THE_PLANT);
     }
 
     @Test
-    public void round_testRandomBossType() throws JavatroException {
+    public void roundtestRandomBossType() throws JavatroException {
         Deck deck = new Deck(Deck.DeckType.DEFAULT);
         Ante ante = new Ante();
         ante.setAnteCount(1);
@@ -478,7 +478,7 @@ public class RoundTest {
     }
 
     @Test
-    public void round_testDeckVariants() throws JavatroException {
+    public void roundtestDeckVariants() throws JavatroException {
         // Test RED deck variant (increases remaining discards)
         Deck redDeck = new Deck(Deck.DeckType.RED);
         Ante ante = new Ante();

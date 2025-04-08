@@ -20,12 +20,12 @@ public class JavatroManager implements PropertyChangeListener {
 
     /** The main view responsible for rendering the user interface. */
     public static UI ui;
-    /** The main model responsible for handling game logic. */
+
     public static JavatroCore jc;
-    /** Stores the last recorded user input. */
-    private static int userInput;
 
     public static Ante ante;
+
+    /** The main model responsible for handling game logic. */
     public static int roundCount = 1;
 
     public static boolean runningTests =

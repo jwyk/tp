@@ -1,8 +1,15 @@
 package javatro.display;
 
-import static javatro.display.UI.*;
+import static javatro.display.UI.BLUE;
+import static javatro.display.UI.BOLD;
+import static javatro.display.UI.ORANGE;
+import static javatro.display.UI.PURPLE;
+import static javatro.display.UI.RED;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javatro.core.Card;
 
@@ -25,7 +32,7 @@ public class CardRendererTest {
     }
 
     @Test
-    public void testRenderCard_Hearts() {
+    public void testRenderCardHearts() {
         String[] cardArt = CardRenderer.renderCard(heartsCard);
 
         assertNotNull(cardArt, "Card art should not be null");
@@ -36,7 +43,7 @@ public class CardRendererTest {
     }
 
     @Test
-    public void testRenderCard_Diamonds() {
+    public void testRenderCardDiamonds() {
         String[] cardArt = CardRenderer.renderCard(diamondsCard);
 
         assertNotNull(cardArt, "Card art should not be null");
@@ -47,7 +54,7 @@ public class CardRendererTest {
     }
 
     @Test
-    public void testRenderCard_Clubs() {
+    public void testRenderCardClubs() {
         String[] cardArt = CardRenderer.renderCard(clubsCard);
 
         assertNotNull(cardArt, "Card art should not be null");
@@ -58,7 +65,7 @@ public class CardRendererTest {
     }
 
     @Test
-    public void testRenderCard_Spades() {
+    public void testRenderCardSpades() {
         String[] cardArt = CardRenderer.renderCard(spadesCard);
 
         assertNotNull(cardArt, "Card art should not be null");
@@ -69,7 +76,7 @@ public class CardRendererTest {
     }
 
     @Test
-    public void testRenderCard_NullCard() {
+    public void testRenderCardNullCard() {
         assertThrows(
                 AssertionError.class,
                 () -> CardRenderer.renderCard(null),
@@ -90,7 +97,7 @@ public class CardRendererTest {
     }
 
     @Test
-    public void testGetColour_Hearts() {
+    public void testGetColourHearts() {
         String[] cardArt = CardRenderer.renderCard(heartsCard);
         assertTrue(
                 cardArt[0].contains(BOLD) && cardArt[0].contains(RED),
@@ -98,7 +105,7 @@ public class CardRendererTest {
     }
 
     @Test
-    public void testGetColour_Diamonds() {
+    public void testGetColourDiamonds() {
         String[] cardArt = CardRenderer.renderCard(diamondsCard);
         assertTrue(
                 cardArt[0].contains(BOLD) && cardArt[0].contains(ORANGE),
@@ -106,7 +113,7 @@ public class CardRendererTest {
     }
 
     @Test
-    public void testGetColour_Clubs() {
+    public void testGetColourClubs() {
         String[] cardArt = CardRenderer.renderCard(clubsCard);
         assertTrue(
                 cardArt[0].contains(BOLD) && cardArt[0].contains(BLUE),
@@ -114,7 +121,7 @@ public class CardRendererTest {
     }
 
     @Test
-    public void testGetColour_Spades() {
+    public void testGetColourSpades() {
         String[] cardArt = CardRenderer.renderCard(spadesCard);
         assertTrue(
                 cardArt[0].contains(BOLD) && cardArt[0].contains(PURPLE),

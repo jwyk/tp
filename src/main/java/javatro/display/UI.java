@@ -3,7 +3,21 @@ package javatro.display;
 
 import javatro.core.Card;
 import javatro.core.JavatroException;
-import javatro.display.screens.*;
+import javatro.display.screens.BlindSelectScreen;
+import javatro.display.screens.DeckSelectScreen;
+import javatro.display.screens.DeckViewScreen;
+import javatro.display.screens.DiscardCardScreen;
+import javatro.display.screens.GameScreen;
+import javatro.display.screens.HelpScreen;
+import javatro.display.screens.LoseScreen;
+import javatro.display.screens.PlayCardScreen;
+import javatro.display.screens.PokerHandScreen;
+import javatro.display.screens.RunListScreen;
+import javatro.display.screens.RunSelectScreen;
+import javatro.display.screens.Screen;
+import javatro.display.screens.StartScreen;
+import javatro.display.screens.WinGameScreen;
+import javatro.display.screens.WinRoundScreen;
 
 import java.io.IOException;
 import java.io.InputStream;

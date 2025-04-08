@@ -6,6 +6,7 @@ import javatro.core.JavatroException;
 import javatro.display.UI;
 import javatro.manager.options.AcceptBlindOption;
 import javatro.manager.options.RejectBlindOption;
+import javatro.storage.DataParser;
 import javatro.storage.Storage;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class BlindSelectScreen extends Screen {
         Storage.getStorageInstance()
                 .setValue(
                         Storage.getStorageInstance().getRunChosen() - 1,
-                        Storage.BLIND_INDEX,
+                        DataParser.BLIND_INDEX,
                         currentBlind.getName());
         return (currentBlind == Ante.Blind.SMALL_BLIND)
                 ? 0

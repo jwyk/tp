@@ -1,7 +1,14 @@
 package javatro.core.round;
 
-import javatro.core.*;
+import javatro.core.Ante;
+import javatro.core.BossType;
+import javatro.core.Card;
+import javatro.core.Deck;
 import javatro.core.Deck.DeckType;
+import javatro.core.HandResult;
+import javatro.core.HoldingHand;
+import javatro.core.JavatroException;
+import javatro.core.PokerHand;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.round.RoundActions.ActionResult;
 
@@ -81,6 +88,15 @@ public class Round {
         applyDeckVariants(deck);
         applyAnteInvariants(ante);
         setBossType(bossType);
+    }
+
+    /**
+     * Constructs a new round with the specified ante and blind settings without specifying round
+     * name and description.
+     */
+    public Round(Ante ante, int remainingPlays, Deck deck, HeldJokers heldJokers)
+            throws JavatroException {
+        this(ante, remainingPlays, deck, heldJokers, "Default Round", "Default Description");
     }
 
     /** Resets the boss type and deck variants to their default values. */
@@ -167,15 +183,6 @@ public class Round {
                 : "Player should have exactly "
                         + RoundConfig.INITIAL_HAND_SIZE
                         + " cards initially";
-    }
-
-    /**
-     * Constructs a new round with the specified ante and blind settings without specifying round
-     * name and description.
-     */
-    public Round(Ante ante, int remainingPlays, Deck deck, HeldJokers heldJokers)
-            throws JavatroException {
-        this(ante, remainingPlays, deck, heldJokers, "Default Round", "Default Description");
     }
 
     /**

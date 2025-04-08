@@ -47,7 +47,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testPlayCards_Success() throws JavatroException {
+    void testPlayCardsSuccess() throws JavatroException {
         // Test playing 3 cards successfully
         List<Integer> cardIndices = List.of(0, 1, 2);
         int initialDeckSize = deck.getRemainingCards();
@@ -66,7 +66,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testPlayCards_NoRemainingPlays() {
+    void testPlayCardsNoRemainingPlays() {
         // Test behavior when no plays are remaining
         RoundState stateWithNoPlays;
         try {
@@ -87,7 +87,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testPlayCards_TooFewCards() {
+    void testPlayCardsTooFewCards() {
         // Test playing fewer cards than the minimum required
         RoundConfig config = new RoundConfig(300);
         config.setMinHandSize(3);
@@ -106,7 +106,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testPlayCards_TooManyCards() {
+    void testPlayCardsTooManyCards() {
         // Test playing more cards than the maximum allowed
         RoundConfig config = new RoundConfig(300);
         config.setMinHandSize(1);
@@ -125,7 +125,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testPlayCards_InvalidIndices() {
+    void testPlayCardsInvalidIndices() {
         // Test playing cards with invalid indices
         List<Integer> cardIndices = List.of(0, 20);
 
@@ -142,7 +142,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testPlayCards_ExactMinimumHandSize() throws JavatroException {
+    void testPlayCardsExactMinimumHandSize() throws JavatroException {
         // Test playing the exact minimum number of cards
         RoundConfig config = new RoundConfig(300);
         config.setMinHandSize(2);
@@ -156,7 +156,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testPlayCards_ExactMaximumHandSize() throws JavatroException {
+    void testPlayCardsExactMaximumHandSize() throws JavatroException {
         // Test playing the exact maximum number of cards
         RoundConfig config = new RoundConfig(300);
         config.setMinHandSize(1);
@@ -170,7 +170,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testPlayCards_NullParameters() {
+    void testPlayCardsNullParameters() {
         // Test behavior when null parameters are passed
         assertThrows(
                 IllegalArgumentException.class,
@@ -187,7 +187,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testDiscardCards_Success() throws JavatroException {
+    void testDiscardCardsSuccess() throws JavatroException {
         // Test discarding 3 cards successfully
         List<Integer> cardIndices = List.of(0, 2, 4);
         int initialDeckSize = deck.getRemainingCards();
@@ -206,7 +206,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testDiscardCards_NoRemainingDiscards() {
+    void testDiscardCardsNoRemainingDiscards() {
         // Test behavior when no discards are remaining
         RoundState stateWithNoDiscards;
         try {
@@ -229,7 +229,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testDiscardCards_TooManyCards() {
+    void testDiscardCardsTooManyCards() {
         // Test discarding more cards than allowed
         List<Integer> cardIndices = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
@@ -247,7 +247,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testDiscardCards_EmptyIndices() {
+    void testDiscardCardsEmptyIndices() {
         // Test discarding zero cards
         List<Integer> cardIndices = List.of();
 
@@ -261,7 +261,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testDiscardCards_DuplicateIndices() throws JavatroException {
+    void testDiscardCardsDuplicateIndices() throws JavatroException {
         // Test discarding cards with duplicate indices
         List<Integer> cardIndices = List.of(1, 1, 2, 2, 3);
         int initialDeckSize = deck.getRemainingCards();
@@ -275,7 +275,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testDiscardCards_InvalidIndices() {
+    void testDiscardCardsInvalidIndices() {
         // Test discarding cards with invalid indices
         List<Integer> cardIndices = List.of(0, 10);
 
@@ -292,7 +292,7 @@ public class RoundActionsTest {
     }
 
     @Test
-    void testDiscardCards_ExactRemainingDiscards() throws JavatroException {
+    void testDiscardCardsExactRemainingDiscards() throws JavatroException {
         // Test discarding the exact number of remaining discards
         RoundState stateWithOneDiscard = new RoundState(0, 1, 3, playerJokers, deck);
         List<Integer> cardIndices = List.of(0);

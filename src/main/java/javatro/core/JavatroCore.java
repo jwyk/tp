@@ -7,36 +7,47 @@ package javatro.core;
 import javatro.core.Deck.DeckType;
 import javatro.core.jokers.HeldJokers;
 import javatro.core.round.Round;
+import javatro.storage.DataParser;
 import javatro.storage.Storage;
+import javatro.storage.StorageManager;
+import javatro.storage.utils.CardUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
 
-    /** The current active round in the game. */
-    public static Round currentRound;
-
-    /** The current ante for the game. */
-    protected static Ante ante;
-
-    /** The current round count of the game. */
-    protected static int roundCount;
-
-    /** The number of plays give per round (Default value = 4). */
-    public static int totalPlays;
-
-    /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
-    public static Deck deck;
-
-    /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
-    public static HeldJokers heldJokers;
-
+    // 1. Constants (Static Final)
+    /** The Storage instance used for saving and retrieving data. */
     private static final Storage storage = Storage.getStorageInstance();
 
     /** Stores the play counts for each poker hand type */
     private static final Map<PokerHand.HandType, Integer> pokerHandPlayCounts =
             new EnumMap<>(PokerHand.HandType.class);
+
+    /** The current round count of the game. */
+    protected static int roundCount;
+
+    // 3. Static Protected Variables (Protected APIs)
+    /** The current ante for the game. */
+    protected static Ante ante;
+
+    // 2. Static Public Variables (Public APIs)
+    /** The current active round in the game. */
+    public static Round currentRound;
+
+    /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
+    public static Deck deck;
+
+    /** The held jokers used throughout the game. */
+    public static HeldJokers heldJokers;
+
+    /** The number of plays given per round (Default value = 4). */
+    public static int totalPlays;
 
     // @author swethaiscool
     /**
@@ -61,71 +72,68 @@ public class JavatroCore {
     public void nextRound() {
         ante.nextRound();
         roundCount++;
-
-        // Update ante and blind values and round count
-        storage.setValue(
-                storage.getRunChosen() - 1,
-                Storage.ROUND_NUMBER_INDEX,
-                String.valueOf(roundCount)); // Update Round Count
-        storage.setValue(
-                storage.getRunChosen() - 1,
-                Storage.ANTE_NUMBER_INDEX,
-                String.valueOf(ante.getAnteCount())); // Update Ante Count
-        storage.setValue(
-                storage.getRunChosen() - 1,
-                Storage.BLIND_INDEX,
-                String.valueOf(ante.getBlind().getName())); // Update Blind
-
         Round nextRound = classicRound();
 
+        // Prepare all the data to be saved
+        int runIndex = storage.getRunChosen() - 1;
+
+        List<String> roundData = new ArrayList<>();
+        roundData.add(String.valueOf(roundCount)); // Update Round Count
+        roundData.add(String.valueOf(ante.getAnteCount())); // Update Ante Count
+        roundData.add(ante.getBlind().getName()); // Update Blind
+
         // Update Holding Hand
-        for (int i = Storage.HOLDING_HAND_START_INDEX;
-                i < Storage.HOLDING_HAND_START_INDEX + 8;
-                i++) {
-            Card currentCard =
-                    nextRound.getPlayerHandCards().get(i - Storage.HOLDING_HAND_START_INDEX);
-            storage.setValue(
-                    storage.getRunChosen() - 1,
-                    i,
-                    Storage.cardToString(currentCard)); // Update Holding Hand Cards
+        for (int i = 0; i < 8; i++) {
+            assert nextRound != null;
+            Card currentCard = nextRound.getPlayerHandCards().get(i);
+            roundData.add(CardUtils.cardToString(currentCard)); // Update Holding Hand Cards
         }
 
+        // Delegate the update to StorageManager
+        StorageManager.getInstance().updateRoundData(runIndex, roundData);
+
         // Update deck
-        deck =
-                new Deck(
-                        Storage.DeckFromKey(
-                                storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX)));
+        deck = new Deck(CardUtils.deckFromKey(storage.getValue(runIndex, DataParser.DECK_INDEX)));
         Storage.isNewDeck = true;
 
         startNewRound(nextRound);
     }
 
-    /** Initializes a new game by resetting the ante, round count, jokers and decks. */
+    /**
+     * Initializes a new game by resetting the ante, round count, jokers and decks.
+     *
+     * @param deckType The type of deck to be used for the new game.
+     */
     public void setupNewGame(DeckType deckType) {
         ante = new Ante();
 
-        ante.setBlind(
-                Storage.BlindFromKey(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.BLIND_INDEX)));
-        ante.setAnteCount(
-                Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.ANTE_NUMBER_INDEX)));
-        roundCount =
-                Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.ROUND_NUMBER_INDEX));
+        // Fetch all relevant data for the current run in one go
+        int runIndex = storage.getRunChosen() - 1;
+        ArrayList<String> runData = StorageManager.getInstance().getRunData(runIndex);
+
+        assert runData != null : "Run data should not be null";
+        assert runData.size() > DataParser.JOKER_HAND_START_INDEX + 5
+                : "Run data is incomplete or corrupted";
+
+        // Initialize ante and round count
+        ante.setBlind(CardUtils.blindFromKey(runData.get(DataParser.BLIND_INDEX)));
+        ante.setAnteCount(Integer.parseInt(runData.get(DataParser.ANTE_NUMBER_INDEX)));
+        roundCount = Integer.parseInt(runData.get(DataParser.ROUND_NUMBER_INDEX));
 
         totalPlays = 4;
         heldJokers = new HeldJokers();
 
         // Update Jokers
-        for (int i = Storage.JOKER_HAND_START_INDEX; i < Storage.JOKER_HAND_START_INDEX + 5; i++) {
-            if (Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "-")
-                    || Objects.equals(storage.getValue(storage.getRunChosen() - 1, i), "NA"))
+        for (int i = DataParser.JOKER_HAND_START_INDEX;
+                i < DataParser.JOKER_HAND_START_INDEX + 5;
+                i++) {
+            String jokerString = runData.get(i);
+            if (jokerString.equals("-") || jokerString.equals("NA")) {
                 continue;
+            }
 
             try {
-                heldJokers.add(
-                        Storage.parseJokerString(storage.getValue(storage.getRunChosen() - 1, i)));
+                heldJokers.add(CardUtils.parseJokerString(jokerString));
             } catch (JavatroException e) {
                 throw new RuntimeException(e);
             }
@@ -133,7 +141,6 @@ public class JavatroCore {
 
         deck = new Deck(deckType);
     }
-    // @author swethaiscool
 
     /**
      * Starts a new round and assigns it to the current round.
@@ -146,13 +153,18 @@ public class JavatroCore {
         assert currentRound != null;
 
         int savedPlays =
-                Integer.parseInt(storage.getValue(storage.getRunChosen() - 1, Storage.HAND_INDEX));
+                Integer.parseInt(
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.HAND_INDEX));
         int savedDiscards =
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.DISCARD_INDEX));
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.DISCARD_INDEX));
 
-        if (savedPlays == -1) savedPlays = 4;
-        if (savedDiscards == -1) savedDiscards = 3;
+        if (savedPlays == -1) {
+            savedPlays = 4;
+        }
+        if (savedDiscards == -1) {
+            savedDiscards = 3;
+        }
 
         currentRound.updatePlays(
                 deck.getDeckName().getName().equals("BLUE") && savedPlays == 4
@@ -163,20 +175,16 @@ public class JavatroCore {
                         ? savedDiscards + 1
                         : savedDiscards);
 
-        storage.setValue(
-                storage.getRunChosen() - 1,
-                Storage.HAND_INDEX,
-                String.valueOf(currentRound.getRemainingPlays())); // Update Number Of Plays
-        storage.setValue(
-                storage.getRunChosen() - 1,
-                Storage.DISCARD_INDEX,
-                String.valueOf(currentRound.getRemainingDiscards())); // Update Number Of Discards
-        storage.setValue(
-                storage.getRunChosen() - 1,
-                Storage.ROUND_SCORE_INDEX,
-                String.valueOf(currentRound.getCurrentScore())); // Update Current Score
+        // Collect all the data that needs to be updated
+        int runIndex = storage.getRunChosen() - 1;
+        List<String> roundData = new ArrayList<>();
+        roundData.add(String.valueOf(currentRound.getRemainingPlays())); // HAND_INDEX
+        roundData.add(String.valueOf(currentRound.getRemainingDiscards())); // DISCARD_INDEX
+        roundData.add(String.valueOf(currentRound.getCurrentScore())); // ROUND_SCORE_INDEX
 
-        // Update save file
+        // Update StorageManager in one go
+        StorageManager.getInstance().updateNewRoundData(runIndex, roundData);
+
         try {
             storage.updateSaveFile();
         } catch (JavatroException e) {
@@ -205,38 +213,59 @@ public class JavatroCore {
     /**
      * Starts the game by initializing a new set of game parameters. This method is called when the
      * game begins.
-     *
-     * @throws JavatroException If an error occurs while starting the game.
      */
-    public void beginGame() throws JavatroException {
+    public void beginGame() {
         Round newRound = Objects.requireNonNull(classicRound());
 
-        // Update round attributes
+        // Update Score
         newRound.setCurrentScore(
                 Integer.parseInt(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.ROUND_SCORE_INDEX)));
+                        storage.getValue(
+                                storage.getRunChosen() - 1, DataParser.ROUND_SCORE_INDEX)));
 
-        // Update deck with rest of the cards (If deck is not empty)
-        if (!Storage.isNewDeck) newRound.getDeck().populateWithSavedDeck();
-
-        // Update savedCards
-        List<Card> savedCards = new ArrayList<>();
-        int emptyCardCount = 0;
-
-        for (int i = Storage.HOLDING_HAND_START_INDEX;
-                i < Storage.HOLDING_HAND_START_INDEX + 8;
+        // Check if the deck is empty (all "NA")
+        boolean allRestOfDeckEmpty = true;
+        for (int i = DataParser.START_OF_REST_OF_DECK;
+                i < DataParser.START_OF_REST_OF_DECK + 44;
                 i++) {
-            if (storage.getValue(storage.getRunChosen() - 1, i).equals("-")
-                    || storage.getValue(storage.getRunChosen() - 1, i).equals("NA")) {
-                emptyCardCount = emptyCardCount + 1;
-                continue;
+            String cardValue = storage.getValue(storage.getRunChosen() - 1, i);
+            if (!cardValue.equals("-") && !cardValue.equals("NA")) {
+                allRestOfDeckEmpty = false;
+                break;
             }
-            savedCards.add(
-                    Storage.parseCardString(storage.getValue(storage.getRunChosen() - 1, i)));
         }
 
-        if (emptyCardCount < 8) {
+        // Check if the holding hand is empty (all "NA")
+        boolean allHoldingHandEmpty = true;
+        List<Card> savedCards = new ArrayList<>();
+        for (int i = DataParser.HOLDING_HAND_START_INDEX;
+                i < DataParser.HOLDING_HAND_START_INDEX + 8;
+                i++) {
+            String cardValue = storage.getValue(storage.getRunChosen() - 1, i);
+            if (!cardValue.equals("-") && !cardValue.equals("NA")) {
+                allHoldingHandEmpty = false;
+                savedCards.add(CardUtils.parseCardString(cardValue));
+            }
+        }
+
+        // Only update deck if it is not empty
+        if (!allHoldingHandEmpty && !allRestOfDeckEmpty) {
+            newRound.getDeck().populateWithSavedDeck();
             newRound.setPlayerHandCards(savedCards);
+        }
+
+        // Update Jokers
+        for (int i = DataParser.JOKER_HAND_START_INDEX;
+                i < DataParser.JOKER_HAND_START_INDEX + 5;
+                i++) {
+            String jokerName = storage.getValue(storage.getRunChosen() - 1, i);
+            if (!jokerName.equals("-") && !jokerName.equals("NA")) {
+                try {
+                    heldJokers.add(CardUtils.parseJokerString(jokerName));
+                } catch (JavatroException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
         startNewRound(newRound);

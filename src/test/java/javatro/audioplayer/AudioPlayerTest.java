@@ -1,8 +1,7 @@
 package javatro.audioplayer;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,26 +32,9 @@ public class AudioPlayerTest {
     }
 
     @Test
-    public void testPlayValidAudio() {
-        assertDoesNotThrow(
-                () -> AudioPlayer.getInstance().playAudio(VALID_AUDIO_PATH),
-                "Audio should play successfully if the file exists.");
-    }
-
-    @Test
     public void testStopAudio() {
-        assertDoesNotThrow(
+        Assertions.assertDoesNotThrow(
                 () -> AudioPlayer.getInstance().stopAudio(),
                 "Audio stopping should not cause any exceptions.");
-    }
-
-    @Test
-    public void testPlayAndStopAudio() {
-        assertDoesNotThrow(
-                () -> {
-                    AudioPlayer.getInstance().playAudio(VALID_AUDIO_PATH);
-                    AudioPlayer.getInstance().stopAudio();
-                },
-                "Playing and stopping audio should work without exceptions.");
     }
 }

@@ -7,8 +7,11 @@ package javatro.manager.options;
 import javatro.core.JavatroCore;
 import javatro.core.JavatroException;
 import javatro.display.UI;
+import javatro.display.screens.RunSelectScreen;
 import javatro.manager.JavatroManager;
+import javatro.storage.DataParser;
 import javatro.storage.Storage;
+import javatro.storage.utils.CardUtils;
 
 /** A command that loads the run selection screen when executed. */
 public class StartRunOption implements Option {
@@ -22,7 +25,7 @@ public class StartRunOption implements Option {
      */
     @Override
     public String getDescription() {
-        runNumber = UI.getRunSelectScreen().getRunNumber();
+        runNumber = RunSelectScreen.getRunNumber();
         return "Continue Run #" + runNumber;
     }
 
@@ -32,8 +35,8 @@ public class StartRunOption implements Option {
         // Update Storage with chosen run number
         storage.setRunChosen(runNumber);
         JavatroManager.beginGame(
-                (Storage.DeckFromKey(
-                        storage.getValue(storage.getRunChosen() - 1, Storage.DECK_INDEX))));
+                (CardUtils.deckFromKey(
+                        storage.getValue(storage.getRunChosen() - 1, DataParser.DECK_INDEX))));
 
         JavatroManager.jc.beginGame();
         JavatroCore.currentRound.addPropertyChangeListener(javatro.display.UI.getGameScreen());

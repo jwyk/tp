@@ -6,8 +6,9 @@ package javatro.core;
  * ante values, and blind progression.
  */
 public class Ante {
-    private Ante ante;
     private static final int MAX_ANTE_COUNT = 8;
+    private static int anteCount;
+    private Ante ante;
 
     /** Enum representing different blind levels with associated multipliers and names. */
     public enum Blind {
@@ -47,8 +48,6 @@ public class Ante {
             return name;
         }
     }
-
-    private static int anteCount;
 
     private Blind blind;
     private final int[] anteScore = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000};
@@ -108,7 +107,9 @@ public class Ante {
         } else if (blind == Blind.LARGE_BLIND) {
             blind = Blind.BOSS_BLIND;
         } else {
-            if (anteCount == MAX_ANTE_COUNT) return;
+            if (anteCount == MAX_ANTE_COUNT) {
+                return;
+            }
             blind = Blind.SMALL_BLIND;
             anteCount++;
         }
@@ -121,7 +122,9 @@ public class Ante {
         } else if (blind == Blind.LARGE_BLIND) {
             newBlind = Blind.BOSS_BLIND;
         } else {
-            if (anteCount == MAX_ANTE_COUNT) return null;
+            if (anteCount == MAX_ANTE_COUNT) {
+                return null;
+            }
             newBlind = Blind.SMALL_BLIND;
         }
         return newBlind;
