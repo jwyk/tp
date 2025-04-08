@@ -51,7 +51,7 @@
    - Created the UI box for blind acceptance/rejection display, reusing functions to maintain code efficiency and prevent duplication. 
    - Leveraged existing UI handling logic elsewhere to keep the code clean and consistent across different game scenarios.
    
-6**`Help Menu` Class**
+6. **`Help Menu` Class**
    #### Implemented In-Game Help Menu
    - Developed a modular command-line interface that responds to user input for different help topics
    
