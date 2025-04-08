@@ -382,7 +382,7 @@ The **Round Component** is responsible for managing the state and flow of a sing
 - **RoundConfig**: Stores configuration settings for the round (e.g., max cards, scoring rules).
 - **RoundObservable**: Implements the observer pattern to notify listeners (e.g., UI) of state changes.
 
-![](dg_images/round_8.svg)
+![](dg_images/round_1.svg)
 
 #### Round Sequence Diagram: Round Initialization
 

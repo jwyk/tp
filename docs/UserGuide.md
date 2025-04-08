@@ -144,6 +144,7 @@ After selecting `Start New Game`, players will be prompted to choose from variou
 _Each deck has different effects with unique rules or bonuses._
 
 #### Menu Options:
+
 | Deck                | Effect                                                       |
 |---------------------|--------------------------------------------------------------|
 | `1. Red Deck`       | Grants the player one additional **discard** per round       |
@@ -172,6 +173,7 @@ Players start at Ante 1 and go up a level for every Boss Blind defeated,
 and can win the game by beating the last level of a run, at Ante 8.
 
 #### Information Provided:
+
 | Blind Type  | Target Score                     |
 |-------------|----------------------------------|
 | Small Blind | A **low** score requirement      |
