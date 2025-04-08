@@ -1,0 +1,14 @@
+javatro
+javatro.audioplayer
+javatro.core
+javatro.core.jokers
+javatro.core.jokers.addchip
+javatro.core.jokers.addmult
+javatro.core.round
+javatro.display
+javatro.display.screens
+javatro.manager
+javatro.manager.options
+javatro.storage
+javatro.utilities.csvutils
+javatro.utilities.outpututils
