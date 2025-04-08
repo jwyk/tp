@@ -17,29 +17,33 @@ import java.util.*;
 /** The core game logic class that manages the game state and rounds. */
 public class JavatroCore {
 
-    /** The current active round in the game. */
-    public static Round currentRound;
-
-    /** The current ante for the game. */
-    protected static Ante ante;
-
-    /** The current round count of the game. */
-    protected static int roundCount;
-
-    /** The number of plays give per round (Default value = 4). */
-    public static int totalPlays;
-
-    /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
-    public static Deck deck;
-
-    /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
-    public static HeldJokers heldJokers;
-
+    // 1. Constants (Static Final)
+    /** The Storage instance used for saving and retrieving data. */
     private static final Storage storage = Storage.getStorageInstance();
 
     /** Stores the play counts for each poker hand type */
     private static final Map<PokerHand.HandType, Integer> pokerHandPlayCounts =
             new EnumMap<>(PokerHand.HandType.class);
+
+    // 2. Static Public Variables (Public APIs)
+    /** The current active round in the game. */
+    public static Round currentRound;
+
+    /** The number of plays given per round (Default value = 4). */
+    public static int totalPlays;
+
+    /** The deck used throughout the game. (A copy of this deck is made for every new Round) */
+    public static Deck deck;
+
+    /** The held jokers used throughout the game. */
+    public static HeldJokers heldJokers;
+
+    // 3. Static Protected Variables (Protected APIs)
+    /** The current ante for the game. */
+    protected static Ante ante;
+
+    /** The current round count of the game. */
+    protected static int roundCount;
 
     // @author swethaiscool
     /**
@@ -120,7 +124,9 @@ public class JavatroCore {
                 i < DataParser.JOKER_HAND_START_INDEX + 5;
                 i++) {
             String jokerString = runData.get(i);
-            if (jokerString.equals("-") || jokerString.equals("NA")) continue;
+            if (jokerString.equals("-") || jokerString.equals("NA")) {
+                continue;
+            }
 
             try {
                 heldJokers.add(CardUtils.parseJokerString(jokerString));
@@ -149,8 +155,12 @@ public class JavatroCore {
                 Integer.parseInt(
                         storage.getValue(storage.getRunChosen() - 1, DataParser.DISCARD_INDEX));
 
-        if (savedPlays == -1) savedPlays = 4;
-        if (savedDiscards == -1) savedDiscards = 3;
+        if (savedPlays == -1) {
+            savedPlays = 4;
+        }
+        if (savedDiscards == -1) {
+            savedDiscards = 3;
+        }
 
         currentRound.updatePlays(
                 deck.getDeckName().getName().equals("BLUE") && savedPlays == 4

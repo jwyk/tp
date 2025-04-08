@@ -8,11 +8,11 @@ import java.util.List;
 
 /** Contains the algorithm for calculating the final score and played hand. */
 public class Score {
+    private final BossType bossType;
+    public static List<Card> playedCardsList;
     public double totalChips = 0;
     public double totalMultiplier = 0;
-    public static List<Card> playedCardsList;
     public ArrayList<Joker> jokerList;
-    private final BossType bossType;
 
     /** Default constructor */
     public Score() {
