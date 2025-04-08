@@ -49,7 +49,6 @@ public class JavatroCore {
     /** The number of plays given per round (Default value = 4). */
     public static int totalPlays;
 
-
     // @author swethaiscool
     /**
      * Retrieves the current ante.

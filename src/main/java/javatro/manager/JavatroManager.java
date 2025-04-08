@@ -17,7 +17,7 @@ import java.beans.PropertyChangeListener;
  * It listens for property changes and updates the game state accordingly.
  */
 public class JavatroManager implements PropertyChangeListener {
-    
+
     /** The main view responsible for rendering the user interface. */
     public static UI ui;
 
