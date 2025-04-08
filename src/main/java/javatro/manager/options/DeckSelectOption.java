@@ -64,7 +64,7 @@ public class DeckSelectOption implements Option {
         assert JavatroCore.deck != null : "Deck initialization failed";
 
         // Start game session with selected deck
-        JavatroManager.beginGame(deckType);
+        // JavatroManager.beginGame(deckType);
 
         // Transition to blind screen display
         JavatroManager.setScreen(UI.getBlindScreen());

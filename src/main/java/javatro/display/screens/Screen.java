@@ -9,7 +9,9 @@ import static javatro.display.UI.printBorderedContent;
 
 import javatro.core.JavatroException;
 import javatro.manager.options.Option;
+import javatro.utilities.outpututils.OutputUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +92,15 @@ public abstract class Screen {
         printBorderedContent(optionsTitle, optionLines);
     }
 
+    public List<Option> getCommandMap() {
+        return commandMap;
+    }
+
+    // For Testing
+    public void clearCommandMap() {
+        commandMap.clear();
+    }
+
     /**
      * Gets the current number of available options.
      *
@@ -114,5 +125,18 @@ public abstract class Screen {
         Option selected = commandMap.get(index);
         assert selected != null : "Command list should not contain null elements";
         return selected;
+    }
+
+    public void getOutput() {
+
+        String fileName = this.getClass().getSimpleName();
+
+        try {
+            // Generate output file
+            OutputUtils.pipeOutputToFile(fileName + ".txt", this);
+            System.out.println("Output successfully written");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -57,4 +57,12 @@ public class ViewRunOption implements Option {
         UI.getRunSelectScreen().setRunNumber(runNumber);
         JavatroManager.setScreen(UI.getRunSelectScreen());
     }
+
+    public void setRunNumber(int runNumber) {
+        this.runNumber = runNumber;
+    }
+
+    public int getRunNumber() {
+        return runNumber;
+    }
 }

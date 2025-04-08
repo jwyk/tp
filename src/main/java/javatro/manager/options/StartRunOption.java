@@ -16,7 +16,7 @@ import javatro.storage.utils.CardUtils;
 /** A command that loads the run selection screen when executed. */
 public class StartRunOption implements Option {
 
-    private int runNumber = 0;
+    private int runNumber = 1;
     private final Storage storage = Storage.getStorageInstance();
     /**
      * Provides a brief description of the command.
