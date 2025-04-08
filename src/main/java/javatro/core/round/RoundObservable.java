@@ -50,7 +50,7 @@ class RoundObservable {
         support.firePropertyChange("holdingHand", null, state.getPlayerHandCards());
         support.firePropertyChange("currentScore", null, state.getCurrentScore());
 
-        if(Storage.saveActive) {
+        if (Storage.saveActive) {
             Storage storage = Storage.getStorageInstance();
             int runIndex = storage.getRunChosen() - 1;
 
@@ -74,8 +74,8 @@ class RoundObservable {
             ArrayList<Card> restOfTheCards = JavatroCore.currentRound.getDeck().getWholeDeck();
 
             for (int j = DataParser.START_OF_REST_OF_DECK;
-                 j < DataParser.START_OF_REST_OF_DECK + 44;
-                 j++) {
+                    j < DataParser.START_OF_REST_OF_DECK + 44;
+                    j++) {
                 int idx = j - DataParser.START_OF_REST_OF_DECK;
                 if (idx >= restOfTheCards.size()) {
                     runData.set(j, "-");
@@ -101,19 +101,20 @@ class RoundObservable {
                 runData.set(DataParser.BLIND_INDEX, nextBlind.getName());
                 runData.set(DataParser.ANTE_NUMBER_INDEX, String.valueOf(anteCount));
                 runData.set(
-                        DataParser.ROUND_NUMBER_INDEX, String.valueOf(JavatroCore.getRoundCount() + 1));
+                        DataParser.ROUND_NUMBER_INDEX,
+                        String.valueOf(JavatroCore.getRoundCount() + 1));
 
                 // Set all Holding Hand cards to "NA"
                 for (int i = DataParser.HOLDING_HAND_START_INDEX;
-                     i < DataParser.HOLDING_HAND_START_INDEX + 8;
-                     i++) {
+                        i < DataParser.HOLDING_HAND_START_INDEX + 8;
+                        i++) {
                     runData.set(i, "NA");
                 }
 
                 // Set all Rest of Deck cards to "NA"
                 for (int i = DataParser.START_OF_REST_OF_DECK;
-                     i < DataParser.START_OF_REST_OF_DECK + 44;
-                     i++) {
+                        i < DataParser.START_OF_REST_OF_DECK + 44;
+                        i++) {
                     runData.set(i, "NA");
                 }
 
@@ -128,15 +129,15 @@ class RoundObservable {
 
                 // Set all Holding Hand cards to "NA"
                 for (int i = DataParser.HOLDING_HAND_START_INDEX;
-                     i < DataParser.HOLDING_HAND_START_INDEX + 8;
-                     i++) {
+                        i < DataParser.HOLDING_HAND_START_INDEX + 8;
+                        i++) {
                     runData.set(i, "NA");
                 }
 
                 // Set all Rest of Deck cards to "NA"
                 for (int i = DataParser.START_OF_REST_OF_DECK;
-                     i < DataParser.START_OF_REST_OF_DECK + 44;
-                     i++) {
+                        i < DataParser.START_OF_REST_OF_DECK + 44;
+                        i++) {
                     runData.set(i, "NA");
                 }
 
