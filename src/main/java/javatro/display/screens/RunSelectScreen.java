@@ -6,7 +6,11 @@ import static javatro.display.UI.printBorderedContent;
 import javatro.core.JavatroException;
 import javatro.display.formatter.runselect.ArtConstants;
 import javatro.display.formatter.runselect.DisplayFormatter;
-import javatro.manager.options.*;
+import javatro.manager.options.StartGameOption;
+import javatro.manager.options.StartRunOption;
+import javatro.manager.options.ViewNextRunOption;
+import javatro.manager.options.ViewPrevRunOption;
+import javatro.manager.options.ViewRunListOption;
 import javatro.storage.Storage;
 
 import java.util.ArrayList;

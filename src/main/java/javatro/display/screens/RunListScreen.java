@@ -2,7 +2,7 @@
 package javatro.display.screens;
 
 import javatro.core.JavatroException;
-import javatro.manager.options.*;
+import javatro.manager.options.ViewRunOption;
 import javatro.storage.Storage;
 
 /**

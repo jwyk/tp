@@ -29,6 +29,9 @@ public class JavatroCore {
     private static final Map<PokerHand.HandType, Integer> pokerHandPlayCounts =
             new EnumMap<>(PokerHand.HandType.class);
 
+    /** The current round count of the game. */
+    protected static int roundCount;
+
     // 3. Static Protected Variables (Protected APIs)
     /** The current ante for the game. */
     protected static Ante ante;
@@ -46,8 +49,6 @@ public class JavatroCore {
     /** The number of plays given per round (Default value = 4). */
     public static int totalPlays;
 
-    /** The current round count of the game. */
-    protected static int roundCount;
 
     // @author swethaiscool
     /**
