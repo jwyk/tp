@@ -394,22 +394,22 @@ The following sequence diagram illustrates the initialization process of a round
 
 The following sequence diagram illustrates the process of playing cards during a round.
 
-![](dg_images/round_2.svg)
+![](dg_images/round_2.png)
 
 #### Round Sequence Diagram: discardCards method
 The following sequence diagram illustrates the process of discarding cards during a round.
 
-![](dg_images/round_3.svg)
+![](dg_images/round_3.png)
 
 #### Round Sequence Diagram: isWon method
 The following sequence diagram illustrates the process of checking if a round is won.
 
-![](dg_images/round_4.svg)
+![](dg_images/round_4.png)
 
 #### Round Sequence Diagram: isRoundOver method
 The following sequence diagram illustrates the process of checking if a round is over.
 
-![](dg_images/round_5.svg)
+![](dg_images/round_5.png)
 
 #### RoundActions Sequence Diagram: playCards method
 The following sequence diagram illustrates the process of playing cards during a round.
