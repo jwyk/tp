@@ -7,6 +7,7 @@ import static javatro.display.UI.END;
 import static javatro.display.UI.getCurrentScreen;
 
 import javatro.core.JavatroException;
+import javatro.manager.JavatroManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -78,9 +79,10 @@ public class Parser {
             throw JavatroException.invalidOptionsSize();
         }
 
-        while (true) {
+        getCurrentScreen().displayOptions();
+
+        while (!JavatroManager.runningTests) {
             try {
-                getCurrentScreen().displayOptions();
                 System.out.printf(MENU_PROMPT, maxRange);
 
                 String line = scanner.nextLine().trim();

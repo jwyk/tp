@@ -23,6 +23,7 @@ import javatro.core.jokers.addmult.GluttonousJoker;
 import javatro.core.jokers.addmult.GreedyJoker;
 import javatro.core.jokers.addmult.LustyJoker;
 import javatro.core.jokers.addmult.WrathfulJoker;
+import javatro.storage.Storage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,8 @@ public class HeldJokersTest {
                         new Card(JACK, CLUBS),
                         new Card(QUEEN, SPADES),
                         new Card(KING, SPADES));
+
+        Storage.saveActive = false;
     }
 
     /**
@@ -67,6 +70,7 @@ public class HeldJokersTest {
     @Test
     void testIllegalDelete() {
         Joker gluttonousJoker = new GluttonousJoker();
+        Storage.saveActive = false;
         try {
             heldJokers.add(gluttonousJoker);
             heldJokers.remove(0);
@@ -81,6 +85,7 @@ public class HeldJokersTest {
      * Test that a hand played triggers multiple joker effects correctly and has the right score.
      */
     void assertScoreEquals(HeldJokers currentJokers, int expectedScore) throws JavatroException {
+        Storage.saveActive = false;
         result = HandResult.evaluateHand(playedCardList);
         Score scoreObject = new Score();
         long finalScore = scoreObject.getScore(result, playedCardList, currentJokers);
@@ -92,6 +97,7 @@ public class HeldJokersTest {
      */
     @Test
     void testMultipleJokersSuite() throws JavatroException {
+        Storage.saveActive = false;
         Joker gluttonousJoker = new GluttonousJoker();
         Joker counterJoker = new AbstractJoker();
         Joker wrathfulJoker = new WrathfulJoker();

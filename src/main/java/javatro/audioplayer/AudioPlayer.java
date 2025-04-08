@@ -37,7 +37,6 @@ public class AudioPlayer {
                         () -> {
                             try {
                                 currentAudioPath = newAudioPath;
-
                                 // Load the audio file from resources
                                 InputStream inputStream =
                                         getClass().getResourceAsStream("/" + newAudioPath);
