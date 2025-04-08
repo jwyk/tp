@@ -127,7 +127,7 @@ public class RunSelectScreenTest extends ScreenTest {
     @Test
     public void testDisplayCurrentChosenRun() {
         assertDoesNotThrow(
-                () -> runSelectScreen.displayCurrentChosenRun(),
+                RunSelectScreen::getRunNumber,
                 "Displaying the current chosen run should not throw an exception.");
     }
 

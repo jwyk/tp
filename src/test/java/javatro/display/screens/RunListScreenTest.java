@@ -22,7 +22,6 @@ public class RunListScreenTest extends ScreenTest {
     public void setUp() {
         super.setUp();
         storage = Storage.getStorageInstance();
-        storage.resetStorage();
         Storage.saveActive = false;
 
         // Prepare mock data for the test

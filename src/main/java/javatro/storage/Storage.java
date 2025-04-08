@@ -28,7 +28,7 @@ public class Storage {
     private static int runChosen = 0;
 
     /** Stores whether storage is active for the game or not */
-    public static boolean storageActive = true;
+    public static boolean saveActive = true;
 
     /**
      * Private constructor to enforce Singleton pattern. Initializes the save file by calling the

@@ -9,6 +9,7 @@ package javatro.manager.options;
 
 import javatro.core.JavatroException;
 import javatro.display.UI;
+import javatro.display.screens.RunSelectScreen;
 import javatro.manager.JavatroManager;
 
 /**
@@ -54,10 +55,10 @@ public class ViewRunOption implements Option {
      */
     @Override
     public void execute() throws JavatroException {
-        UI.getRunSelectScreen().setRunNumber(runNumber);
+        RunSelectScreen.setRunNumber(runNumber);
         JavatroManager.setScreen(UI.getRunSelectScreen());
     }
-    
+
     public int getRunNumber() {
         return runNumber;
     }
