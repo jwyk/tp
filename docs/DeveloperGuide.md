@@ -382,7 +382,7 @@ The **Round Component** is responsible for managing the state and flow of a sing
 - **RoundConfig**: Stores configuration settings for the round (e.g., max cards, scoring rules).
 - **RoundObservable**: Implements the observer pattern to notify listeners (e.g., UI) of state changes.
 
-![](dg_images/round_8.svg)
+![](dg_images/round_1.svg)
 
 #### Round Sequence Diagram: Round Initialization
 
@@ -394,22 +394,22 @@ The following sequence diagram illustrates the initialization process of a round
 
 The following sequence diagram illustrates the process of playing cards during a round.
 
-![](dg_images/round_2.png)
+![](dg_images/round_2.svg)
 
 #### Round Sequence Diagram: discardCards method
 The following sequence diagram illustrates the process of discarding cards during a round.
 
-![](dg_images/round_3.png)
+![](dg_images/round_3.svg)
 
 #### Round Sequence Diagram: isWon method
 The following sequence diagram illustrates the process of checking if a round is won.
 
-![](dg_images/round_4.png)
+![](dg_images/round_4.svg)
 
 #### Round Sequence Diagram: isRoundOver method
 The following sequence diagram illustrates the process of checking if a round is over.
 
-![](dg_images/round_5.png)
+![](dg_images/round_5.svg)
 
 #### RoundActions Sequence Diagram: playCards method
 The following sequence diagram illustrates the process of playing cards during a round.
