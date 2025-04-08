@@ -1,6 +1,2 @@
-/**
- *
- * All Options and its variants
- *
- */
+/** All Options and its variants */
 package javatro.manager.options;
