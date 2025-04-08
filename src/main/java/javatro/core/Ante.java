@@ -49,7 +49,6 @@ public class Ante {
         }
     }
 
-
     private Blind blind;
     private final int[] anteScore = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000};
 
