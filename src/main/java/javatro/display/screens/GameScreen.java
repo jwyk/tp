@@ -64,19 +64,19 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     // --- Static Fields ---
 
     /** The blind score that needs to be beaten. */
-    private static int blindScore = 0;
+    static int blindScore = 0;
 
     /** The current round score. */
-    private static long roundScore = 0;
+    static long roundScore = 0;
 
     /** The number of hands left to play. */
-    private static int handsLeft = 0;
+    static int handsLeft = 0;
 
     /** The number of discards left. */
-    private static int discardsLeft = 0;
+    static int discardsLeft = 0;
 
     /** The list of cards currently held in the player's hand. */
-    private static List<Card> holdingHand;
+    static List<Card> holdingHand;
 
     /**
      * Width of each column in the game screen display. (For example, 100 = 32 + 32 + 32 + 4
@@ -87,10 +87,10 @@ public class GameScreen extends Screen implements PropertyChangeListener {
     // --- Instance Fields ---
 
     /** The name of the current round. */
-    private String roundName = "";
+    String roundName = "";
 
     /** Description of the current round. */
-    private String roundDescription = "";
+    String roundDescription = "";
 
     /**
      * Constructs a new GameScreen with predefined command options.

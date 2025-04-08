@@ -28,6 +28,7 @@ public class Storage {
 
     private static boolean saveFileValid = true;
     private static int runChosen = 0;
+    public static boolean saveActive = true;
 
     private static final int EXPECTED_COLUMNS = 13;
     private static final Set<String> VALID_DECKS = Set.of("RED", "ABANDONED", "CHECKERED", "BLUE");
@@ -76,7 +77,9 @@ public class Storage {
     public static Boolean isNewDeck = false;
 
     private Storage() throws JavatroException {
-        initaliseTaskFile();
+        if (saveActive) {
+            initaliseTaskFile();
+        }
     }
 
     public static Storage getStorageInstance() {
@@ -555,5 +558,9 @@ public class Storage {
                     "WRATHFULJOKER" -> true;
             default -> false;
         };
+    }
+
+    public void resetStorage() {
+        storageInstance = null;
     }
 }

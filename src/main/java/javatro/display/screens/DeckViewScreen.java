@@ -121,7 +121,7 @@ public class DeckViewScreen extends Screen {
      * @param cards List of cards in the deck
      * @return DeckCountData containing counts and totals
      */
-    private DeckCountData buildCountMatrix(ArrayList<Card> cards) {
+    DeckCountData buildCountMatrix(ArrayList<Card> cards) {
         int[][] counts = new int[SUIT_COUNT][RANK_COUNT];
         int[] suitTotals = new int[SUIT_COUNT];
         int[] rankTotals = new int[RANK_COUNT];
@@ -155,7 +155,7 @@ public class DeckViewScreen extends Screen {
      * @param countData Deck count statistics
      * @return Formatted table as StringBuilder
      */
-    private StringBuilder buildDeckTable(String deckName, DeckCountData countData) {
+    StringBuilder buildDeckTable(String deckName, DeckCountData countData) {
         StringBuilder sb = new StringBuilder();
 
         // Table header section
@@ -293,7 +293,7 @@ public class DeckViewScreen extends Screen {
      * @param suit Card suit to map
      * @return Row index (0-3) or -1 if invalid
      */
-    private int getSuitIndex(Card.Suit suit) {
+    int getSuitIndex(Card.Suit suit) {
         return switch (suit) {
             case SPADES -> 0;
             case HEARTS -> 1;
@@ -309,7 +309,7 @@ public class DeckViewScreen extends Screen {
      * @param rank Card rank to map
      * @return Column index (0-12) or -1 if invalid
      */
-    private int getRankIndex(Card.Rank rank) {
+    int getRankIndex(Card.Rank rank) {
         String symbol = rank.getSymbol();
         return switch (symbol) {
             case "A" -> 0;
@@ -330,7 +330,7 @@ public class DeckViewScreen extends Screen {
     }
 
     /** Helper class to organize deck count data. */
-    private static class DeckCountData {
+    static class DeckCountData {
         final int[][] counts;
         final int[] suitTotals;
         final int[] rankTotals;

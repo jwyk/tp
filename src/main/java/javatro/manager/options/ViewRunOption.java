@@ -33,4 +33,8 @@ public class ViewRunOption implements Option {
     public void setRunNumber(int runNumber) {
         this.runNumber = runNumber;
     }
+
+    public int getRunNumber() {
+        return runNumber;
+    }
 }

@@ -39,7 +39,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class WinGameScreen extends Screen {
 
     /** Collection of victory messages for random selection */
-    private static final List<String> QUOTES =
+    protected static final List<String> QUOTES =
             List.of(
                     "You Aced it!",
                     "You dealt with that pretty well!",
